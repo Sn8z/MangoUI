@@ -1,3 +1,5 @@
+package-as: MangoUI
+
 externals:
   Libs/LibStub:
     url: https://repos.wowace.com/wow/libstub/trunk
