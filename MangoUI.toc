@@ -1,0 +1,8 @@
+## Interface: 100005
+## Title: MangoUI
+## Notes: MangoUI is a User Interface built with oUF
+## Author: Sn8z
+## SavedVariables: MangoDB
+## OptionalDeps: oUF, Ace3
+
+Core.lua

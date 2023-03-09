@@ -1,1 +1,8 @@
+externals:
+  Libs/LibStub:
+    url: https://repos.wowace.com/wow/libstub/trunk
+    tag: latest
+	Libs/oUF:
+		url: https://github.com/oUF-wow/oUF
+		tag: latest
 
