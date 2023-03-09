@@ -2,6 +2,8 @@ name: Package and release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - '**'
 
@@ -15,6 +17,7 @@ jobs:
       - name: Clone project
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
+
       - name: Package and release
         uses: BigWigsMods/packager@v2
