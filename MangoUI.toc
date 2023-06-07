@@ -1,8 +1,67 @@
-## Interface: 100005
+## Interface: 100100
 ## Title: MangoUI
+## Version: 1.0.0
+## X-oUF: MangoUI
 ## Notes: MangoUI is a User Interface built with oUF
 ## Author: Sn8z
+## IconTexture: Interface\AddOns\MangoUI\Media\minimangologo
 ## SavedVariables: MangoDB
-## OptionalDeps: oUF, Ace3
+## X-SavedVariables: MangoDB
+#@do-not-package@
+## OptionalDeps: oUF, OmniCD
+#@end-do-not-package@
 
-Core.lua
+# Libraries
+Libs/oUF/oUF.xml
+
+# Plugins
+Plugins/Taintless.xml
+
+# Core stuff and config
+core.lua
+db.lua
+config.lua
+slash.lua
+unitframes.lua
+
+# General UI stuff & QoL
+General/hide.lua
+General/actionbars.lua
+General/bnettoast.lua
+General/framerate.lua
+General/omnicd.lua
+General/talkinghead.lua
+General/tooltip.lua
+
+# Custom unitframe elements
+Components/dispelhighlight.lua
+Components/gcd.lua
+Components/tags.lua
+
+# Unitframe components
+Components/health.lua
+Components/healthprediction.lua
+Components/healthvalue.lua
+Components/unitname.lua
+Components/group.lua
+Components/absorbs.lua
+Components/backdrop.lua
+Components/statustext.lua
+Components/altpower.lua
+Components/power.lua
+Components/secondarypower.lua
+Components/castbar.lua
+Components/classpower.lua
+Components/stagger.lua
+Components/runes.lua
+Components/buffs.lua
+Components/debuffs.lua
+Components/roleindicator.lua
+Components/leaderindicator.lua
+Components/combatindicator.lua
+Components/threatindicator.lua
+Components/raidtargetindicator.lua
+Components/readycheckindicator.lua
+Components/resurrectionindicator.lua
+Components/summonindicator.lua
+

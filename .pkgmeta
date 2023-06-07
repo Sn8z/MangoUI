@@ -1,10 +1,17 @@
 package-as: MangoUI
 
 externals:
-  Libs/LibStub:
-    url: https://repos.wowace.com/wow/libstub/trunk
-    tag: latest
   Libs/oUF:
     url: https://github.com/oUF-wow/oUF
     tag: latest
+  Libs/oUF_Dispellable:
+    url: https://github.com/Rainrider/oUF_Dispellable
+    tag: latest
+
+tools-used:
+  - ouf
+  - ouf_dispellable
+
+ignore:
+  - README.md
 
