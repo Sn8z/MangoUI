@@ -4,13 +4,17 @@ externals:
   Libs/oUF:
     url: https://github.com/oUF-wow/oUF
     tag: latest
-  Libs/oUF_Dispellable:
-    url: https://github.com/Rainrider/oUF_Dispellable
+  Libs/LibStub:
+    url: https://repos.wowace.com/wow/libstub/trunk
+    tag: latest
+  Libs/LibSharedMedia-3.0:
+    url: https://repos.wowace.com/wow/libsharedmedia-3-0/trunk
     tag: latest
 
 tools-used:
   - ouf
-  - ouf_dispellable
+  - libstub
+  - libsharemedia
 
 ignore:
   - README.md

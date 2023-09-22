@@ -1,4 +1,4 @@
-## Interface: 100100
+## Interface: 100107
 ## Title: MangoUI
 ## Version: 1.0.0
 ## X-oUF: MangoUI
@@ -8,14 +8,11 @@
 ## SavedVariables: MangoDB
 ## X-SavedVariables: MangoDB
 #@do-not-package@
-## OptionalDeps: oUF, OmniCD
+## OptionalDeps: oUF, LibStub, LibShareMedia-3.0 OmniCD
 #@end-do-not-package@
 
 # Libraries
 Libs/oUF/oUF.xml
-
-# Plugins
-Plugins/Taintless.xml
 
 # Core stuff and config
 core.lua

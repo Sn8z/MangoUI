@@ -49,7 +49,7 @@ function mUI:CreatePowerBar(self)
 
 	if self.unit == "player" then
 		Power:SetSize(380, 10)
-		Power:SetPoint('CENTER', UIParent, 'CENTER', 0, -200)
+		Power:SetPoint('CENTER', UIParent, 'CENTER', 0, -170)
 
 		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
 		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)

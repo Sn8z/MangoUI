@@ -2,6 +2,7 @@ local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 function mUI:CreateSecondaryPowerBar(self)
+	if not self then return end
 	local AdditionalPower = CreateFrame('StatusBar', nil, self)
 
 	AdditionalPower:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))

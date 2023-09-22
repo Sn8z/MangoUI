@@ -8,7 +8,7 @@ function mUI:CreateStaggerBar(self)
 	if classIndex ~= 10 then return end -- Check for Monk
 	local Stagger = CreateFrame('StatusBar', nil, self)
 	Stagger:SetSize(380, 6)
-	Stagger:SetPoint('CENTER', UIParent, 'CENTER', 0, -186)
+	Stagger:SetPoint('CENTER', UIParent, 'CENTER', 0, -158)
 	Stagger:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
 	mUI:CreateBorder(Stagger)
 	local sBackground = Stagger:CreateTexture(nil, "BACKGROUND")

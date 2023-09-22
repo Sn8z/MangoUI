@@ -83,7 +83,7 @@ function mUI:CreateClassPower(self)
 		local Bar = CreateFrame('StatusBar', 'ClassPower_'..index, self)
 		Bar:SetHeight(6)
 		if true then
-			Bar:SetPoint('LEFT', UIParent, 'CENTER', -190, -186)
+			Bar:SetPoint('LEFT', UIParent, 'CENTER', -190, -158)
 		else
 			Bar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', (index - 1) * (Bar:GetWidth() + 5), 5)
 		end

@@ -154,10 +154,10 @@ oUF:Factory(function(self)
 	self:SetActiveStyle("MangoPrimary")
 
 	local player = self:Spawn("player")
-	player:SetPoint("RIGHT", UIParent, "CENTER", -196, -219)
+	player:SetPoint("RIGHT", UIParent, "CENTER", -196, -210)
 
 	local target = self:Spawn("target")
-	target:SetPoint("LEFT", UIParent, "CENTER", 196, -219)
+	target:SetPoint("LEFT", UIParent, "CENTER", 196, -210)
 
 	local focus = self:Spawn("focus")
 	focus:SetPoint("CENTER", UIParent, "CENTER", 200, 400)
