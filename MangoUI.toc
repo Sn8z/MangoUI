@@ -23,11 +23,8 @@ unitframes.lua
 
 # General UI stuff & QoL
 General/hide.lua
-General/actionbars.lua
-General/bnettoast.lua
 General/framerate.lua
 General/omnicd.lua
-General/talkinghead.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua
