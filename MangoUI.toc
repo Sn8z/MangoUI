@@ -10,7 +10,10 @@
 ## OptionalDeps: oUF, LibStub, LibSharedMedia-3.0, SharedMedia_Sn8z, OmniCD
 
 # Libraries
-Libs/oUF/oUF.xml
+Libs\oUF\oUF.xml
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\LibSharedMedia-3.0\lib.xml
 
 # Core stuff and config
 core.lua
