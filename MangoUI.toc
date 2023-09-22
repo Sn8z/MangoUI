@@ -28,7 +28,6 @@ General/bnettoast.lua
 General/framerate.lua
 General/omnicd.lua
 General/talkinghead.lua
-General/tooltip.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua
