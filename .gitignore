@@ -1,6 +1,9 @@
 # WoW Libraries
 Libs/
 
+# Vscode
+.vscode/
+
 # Compiled Lua sources
 luac.out
 
