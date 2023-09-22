@@ -23,7 +23,7 @@ unitframes.lua
 
 # General UI stuff & QoL
 General/hide.lua
-General/framerate.lua
+General/fps.lua
 General/omnicd.lua
 
 # Custom unitframe elements
