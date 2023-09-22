@@ -2,33 +2,8 @@ local _, mUI = ...
 local oUF = mUI.oUF
 local LSM = LibStub('LibSharedMedia-3.0')
 
-local UnitSpecific = {
-	player = function(self)
-		self:SetPoint("RIGHT", UIParent, "CENTER", -200, -236)
-		self:SetSize(220, 46)
-		mUI:CreateClassPower(self, self.Health:GetWidth(), 8, 2)
-		mUI:CreateStaggerBar(self)
-		mUI:CreateRunes(self)
-	end,
-	pet = function(self)
-		self:SetSize(100, 30)
-	end,
-	target = function(self)
-		self:SetSize(220, 46)
-		self:SetPoint("LEFT", UIParent, "CENTER", 200, -236)
-	end,
-	targettarget = function(self)
-		self:SetSize(100, 30)
-		self:SetPoint("LEFT", UIParent, "CENTER", 200, -230)
-	end,
-	focus = function(self)
-		self:SetSize(120, 45)
-		self:SetPoint("CENTER", UIParent, "CENTER", 200, 400)
-	end,
-	party = function(self)
-		mUI:CreateStatusText(self, 14)
-	end,
-}
+assert(oUF, 'MangoUI was unable to find oUF')
+assert(LSM, 'MangoUI was unable to find LibShareMedia')
 
 local function SetupFrame(self)
 	self:ClearAllPoints()
@@ -150,7 +125,7 @@ end
 oUF:RegisterStyle("MangoRaid", mRaid)
 
 oUF:Factory(function(self)
-	-- Player and Target frames
+	-- Player, Target & Focus frames
 	self:SetActiveStyle("MangoPrimary")
 
 	local player = self:Spawn("player")
@@ -162,7 +137,7 @@ oUF:Factory(function(self)
 	local focus = self:Spawn("focus")
 	focus:SetPoint("CENTER", UIParent, "CENTER", 200, 400)
 
-	-- Pet and ToT frames
+	-- Pet & ToT frames
 	self:SetActiveStyle("MangoSecondary")
 
 	local tot = self:Spawn("targettarget")
@@ -184,9 +159,8 @@ oUF:Factory(function(self)
 		end
 	end
 
-	-- Party stuff
+	-- Party frames
 	self:SetActiveStyle("MangoParty")
-	-- https://wowprogramming.com/docs/secure_template/Group_Headers.html
 	local party = self:SpawnHeader(nil, nil, 'party',
 		'showParty', true,
 		'showRaid', false,
@@ -196,7 +170,7 @@ oUF:Factory(function(self)
 		'groupingOrder', 'DAMAGER,HEALER,TANK')
 	party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
 
-	-- Raid stuff
+	-- Raid frames
 	self:SetActiveStyle("MangoRaid")
 	local HiddenFrame = CreateFrame("Frame")
 	HiddenFrame:Hide()

@@ -1,15 +1,13 @@
 ## Interface: 100107
 ## Title: MangoUI
-## Version: 1.0.0
+## Version: @project-version@
 ## X-oUF: MangoUI
-## Notes: MangoUI is a User Interface built with oUF
+## Notes: MangoUI is a unitframe addon built with oUF
 ## Author: Sn8z
 ## IconTexture: Interface\AddOns\MangoUI\Media\minimangologo
 ## SavedVariables: MangoDB
 ## X-SavedVariables: MangoDB
-#@do-not-package@
-## OptionalDeps: oUF, LibStub, LibShareMedia-3.0 OmniCD
-#@end-do-not-package@
+## OptionalDeps: oUF, LibStub, LibSharedMedia-3.0, SharedMedia_Sn8z, OmniCD
 
 # Libraries
 Libs/oUF/oUF.xml

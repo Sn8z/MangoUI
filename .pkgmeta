@@ -1,5 +1,7 @@
 package-as: MangoUI
 
+enable-nolib-creation: no
+
 externals:
   Libs/oUF:
     url: https://github.com/oUF-wow/oUF
