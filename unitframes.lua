@@ -128,8 +128,12 @@ oUF:Factory(function(self)
 	-- Player, Target & Focus frames
 	self:SetActiveStyle("MangoPrimary")
 
-	local player = self:Spawn("player")
-	player:SetPoint("RIGHT", UIParent, "CENTER", -196, -210)
+	-- Check if unitframe is enabled or not
+	if mUI.db.player.enabled then
+		local player = self:Spawn("player")
+		-- player:SetPoint("RIGHT", UIParent, "CENTER", -196, -210)
+		player:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x, mUI.db.player.y)
+	end
 
 	local target = self:Spawn("target")
 	target:SetPoint("LEFT", UIParent, "CENTER", 196, -210)

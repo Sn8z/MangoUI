@@ -20,6 +20,7 @@ core.lua
 db.lua
 config.lua
 slash.lua
+settings.lua
 unitframes.lua
 
 # General UI stuff & QoL

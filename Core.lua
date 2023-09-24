@@ -1,13 +1,13 @@
-local AddonName, mUI = ...
+local addonName, mUI = ...
 
 -- Register addon to the AddonCompartmentFrame
 if AddonCompartmentFrame then
 	AddonCompartmentFrame:RegisterAddon({
-		text = AddonName,
+		text = addonName,
 		icon = "Interface\\AddOns\\MangoUI\\Media\\minimangologo",
 		notCheckable = true,
 		func = function()
-			InterfaceOptionsFrame_OpenToCategory("MangoUI")
+			Settings.OpenToCategory(Settings.MUI_CATEGORY_ID)
 		end,
 	})
 end

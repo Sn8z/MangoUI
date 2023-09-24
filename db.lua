@@ -9,12 +9,12 @@ end
 local function mergeTables(table1, table2)
 	for key, value in pairs(table2) do
 		if type(value) == "table" then
-			if not table1[key] or type(table1[key]) ~= "table" then
+			if table1[key] == nil or type(table1[key]) ~= "table" then
 				table1[key] = {}
 			end
 			mergeTables(table1[key], value)
 		else
-			if not table1[key] then
+			if table1[key] == nil then
 				table1[key] = value
 			end
 		end
@@ -22,7 +22,7 @@ local function mergeTables(table1, table2)
 
 	-- Check if DB contains old keys and remove them
 	for key, _ in pairs(table1) do
-		if not table2[key] then
+		if table2[key] == nil then
 			table1[key] = nil
 		end
 	end

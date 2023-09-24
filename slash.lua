@@ -5,14 +5,10 @@ local function OpenOptions(msg, editbox)
 	-- any whitespace at end of args is retained
 	local _, _, cmd, args = string.find(msg, "%s?(%w+)%s?(.*)")
 
-	if cmd == "add" and args ~= "" then
-		print("adding " .. args)
-		-- Handle adding of the contents of rest... to something.
-	elseif cmd == "remove" and args ~= "" then
-		print("removing " .. args)
-		-- Handle removing of the contents of rest... to something.
+	if cmd == "test" and args ~= "" then
+		print("Test: " ..args)
 	else
-		InterfaceOptionsFrame_OpenToCategory("MangoUI")
+		Settings.OpenToCategory(Settings.MUI_CATEGORY_ID)
 	end
 end
 
