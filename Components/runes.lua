@@ -9,13 +9,13 @@ function mUI:CreateRunes(self)
 			local Rune = CreateFrame('StatusBar', nil, self.Health)
 			Rune:SetSize(220 / 6, 14)
 			Rune:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', (index - 1) * ((220 / 6) + 5), 5)
-			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 			Rune:GetStatusBarTexture():SetHorizTile(false)
 			mUI:CreateBorder(Rune)
 
 			local bg = Rune:CreateTexture(nil, 'BACKGROUND')
 			bg:SetAllPoints(Rune)
-			bg:SetTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+			bg:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 			bg.multiplier = 1 / 2
 			Rune.bg = bg
 

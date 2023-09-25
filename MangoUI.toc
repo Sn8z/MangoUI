@@ -17,7 +17,6 @@ Libs\LibSharedMedia-3.0\lib.xml
 
 # Core stuff and config
 core.lua
-media.lua
 db.lua
 config.lua
 slash.lua

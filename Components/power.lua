@@ -45,7 +45,7 @@ end
 
 function mUI:CreatePowerBar(self)
 	local Power = CreateFrame('StatusBar', nil, self)
-	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 
 	if self.unit == "player" then
 		Power:SetSize(380, 10)
@@ -53,7 +53,7 @@ function mUI:CreatePowerBar(self)
 
 		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
 		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)
-		PowerAmount:SetFont(LSM:Fetch("font", mUI.config.defaultFont), 16, "THINOUTLINE")
+		PowerAmount:SetFont(LSM:Fetch("font", mUI.db.settings.font), 16, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:pp]")
 	elseif self.unit == 'target' then
 		Power:SetHeight(2)
@@ -62,7 +62,7 @@ function mUI:CreatePowerBar(self)
 
 		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
 		PowerAmount:SetPoint('CENTER', Power, 'CENTER', 0, 0)
-		PowerAmount:SetFont(LSM:Fetch("font", mUI.config.defaultFont), 14, "THINOUTLINE")
+		PowerAmount:SetFont(LSM:Fetch("font", mUI.db.settings.font), 14, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:pp]")
 	elseif self.unit == 'party' then
 		Power:SetHeight(2)
@@ -87,7 +87,7 @@ function mUI:CreatePowerBar(self)
 
 	local bg = Power:CreateTexture(nil, 'BACKGROUND')
 	bg:SetAllPoints(Power)
-	bg:SetTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+	bg:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 	bg.multiplier = 1 / 3
 	Power.bg = bg
 	Power.GetDisplayPower = GetDisplayPower

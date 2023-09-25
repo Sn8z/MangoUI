@@ -10,7 +10,7 @@ function mUI:ShowFPS()
 
 	StatsFrame.text = StatsFrame:CreateFontString(nil, "BACKGROUND")
 	StatsFrame.text:SetPoint("CENTER", StatsFrame)
-	StatsFrame.text:SetFont(LSM:Fetch("font", mUI.config.defaultFont), 14, "THINOUTLINE")
+	StatsFrame.text:SetFont(LSM:Fetch("font", mUI.db.settings.font), 14, "THINOUTLINE")
 	StatsFrame.text:SetTextColor(1, 1, 1)
 	local lastUpdate = 0
 	local function update(self, elapsed)

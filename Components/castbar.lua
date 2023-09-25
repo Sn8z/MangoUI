@@ -4,9 +4,6 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local _, class = UnitClass("player")
 local playerColor = RAID_CLASS_COLORS[class]
 
-local texture = LSM:Fetch("statusbar", mUI.config.defaultTexture)
-local font = LSM:Fetch("font", mUI.config.defaultFont)
-
 local function isKickable(self, unit)
 	-- Check if you can kick the cast
 	local name, text, texture, startTimeMS, endTimeMS, isTradeSkill, castID, notInterruptible, spellId = UnitCastingInfo(
@@ -35,18 +32,21 @@ end
 
 function mUI:CreateCastbar(self)
 	local Castbar = CreateFrame('StatusBar', nil, self.Health)
+	local texture = LSM:Fetch("statusbar", mUI.db.settings.texture)
 	Castbar:SetStatusBarTexture(texture)
 	Castbar:SetStatusBarColor(1, 0.6, 0, 1)
 	Castbar.timeToHold = 0.5
-
+	
 	mUI:CreateBorder(Castbar)
-
+	
 	local cBackground = Castbar:CreateTexture(nil, "BACKGROUND")
 	cBackground:SetAllPoints(Castbar)
 	cBackground:SetColorTexture(0.1, 0.1, 0.1, 1)
 	cBackground.multiplier = 0.5
 	Castbar.bg = cBackground
-
+	
+	local font = LSM:Fetch("font", mUI.db.settings.font)
+	
 	local SpellCasttime = Castbar:CreateFontString(nil, "OVERLAY")
 	SpellCasttime:SetPoint("RIGHT", -4, 0)
 	SpellCasttime:SetFont(font, 14, "THINOUTLINE")

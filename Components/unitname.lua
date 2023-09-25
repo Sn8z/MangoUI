@@ -23,6 +23,6 @@ function mUI:CreateUnitName(self)
 		unitName:SetPoint("CENTER", self.Health, "CENTER", 0, 0)
 		fSize = 14
 	end
-	unitName:SetFont(LSM:Fetch("font", mUI.config.defaultFont), fSize, "THINOUTLINE")
+	unitName:SetFont(LSM:Fetch("font", mUI.db.settings.font), fSize, "THINOUTLINE")
 	self:Tag(unitName, "[name]")
 end

@@ -87,7 +87,7 @@ function mUI:CreateClassPower(self)
 		else
 			Bar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', (index - 1) * (Bar:GetWidth() + 5), 5)
 		end
-		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 		Bar:GetStatusBarTexture():SetHorizTile(false)
 		Bar:SetMinMaxValues(0, 1)
 		ClassPower[index] = Bar

@@ -7,30 +7,32 @@ mUI.config = {}
 --mUI.player.class.color = RAID_CLASS_COLORS[mUI.player.class]
 
 -- Media
-mUI.config.defaultTexture = "True"
-mUI.config.defaultFont = "TeX Gyre Adventor Bold"
 mUI.config.defaultBackdrop = {
 	bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	edgeSize = 4,
-	insets = {left = 4, right = 4, top = 4, bottom = 4},
+	insets = { left = 4, right = 4, top = 4, bottom = 4 },
 }
 
 mUI.config.backdrop = {
-  bgFile = "Interface\\Buttons\\WHITE8x8",
+	bgFile = "Interface\\Buttons\\WHITE8x8",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-  tile = true, tileSize = 8, edgeSize = 2,
-  insets = { left = -2, right = -2, top = -2, bottom = -2 },
+	tile = true,
+	tileSize = 8,
+	edgeSize = 2,
+	insets = { left = -2, right = -2, top = -2, bottom = -2 },
 }
 
 -- Defaults
 mUI.defaults = {
 	settings = {
-		texture = "TEXTURE"
+		texture = "True",
+		font = "Rubik Bold"
 	},
 	hide = {
 		bags = true,
-		socialButton = true
+		socialButton = true,
+		talkinghead = true
 	},
 	player = {
 		enabled = false,

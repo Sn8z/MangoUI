@@ -6,6 +6,6 @@ function mUI:CreateGroupNumber(self)
 	local grpNumber = self.Health:CreateFontString(nil, "OVERLAY")
 	local fSize = 14
 	grpNumber:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", -3, 3)
-	grpNumber:SetFont(LSM:Fetch("font", mUI.config.defaultFont), fSize, "THINOUTLINE")
+	grpNumber:SetFont(LSM:Fetch("font", mUI.db.settings.font), fSize, "THINOUTLINE")
 	self:Tag(grpNumber, "[group]")
 end

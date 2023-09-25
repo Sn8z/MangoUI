@@ -22,12 +22,12 @@ end
 
 function mUI:CreateHealth(self)
 	local Health = CreateFrame("StatusBar", nil, self)
-	Health:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+	Health:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 	Health:SetAllPoints()
 
 	local hBackground = Health:CreateTexture(nil, "BACKGROUND")
 	hBackground:SetAllPoints(Health)
-	hBackground:SetTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+	hBackground:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 	--hBackground:SetColorTexture(1, 1, 1, 0.8)
 
 	Health.frequentUpdates = true
