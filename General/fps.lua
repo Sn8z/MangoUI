@@ -1,16 +1,16 @@
 local AddonName, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
+local StatsFrame
 
 function mUI:ShowFPS()
 	StatsFrame = CreateFrame("Frame", "StatsFrame", UIParent)
-	StatsFrame:ClearAllPoints()
-	StatsFrame:SetPoint("CENTER", UIParent, "BOTTOM", -400, 15)
+	mUI:UpdateFPS()
 	StatsFrame:SetWidth(120)
 	StatsFrame:SetHeight(60)
 
 	StatsFrame.text = StatsFrame:CreateFontString(nil, "BACKGROUND")
 	StatsFrame.text:SetPoint("CENTER", StatsFrame)
-	StatsFrame.text:SetFont(LSM:Fetch("font", mUI.db.settings.font), 14, "THINOUTLINE")
+	StatsFrame.text:SetFont(LSM:Fetch("font", mUI.db.settings.fps.font), mUI.db.settings.fps.size, "THINOUTLINE")
 	StatsFrame.text:SetTextColor(1, 1, 1)
 	local lastUpdate = 0
 	local function update(self, elapsed)
@@ -25,6 +25,11 @@ function mUI:ShowFPS()
 	StatsFrame:SetScript("OnUpdate", update)
 end
 
+function mUI:UpdateFPS()
+	StatsFrame:ClearAllPoints()
+	StatsFrame:SetPoint("CENTER", UIParent, "CENTER", mUI.db.settings.fps.x, mUI.db.settings.fps.y)
+end
+
 local f = CreateFrame("Frame")
 
 function f:OnEvent(event, ...)
@@ -32,7 +37,7 @@ function f:OnEvent(event, ...)
 end
 
 function f:ADDON_LOADED(event, addOnName)
-	if addOnName == AddonName then
+	if addOnName == AddonName and mUI.db.settings.fps.enabled then
 		mUI:ShowFPS()
 	end
 end

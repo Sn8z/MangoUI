@@ -3,7 +3,7 @@ local LSM = LibStub('LibSharedMedia-3.0')
 
 function RegisterSettings()
 	-- Main MangoUI section
-	local category = Settings.RegisterVerticalLayoutCategory(addonName)
+	local category, layout = Settings.RegisterVerticalLayoutCategory(addonName)
 	Settings.RegisterAddOnCategory(category)
 	Settings.MUI_CATEGORY_ID = category:GetID()
 
@@ -88,6 +88,64 @@ function RegisterSettings()
 		end)
 	end
 
+	-- FPS subsection
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("FPS"));
+	-- Enable FPS counter
+	do
+		local variable = "toggle fps counter"
+		local name = "Enable FPS counter"
+		local tooltip = "Shows information about ping and fps."
+		local defaultValue = mUI.db.settings.fps.enabled
+
+		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
+		Settings.CreateCheckBox(category, setting, tooltip)
+		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
+			mUI.db.settings.fps.enabled = v
+		end)
+	end
+
+	-- FPS xpos
+	do
+		local variable = "fps xpos slider"
+		local name = "FPS xpos"
+		local tooltip = "X position for fps counter."
+		local defaultValue = mUI.db.settings.fps.x
+		local screenWidth = math.floor(GetScreenWidth())
+		local minValue = -screenWidth / 2
+		local maxValue = screenWidth / 2
+		local step = 1
+
+		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
+		local options = Settings.CreateSliderOptions(minValue, maxValue, step)
+		options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right);
+		Settings.CreateSlider(category, setting, options, tooltip)
+		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
+			mUI.db.settings.fps.x = v
+			mUI:UpdateFPS()
+		end)
+	end
+
+	-- FPS ypos
+	do
+		local variable = "fps ypos slider"
+		local name = "FPS ypos"
+		local tooltip = "Y position for fps counter."
+		local defaultValue = mUI.db.settings.fps.y
+		local screenHeight = math.floor(GetScreenHeight())
+		local minValue = -screenHeight / 2
+		local maxValue = screenHeight / 2
+		local step = 1
+
+		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
+		local options = Settings.CreateSliderOptions(minValue, maxValue, step)
+		options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right);
+		Settings.CreateSlider(category, setting, options, tooltip)
+		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
+			mUI.db.settings.fps.y = v
+			mUI:UpdateFPS()
+		end)
+	end
+
 	-- Player frame subsection
 	local playerCategory, playerLayout = Settings.RegisterVerticalLayoutSubcategory(category, "Player");
 	Settings.RegisterAddOnCategory(playerCategory);
@@ -162,7 +220,8 @@ function RegisterSettings()
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.x = v
 			_G["oUF_MangoPrimaryPlayer"]:ClearAllPoints()
-			_G["oUF_MangoPrimaryPlayer"]:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x, mUI.db.player.y)
+			_G["oUF_MangoPrimaryPlayer"]:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x,
+				mUI.db.player.y)
 		end)
 	end
 
@@ -233,7 +292,6 @@ function RegisterSettings()
 	-- Boss subsection
 	local bossCategory = Settings.RegisterVerticalLayoutSubcategory(category, "Boss");
 	Settings.RegisterAddOnCategory(bossCategory);
-
 end
 
 SettingsRegistrar:AddRegistrant(RegisterSettings)
