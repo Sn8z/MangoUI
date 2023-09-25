@@ -22,10 +22,7 @@ config.lua
 slash.lua
 settings.lua
 unitframes.lua
-
-# General UI stuff & QoL
-General/fps.lua
-General/omnicd.lua
+omnicd.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua

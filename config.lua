@@ -33,13 +33,6 @@ mUI.defaults = {
 			offset = 2,
 			edgeFile = "Blizzard Chat Bubble",
 			edgeSize = 2
-		},
-		fps = {
-			enabled = true,
-			font = "Rubik Bold",
-			size = 14,
-			x = 0,
-			y = 0
 		}
 	},
 	player = {
