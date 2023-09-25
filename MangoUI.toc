@@ -24,7 +24,6 @@ settings.lua
 unitframes.lua
 
 # General UI stuff & QoL
-General/hide.lua
 General/fps.lua
 General/omnicd.lua
 

@@ -42,11 +42,6 @@ mUI.defaults = {
 			y = 0
 		}
 	},
-	hide = {
-		bags = true,
-		socialButton = true,
-		talkinghead = true
-	},
 	player = {
 		enabled = false,
 		anchor = "RIGHT",
