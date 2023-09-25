@@ -11,16 +11,16 @@ local function SetupFrame(self)
 	self:SetScript('OnEnter', UnitFrame_OnEnter)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)
 	self:SetSize(160, 60)
-	mUI:CreateBorder(self)
-
+	
 	self.colors.disconnected = { 0.1, 0.1, 0.1 }
 	self.colors.dead = { 0.25, 0.25, 0.25 }
-
+	
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
 	mUI:CreateUnitName(self)
 	mUI:CreateRaidTarget(self)
-
+	mUI:CreateBorder(self)
+	
 	self.Range = {
 		insideAlpha = 1,
 		outsideAlpha = 1 / 4,
@@ -28,7 +28,6 @@ local function SetupFrame(self)
 end
 
 local function Primary(self, unit)
-	--print("Making primary: " .. unit)
 	SetupFrame(self)
 	self:SetSize(mUI.db.player.width, mUI.db.player.height)
 
@@ -57,7 +56,7 @@ local function Primary(self, unit)
 		local GCD = CreateFrame("StatusBar", nil, self)
 		GCD:SetSize(self.Castbar:GetWidth(), 2)
 		GCD:SetPoint('TOPLEFT', self.Castbar, 'BOTTOMLEFT', 0, -2)
-		GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.config.defaultTexture))
+		GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 		local gBackground = GCD:CreateTexture(nil, "BACKGROUND")
 		gBackground:SetAllPoints(GCD)
 		gBackground:SetColorTexture(0.15, 0.15, 0.15, 1)

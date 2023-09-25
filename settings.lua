@@ -8,102 +8,83 @@ function RegisterSettings()
 	Settings.MUI_CATEGORY_ID = category:GetID()
 
 	-- General settings
+	-- Smooth bars
+	do
+		local variable = "toggle smooth bars"
+		local name = "Enable smooth bars"
+		local tooltip = "Enable a smoother animation for statusbars."
+		local defaultValue = mUI.db.settings.smooth
+
+		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
+		Settings.CreateCheckBox(category, setting, tooltip)
+		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
+			mUI.db.settings.smooth = v
+		end)
+	end
+
 	-- LSM statusbars
 	do
 		local variable = "mango texture"
-		local defaultValue = 1
+		local defaultValue = mUI.db.settings.texture
 		local name = "Texture"
-		local tooltip = "This is a tooltip for the dropdown."
+		local tooltip = "Set the texture for all unit frames."
 
 		local function GetOptions()
 			local container = Settings.CreateControlTextContainer()
-
-			for i, v in pairs(LSM:List("statusbar")) do
-				print(i .. ": " .. v)
-				container:Add(i, v)
+			for _, v in pairs(LSM:List("statusbar")) do
+				container:Add(v, v)
 			end
-
 			return container:GetData()
 		end
 
 		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
 		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
-		Settings.SetOnValueChangedCallback(variable, function()
-
+		Settings.SetOnValueChangedCallback(setting:GetVariable(), function(_, setting, value)
+			mUI.db.settings.texture = value
 		end)
 	end
 
 	-- LSM fonts
 	do
 		local variable = "mango font"
-		local defaultValue = 1
+		local defaultValue = mUI.db.settings.font
 		local name = "Font"
-		local tooltip = "This is a tooltip for the dropdown."
+		local tooltip = "Set the font for all text."
 
 		local function GetOptions()
 			local container = Settings.CreateControlTextContainer()
-
-			for i, v in pairs(LSM:List("font")) do
-				print(i .. ": " .. v)
-				container:Add(i, v)
-			end
-
-			return container:GetData()
-		end
-
-		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
-		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
-		Settings.SetOnValueChangedCallback(variable, function()
-
-		end)
-	end
-	-- LSM background
-	do
-		local variable = "mango background"
-		local defaultValue = 1
-		local name = "Background"
-		local tooltip = "This is a tooltip for the dropdown."
-
-		local function GetOptions()
-			local container = Settings.CreateControlTextContainer()
-
-			for i, v in pairs(LSM:List("background")) do
-				print(i .. ": " .. v)
+			for _, v in pairs(LSM:List("font")) do
 				container:Add(v, v)
 			end
-
 			return container:GetData()
 		end
 
 		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
 		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
-		Settings.SetOnValueChangedCallback(variable, function()
-			print(setting:GetValue())
+		Settings.SetOnValueChangedCallback(variable, function(_, setting, value)
+			mUI.db.settings.font = value
 		end)
 	end
 
 	-- LSM borders
 	do
 		local variable = "mango border"
-		local defaultValue = 1
+		local defaultValue = mUI.db.settings.border.edgeFile
 		local name = "Border"
-		local tooltip = "This is a tooltip for the dropdown."
+		local tooltip = "Set the border for all unit frames."
 
 		local function GetOptions()
 			local container = Settings.CreateControlTextContainer()
-
-			for i, v in pairs(LSM:List("border")) do
-				print(i .. ": " .. v)
-				container:Add(i, v)
+			for _, v in pairs(LSM:List("border")) do
+				container:Add(v, v)
 			end
-
 			return container:GetData()
 		end
 
 		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
 		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
-		Settings.SetOnValueChangedCallback(variable, function()
-
+		Settings.SetOnValueChangedCallback(variable, function(_, setting, value)
+			mUI.db.settings.border.edgeFile = value
 		end)
 	end
 

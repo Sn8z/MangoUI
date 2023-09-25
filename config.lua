@@ -26,8 +26,14 @@ mUI.config.backdrop = {
 -- Defaults
 mUI.defaults = {
 	settings = {
+		smooth = true,
 		texture = "True",
-		font = "Rubik Bold"
+		font = "Rubik Bold",
+		border = {
+			offset = 2,
+			edgeFile = "Blizzard Chat Bubble",
+			edgeSize = 2
+		}
 	},
 	hide = {
 		bags = true,

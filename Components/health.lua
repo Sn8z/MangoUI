@@ -28,7 +28,6 @@ function mUI:CreateHealth(self)
 	local hBackground = Health:CreateTexture(nil, "BACKGROUND")
 	hBackground:SetAllPoints(Health)
 	hBackground:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
-	--hBackground:SetColorTexture(1, 1, 1, 0.8)
 
 	Health.frequentUpdates = true
 	Health.colorTapping = true
@@ -38,7 +37,7 @@ function mUI:CreateHealth(self)
 	Health.colorHealth = true
 	hBackground.multiplier = 1 / 3
 
-	if true then
+	if mUI.db.settings.smooth then
 		Mixin(Health, SmoothStatusBarMixin)
 		Health.Override = SmoothUpdate
 	end

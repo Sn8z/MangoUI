@@ -80,7 +80,7 @@ function mUI:CreatePowerBar(self)
 
 	mUI:CreateBorder(Power)
 
-	if true then
+	if mUI.db.settings.smooth then
 		Mixin(Power, SmoothStatusBarMixin)
 		Power.Override = SmoothUpdate
 	end

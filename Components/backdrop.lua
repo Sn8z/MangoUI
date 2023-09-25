@@ -1,4 +1,5 @@
 local _, mUI = ...
+local LSM = LibStub("LibSharedMedia-3.0")
 
 function mUI:CreateBackdrop(frame)
 	Mixin(frame, BackdropTemplateMixin)
@@ -7,19 +8,40 @@ function mUI:CreateBackdrop(frame)
 	frame:SetBackdropBorderColor(0.15, 0.15, 0.15, 1)
 end
 
-function mUI:CreateBorder(parent)
-	local size = 2
-	local border = CreateFrame("Frame", nil, parent, "BackdropTemplate")
-	local framelvl = parent:GetFrameLevel()
-	border:ClearAllPoints()
-	border:SetPoint("TOPLEFT", parent, "TOPLEFT", -size, size)
-	border:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", size, -size)
-	border:SetFrameLevel(framelvl)
-	border:SetBackdrop(mUI.config.backdrop)
-	border:SetBackdropColor(0, 0, 0, 0)
-	border:SetBackdropBorderColor(0, 0, 0, 1)
-	parent.border = border
+function mUI:CreateBorder(self)
+	local size = mUI.db.settings.border.edgeSize
+	local Border = CreateFrame('Frame', nil, self, 'BackdropTemplate')
+	Border:SetPoint("TOPLEFT", self, "TOPLEFT", -size, size)
+	Border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", size, -size)
+	Border:SetBackdrop({
+		edgeFile = LSM:Fetch("border", mUI.db.settings.border.edgeFile),
+		edgeSize = size,
+		bgFile = nil
+	})
+	Border:SetFrameLevel(self:GetFrameLevel())
+	Border:SetBackdropBorderColor(0, 0, 0, 1)
+	Border:SetBackdropColor(0, 0, 0, 0)
+	self.border = Border
 end
+
+--[[ TESTING STUFF HERE, MIGHT BE COOL
+function mUI:CreateBorder(self)
+	local size = 6 or mUI.db.settings.border.edgeSize
+	local Border = CreateFrame('Frame', nil, self, 'BackdropTemplate')
+	Border:SetPoint("TOPLEFT", self, "TOPLEFT", -size, -size)
+	Border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -size, -size)
+	Border:SetBackdrop({
+		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Background"
+				or LSM:Fetch("border", mUI.db.settings.border.edgeFile),
+		edgeSize = size,
+		bgFile = nil
+	})
+	Border:SetFrameLevel(self:GetFrameLevel())
+	Border:SetBackdropBorderColor(0, 0, 0, 1)
+	Border:SetBackdropColor(0, 0, 0, 0)
+	self.border = Border
+end
+]]
 
 function mUI:CreateBorderAlt(self)
 	if not self.border then
