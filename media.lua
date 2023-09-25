@@ -2,12 +2,33 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Inject Media
 -- Fonts (.ttf/.otf)
+-- Manrope
 LSM:Register(LSM.MediaType.FONT, "Manrope Regular",
 	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Regular.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Manrope Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Bold.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Manrope Light",
 	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Light.ttf]])
+
+-- Poppins
+LSM:Register(LSM.MediaType.FONT, "Poppins Regular",
+	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Poppins Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Bold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Poppins Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Light.ttf]])
+
+-- Cabin
+LSM:Register(LSM.MediaType.FONT, "Cabin",
+	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Regular.ttf]])
+
+-- Rubik
+LSM:Register(LSM.MediaType.FONT, "Rubik Regular",
+	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Rubik Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Bold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Rubik Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Light.ttf]])
 
 -- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Xulnif", [[Interface\Addons\MangoUI\Media\Statusbars\xulnif.tga]])
