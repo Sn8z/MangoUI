@@ -4,11 +4,22 @@ local LSM = LibStub('LibSharedMedia-3.0')
 function mUI:CreateRunes(self)
 	if UnitExists(self.unit) and UnitClass(self.unit) == "Death Knight" then
 		local Runes = {}
+		local numberOfRunes = 6
+		local totalSpacing = mUI.db.player.classpower.spacing * (numberOfRunes - 1)
 		for index = 1, 6 do
 			-- Position and size of the rune bar indicators
-			local Rune = CreateFrame('StatusBar', nil, self.Health)
-			Rune:SetSize(220 / 6, 14)
-			Rune:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', (index - 1) * ((220 / 6) + 5), 5)
+			local Rune = CreateFrame('StatusBar', nil, self)
+			Rune:SetHeight(mUI.db.player.classpower.height)
+
+			if mUI.db.player.classpower.detach then
+				Rune:SetWidth((mUI.db.player.classpower.width - totalSpacing) / numberOfRunes)
+				Rune:SetPoint('LEFT', UIParent, 'CENTER', mUI.db.player.classpower.x + ((index - 1) * (Rune:GetWidth() + mUI.db.player.classpower.spacing)), mUI.db.player.classpower.y)
+			else
+				Rune:SetWidth((self:GetWidth() - totalSpacing) / numberOfRunes)
+				Rune:SetPoint('BOTTOMLEFT', self, 'TOPLEFT',
+					(index - 1) * (Rune:GetWidth() + mUI.db.player.classpower.spacing), 5)
+			end
+
 			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 			Rune:GetStatusBarTexture():SetHorizTile(false)
 			mUI:CreateBorder(Rune)

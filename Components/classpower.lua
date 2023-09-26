@@ -37,13 +37,13 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 
 	if (hasMaxChanged) then
 		ClearBackground()
-		local spacing = 5
+		local spacing = mUI.db.player.classpower.spacing
 		for index = 1, max do
 			local Bar = element[index]
 			local totalSpacing = (max - 1) * spacing
 
-			if true then
-				Bar:SetWidth((380 - totalSpacing) / max)
+			if mUI.db.player.classpower.detach then
+				Bar:SetWidth((mUI.db.player.classpower.width - totalSpacing) / max)
 			else 
 				Bar:SetWidth((element.__owner:GetWidth() - totalSpacing) / max)
 			end
@@ -81,11 +81,12 @@ function mUI:CreateClassPower(self)
 
 	for index = 1, 10 do
 		local Bar = CreateFrame('StatusBar', 'ClassPower_'..index, self)
-		Bar:SetHeight(6)
-		if true then
-			Bar:SetPoint('LEFT', UIParent, 'CENTER', -190, -158)
+		Bar:SetHeight(mUI.db.player.classpower.height)
+		if mUI.db.player.classpower.detach then
+			Bar:SetPoint('LEFT', UIParent, 'CENTER', mUI.db.player.classpower.x, mUI.db.player.classpower.y)
 		else
-			Bar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', (index - 1) * (Bar:GetWidth() + 5), 5)
+			Bar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', (index - 1) * (Bar:GetWidth() + mUI.db.player.classpower.spacing),
+				mUI.db.player.classpower.spacing)
 		end
 		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 		Bar:GetStatusBarTexture():SetHorizTile(false)

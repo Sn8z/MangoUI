@@ -47,17 +47,30 @@ mUI.defaults = {
 		power = {
 			enabled = true,
 			detach = true,
-			classColor = true
+			powerColor = true,
+			width = 200,
+			height = 20,
+			x = 0,
+			y = 0
 		},
 		castbar = {
 			enabled = true,
 			detach = true,
-			classColor = true
+			classColor = true,
+			width = 200,
+			height = 20,
+			x = 0,
+			y = 0
 		},
 		classpower = {
 			enabled = true,
 			detach = true,
-			classColor = false
+			classColor = false,
+			width = 200,
+			height = 20,
+			spacing = 5,
+			x = 0,
+			y = -200
 		}
 	},
 	target = {
@@ -66,6 +79,8 @@ mUI.defaults = {
 		parentAnchor = "CENTER",
 		width = 220,
 		height = 50,
+		x = 200,
+		y = -210,
 		classColor = true,
 		power = {
 			enabled = true,

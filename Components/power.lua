@@ -48,8 +48,14 @@ function mUI:CreatePowerBar(self)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
 
 	if self.unit == "player" then
-		Power:SetSize(380, 10)
-		Power:SetPoint('CENTER', UIParent, 'CENTER', 0, -170)
+		if mUI.db.player.power.detach then
+			Power:SetSize(mUI.db.player.power.width, mUI.db.player.power.height)
+			Power:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.power.x, mUI.db.player.power.y)
+		else
+			Power:SetHeight(mUI.db.player.power.height)
+			Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -2)
+			Power:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -2)
+		end
 
 		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
 		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)

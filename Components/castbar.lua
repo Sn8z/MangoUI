@@ -31,6 +31,7 @@ end
 
 
 function mUI:CreateCastbar(self)
+	if self.unit == "player" and mUI.db.player.castbar.enabled == false then return end
 	local Castbar = CreateFrame('StatusBar', nil, self.Health)
 	local texture = LSM:Fetch("statusbar", mUI.db.settings.texture)
 	Castbar:SetStatusBarTexture(texture)
@@ -44,7 +45,7 @@ function mUI:CreateCastbar(self)
 	cBackground:SetColorTexture(0.1, 0.1, 0.1, 1)
 	cBackground.multiplier = 0.5
 	Castbar.bg = cBackground
-	
+
 	local font = LSM:Fetch("font", mUI.db.settings.font)
 	
 	local SpellCasttime = Castbar:CreateFontString(nil, "OVERLAY")
@@ -59,9 +60,14 @@ function mUI:CreateCastbar(self)
 
 	if self.unit == 'player' then
 		Castbar:ClearAllPoints()
-		Castbar:SetSize(250, 26)
-		Castbar:SetPoint('CENTER', UIParent, 'CENTER', 0, -420)
-
+		if mUI.db.player.castbar.detach then
+			Castbar:SetSize(mUI.db.player.castbar.width, mUI.db.player.castbar.height)
+			Castbar:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.castbar.x, mUI.db.player.castbar.y)
+		else
+			Castbar:SetHeight(mUI.db.player.castbar.height)
+			Castbar:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -6)
+			Castbar:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -6)
+		end	
 		local safeZone = Castbar:CreateTexture(nil, 'OVERLAY')
 		safeZone:SetVertexColor(0.69, 0.31, 0.31, 0.5)
 		Castbar.SafeZone = safeZone
