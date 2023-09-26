@@ -135,26 +135,27 @@ oUF:Factory(function(self)
 	self:SetActiveStyle("MangoPrimary")
 
 	-- Check if unitframe is enabled or not
+	local player, target, focus, tot, pet
 	if mUI.db.player.enabled then
-		local player = self:Spawn("player")
+		player = self:Spawn("player")
 		player:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x, mUI.db.player.y)
 	end
 
 	if mUI.db.target.enabled then
-		local target = self:Spawn("target")
+		target = self:Spawn("target")
 		target:SetPoint(mUI.db.target.anchor, UIParent, mUI.db.target.parentAnchor, mUI.db.target.x, mUI.db.target.y)
 	end
 
-	local focus = self:Spawn("focus")
+	focus = self:Spawn("focus")
 	focus:SetPoint("CENTER", UIParent, "CENTER", 200, 400)
 
 	-- Pet & ToT frames
 	self:SetActiveStyle("MangoSecondary")
 
-	local tot = self:Spawn("targettarget")
+	tot = self:Spawn("targettarget")
 	tot:SetPoint('TOPLEFT', target, 'TOPRIGHT', 8, 0)
 
-	local pet = self:Spawn("pet")
+	pet = self:Spawn("pet")
 	pet:SetPoint('TOPRIGHT', player, 'TOPLEFT', -8, 0)
 
 	-- Boss frames
