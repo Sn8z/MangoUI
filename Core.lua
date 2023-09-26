@@ -16,35 +16,48 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Inject Media
 -- Fonts (.ttf/.otf)
--- Manrope
-LSM:Register(LSM.MediaType.FONT, "Manrope Regular",
-	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Manrope Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Bold.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Manrope Light",
-	[[Interface\Addons\MangoUI\Media\Fonts\Manrope\Manrope-Light.ttf]])
 
 -- Poppins
-LSM:Register(LSM.MediaType.FONT, "Poppins Regular",
+LSM:Register(LSM.MediaType.FONT, "Poppins",
 	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Poppins Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Medium.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Poppins Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Bold.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Poppins Light",
-	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Light.ttf]])
 
 -- Cabin
 LSM:Register(LSM.MediaType.FONT, "Cabin",
 	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Cabin Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Cabin Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Bold.ttf]])
 
 -- Rubik
-LSM:Register(LSM.MediaType.FONT, "Rubik Regular",
+LSM:Register(LSM.MediaType.FONT, "Rubik",
 	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Rubik Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Medium.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Rubik Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Bold.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Rubik Light",
-	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Light.ttf]])
 
--- Statusbars (.tga/.blp)
+-- Ubuntu
+LSM:Register(LSM.MediaType.FONT, "Ubuntu",
+	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Ubuntu Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Ubuntu Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Bold.ttf]])
+
+-- Gantari
+LSM:Register(LSM.MediaType.FONT, "Gantari",
+	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Gantari Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Gantari Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Bold.ttf]])
+
+	-- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Xulnif", [[Interface\Addons\MangoUI\Media\Statusbars\xulnif.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Tim", [[Interface\Addons\MangoUI\Media\Statusbars\tim.tga]])
