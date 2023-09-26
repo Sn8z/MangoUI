@@ -57,12 +57,12 @@ LSM:Register(LSM.MediaType.FONT, "Gantari Medium",
 LSM:Register(LSM.MediaType.FONT, "Gantari Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Bold.ttf]])
 
-	-- Statusbars (.tga/.blp)
-LSM:Register(LSM.MediaType.STATUSBAR, "Xulnif", [[Interface\Addons\MangoUI\Media\Statusbars\xulnif.tga]])
+-- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Erik", [[Interface\Addons\MangoUI\Media\Statusbars\erik.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Tim", [[Interface\Addons\MangoUI\Media\Statusbars\tim.tga]])
-LSM:Register(LSM.MediaType.STATUSBAR, "True", [[Interface\Addons\MangoUI\Media\Statusbars\true.tga]])
-LSM:Register(LSM.MediaType.STATUSBAR, "Patchouli", [[Interface\Addons\MangoUI\Media\Statusbars\patchouli.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Mauk", [[Interface\Addons\MangoUI\Media\Statusbars\mauk.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Brink", [[Interface\Addons\MangoUI\Media\Statusbars\brink.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Mango", [[Interface\Addons\MangoUI\Media\Statusbars\mango.tga]])
 
 -- Borders
