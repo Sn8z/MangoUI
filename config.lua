@@ -1,5 +1,4 @@
 local _, mUI = ...
-local LSM = LibStub("LibSharedMedia-3.0")
 
 mUI.config = {}
 
@@ -27,8 +26,8 @@ mUI.config.backdrop = {
 mUI.defaults = {
 	settings = {
 		smooth = true,
-		texture = "True",
-		font = "Rubik Bold",
+		texture = "Erik",
+		font = "Ubuntu Medium",
 		border = {
 			offset = 2,
 			edgeFile = "Blizzard Chat Bubble",
