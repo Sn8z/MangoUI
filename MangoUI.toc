@@ -22,6 +22,7 @@ config.lua
 slash.lua
 settings.lua
 unitframes.lua
+testmode.lua
 omnicd.lua
 
 # Custom unitframe elements
