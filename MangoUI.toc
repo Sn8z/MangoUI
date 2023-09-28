@@ -20,10 +20,21 @@ core.lua
 db.lua
 config.lua
 slash.lua
-settings.lua
 unitframes.lua
 testmode.lua
 omnicd.lua
+
+# Options
+Options/options.lua
+Options/playerOptions.lua
+Options/petOptions.lua
+Options/targetOptions.lua
+Options/totOptions.lua
+Options/partyOptions.lua
+Options/raidOptions.lua
+Options/bossOptions.lua
+Options/colorOptions.lua
+Options/optionsUtil.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua
