@@ -32,8 +32,10 @@ local function Primary(self, unit)
 
 	if unit == "target" then
 		self:SetSize(mUI.db.target.width, mUI.db.target.height)
-	else
+	elseif unit == "player" then
 		self:SetSize(mUI.db.player.width, mUI.db.player.height)
+	else
+		self:SetSize(mUI.db.focus.width, mUI.db.focus.height)
 	end
 
 	mUI:CreateCastbar(self)
@@ -77,9 +79,12 @@ end
 oUF:RegisterStyle("MangoPrimary", Primary)
 
 local function Secondary(self, unit)
-	--print("Making secondary: " .. unit)
 	SetupFrame(self)
-	self:SetSize(100, 40)
+	if unit == "pet" then
+		self:SetSize(mUI.db.pet.width, mUI.db.pet.height)
+	else
+		self:SetSize(mUI.db.targettarget.width, mUI.db.targettarget.height)
+	end
 end
 oUF:RegisterStyle("MangoSecondary", Secondary)
 
@@ -95,7 +100,7 @@ end
 oUF:RegisterStyle("MangoBoss", mBoss)
 
 local function mParty(self, unit)
-	--print("Making group: " .. unit)
+	print("Making group: " .. unit)
 	SetupFrame(self)
 	self:SetSize(190, 50)
 
@@ -114,7 +119,7 @@ end
 oUF:RegisterStyle("MangoParty", mParty)
 
 local function mRaid(self, unit)
-	--print("Making group: " .. unit)
+	print("Making group: " .. unit)
 	SetupFrame(self)
 	self:SetSize(80, 45)
 	mUI:CreateRoleIndicator(self)
@@ -146,8 +151,10 @@ oUF:Factory(function(self)
 		target:SetPoint(mUI.db.target.anchor, UIParent, mUI.db.target.parentAnchor, mUI.db.target.x, mUI.db.target.y)
 	end
 
-	focus = self:Spawn("focus")
-	focus:SetPoint("CENTER", UIParent, "CENTER", 200, 400)
+	if mUI.db.focus.enabled then
+		focus = self:Spawn("focus")
+		focus:SetPoint(mUI.db.focus.anchor, UIParent, mUI.db.focus.parentAnchor, mUI.db.focus.x, mUI.db.focus.y)
+	end
 
 	-- Pet & ToT frames
 	self:SetActiveStyle("MangoSecondary")
@@ -176,7 +183,7 @@ oUF:Factory(function(self)
 	local party = self:SpawnHeader(nil, nil, 'party',
 		'showParty', true,
 		'showRaid', false,
-		'showPlayer', false,
+		'showPlayer', true,
 		'yOffset', -16,
 		'groupBy', 'ASSIGNEDROLE',
 		'groupingOrder', 'DAMAGER,HEALER,TANK')

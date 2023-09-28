@@ -29,8 +29,12 @@ local function toggle(f)
 end
 
 function mUI:ToggleFrames()
-	for i = 1, #frames do
-		toggle(_G[frames[i]])
+	if InCombatLockdown() then
+		print("Can't toggle frames in combat.")
+	else
+		for i = 1, #frames do
+			toggle(_G[frames[i]])
+		end
 	end
 end
 

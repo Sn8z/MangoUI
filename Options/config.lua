@@ -139,10 +139,11 @@ mUI.defaults = {
 		parentAnchor = "CENTER",
 		width = 220,
 		height = 50,
+		x = 20,
+		y = 400,
 		classColor = true,
 		power = {
 			enabled = true,
-			detach = true,
 			classColor = true
 		},
 		castbar = {
