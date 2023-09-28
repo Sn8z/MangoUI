@@ -32,7 +32,7 @@ end
 
 function mUI:CreateCastbar(self)
 	if self.unit == "player" and mUI.db.player.castbar.enabled == false then return end
-	local Castbar = CreateFrame('StatusBar', nil, self.Health)
+	local Castbar = CreateFrame('StatusBar', nil, self)
 	local texture = LSM:Fetch("statusbar", mUI.db.settings.texture)
 	Castbar:SetStatusBarTexture(texture)
 	Castbar:SetStatusBarColor(1, 0.6, 0, 1)
@@ -65,8 +65,8 @@ function mUI:CreateCastbar(self)
 			Castbar:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.castbar.x, mUI.db.player.castbar.y)
 		else
 			Castbar:SetHeight(mUI.db.player.castbar.height)
-			Castbar:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -6)
-			Castbar:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -6)
+			Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6)
+			Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
 		end	
 		local safeZone = Castbar:CreateTexture(nil, 'OVERLAY')
 		safeZone:SetVertexColor(0.69, 0.31, 0.31, 0.5)
@@ -74,17 +74,17 @@ function mUI:CreateCastbar(self)
 
 	elseif self.unit == 'focus' then
 		Castbar:ClearAllPoints()
-		Castbar:SetSize(250, 26)
-		Castbar:SetPoint('CENTER', UIParent, 'CENTER', 0, -150)
+		Castbar:SetSize(240, 20)
+		Castbar:SetPoint('CENTER', UIParent, 'CENTER', 0, -40)
 	else
 		Castbar:ClearAllPoints()
 		Castbar:SetHeight(20)
 		if(self.Power) then
-			Castbar:SetPoint('TOPLEFT', self.Power, 'BOTTOMLEFT', 0, -10)
-			Castbar:SetPoint('TOPRIGHT', self.Power, 'BOTTOMRIGHT', 0, -10)
+			Castbar:SetPoint('TOPLEFT', self.Power, 'BOTTOMLEFT', 0, -5)
+			Castbar:SetPoint('TOPRIGHT', self.Power, 'BOTTOMRIGHT', 0, -5)
 		else
-			Castbar:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -6)
-			Castbar:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -6)
+			Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -5)
+			Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -5)
 		end
 	end
 

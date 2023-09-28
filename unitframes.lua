@@ -86,7 +86,7 @@ oUF:RegisterStyle("MangoSecondary", Secondary)
 local function mBoss(self, unit)
 	--print("Making group: " .. unit)
 	SetupFrame(self)
-	self:SetSize(200, 55)
+	self:SetSize(180, 42)
 	mUI:CreateDebuffs(self)
 	mUI:CreatePowerBar(self)
 	mUI:CreateCastbar(self)
@@ -167,7 +167,7 @@ oUF:Factory(function(self)
 		if i == 1 then
 			boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
 		else
-			boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 20)
+			boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 38)
 		end
 	end
 

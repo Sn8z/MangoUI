@@ -16,6 +16,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.enabled = v
+			ReloadUI()
 		end)
 	end
 
@@ -119,6 +120,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.enabled = v
+			ReloadUI()
 		end)
 	end
 
@@ -133,6 +135,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.detach = v
+			ReloadUI()
 		end)
 	end
 
@@ -152,6 +155,10 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.width = v
+			if mUI.db.player.castbar.detach then
+				_G["oUF_MangoPrimaryPlayer"].Castbar:SetWidth(v)
+				_G["oUF_MangoPrimaryPlayer"].GCD:SetWidth(v)
+			end
 		end)
 	end
 
@@ -171,6 +178,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.height = v
+			_G["oUF_MangoPrimaryPlayer"].Castbar:SetHeight(v)
 		end)
 	end
 
@@ -191,6 +199,11 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.x = v
+			if mUI.db.player.castbar.detach then
+				_G["oUF_MangoPrimaryPlayer"].Castbar:ClearAllPoints()
+				_G["oUF_MangoPrimaryPlayer"].Castbar:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.castbar.x,
+					mUI.db.player.castbar.y)
+			end
 		end)
 	end
 
@@ -211,6 +224,11 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.castbar.y = v
+			if mUI.db.player.castbar.detach then
+				_G["oUF_MangoPrimaryPlayer"].Castbar:ClearAllPoints()
+				_G["oUF_MangoPrimaryPlayer"].Castbar:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.castbar.x,
+					mUI.db.player.castbar.y)
+			end
 		end)
 	end
 
@@ -227,6 +245,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.enabled = v
+			ReloadUI()
 		end)
 	end
 
@@ -241,6 +260,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.detach = v
+			ReloadUI()
 		end)
 	end
 
@@ -260,6 +280,9 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.width = v
+			if mUI.db.player.power.detach then
+				_G["oUF_MangoPrimaryPlayer"].Power:SetWidth(v)
+			end
 		end)
 	end
 
@@ -279,6 +302,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.height = v
+			_G["oUF_MangoPrimaryPlayer"].Power:SetHeight(v)
 		end)
 	end
 
@@ -299,6 +323,11 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.x = v
+			if mUI.db.player.power.detach then
+				_G["oUF_MangoPrimaryPlayer"].Power:ClearAllPoints()
+				_G["oUF_MangoPrimaryPlayer"].Power:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.power.x,
+					mUI.db.player.power.y)
+			end
 		end)
 	end
 
@@ -319,6 +348,11 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.power.y = v
+			if mUI.db.player.power.detach then
+				_G["oUF_MangoPrimaryPlayer"].Power:ClearAllPoints()
+				_G["oUF_MangoPrimaryPlayer"].Power:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.power.x,
+					mUI.db.player.power.y)
+			end
 		end)
 	end
 
@@ -335,6 +369,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.enabled = v
+			ReloadUI()
 		end)
 	end
 
@@ -349,6 +384,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateCheckBox(playerCategory, setting, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.detach = v
+			ReloadUI()
 		end)
 	end
 
@@ -368,6 +404,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.width = v
+			-- TODO: Live Update
 		end)
 	end
 
@@ -387,6 +424,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.height = v
+			-- TODO: Live update
 		end)
 	end
 
@@ -406,6 +444,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.spacing = v
+			-- TODO: Live update
 		end)
 	end
 
@@ -426,6 +465,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.x = v
+			-- TODO: Live update
 		end)
 	end
 
@@ -446,6 +486,7 @@ function mUI:CreatePlayerOptions(category)
 		Settings.CreateSlider(playerCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.player.classpower.y = v
+			-- TODO: Live update
 		end)
 	end
 end
