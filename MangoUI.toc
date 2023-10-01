@@ -33,7 +33,7 @@ Options/focusOptions.lua
 Options/partyOptions.lua
 Options/raidOptions.lua
 Options/bossOptions.lua
-Options/colorOptions.lua
+Options/profilesOptions.lua
 Options/optionsUtil.lua
 Options/testmode.lua
 

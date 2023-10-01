@@ -112,7 +112,7 @@ local function RegisterSettings()
 	mUI:CreatePartyOptions(category)
 	mUI:CreateRaidOptions(category)
 	mUI:CreateBossOptions(category)
-	mUI:CreateColorOptions(category)
+	mUI:CreateProfilesOptions(category)
 end
 
 SettingsRegistrar:AddRegistrant(RegisterSettings)

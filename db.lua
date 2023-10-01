@@ -2,6 +2,23 @@ local AddonName, mUI = ...
 
 local frame = CreateFrame("Frame")
 
+-- Check the logged in character
+local currentCharacter = UnitName("player") .. "-" .. GetRealmName()
+
+function mUI:SetProfile(profile)
+	MangoDB.MangoCharacters[currentCharacter] = profile
+	ReloadUI()
+end
+
+function mUI:GetCurrentProfile()
+	return MangoDB.MangoCharacters[currentCharacter]
+end
+
+function mUI:CreateProfile(name)
+	MangoDB.MangoProfiles[name] = mUI.defaults.MangoProfiles["default"]
+	MangoDB.MangoCharacters[currentCharacter] = name
+end
+
 function frame:OnEvent(event, ...)
 	self[event](self, event, ...)
 end
@@ -31,15 +48,32 @@ end
 function frame:ADDON_LOADED(event, addOnName)
 	if addOnName == AddonName then
 		MangoDB = MangoDB or {}
-		mUI.db = MangoDB
+		MangoDB.MangoCharacters = MangoDB.MangoCharacters or {}
+		MangoDB.MangoProfiles = MangoDB.MangoProfiles or {}
 
-		--print(UnitName("player") .. "-" .. GetRealmName())
+		-- Load default profiles
+		for k, v in next, mUI.defaults.MangoProfiles do
+			if MangoDB.MangoProfiles[k] == nil then
+				MangoDB.MangoProfiles[k] = v
+			end
+		end
 
-		-- RESET, BE CAREFUL!
-		-- MangoDB = {}
+		--mUI.db = MangoDB
+
+		-- print("Fetching profile for: " .. currentCharacter)
+		if not MangoDB.MangoCharacters[currentCharacter] then
+			MangoDB.MangoCharacters[currentCharacter] = "default"
+		end
+
+		local mangoProfile = MangoDB.MangoCharacters[currentCharacter] or "default"
+		-- print("Current profile: " .. mangoProfile)
+		mUI.profile = MangoDB.MangoProfiles[mangoProfile] or mUI.defaults.MangoProfiles["default"]
+		mUI.profiles = MangoDB.MangoProfiles
 
 		-- Check if there are new fields in the defaults and if so add them to the DB
-		mergeTables(mUI.db, mUI.defaults)
+		mergeTables(mUI.profile, mUI.defaults.MangoProfiles["default"])
+
+		mUI.db = mUI.profile --temporary until name is changed everywhere
 	end
 end
 
