@@ -100,7 +100,6 @@ end
 oUF:RegisterStyle("MangoBoss", mBoss)
 
 local function mParty(self, unit)
-	print("Making group: " .. unit)
 	SetupFrame(self)
 	self:SetSize(190, 50)
 
@@ -119,7 +118,6 @@ end
 oUF:RegisterStyle("MangoParty", mParty)
 
 local function mRaid(self, unit)
-	print("Making group: " .. unit)
 	SetupFrame(self)
 	self:SetSize(80, 45)
 	mUI:CreateRoleIndicator(self)
@@ -159,66 +157,76 @@ oUF:Factory(function(self)
 	-- Pet & ToT frames
 	self:SetActiveStyle("MangoSecondary")
 
-	tot = self:Spawn("targettarget")
-	tot:SetPoint('TOPLEFT', target, 'TOPRIGHT', 8, 0)
+	if mUI.db.targettarget.enabled then
+		tot = self:Spawn("targettarget")
+		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
+	end
 
-	pet = self:Spawn("pet")
-	pet:SetPoint('TOPRIGHT', player, 'TOPLEFT', -8, 0)
+	if mUI.db.pet.enabled then
+		pet = self:Spawn("pet")
+		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
+	end
 
-	-- Boss frames
-	self:SetActiveStyle("MangoBoss")
-	local boss = {}
-	for i = 1, _G.MAX_BOSS_FRAMES do
-		boss[i] = self:Spawn('boss' .. i)
+	if mUI.db.boss.enabled then
+		-- Boss frames
+		self:SetActiveStyle("MangoBoss")
+		local boss = {}
+		for i = 1, _G.MAX_BOSS_FRAMES do
+			boss[i] = self:Spawn('boss' .. i)
 
-		if i == 1 then
-			boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
-		else
-			boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 38)
+			if i == 1 then
+				boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
+			else
+				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 38)
+			end
 		end
 	end
 
-	-- Party frames
-	self:SetActiveStyle("MangoParty")
-	local party = self:SpawnHeader(nil, nil, 'party',
-		'showParty', true,
-		'showRaid', false,
-		'showPlayer', true,
-		'yOffset', -16,
-		'groupBy', 'ASSIGNEDROLE',
-		'groupingOrder', 'DAMAGER,HEALER,TANK')
-	party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
-
-	-- Raid frames
-	self:SetActiveStyle("MangoRaid")
-	local HiddenFrame = CreateFrame("Frame")
-	HiddenFrame:Hide()
-
-	if CompactRaidFrameManager_SetSetting then
-		CompactRaidFrameManager_SetSetting("IsShown", "0")
-		UIParent:UnregisterEvent("GROUP_ROSTER_UPDATE")
-		CompactRaidFrameManager:UnregisterAllEvents()
-		CompactRaidFrameManager:SetParent(HiddenFrame)
+	if mUI.db.party.enabled then
+		-- Party frames
+		self:SetActiveStyle("MangoParty")
+		local party = self:SpawnHeader(nil, nil, 'custom [group:party][nogroup:raid]show;hide',
+			'showParty', true,
+			'showRaid', false,
+			'showPlayer', true,
+			'yOffset', -16,
+			'groupBy', 'ASSIGNEDROLE',
+			'groupingOrder', 'DAMAGER,HEALER,TANK')
+		party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
 	end
 
-	local raid = {}
-	for group = 1, _G.NUM_RAID_GROUPS do
-		raid[group] = self:SpawnHeader(
-			nil, nil, 'raid',
-			'showRaid', true,
-			'maxColumns', 5,
-			'unitsPerColumn', 1,
-			'columnAnchorPoint', 'LEFT',
-			'columnSpacing', 5,
-			'groupBy', 'ASSIGNEDROLE',
-			'groupingOrder', 'DAMAGER,HEALER,TANK',
-			'groupFilter', group
-		)
+	if mUI.db.raid.enabled then
+		-- Raid frames
+		local HiddenFrame = CreateFrame("Frame")
+		HiddenFrame:Hide()
 
-		if group == 1 then
-			raid[group]:SetPoint('TOPLEFT', UIParent, 'LEFT', 15, -15)
-		else
-			raid[group]:SetPoint('TOPLEFT', raid[group - 1], 'BOTTOMLEFT', 0, -5)
+		if CompactRaidFrameManager_SetSetting then
+			CompactRaidFrameManager_SetSetting("IsShown", "0")
+			UIParent:UnregisterEvent("GROUP_ROSTER_UPDATE")
+			CompactRaidFrameManager:UnregisterAllEvents()
+			CompactRaidFrameManager:SetParent(HiddenFrame)
+		end
+
+		self:SetActiveStyle("MangoRaid")
+		local raid = {}
+		for group = 1, _G.NUM_RAID_GROUPS do
+			raid[group] = self:SpawnHeader(
+				nil, nil, 'custom [group:raid]show;hide',
+				'showRaid', true,
+				'maxColumns', 5,
+				'unitsPerColumn', 1,
+				'columnAnchorPoint', 'LEFT',
+				'columnSpacing', 5,
+				'groupBy', 'ASSIGNEDROLE',
+				'groupingOrder', 'DAMAGER,HEALER,TANK',
+				'groupFilter', group
+			)
+
+			if group == 1 then
+				raid[group]:SetPoint('TOPLEFT', UIParent, 'LEFT', 15, -15)
+			else
+				raid[group]:SetPoint('TOPLEFT', raid[group - 1], 'BOTTOMLEFT', 0, -5)
+			end
 		end
 	end
 end)

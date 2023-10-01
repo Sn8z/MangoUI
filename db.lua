@@ -33,6 +33,8 @@ function frame:ADDON_LOADED(event, addOnName)
 		MangoDB = MangoDB or {}
 		mUI.db = MangoDB
 
+		--print(UnitName("player") .. "-" .. GetRealmName())
+
 		-- RESET, BE CAREFUL!
 		-- MangoDB = {}
 

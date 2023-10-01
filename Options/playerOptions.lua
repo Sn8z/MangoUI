@@ -2,8 +2,8 @@ local addonName, mUI = ...
 
 function mUI:CreatePlayerOptions(category)
 	-- Player frame subsection
-	local playerCategory, playerLayout = Settings.RegisterVerticalLayoutSubcategory(category, "Player");
-	Settings.RegisterAddOnCategory(playerCategory);
+	local playerCategory, playerLayout = Settings.RegisterVerticalLayoutSubcategory(category, "Player")
+	Settings.RegisterAddOnCategory(playerCategory)
 
 	-- Enable Player
 	do

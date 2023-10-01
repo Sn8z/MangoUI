@@ -2,8 +2,8 @@ local addonName, mUI = ...
 
 function mUI:CreateTargetOptions(category)
 	-- Target subsection
-	local targetCategory = Settings.RegisterVerticalLayoutSubcategory(category, "Target");
-	Settings.RegisterAddOnCategory(targetCategory);
+	local targetCategory = Settings.RegisterVerticalLayoutSubcategory(category, "Target")
+	Settings.RegisterAddOnCategory(targetCategory)
 
 	-- Enable Target
 	do

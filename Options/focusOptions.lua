@@ -2,8 +2,8 @@ local addonName, mUI = ...
 
 function mUI:CreateFocusOptions(category)
 	-- Focus subsection
-	local focusCategory = Settings.RegisterVerticalLayoutSubcategory(category, "Focus");
-	Settings.RegisterAddOnCategory(focusCategory);
+	local focusCategory = Settings.RegisterVerticalLayoutSubcategory(category, "Focus")
+	Settings.RegisterAddOnCategory(focusCategory)
 
 	-- Enable Focus
 	do
@@ -31,7 +31,7 @@ function mUI:CreateFocusOptions(category)
 
 		local setting = Settings.RegisterAddOnSetting(focusCategory, name, variable, type(defaultValue), defaultValue)
 		local options = Settings.CreateSliderOptions(minValue, maxValue, step)
-		options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right);
+		options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right)
 		Settings.CreateSlider(focusCategory, setting, options, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, s, v)
 			mUI.db.focus.width = v
