@@ -17,6 +17,7 @@ end
 function mUI:CreateProfile(name)
 	MangoDB.MangoProfiles[name] = mUI.defaults.MangoProfiles["default"]
 	MangoDB.MangoCharacters[currentCharacter] = name
+	ReloadUI()
 end
 
 function frame:OnEvent(event, ...)

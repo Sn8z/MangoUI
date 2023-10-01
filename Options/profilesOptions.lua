@@ -28,11 +28,20 @@ function mUI:CreateProfilesOptions(category)
 	end
 
 	-- Create new profile
+	StaticPopupDialogs.CreateProfilePopup = {
+		text = "Enter name",
+		button1 = OKAY,
+		OnAccept = function(self)
+			mUI:CreateProfile(self.editBox:GetText())
+		end,
+		hasEditBox = 1,
+	}
+
 	do
 		local title = "Create new profile"
 		local buttonText = "Create"
 		local buttonClick = function()
-			mUI:CreateProfile()
+			StaticPopup_Show("CreateProfilePopup")
 		end
 		local tooltip = "Create a new profile"
 		local addSearchTags = "Create profile"
@@ -40,5 +49,4 @@ function mUI:CreateProfilesOptions(category)
 		local initializer = CreateSettingsButtonInitializer(title, buttonText, buttonClick, tooltip, addSearchTags)
 		profilesLayout:AddInitializer(initializer)
 	end
-
 end

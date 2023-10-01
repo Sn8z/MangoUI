@@ -91,19 +91,6 @@ local function RegisterSettings()
 		end)
 	end
 
-	do
-		local title = "Test"
-		local buttonText = "Test 2"
-		local buttonClick = function()
-			print("TEST")
-		end
-		local tooltip = "TEST TOOLTIP"
-		local addSearchTags = "Test"
-
-		local initializer = CreateSettingsButtonInitializer(title, buttonText, buttonClick, tooltip, addSearchTags)
-		layout:AddInitializer(initializer)
-	end
-
 	mUI:CreatePlayerOptions(category)
 	mUI:CreatePetOptions(category)
 	mUI:CreateTargetOptions(category)
