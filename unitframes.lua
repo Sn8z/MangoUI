@@ -82,6 +82,7 @@ local function Secondary(self, unit)
 	SetupFrame(self)
 	if unit == "pet" then
 		self:SetSize(mUI.db.pet.width, mUI.db.pet.height)
+		mUI:CreateCastbar(self)
 	else
 		self:SetSize(mUI.db.targettarget.width, mUI.db.targettarget.height)
 	end
