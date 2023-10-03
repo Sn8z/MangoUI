@@ -46,8 +46,7 @@ end
 local function Enable(self)
 	if(self.DispelHighlight) then
 		local texture = self.Health:CreateTexture(nil, 'OVERLAY')
-		--texture:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-		texture:SetTexture([[Interface\AddOns\MangoUI\Media\Statusbars\true.tga]])
+		texture:SetTexture([[Interface\AddOns\MangoUI\Media\dispel.tga]])
 		texture:SetBlendMode("ADD")
 		texture:SetVertexColor(1, 1, 1, 0)
 		texture:SetAllPoints()
@@ -60,7 +59,6 @@ end
 local function Disable(self)
 	if (self.DispelHighlight) then
 		self:UnregisterEvent('UNIT_AURA', Update)
-		self.DispelHighlight:SetVertexColor(0, 1, 0, 1)
 	end
 end
 
