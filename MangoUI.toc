@@ -16,11 +16,11 @@ Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 Libs\LibSharedMedia-3.0\lib.xml
 
 # Core stuff and config
-core.lua
-db.lua
-slash.lua
-unitframes.lua
-omnicd.lua
+Core/core.lua
+Core/db.lua
+Core/slash.lua
+Core/unitframes.lua
+Core/omnicd.lua
 
 # Options
 Options/config.lua
@@ -34,7 +34,6 @@ Options/partyOptions.lua
 Options/raidOptions.lua
 Options/bossOptions.lua
 Options/profilesOptions.lua
-Options/optionsUtil.lua
 Options/testmode.lua
 
 # Custom unitframe elements

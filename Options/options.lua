@@ -23,8 +23,6 @@ local function RegisterSettings()
 		end)
 	end
 
-	mUI:CreateCheckBox(mUI.db.settings.smooth, category, "toggle smooth", "Toogle smooth bars", "Give all bars a smoother transition.")
-
 	-- LSM statusbars
 	do
 		local variable = "mango texture"
@@ -66,28 +64,6 @@ local function RegisterSettings()
 		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
 		Settings.SetOnValueChangedCallback(variable, function(_, setting, value)
 			mUI.db.settings.font = value
-		end)
-	end
-
-	-- LSM borders
-	do
-		local variable = "mango border"
-		local defaultValue = mUI.db.settings.border.edgeFile
-		local name = "Border"
-		local tooltip = "Set the border for all unit frames."
-
-		local function GetOptions()
-			local container = Settings.CreateControlTextContainer()
-			for _, v in pairs(LSM:List("border")) do
-				container:Add(v, v)
-			end
-			return container:GetData()
-		end
-
-		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
-		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
-		Settings.SetOnValueChangedCallback(variable, function(_, setting, value)
-			mUI.db.settings.border.edgeFile = value
 		end)
 	end
 
