@@ -8,7 +8,9 @@ assert(LSM, 'MangoUI was unable to find LibShareMedia')
 local function SetupFrame(self)
 	self:ClearAllPoints()
 	self:RegisterForClicks('AnyDown')
-
+	self:SetScript('OnEnter', UnitFrame_OnEnter)
+	self:SetScript('OnLeave', UnitFrame_OnLeave)
+	
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
 	mUI:CreateUnitName(self)
