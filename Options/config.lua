@@ -2,23 +2,6 @@ local _, mUI = ...
 
 mUI.config = {}
 
--- Media
-mUI.config.defaultBackdrop = {
-	bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	edgeSize = 4,
-	insets = { left = 4, right = 4, top = 4, bottom = 4 },
-}
-
-mUI.config.backdrop = {
-	bgFile = "Interface\\Buttons\\WHITE8x8",
-	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-	tile = true,
-	tileSize = 8,
-	edgeSize = 2,
-	insets = { left = -2, right = -2, top = -2, bottom = -2 },
-}
-
 mUI.config.anchors = {
 	"CENTER",
 	"TOP",
@@ -37,11 +20,6 @@ local defaultProfile = {
 		smooth = true,
 		texture = "Erik",
 		font = "Ubuntu Medium",
-		border = {
-			offset = 2,
-			edgeFile = "Blizzard Chat Bubble",
-			edgeSize = 2
-		}
 	},
 	player = {
 		enabled = true,
@@ -220,11 +198,6 @@ local darkProfile = {
 		smooth = true,
 		texture = "Brink",
 		font = "Rubik",
-		border = {
-			offset = 2,
-			edgeFile = "Blizzard Chat Bubble",
-			edgeSize = 2
-		}
 	},
 	player = {
 		enabled = true,

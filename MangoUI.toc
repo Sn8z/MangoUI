@@ -49,7 +49,7 @@ Components/healthvalue.lua
 Components/unitname.lua
 Components/group.lua
 Components/absorbs.lua
-Components/backdrop.lua
+Components/border.lua
 Components/statustext.lua
 Components/altpower.lua
 Components/power.lua
