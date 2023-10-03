@@ -157,7 +157,9 @@ function mUI:CreatePlayerOptions(category)
 			mUI.db.player.castbar.width = v
 			if mUI.db.player.castbar.detach then
 				_G["oUF_MangoPrimaryPlayer"].Castbar:SetWidth(v)
-				_G["oUF_MangoPrimaryPlayer"].GCD:SetWidth(v)
+				if _G["oUF_MangoPrimaryPlayer"].GCD then
+					_G["oUF_MangoPrimaryPlayer"].GCD:SetWidth(v)
+				end 
 			end
 		end)
 	end

@@ -65,6 +65,8 @@ local defaultProfile = {
 			enabled = true,
 			detach = false,
 			classColor = true,
+			shield = false,
+			icon = true,
 			width = 200,
 			height = 20,
 			x = 0,
@@ -97,8 +99,14 @@ local defaultProfile = {
 		},
 		castbar = {
 			enabled = true,
-			detach = true,
-			classColor = true
+			detach = false,
+			classColor = true,
+			shield = false,
+			icon = true,
+			width = 200,
+			height = 20,
+			x = 0,
+			y = 0
 		},
 		classpower = {
 			enabled = true,
@@ -119,7 +127,10 @@ local defaultProfile = {
 		},
 		castbar = {
 			enabled = true,
-			classColor = true
+			classColor = true,
+			shield = false,
+			icon = true,
+			height = 12
 		}
 	},
 	targettarget = {
@@ -150,7 +161,13 @@ local defaultProfile = {
 		castbar = {
 			enabled = true,
 			detach = false,
-			classColor = true
+			classColor = true,
+			shield = false,
+			icon = true,
+			width = 200,
+			height = 20,
+			x = 0,
+			y = 0
 		}
 	},
 	boss = {
@@ -166,7 +183,10 @@ local defaultProfile = {
 		},
 		castbar = {
 			enabled = true,
-			classColor = true
+			classColor = true,
+			shield = false,
+			icon = true,
+			height = 16
 		}
 	},
 	party = {
@@ -261,7 +281,11 @@ local darkProfile = {
 		castbar = {
 			enabled = true,
 			detach = true,
-			classColor = true
+			classColor = true,
+			width = 200,
+			height = 20,
+			x = 0,
+			y = 0
 		},
 		classpower = {
 			enabled = true,
