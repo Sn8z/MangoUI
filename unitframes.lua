@@ -8,12 +8,6 @@ assert(LSM, 'MangoUI was unable to find LibShareMedia')
 local function SetupFrame(self)
 	self:ClearAllPoints()
 	self:RegisterForClicks('AnyDown')
-	self:SetScript('OnEnter', UnitFrame_OnEnter)
-	self:SetScript('OnLeave', UnitFrame_OnLeave)
-	self:SetSize(160, 60)
-
-	self.colors.disconnected = { 0.1, 0.1, 0.1 }
-	self.colors.dead = { 0.25, 0.25, 0.25 }
 
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
@@ -21,6 +15,8 @@ local function SetupFrame(self)
 	mUI:CreateRaidTarget(self)
 	mUI:CreateBorder(self)
 
+	self.colors.disconnected = { 0.1, 0.1, 0.1 }
+	self.colors.dead = { 0.25, 0.25, 0.25 }
 	self.Range = {
 		insideAlpha = 1,
 		outsideAlpha = 1 / 4,
