@@ -5,19 +5,88 @@ local frame = CreateFrame("Frame")
 -- Check the logged in character
 local currentCharacter = UnitName("player") .. "-" .. GetRealmName()
 
+-- Set the active profile
 function mUI:SetProfile(profile)
 	MangoDB.MangoCharacters[currentCharacter] = profile
 	ReloadUI()
 end
 
+-- Returns the currently active profile
 function mUI:GetCurrentProfile()
 	return MangoDB.MangoCharacters[currentCharacter]
 end
 
-function mUI:CreateProfile(name)
-	MangoDB.MangoProfiles[name] = mUI.defaults.MangoProfiles["default"]
+-- Delete a profile
+function mUI:DeleteProfile(name)
+	print("Removing: " .. name)
+	if mUI:GetCurrentProfile() == name then -- switch profile before we delete it
+		mUI:SetProfile("default")
+	end
+	MangoDB.MangoProfiles[name] = nil
+	ReloadUI()
+end
+
+-- Deserialize a string into a LUA table
+local function DeserializeTable(str)
+	local func, err = loadstring("return " .. str)
+	if not func then
+		error("Error in deserialization: " .. err)
+		return nil
+	end
+
+	local success, result = pcall(func)
+	if not success then
+		error("Error in deserialization: " .. result)
+		return nil
+	end
+
+	return result
+end
+
+-- Create a profile
+function mUI:CreateProfile(name, table)
+	if name == nil then return end
+	if type(table) == "string" then
+		table = DeserializeTable(table)
+	end
+	MangoDB.MangoProfiles[name] = table or mUI.defaults.MangoProfiles["default"]
 	MangoDB.MangoCharacters[currentCharacter] = name
 	ReloadUI()
+end
+
+-- Serialize a LUA table to a string
+local function SerializeTable(table)
+	local str = "{"
+
+	for key, value in pairs(table) do
+		if type(key) == "number" then
+			str = str .. "[" .. key .. "]"
+		elseif type(key) == "string" then
+			str = str .. '["' .. key .. '"]'
+		else
+			error("Unsupported key type: " .. type(key))
+		end
+
+		if type(value) == "number" or type(value) == "boolean" then
+			str = str .. "=" .. tostring(value)
+		elseif type(value) == "string" then
+			str = str .. '="' .. value .. '"'
+		elseif type(value) == "table" then
+			str = str .. "=" .. SerializeTable(value)
+		else
+			error("Unsupported value type: " .. type(value))
+		end
+
+		str = str .. ","
+	end
+
+	str = str .. "}"
+	return str
+end
+
+function mUI:GetProfileExportString()
+	local profile = mUI:GetCurrentProfile()
+	return SerializeTable(MangoDB.MangoProfiles[profile])
 end
 
 function frame:OnEvent(event, ...)

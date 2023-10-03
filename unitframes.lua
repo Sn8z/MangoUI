@@ -185,7 +185,7 @@ oUF:Factory(function(self)
 	if mUI.db.party.enabled then
 		-- Party frames
 		self:SetActiveStyle("MangoParty")
-		local party = self:SpawnHeader(nil, nil, 'custom [group:party][nogroup:raid]show;hide',
+		local party = self:SpawnHeader(nil, nil, 'party',
 			'showParty', true,
 			'showRaid', false,
 			'showPlayer', true,
@@ -211,7 +211,7 @@ oUF:Factory(function(self)
 		local raid = {}
 		for group = 1, _G.NUM_RAID_GROUPS do
 			raid[group] = self:SpawnHeader(
-				nil, nil, 'custom [group:raid]show;hide',
+				nil, nil, 'raid',
 				'showRaid', true,
 				'maxColumns', 5,
 				'unitsPerColumn', 1,
