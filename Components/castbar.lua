@@ -4,23 +4,14 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local _, class = UnitClass("player")
 local playerColor = RAID_CLASS_COLORS[class]
 
-local function isKickable(self, unit)
-	-- Check if you can kick the cast
-	local name, text, texture, startTimeMS, endTimeMS, isTradeSkill, castID, notInterruptible, spellId = UnitCastingInfo(
-	unit)
-	if (not name) then
-		name, text, texture, startTimeMS, endTimeMS, isTradeSkill, notInterruptible, spellId = UnitChannelInfo(unit)
-	end
-	self:SetAlpha(1)
-	if (notInterruptible) then
-		if (self.Icon) then
-			self.Icon:SetDesaturated(true)
-		end
+local function PostCastFail(self, unit, spellID)
+	self:SetStatusBarColor(1, 0, 0, 1)
+end
+
+local function PostCastStart(self, unit)
+	if self.notInterruptible then
 		self:SetStatusBarColor(0.3, 0.3, 0.3, 1)
 	else
-		if (self.Icon) then
-			self.Icon:SetDesaturated(false)
-		end
 		if unit == 'player' then
 			self:SetStatusBarColor(playerColor.r, playerColor.g, playerColor.b, 1)
 		else
@@ -29,76 +20,75 @@ local function isKickable(self, unit)
 	end
 end
 
+-- Add back when new tag gets released
+--local function PostUpdatePips(self, numStages)
+--	print(numStages)
+--end
 
 function mUI:CreateCastbar(self)
-	if self.unit == "player" and mUI.db.player.castbar.enabled == false then return end
-	local Castbar = CreateFrame('StatusBar', nil, self)
-	local texture = LSM:Fetch("statusbar", mUI.db.settings.texture)
-	Castbar:SetStatusBarTexture(texture)
-	Castbar:SetStatusBarColor(1, 0.6, 0, 1)
-	Castbar.timeToHold = 0.5
-	
-	mUI:CreateBorder(Castbar)
-	
-	local cBackground = Castbar:CreateTexture(nil, "BACKGROUND")
-	cBackground:SetAllPoints(Castbar)
-	cBackground:SetColorTexture(0.1, 0.1, 0.1, 1)
-	cBackground.multiplier = 0.5
-	Castbar.bg = cBackground
+	local unit = self.unit
+	if string.match(self.unit, "^boss[123456789]$") then
+		unit = "boss"
+	end
+	local settings = mUI.profile[unit]
+	if settings == nil then return end
+	if settings.castbar.enabled == false then return end
 
-	local font = LSM:Fetch("font", mUI.db.settings.font)
-	
+	local Castbar = CreateFrame("StatusBar", nil, self)
+	Castbar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.texture))
+	Castbar.timeToHold = 0.5
+	mUI:CreateBorder(Castbar)
+
+	local cbBackground = Castbar:CreateTexture(nil, "BACKGROUND")
+	cbBackground:SetAllPoints(Castbar)
+	cbBackground:SetColorTexture(0.1, 0.1, 0.1, 1)
+	cbBackground.multiplier = 0.5
+	Castbar.bg = cbBackground
+
+	if settings.castbar.icon then
+		local Icon = Castbar:CreateTexture(nil, 'OVERLAY')
+		Icon:SetSize(settings.castbar.height, settings.castbar.height)
+		Icon:SetPoint('TOPLEFT', Castbar, 'TOPLEFT')
+		Icon:SetTexCoord(0.2, 0.8, 0.2, 0.8)
+		Castbar.Icon = Icon
+	end
+
+	if settings.castbar.shield then
+		local Shield = Castbar:CreateTexture(nil, 'OVERLAY')
+		Shield:SetTexture([[Interface\AddOns\MangoUI\Media\shield.tga]])
+		Shield:SetSize(26, 26)
+		Shield:SetPoint('CENTER', Castbar, 'LEFT', -5, 0)
+		Castbar.Shield = Shield
+	end
+
+	local font = LSM:Fetch("font", mUI.profile.settings.font)
+
 	local SpellCasttime = Castbar:CreateFontString(nil, "OVERLAY")
 	SpellCasttime:SetPoint("RIGHT", -4, 0)
 	SpellCasttime:SetFont(font, 14, "THINOUTLINE")
 	Castbar.Time = SpellCasttime
 
 	local SpellName = Castbar:CreateFontString(nil, "OVERLAY")
-	SpellName:SetPoint("LEFT", 4, 0)
+	if Castbar.Icon then
+		SpellName:SetPoint("LEFT", Castbar.Icon:GetWidth() + 4, 0)
+	else
+		SpellName:SetPoint("LEFT", 4, 0)
+	end
 	SpellName:SetFont(font, 14, "THINOUTLINE")
 	Castbar.Text = SpellName
 
-	if self.unit == 'player' then
-		Castbar:ClearAllPoints()
-		if mUI.db.player.castbar.detach then
-			Castbar:SetSize(mUI.db.player.castbar.width, mUI.db.player.castbar.height)
-			Castbar:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.castbar.x, mUI.db.player.castbar.y)
-		else
-			Castbar:SetHeight(mUI.db.player.castbar.height)
-			Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6)
-			Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
-		end	
-		local safeZone = Castbar:CreateTexture(nil, 'OVERLAY')
-		safeZone:SetVertexColor(0.69, 0.31, 0.31, 0.5)
-		Castbar.SafeZone = safeZone
-
-	elseif self.unit == 'focus' then
-		Castbar:ClearAllPoints()
-		Castbar:SetSize(240, 20)
-		Castbar:SetPoint('CENTER', UIParent, 'CENTER', 0, -40)
+	Castbar:ClearAllPoints()
+	if settings.castbar.detach and settings.castbar.detach ~= nil then
+		Castbar:SetSize(settings.castbar.width, settings.castbar.height)
+		Castbar:SetPoint('CENTER', UIParent, 'CENTER', settings.castbar.x, settings.castbar.y)
 	else
-		Castbar:ClearAllPoints()
-		Castbar:SetHeight(20)
-		if(self.Power) then
-			Castbar:SetPoint('TOPLEFT', self.Power, 'BOTTOMLEFT', 0, -5)
-			Castbar:SetPoint('TOPRIGHT', self.Power, 'BOTTOMRIGHT', 0, -5)
-		else
-			Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -5)
-			Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -5)
-		end
+		Castbar:SetHeight(settings.castbar.height)
+		Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6) -- Find a way to calculate these numbers in a smart way
+		Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
 	end
 
-	--if self.unit ~= 'player' then
-	--	local Shield = Castbar:CreateTexture(nil, 'OVERLAY')
-	--	Shield:SetTexture([[Interface\AddOns\MangoUI\Media\shield.tga]])
-	--	Shield:SetSize(26, 26)
-	--	Shield:SetPoint('CENTER', Castbar, 'LEFT', -5, 0)
-	--	Castbar.Shield = Shield
-	--end
-
+	--Castbar.PostUpdatePips = PostUpdatePips -- Add back when new functions from oUF gets released with a new tag
+	Castbar.PostCastFail = PostCastFail
+	Castbar.PostCastStart = PostCastStart
 	self.Castbar = Castbar
-	self.Castbar.PostCastStart = isKickable
-	self.Castbar.PostChannelStart = isKickable
-	self.Castbar.PostCastNotInterruptible = isKickable
-	self.Castbar.PostCastInterruptible = isKickable
 end

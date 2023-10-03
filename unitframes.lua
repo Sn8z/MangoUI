@@ -60,7 +60,7 @@ local function Primary(self, unit)
 		mUI:CreateRunes(self)
 		mUI:CreateSecondaryPowerBar(self)
 
-		if mUI.db.player.castbar.enabled then -- change db setting
+		if mUI.profile.player.castbar.enabled then -- change db setting
 			local GCD = CreateFrame("StatusBar", nil, self)
 			GCD:SetSize(self.Castbar:GetWidth(), 2)
 			GCD:SetPoint('TOPLEFT', self.Castbar, 'BOTTOMLEFT', 0, -2)
