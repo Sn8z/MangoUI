@@ -21,7 +21,7 @@ function mUI:CreateBorder(self, showTargeted)
 	border:SetBackdropBorderColor(0, 0, 0, 1)
 	self.Border = border
 
-	if showTargeted then
+	if showTargeted and self.unit ~= "target" then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", updateBorder, true)
 	end
 end
