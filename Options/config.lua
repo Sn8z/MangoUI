@@ -59,6 +59,10 @@ local defaultProfile = {
 			spacing = 5,
 			x = 0,
 			y = -200
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	target = {
@@ -86,10 +90,9 @@ local defaultProfile = {
 			x = 0,
 			y = 0
 		},
-		classpower = {
+		portrait = {
 			enabled = true,
-			detach = true,
-			classColor = false
+			alpha = 0.2,
 		}
 	},
 	pet = {
@@ -146,6 +149,10 @@ local defaultProfile = {
 			height = 20,
 			x = 0,
 			y = 0
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	boss = {
@@ -165,6 +172,10 @@ local defaultProfile = {
 			shield = false,
 			icon = true,
 			height = 16
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	party = {
@@ -177,6 +188,10 @@ local defaultProfile = {
 		power = {
 			enabled = true,
 			classColor = true
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	raid = {

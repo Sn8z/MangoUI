@@ -67,4 +67,4 @@ Components/raidtargetindicator.lua
 Components/readycheckindicator.lua
 Components/resurrectionindicator.lua
 Components/summonindicator.lua
-
+Components/portrait.lua

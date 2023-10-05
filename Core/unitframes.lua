@@ -16,6 +16,7 @@ local function SetupFrame(self)
 	mUI:CreateUnitName(self)
 	mUI:CreateRaidTarget(self)
 	mUI:CreateBorder(self, true)
+	mUI:CreatePortrait(self)
 
 	self.colors.disconnected = { 0.1, 0.1, 0.1 }
 	self.colors.dead = { 0.25, 0.25, 0.25 }
