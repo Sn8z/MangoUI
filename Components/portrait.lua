@@ -5,7 +5,6 @@ function mUI:CreatePortrait(self)
 	if string.match(unit, "^boss[123456789]$") then
 		unit = "boss"
 	end
-	print("CREATING PORTRAIT FOR: " .. unit)
 	local settings = mUI.profile[unit]
 	if settings == nil or settings.portrait == nil then return end
 	if settings.portrait.enabled == false or settings.portrait.enabled == nil then return end
