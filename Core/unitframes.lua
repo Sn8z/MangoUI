@@ -54,7 +54,7 @@ local function Primary(self, unit)
 	if unit == 'player' then
 		mUI:CreateGroupNumber(self)
 		mUI:CreateAbsorbsNumber(self)
-		mUI:CreateClassPower(self, self.Health:GetWidth(), 8, 2)
+		mUI:CreateClassPower(self)
 		mUI:CreateStaggerBar(self)
 		mUI:CreateRunes(self)
 		mUI:CreateSecondaryPowerBar(self)
@@ -188,7 +188,7 @@ oUF:Factory(function(self)
 		local party = self:SpawnHeader(nil, nil, 'party',
 			'showParty', true,
 			'showRaid', false,
-			'showPlayer', true,
+			'showPlayer', false,
 			'yOffset', -16,
 			'groupBy', 'ASSIGNEDROLE',
 			'groupingOrder', 'DAMAGER,HEALER,TANK')
