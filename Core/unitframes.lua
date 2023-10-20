@@ -10,7 +10,18 @@ local function SetupFrame(self)
 	self:RegisterForClicks('AnyDown')
 	self:SetScript('OnEnter', UnitFrame_OnEnter)
 	self:SetScript('OnLeave', UnitFrame_OnLeave)
-	
+
+	-- TODO: Use this as a base for movable frames
+	--self:SetMovable(true)
+	--self:SetScript('OnMouseDown', function ()
+	--	self:StartMoving()
+	--	print("MOVING")
+	--end)
+	--self:SetScript("OnMouseUp", function ()
+	--	self:StopMovingOrSizing()
+	--	print("STOPPPPP")
+	--end)
+
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
 	mUI:CreateUnitName(self)
