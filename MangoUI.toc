@@ -69,3 +69,4 @@ Components/readycheckindicator.lua
 Components/resurrectionindicator.lua
 Components/summonindicator.lua
 Components/portrait.lua
+Components/totems.lua
