@@ -58,6 +58,7 @@ local function Primary(self, unit)
 		mUI:CreateStaggerBar(self)
 		mUI:CreateRunes(self)
 		mUI:CreateSecondaryPowerBar(self)
+		mUI:CreateTotems(self)
 
 		if mUI.profile.player.castbar.enabled then -- change db setting
 			local GCD = CreateFrame("StatusBar", nil, self)
