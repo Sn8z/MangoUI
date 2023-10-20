@@ -22,6 +22,11 @@ local function SetupFrame(self)
 	--	print("STOPPPPP")
 	--end)
 
+	-- Disable moveable frames
+	--self:SetMovable(false)
+	--self:SetScript('OnMouseDown', nil)
+	--self:SetScript("OnMouseUp", nil)
+
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
 	mUI:CreateUnitName(self)
