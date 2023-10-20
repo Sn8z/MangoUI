@@ -78,4 +78,6 @@ local function RegisterSettings()
 	mUI:CreateProfilesOptions(category)
 end
 
-SettingsRegistrar:AddRegistrant(RegisterSettings)
+if true then -- disable for taint testing...
+	SettingsRegistrar:AddRegistrant(RegisterSettings)
+end

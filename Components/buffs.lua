@@ -6,6 +6,7 @@ local playerAuras = {
 	[195630] = true, -- Elusive Brawler
 	[387184] = true, -- Weapons of Order
 	[137639] = true, -- Storm Earth Fire
+	[152173] = true, -- Serenity
 	[196741] = true, -- Hit Combo
 	[202090] = true, -- Teachings of the Monastery
 	[388026] = true, -- Ancient Teachings
