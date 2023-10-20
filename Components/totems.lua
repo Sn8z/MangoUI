@@ -1,12 +1,12 @@
 local _, mUI = ...
 
 function mUI:CreateTotems(self)
+	if self.unit ~= 'player' then return end
 	local Totems = {}
 	for index = 1, 5 do
-		-- Position and size of the totem indicator
 		local Totem = CreateFrame('Button', nil, self)
-		Totem:SetSize(40, 40)
-		Totem:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", (index * (Totem:GetWidth() + 3)) + 520, 50)
+		Totem:SetSize(32, 32)
+		Totem:SetPoint('BOTTOMLEFT', UIParent, 'BOTTOMLEFT', (index * (Totem:GetWidth() + 3)) + 520, 120)
 		mUI:CreateBorder(Totem)
 
 		local Icon = Totem:CreateTexture(nil, 'OVERLAY')
@@ -18,10 +18,8 @@ function mUI:CreateTotems(self)
 
 		Totem.Icon = Icon
 		Totem.Cooldown = Cooldown
-
 		Totems[index] = Totem
 	end
 
-	-- Register with oUF
 	self.Totems = Totems
 end
