@@ -7,7 +7,7 @@ local playerColor = RAID_CLASS_COLORS[class]
 -- Overall frames
 local settingsFrame, generalFrame, unitsFrame, colorsFrame, profilesFrame
 -- Nested frames for configuring unitframes
-local playerFrame, targetFrame, partyFrame, raidFrame, bossFrame
+local playerFrame, targetFrame, focusFrame, partyFrame, raidFrame, bossFrame
 
 local function RegisterSettings()
 	settingsFrame = CreateFrame("Frame", "MangoSettingsFrame", UIParent, "BackdropTemplate")
@@ -71,6 +71,7 @@ local function RegisterSettings()
 	local function HideUnitFrames()
 		playerFrame:Hide()
 		targetFrame:Hide()
+		focusFrame:Hide()
 		partyFrame:Hide()
 		raidFrame:Hide()
 		bossFrame:Hide()
@@ -333,9 +334,50 @@ local function RegisterSettings()
 		mUI.profile.targettarget.portrait.enabled = self:GetChecked()
 	end)
 
+	local focusTab = CreateFrame("Button", nil, unitsFrame, "UIPanelButtonTemplate")
+	focusTab:SetText("Focus")
+	focusTab:SetPoint("LEFT", targetTab, "RIGHT", 2, 0)
+	focusTab:SetSize(100, 20)
+	focusTab:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	focusTab:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	focusTab:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	focusTab:GetNormalTexture():SetVertexColor(0.1, 0.1, 0.1)
+	focusTab:GetPushedTexture():SetVertexColor(0.2, 0.2, 0.2)
+	focusTab:GetHighlightTexture():SetVertexColor(0.3, 0.3, 0.3)
+	focusTab:SetScript("OnClick", function()
+		HideUnitFrames()
+		focusFrame:Show()
+	end)
+
+	focusFrame = CreateFrame("Frame", nil, unitsFrame)
+	focusFrame:SetAllPoints()
+	focusFrame:Hide()
+
+	local titleText = focusFrame:CreateFontString(nil, "OVERLAY")
+	titleText:SetPoint("TOP", focusFrame, "TOP", 0, -10)
+	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
+	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
+	titleText:SetText("Focus")
+
+	local focusCheck = CreateFrame("CheckButton", nil, focusFrame, "UICheckButtonTemplate")
+	focusCheck:SetPoint("TOPLEFT", 20, -20)
+	focusCheck.text:SetText("Enable focus frame")
+	focusCheck:SetChecked(mUI.profile.focus.enabled)
+	focusCheck:SetScript("OnClick", function(self)
+		mUI.profile.focus.enabled = self:GetChecked()
+	end)
+
+	local focusPortCheck = CreateFrame("CheckButton", nil, focusFrame, "UICheckButtonTemplate")
+	focusPortCheck:SetPoint("TOPLEFT", focusCheck, "BOTTOMLEFT", 0, -20)
+	focusPortCheck.text:SetText("Enable portrait")
+	focusPortCheck:SetChecked(mUI.profile.focus.portrait.enabled)
+	focusPortCheck:SetScript("OnClick", function(self)
+		mUI.profile.focus.portrait.enabled = self:GetChecked()
+	end)
+
 	local partyTab = CreateFrame("Button", nil, unitsFrame, "UIPanelButtonTemplate")
 	partyTab:SetText("Party")
-	partyTab:SetPoint("LEFT", targetTab, "RIGHT", 2, 0)
+	partyTab:SetPoint("LEFT", focusTab, "RIGHT", 2, 0)
 	partyTab:SetSize(100, 20)
 	partyTab:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
 	partyTab:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
@@ -516,22 +558,158 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Profiles")
 
-	local scrollFrame = CreateFrame("ScrollFrame", nil, profilesFrame, "UIPanelScrollFrameTemplate")
-	scrollFrame:SetPoint("TOPLEFT", 3, -4)
-	scrollFrame:SetPoint("BOTTOMRIGHT", -27, 4)
+	local profileDropdown = CreateFrame("FRAME", "MangoFontDropdown", profilesFrame, "UIDropDownMenuTemplate")
+	profileDropdown:SetPoint("TOP", profilesFrame, "TOP", 0, -10)
+	UIDropDownMenu_SetWidth(profileDropdown, 200)
+	UIDropDownMenu_SetText(profileDropdown, "Current profile:".." "..mUI:GetCurrentProfile())
 
-	local scrollChild = CreateFrame("Frame")
-	scrollFrame:SetScrollChild(scrollChild)
-	scrollChild:SetWidth(scrollFrame:GetWidth() - 18)
-	scrollChild:SetHeight(1)
+	local function profileDropdownClick(self, arg1, arg2, checked)
+		mUI:SetProfile(arg1)
+		UIDropDownMenu_SetText(profileDropdown, arg1)
+	end
 
-	local title = scrollChild:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
-	title:SetPoint("TOP")
-	title:SetText("MyAddOn")
+	UIDropDownMenu_Initialize(profileDropdown, function(self, level, menuList)
+		local info = UIDropDownMenu_CreateInfo()
 
-	local footer = scrollChild:CreateFontString("ARTWORK", nil, "GameFontNormal")
-	footer:SetPoint("TOP", 0, -5000)
-	footer:SetText("This is 5000 below the top, so the scrollChild automatically expanded.")
+		for k, _ in next, mUI.profiles do
+			info.text, info.arg1, info.checked = k, k, k == mUI:GetCurrentProfile()
+			info.func = profileDropdownClick
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end)
+
+	-- Create new profile
+	StaticPopupDialogs.CreateProfilePopup = {
+		text = "Enter name",
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnAccept = function(self)
+			if self.table then
+				mUI:CreateProfile(self.editBox:GetText(), self.table)
+			else
+				mUI:CreateProfile(self.editBox:GetText())
+			end
+		end,
+		hasEditBox = 1,
+		whileDead = true,
+		hideOnEscape = true
+	}
+
+	local createProfileBtn = CreateFrame("Button", nil, profilesFrame, "UIPanelButtonTemplate")
+	createProfileBtn:SetText("Create new profile")
+	createProfileBtn:SetPoint("TOP", profileDropdown, "BOTTOM", 0, -10)
+	createProfileBtn:SetSize(100, 20)
+	createProfileBtn:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	createProfileBtn:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	createProfileBtn:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	createProfileBtn:GetNormalTexture():SetVertexColor(0.1, 0.1, 0.1)
+	createProfileBtn:GetPushedTexture():SetVertexColor(0.2, 0.2, 0.2)
+	createProfileBtn:GetHighlightTexture():SetVertexColor(0.3, 0.3, 0.3)
+	createProfileBtn:SetScript("OnClick", function()
+		StaticPopup_Show("CreateProfilePopup")
+	end)
+
+	-- Import profile
+	StaticPopupDialogs.ImportProfilePopup = {
+		text = "Enter import string",
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnAccept = function(self)
+			local dialog = StaticPopup_Show("CreateProfilePopup")
+			dialog.table = self.editBox:GetText()
+		end,
+		hasEditBox = 1,
+		whileDead = true,
+		hideOnEscape = true
+	}
+
+	local importProfileBtn = CreateFrame("Button", nil, profilesFrame, "UIPanelButtonTemplate")
+	importProfileBtn:SetText("Import profile")
+	importProfileBtn:SetPoint("TOP", createProfileBtn, "BOTTOM", 0, -10)
+	importProfileBtn:SetSize(100, 20)
+	importProfileBtn:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	importProfileBtn:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	importProfileBtn:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	importProfileBtn:GetNormalTexture():SetVertexColor(0.1, 0.1, 0.1)
+	importProfileBtn:GetPushedTexture():SetVertexColor(0.2, 0.2, 0.2)
+	importProfileBtn:GetHighlightTexture():SetVertexColor(0.3, 0.3, 0.3)
+	importProfileBtn:SetScript("OnClick", function()
+		StaticPopup_Show("ImportProfilePopup")
+	end)
+
+	-- Export profile
+	StaticPopupDialogs.ExportProfilePopup = {
+		text = "Copy the export string",
+		button1 = OKAY,
+		OnShow = function(self)
+			self.editBox:SetText(mUI:GetProfileExportString())
+			self.editBox:HighlightText()
+		end,
+		hasEditBox = 1,
+		whileDead = true,
+		hideOnEscape = true
+	}
+
+	local exportProfileBtn = CreateFrame("Button", nil, profilesFrame, "UIPanelButtonTemplate")
+	exportProfileBtn:SetText("Export profile")
+	exportProfileBtn:SetPoint("TOP", importProfileBtn, "BOTTOM", 0, -10)
+	exportProfileBtn:SetSize(100, 20)
+	exportProfileBtn:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	exportProfileBtn:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	exportProfileBtn:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	exportProfileBtn:GetNormalTexture():SetVertexColor(0.1, 0.1, 0.1)
+	exportProfileBtn:GetPushedTexture():SetVertexColor(0.2, 0.2, 0.2)
+	exportProfileBtn:GetHighlightTexture():SetVertexColor(0.3, 0.3, 0.3)
+	exportProfileBtn:SetScript("OnClick", function()
+		StaticPopup_Show("ExportProfilePopup")
+	end)
+
+	-- Delete profile
+	StaticPopupDialogs.DeleteProfilePopup = {
+		text = "Are you sure? (Type DELETE to confirm)",
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnShow = function(self)
+			self.button1:Disable()
+		end,
+		OnAccept = function(self)
+			if self.editBox:GetText() ~= "DELETE" then return end
+			print("ACCEPT PROFILE: " .. self.profile)
+			mUI:DeleteProfile(self.profile)
+		end,
+		EditBoxOnTextChanged = function(self)
+			if self:GetText() == "DELETE" then
+				self:GetParent().button1:Enable()
+			else
+				self:GetParent().button1:Disable()
+			end
+		end,
+		hasEditBox = 1,
+		whileDead = true,
+		hideOnEscape = true
+	}
+
+	local deleteProfileDropdown = CreateFrame("FRAME", "MangoFontDropdown", profilesFrame, "UIDropDownMenuTemplate")
+	deleteProfileDropdown:SetPoint("BOTTOM", profilesFrame, "BOTTOM", 0, 10)
+	UIDropDownMenu_SetWidth(deleteProfileDropdown, 200)
+	UIDropDownMenu_SetText(deleteProfileDropdown, "Delete profile")
+
+	local function deleteProfileDropdownClick(self, arg1, arg2, checked)
+		local dialog = StaticPopup_Show("DeleteProfilePopup")
+		if dialog then
+			dialog.profile = arg1
+		end
+		UIDropDownMenu_SetText(deleteProfileDropdown, arg1)
+	end
+
+	UIDropDownMenu_Initialize(deleteProfileDropdown, function(self, level, menuList)
+		local info = UIDropDownMenu_CreateInfo()
+		for k, _ in next, mUI.profiles do
+			info.text, info.arg1 = k, k
+			info.func = deleteProfileDropdownClick
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end)
 end
 
 SettingsRegistrar:AddRegistrant(RegisterSettings)
