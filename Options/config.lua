@@ -112,6 +112,10 @@ local defaultProfile = {
 			shield = false,
 			icon = true,
 			height = 12
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	targettarget = {
@@ -124,6 +128,10 @@ local defaultProfile = {
 		power = {
 			enabled = true,
 			classColor = true
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	},
 	focus = {
@@ -204,6 +212,10 @@ local defaultProfile = {
 		power = {
 			enabled = true,
 			classColor = true
+		},
+		portrait = {
+			enabled = true,
+			alpha = 0.2,
 		}
 	}
 }
