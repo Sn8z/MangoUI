@@ -18,8 +18,11 @@ mUI.config.anchors = {
 local defaultProfile = {
 	settings = {
 		smooth = true,
-		texture = "Erik",
+		healthTexture = "Erik",
+		powerTexture = "Erik",
+		castbarTexture = "Erik",
 		font = "Ubuntu Medium",
+		borderSize = 1
 	},
 	player = {
 		enabled = true,

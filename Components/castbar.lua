@@ -35,7 +35,7 @@ function mUI:CreateCastbar(self)
 	if settings.castbar.enabled == false then return end
 
 	local Castbar = CreateFrame("StatusBar", nil, self)
-	Castbar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.texture))
+	Castbar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.castbarTexture))
 	Castbar.timeToHold = 0.5
 	mUI:CreateBorder(Castbar)
 

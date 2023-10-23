@@ -15,7 +15,7 @@ function mUI:CreateStaggerBar(self)
 		Stagger:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', 0, 2)
 		Stagger:SetPoint('BOTTOMRIGHT', self.Health, 'TOPRIGHT', 0, 2)
 	end
-	Stagger:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.texture))
+	Stagger:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	mUI:CreateBorder(Stagger)
 	local StaggerBackground = Stagger:CreateTexture(nil, "BACKGROUND")
 	StaggerBackground:SetAllPoints(Stagger)

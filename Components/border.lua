@@ -12,7 +12,7 @@ end
 
 function mUI:CreateBorder(self, showTargeted)
 	showTargeted = showTargeted or false
-	local size = 1 -- TODO: load this from profile
+	local size = mUI.profile.settings.borderSize or 1
 	local border = CreateFrame('Frame', nil, self, "BackdropTemplate")
 	border:SetPoint("TOPLEFT", self, "TOPLEFT", -size, size)
 	border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", size, -size)

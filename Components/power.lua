@@ -45,7 +45,7 @@ end
 
 function mUI:CreatePowerBar(self)
 	local Power = CreateFrame('StatusBar', nil, self)
-	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
+	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 
 	if self.unit == "player" then
 		if mUI.db.player.power.detach then
@@ -93,7 +93,7 @@ function mUI:CreatePowerBar(self)
 
 	local bg = Power:CreateTexture(nil, 'BACKGROUND')
 	bg:SetAllPoints(Power)
-	bg:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
+	bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	bg.multiplier = 1 / 3
 	Power.bg = bg
 	Power.GetDisplayPower = GetDisplayPower

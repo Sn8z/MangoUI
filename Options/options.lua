@@ -26,7 +26,7 @@ local function RegisterSettings()
 	-- LSM statusbars
 	do
 		local variable = "mango texture"
-		local defaultValue = mUI.db.settings.texture
+		local defaultValue = mUI.profile.settings.healthTexture
 		local name = "Texture"
 		local tooltip = "Set the texture for all unit frames."
 
@@ -41,7 +41,7 @@ local function RegisterSettings()
 		local setting = Settings.RegisterAddOnSetting(category, name, variable, type(defaultValue), defaultValue)
 		Settings.CreateDropDown(category, setting, GetOptions, tooltip)
 		Settings.SetOnValueChangedCallback(setting:GetVariable(), function(_, setting, value)
-			mUI.db.settings.texture = value
+			mUI.profile.settings.healthTexture = value
 		end)
 	end
 

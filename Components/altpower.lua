@@ -16,7 +16,7 @@ end
 
 function mUI:CreateAltPowerBar(self)
 	local AltPower = CreateFrame("StatusBar", nil, self)
-	AltPower:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
+	AltPower:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	AltPower:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 3)
 	AltPower:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, 3)
 	AltPower:SetHeight(2)

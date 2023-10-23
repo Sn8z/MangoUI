@@ -199,27 +199,85 @@ local function RegisterSettings()
 		mUI.profile.settings.smooth = self:GetChecked()
 	end)
 
-	local textureDropdown = CreateFrame("FRAME", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
-	textureDropdown:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -10)
-	UIDropDownMenu_SetWidth(textureDropdown, 200)
-	UIDropDownMenu_SetText(textureDropdown, mUI.profile.settings.texture)
+	local borderSizeSlider = CreateFrame("Slider", "borderSlider", generalFrame, "OptionsSliderTemplate")
+	borderSizeSlider:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -10)
+	borderSizeSlider:SetWidth(200)
+	borderSizeSlider:SetHeight(18)
+	borderSizeSlider:SetMinMaxValues(0, 10)
+	_G[borderSizeSlider:GetName() .. 'Low']:SetText("0")
+	_G[borderSizeSlider:GetName() .. 'High']:SetText("10")
+	borderSizeSlider:SetValue(mUI.profile.settings.borderSize)
+	borderSizeSlider:SetValueStep(1)
+	borderSizeSlider:SetObeyStepOnDrag(true)
+	borderSizeSlider:SetOrientation("HORIZONTAL")
+	local borderSliderLabel = borderSizeSlider:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+	borderSliderLabel:SetPoint("TOP", borderSizeSlider, "BOTTOM", 0, 2)
+	borderSliderLabel:SetText(borderSizeSlider:GetValue())
+	borderSizeSlider.tooltipText = "Set the width of the borders"
+	borderSizeSlider:SetScript("OnValueChanged", function(self, value, userInput)
+		mUI.profile.settings.borderSize = value
+		borderSliderLabel:SetText(value)
+	end)
 
-	local function textureDropdownClick(self, arg1, arg2, checked)
-		mUI.profile.settings.texture = arg1
-		UIDropDownMenu_SetText(textureDropdown, arg1)
+	local healthTextureDropdown = CreateFrame("FRAME", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	healthTextureDropdown:SetPoint("TOPLEFT", borderSizeSlider, "BOTTOMLEFT", 0, -10)
+	UIDropDownMenu_SetWidth(healthTextureDropdown, 200)
+	UIDropDownMenu_SetText(healthTextureDropdown, mUI.profile.settings.healthTexture)
+
+	local function healthTextureDropdownClick(self, arg1, arg2, checked)
+		mUI.profile.settings.healthTexture = arg1
+		UIDropDownMenu_SetText(healthTextureDropdown, arg1)
 	end
 
-	UIDropDownMenu_Initialize(textureDropdown, function(self, level, menuList)
+	UIDropDownMenu_Initialize(healthTextureDropdown, function(self, level, menuList)
 		local info = UIDropDownMenu_CreateInfo()
 		for _, v in pairs(LSM:List("statusbar")) do
-			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.texture
-			info.func = textureDropdownClick
+			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.healthTexture
+			info.func = healthTextureDropdownClick
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end)
+
+	local powerTextureDropdown = CreateFrame("FRAME", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -10)
+	UIDropDownMenu_SetWidth(powerTextureDropdown, 200)
+	UIDropDownMenu_SetText(powerTextureDropdown, mUI.profile.settings.powerTexture)
+
+	local function powerTextureDropdownClick(self, arg1, arg2, checked)
+		mUI.profile.settings.powerTexture = arg1
+		UIDropDownMenu_SetText(powerTextureDropdown, arg1)
+	end
+
+	UIDropDownMenu_Initialize(powerTextureDropdown, function(self, level, menuList)
+		local info = UIDropDownMenu_CreateInfo()
+		for _, v in pairs(LSM:List("statusbar")) do
+			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.powerTexture
+			info.func = powerTextureDropdownClick
+			UIDropDownMenu_AddButton(info, level)
+		end
+	end)
+
+	local castbarTextureDropdown = CreateFrame("FRAME", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -10)
+	UIDropDownMenu_SetWidth(castbarTextureDropdown, 200)
+	UIDropDownMenu_SetText(castbarTextureDropdown, mUI.profile.settings.castbarTexture)
+
+	local function castbarTextureDropdownClick(self, arg1, arg2, checked)
+		mUI.profile.settings.castbarTexture = arg1
+		UIDropDownMenu_SetText(castbarTextureDropdown, arg1)
+	end
+
+	UIDropDownMenu_Initialize(castbarTextureDropdown, function(self, level, menuList)
+		local info = UIDropDownMenu_CreateInfo()
+		for _, v in pairs(LSM:List("statusbar")) do
+			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.castbarTexture
+			info.func = castbarTextureDropdownClick
 			UIDropDownMenu_AddButton(info, level)
 		end
 	end)
 
 	local fontDropdown = CreateFrame("FRAME", "MangoFontDropdown", generalFrame, "UIDropDownMenuTemplate")
-	fontDropdown:SetPoint("TOPLEFT", textureDropdown, "BOTTOMLEFT", 0, -10)
+	fontDropdown:SetPoint("TOPLEFT", castbarTextureDropdown, "BOTTOMLEFT", 0, -10)
 	UIDropDownMenu_SetWidth(fontDropdown, 200)
 	UIDropDownMenu_SetText(fontDropdown, mUI.profile.settings.font)
 

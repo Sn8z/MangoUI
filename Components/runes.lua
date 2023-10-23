@@ -20,13 +20,13 @@ function mUI:CreateRunes(self)
 					(index - 1) * (Rune:GetWidth() + mUI.db.player.classpower.spacing), 5)
 			end
 
-			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
+			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 			Rune:GetStatusBarTexture():SetHorizTile(false)
 			mUI:CreateBorder(Rune)
 
 			local bg = Rune:CreateTexture(nil, 'BACKGROUND')
 			bg:SetAllPoints(Rune)
-			bg:SetTexture(LSM:Fetch("statusbar", mUI.db.settings.texture))
+			bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 			bg.multiplier = 1 / 2
 			Rune.bg = bg
 
