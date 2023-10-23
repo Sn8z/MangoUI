@@ -7,7 +7,7 @@ if AddonCompartmentFrame then
 		icon = "Interface\\AddOns\\MangoUI\\Media\\minimangologo",
 		notCheckable = true,
 		func = function()
-			Settings.OpenToCategory(Settings.MUI_CATEGORY_ID)
+			mUI:ToggleOptions()
 		end,
 	})
 end

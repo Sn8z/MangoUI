@@ -35,6 +35,7 @@ Options/raidOptions.lua
 Options/bossOptions.lua
 Options/profilesOptions.lua
 Options/testmode.lua
+Options/movable.lua
 Options/testOptions.lua
 
 # Custom unitframe elements

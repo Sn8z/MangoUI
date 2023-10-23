@@ -119,7 +119,7 @@ function mUI:CreateBuffs(self)
 		Buffs.initialAnchor = 'BOTTOMRIGHT'
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'UP'
-		Buffs.size = 28
+		Buffs.size = 36
 		Buffs.spacing = 5
 		Buffs.showDebuffType = false
 		Buffs.onlyShowPlayer = false

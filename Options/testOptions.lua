@@ -68,6 +68,34 @@ local function RegisterSettings()
 		ReloadUI()
 	end)
 
+	local testModeButton = CreateFrame("Button", nil, settingsFrame, "UIPanelButtonTemplate")
+	testModeButton:SetPoint("TOPRIGHT", reloadButton, "TOPLEFT", -10, 0)
+	testModeButton:SetSize(80, 26)
+	testModeButton:SetText("Test frames")
+	testModeButton:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	testModeButton:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	testModeButton:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	testModeButton:GetNormalTexture():SetVertexColor(0.1, 0.1, 0.6)
+	testModeButton:GetPushedTexture():SetVertexColor(0.2, 0.2, 0.7)
+	testModeButton:GetHighlightTexture():SetVertexColor(0.3, 0.3, 1)
+	testModeButton:SetScript("OnClick", function()
+		mUI:ToggleFrames()
+	end)
+
+	local movableButton = CreateFrame("Button", nil, settingsFrame, "UIPanelButtonTemplate")
+	movableButton:SetPoint("TOPRIGHT", testModeButton, "TOPLEFT", -10, 0)
+	movableButton:SetSize(80, 26)
+	movableButton:SetText("Move frames")
+	movableButton:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	movableButton:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	movableButton:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
+	movableButton:GetNormalTexture():SetVertexColor(0.1, 0.4, 0.6)
+	movableButton:GetPushedTexture():SetVertexColor(0.2, 0.4, 0.7)
+	movableButton:GetHighlightTexture():SetVertexColor(0.3, 0.5, 1)
+	movableButton:SetScript("OnClick", function()
+		mUI:ToggleMovable()
+	end)
+
 	local function HideUnitFrames()
 		playerFrame:Hide()
 		targetFrame:Hide()
@@ -714,11 +742,14 @@ end
 
 SettingsRegistrar:AddRegistrant(RegisterSettings)
 
-SLASH_MYADDONSETTINGS1 = "/myaddonsettings"
-SlashCmdList["MYADDONSETTINGS"] = function()
+function mUI:ToggleOptions()
 	if settingsFrame:IsShown() then
 		settingsFrame:Hide()
 	else
 		settingsFrame:Show()
 	end
 end
+
+SLASH_MANGOUI1, SLASH_MANGOUI2, SLASH_MANGOUI3 = '/mui', '/mango', '/mangoui'
+
+SlashCmdList["MANGOUI"] = mUI.ToggleOptions
