@@ -24,19 +24,14 @@ Core/omnicd.lua
 
 # Options
 Options/config.lua
-Options/options.lua
-Options/playerOptions.lua
-Options/petOptions.lua
-Options/targetOptions.lua
-Options/totOptions.lua
-Options/focusOptions.lua
-Options/partyOptions.lua
-Options/raidOptions.lua
-Options/bossOptions.lua
-Options/profilesOptions.lua
+Options/blizzOptionsMenu.lua
 Options/testmode.lua
 Options/movable.lua
-Options/testOptions.lua
+Options/mangoOptions.lua
+Options/slider.lua
+Options/button.lua
+Options/checkbox.lua
+Options/dropdown.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua
