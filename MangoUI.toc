@@ -23,7 +23,7 @@ Core/unitframes.lua
 Core/omnicd.lua
 
 # Options
-Options/config.lua
+Options/defaults.lua
 Options/blizzOptionsMenu.lua
 Options/testmode.lua
 Options/movable.lua
