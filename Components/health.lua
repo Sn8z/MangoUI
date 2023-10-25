@@ -33,6 +33,7 @@ function mUI:CreateHealth(self)
 	Health.colorTapping = true
 	Health.colorDisconnected = true
 	Health.colorClass = true
+	Health.colorSmooth = true
 	Health.colorReaction = true
 	Health.colorHealth = true
 	hBackground.multiplier = 1 / 3

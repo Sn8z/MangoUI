@@ -22,7 +22,8 @@ local defaultProfile = {
 		powerTexture = "Erik",
 		castbarTexture = "Erik",
 		font = "Ubuntu Medium",
-		borderSize = 1
+		borderSize = 1,
+		mangoColors = true,
 	},
 	player = {
 		enabled = true,

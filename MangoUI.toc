@@ -20,6 +20,7 @@ Core/core.lua
 Core/db.lua
 Core/slash.lua
 Core/unitframes.lua
+Core/colors.lua
 Core/omnicd.lua
 
 # Options
