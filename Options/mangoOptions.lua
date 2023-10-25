@@ -163,11 +163,19 @@ local function RegisterSettings()
 		mUI.profile.settings.smooth = self:GetChecked()
 	end)
 
+	local colorCheck = CreateFrame("CheckButton", nil, generalFrame, "UICheckButtonTemplate")
+	colorCheck:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -20)
+	colorCheck.text:SetText("Use MangoUI colors instead of Blizzard")
+	colorCheck:SetChecked(mUI.profile.settings.mangoColors)
+	colorCheck:SetScript("OnClick", function(self)
+		mUI.profile.settings.mangoColors = self:GetChecked()
+	end)
+
 	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalFrame,
 		function(value)
 			mUI.profile.settings.borderSize = value
 		end)
-	borderSlider:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -20)
+	borderSlider:SetPoint("TOPLEFT", colorCheck, "BOTTOMLEFT", 0, -20)
 
 	local healthTextureDropdown = CreateFrame("FRAME", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
 	healthTextureDropdown:SetPoint("TOPLEFT", borderSlider, "BOTTOMLEFT", 0, -20)

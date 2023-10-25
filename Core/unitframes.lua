@@ -18,8 +18,10 @@ local function SetupFrame(self)
 	mUI:CreateBorder(self, true)
 	mUI:CreatePortrait(self)
 
-	self.colors.disconnected = { 0.1, 0.1, 0.1 }
-	self.colors.dead = { 0.25, 0.25, 0.25 }
+	if mUI.profile.settings.mangoColors then
+		self.colors = mUI:GetMangoColors()
+	end
+
 	self.Range = {
 		insideAlpha = 1,
 		outsideAlpha = 1 / 4,

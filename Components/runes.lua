@@ -30,6 +30,7 @@ function mUI:CreateRunes(self)
 			bg.multiplier = 1 / 2
 			Rune.bg = bg
 
+			Runes.colorSpec = true
 			Runes.sortOrder = 'asc'
 			Runes[index] = Rune
 		end
