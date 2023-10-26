@@ -135,6 +135,6 @@ function mUI:CreateDebuffs(self)
 		Debuffs.showType = true
 	end
 
-	Debuffs:SetSize(Debuffs.size * 8, Debuffs.size * 2)
+	Debuffs:SetSize((Debuffs.width or Debuffs.size) * 8, (Debuffs.height or Debuffs.size) * 2)
 	self.Debuffs = Debuffs
 end

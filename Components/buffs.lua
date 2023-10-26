@@ -1,4 +1,9 @@
 local _, mUI = ...
+local oUF = mUI.oUF
+local LSM = LibStub('LibSharedMedia-3.0')
+
+local _, class = UnitClass("player")
+local playerColor = oUF.colors.class[class]
 
 local playerAuras = {
 	[116841] = true, -- Tiger's Lust
@@ -10,7 +15,7 @@ local playerAuras = {
 	[196741] = true, -- Hit Combo
 	[202090] = true, -- Teachings of the Monastery
 	[388026] = true, -- Ancient Teachings
-	[116847] = true,  -- Rushing Jade Wind
+	[116847] = true, -- Rushing Jade Wind
 	[322507] = true, -- Celestial Brew
 	[325092] = true, -- Purified Chi
 	[122783] = true, -- Diffuse Magic
@@ -21,7 +26,7 @@ local playerAuras = {
 	[212800] = true, -- Blur
 	[209426] = true, -- Darkness
 	[258920] = true, -- Immolation Aura
-	[208628] = true,  -- Momentum
+	[208628] = true, -- Momentum
 	[162264] = true, -- Metamorphosis
 	[187827] = true, -- Metamorphosis
 	[188501] = true, -- Spectral Sight
@@ -36,15 +41,15 @@ local playerAuras = {
 	[191034] = true, -- Starfall
 	[372505] = true, -- Berserk
 	[19236] = true, -- Desperate Prayer
-	[586] = true, -- Fade
+	[586] = true,   -- Fade
 	[121557] = true, -- Angelic Feather
 	[47585] = true, -- Dispersion
 	[15286] = true, -- Vampiric Embrace
-	[1022] = true, -- Blessing of Protection
+	[1022] = true,  -- Blessing of Protection
 	[184662] = true, -- Shield of Vengeance
-	[642] = true, -- Divine Shield
-	[1044] = true, -- Blessing of Freedom
-	[6940] = true, -- Blessing of Sacrifice
+	[642] = true,   -- Divine Shield
+	[1044] = true,  -- Blessing of Freedom
+	[6940] = true,  -- Blessing of Sacrifice
 	[10060] = true, -- Power Infusion
 	[194249] = true, -- Voidform
 	[97463] = true, -- Rallying Cry
@@ -61,11 +66,11 @@ local playerAuras = {
 	[212283] = true, -- Symbols of Death
 	[121471] = true, -- Shadow Blades
 	[393969] = true, -- Danse Macabre
-	[381623] = true,  -- Thistle Tea
+	[381623] = true, -- Thistle Tea
 	[277925] = true, -- Shuriken Tornado
 	[31224] = true, -- Cloak of Shadows
-	[1966] = true, -- Feint
-	[5277] = true, -- Evasion
+	[1966] = true,  -- Feint
+	[5277] = true,  -- Evasion
 }
 
 local function PlayerAuraFilter(element, unit, data)
@@ -92,34 +97,37 @@ local function PostCreateButtonParty(self, button)
 	button.Cooldown:SetHideCountdownNumbers(true)
 	button.Cooldown:SetSwipeColor(0, 0, 0, 0.8)
 
-	button.Count:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 20, "OUTLINE")
 	button.Count:ClearAllPoints()
 	button.Count:SetPoint("CENTER", button, "TOP", 0, 0)
 end
 
 local function PostCreateButton(self, button)
-
 	button:SetFrameStrata("LOW")
 	mUI:CreateBorder(button)
-
 	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 
 	-- https://wowpedia.fandom.com/wiki/UIOBJECT_Cooldown
-	button.Cooldown:SetSwipeColor(0, 0, 0, 0.8)
+	button.Cooldown:SetSwipeColor(0, 0, 0, 0.6)
+	button.Cooldown:SetDrawEdge(false)
+	button.Cooldown:SetReverse(true)
+	button.Cooldown:SetCountdownFont(LSM:Fetch("font", mUI.profile.settings.font), 8, "OUTLINE")
 
-	button.Count:SetFont(STANDARD_TEXT_FONT, 20, "OUTLINE")
+	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 14, "OUTLINE")
 	button.Count:ClearAllPoints()
-	button.Count:SetPoint("CENTER", button, "TOP", 0, 0)
+	button.Count:SetPoint("CENTER", button, "BOTTOM", 0, 0)
+	button.Count:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 end
 
 function mUI:CreateBuffs(self)
 	local Buffs = CreateFrame('Frame', nil, self)
 	if self.unit == 'player' then
-		Buffs:SetPoint('BOTTOMRIGHT', self, 'TOPRIGHT', 0, 5)
+		Buffs:SetPoint('BOTTOMRIGHT', self, 'TOPRIGHT', 0, 8)
 		Buffs.initialAnchor = 'BOTTOMRIGHT'
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'UP'
-		Buffs.size = 36
+		Buffs.width = 34
+		Buffs.height = 28
 		Buffs.spacing = 5
 		Buffs.showDebuffType = false
 		Buffs.onlyShowPlayer = false
@@ -167,6 +175,6 @@ function mUI:CreateBuffs(self)
 		Buffs.PostCreateButton = PostCreateButton
 	end
 
-	Buffs:SetSize(Buffs.size * 8, Buffs.size * 2)
+	Buffs:SetSize((Buffs.width or Buffs.size) * 8, (Buffs.height or Buffs.size) * 2)
 	self.Buffs = Buffs
 end
