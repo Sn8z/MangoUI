@@ -46,7 +46,7 @@ function mUI:CreateSlider(min, max, step, labelText, value, frame, callback)
 	hightext:SetPoint("TOPRIGHT", slider, "BOTTOMRIGHT", -5, -5)
 	hightext:SetText(max)
 
-	label = slider:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	label = slider:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 	label:SetPoint("BOTTOM", slider, "TOP", 0, 5)
 	label:SetJustifyH("CENTER")
 	label:SetHeight(15)
