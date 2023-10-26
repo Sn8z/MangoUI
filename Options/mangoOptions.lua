@@ -1,8 +1,9 @@
 local _, mUI = ...
+local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local _, class = UnitClass("player")
-local playerColor = RAID_CLASS_COLORS[class]
+local playerColor = oUF.colors.class[class]
 
 -- Overall frames
 local settingsFrame, generalFrame, unitsFrame, colorsFrame, profilesFrame
@@ -28,17 +29,23 @@ local function RegisterSettings()
 	settingsFrame:SetScript("OnDragStop", settingsFrame.StopMovingOrSizing)
 	--settingsFrame:Hide()
 
-	-- Title Text
-	local titleText = settingsFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", settingsFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("MangoUI")
-
+	-- Logo
 	local logo = settingsFrame:CreateTexture(nil, "ARTWORK")
 	logo:SetTexture([[Interface\AddOns\MangoUI\Media\mangologo.tga]])
 	logo:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", -30, 30)
 	logo:SetSize(100, 100)
+
+	-- Title Text
+	local titleText = settingsFrame:CreateFontString(nil, "OVERLAY")
+	titleText:SetPoint("LEFT", logo, "RIGHT", 20, 0)
+	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 32, "THINOUTLINE")
+	titleText:SetTextColor(1, 1, 1, 1)
+	titleText:SetText("Mango")
+	local titleTextAddon = settingsFrame:CreateFontString(nil, "OVERLAY")
+	titleTextAddon:SetPoint("LEFT", titleText, "RIGHT", 0, 0)
+	titleTextAddon:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 32, "THINOUTLINE")
+	titleTextAddon:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
+	titleTextAddon:SetText("UI")
 
 	local closeButton = CreateFrame("Button", nil, settingsFrame, "UIPanelButtonTemplate")
 	closeButton:SetPoint("TOPRIGHT", -10, -10)
