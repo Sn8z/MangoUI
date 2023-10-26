@@ -37,7 +37,7 @@ local function RegisterSettings()
 
 	-- Title Text
 	local titleText = settingsFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("LEFT", logo, "RIGHT", 20, 0)
+	titleText:SetPoint("LEFT", logo, "RIGHT", 10, 0)
 	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 32, "THINOUTLINE")
 	titleText:SetTextColor(1, 1, 1, 1)
 	titleText:SetText("Mango")
