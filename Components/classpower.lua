@@ -76,6 +76,10 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 end
 
 function mUI:CreateClassPower(self)
+	local settings = mUI.profile['player']
+	if settings == nil then return end
+	if settings.classpower.enabled == false then return end
+
 	ClassPowerBgFrame = CreateFrame('Frame', 'ClassPowerBackground', self)
 	local ClassPower = {}
 

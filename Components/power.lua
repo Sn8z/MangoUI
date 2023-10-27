@@ -44,6 +44,14 @@ local function PostUpdatePower(element, unit, cur, min, max)
 end
 
 function mUI:CreatePowerBar(self)
+	local unit = self.unit
+	if string.match(self.unit, "^boss[123456789]$") then
+		unit = "boss"
+	end
+	local settings = mUI.profile[unit]
+	if settings == nil then return end
+	if settings.power.enabled == false then return end
+	
 	local Power = CreateFrame('StatusBar', nil, self)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 

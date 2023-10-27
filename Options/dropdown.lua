@@ -12,6 +12,7 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback)
 			info.func = function(self, arg1, arg2, checked)
 				UIDropDownMenu_SetText(dropdown, arg1)
 				callback(arg1)
+				CloseDropDownMenus()
 			end
 			UIDropDownMenu_AddButton(info, level)
 		end

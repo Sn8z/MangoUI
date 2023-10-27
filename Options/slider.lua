@@ -1,8 +1,6 @@
 local _, mUI = ...
 local oUF = mUI.oUF
 
-local slider, editBox, label
-
 local _, class = UnitClass("player")
 local playerColor = oUF.colors.class[class]
 
@@ -15,11 +13,13 @@ local function ebEnter(self)
 	value = tonumber(value)
 
 	if value then
-		slider:SetValue(value)
+		self.slider:SetValue(value)
 	end
+	self:ClearFocus() -- ?
 end
 
 function mUI:CreateSlider(min, max, step, labelText, value, frame, callback)
+	local slider, thumb, editBox, label
 	slider = CreateFrame("Slider", nil, frame, "BackdropTemplate")
 	slider:SetOrientation("HORIZONTAL")
 	slider:SetHeight(14)
@@ -34,7 +34,7 @@ function mUI:CreateSlider(min, max, step, labelText, value, frame, callback)
 	slider:SetBackdropColor(0, 0, 0, 1)
 	slider:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
 	slider:SetThumbTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
-	local thumb = slider:GetThumbTexture()
+	thumb = slider:GetThumbTexture()
 	thumb:SetSize(8,18)
 	thumb:SetVertexColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	slider:SetMinMaxValues(min, max)
@@ -76,5 +76,6 @@ function mUI:CreateSlider(min, max, step, labelText, value, frame, callback)
 	editBox:SetBackdropBorderColor(0.3, 0.3, 0.30, 0.80)
 	editBox:SetScript("OnEnterPressed", ebEnter)
 	editBox:SetScript("OnEscapePressed", ebEscape)
+	editBox.slider = slider
 	return slider
 end

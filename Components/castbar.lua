@@ -1,8 +1,9 @@
 local _, mUI = ...
+local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local _, class = UnitClass("player")
-local playerColor = RAID_CLASS_COLORS[class]
+local playerColor = oUF.colors.class[class]
 
 local function PostCastFail(self, unit, spellID)
 	self:SetStatusBarColor(1, 0, 0, 1)
@@ -45,7 +46,7 @@ function mUI:CreateCastbar(self)
 	cbBackground.multiplier = 0.5
 	Castbar.bg = cbBackground
 
-	if settings.castbar.icon then
+	if settings.castbar.icon and false then
 		local Icon = Castbar:CreateTexture(nil, 'OVERLAY')
 		Icon:SetSize(settings.castbar.height, settings.castbar.height)
 		Icon:SetPoint('TOPLEFT', Castbar, 'TOPLEFT')

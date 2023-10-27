@@ -30,7 +30,7 @@ function mUI:GetMangoColors()
 		["Disease"] = oUF:CreateColor(210, 160, 120),
 		["Magic"] = oUF:CreateColor(0, 120, 255),
 		["Poison"] = oUF:CreateColor(255, 40, 40),
-		["none"] = oUF:CreateColor(50, 50, 50),
+		["none"] = oUF:CreateColor(230, 0, 0),
 	}
 
 	colors.reaction = oUF.colors.reaction

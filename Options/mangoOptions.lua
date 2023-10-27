@@ -6,7 +6,8 @@ local _, class = UnitClass("player")
 local playerColor = oUF.colors.class[class]
 
 -- Overall frames
-local settingsFrame, generalFrame, unitsFrame, colorsFrame, profilesFrame
+local settingsFrame, generalFrame, unitsFrame, aurasFrame, profilesFrame
+local generalTab, unitsTab, aurasTab, profilesTab
 -- Nested frames for configuring unitframes
 local playerFrame, targetFrame, focusFrame, partyFrame, raidFrame, bossFrame
 
@@ -19,7 +20,7 @@ local function RegisterSettings()
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeSize = 2,
 	})
-	settingsFrame:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+	settingsFrame:SetBackdropColor(0.12, 0.12, 0.12, 1)
 	settingsFrame:SetBackdropBorderColor(0, 0, 0, 1)
 	settingsFrame:EnableMouse(true)
 	settingsFrame:SetMovable(true)
@@ -114,34 +115,42 @@ local function RegisterSettings()
 
 	local function HideFrames()
 		generalFrame:Hide()
+		generalTab.label:SetTextColor(1, 1, 1, 1)
 		unitsFrame:Hide()
-		colorsFrame:Hide()
+		unitsTab.label:SetTextColor(1, 1, 1, 1)
+		aurasFrame:Hide()
+		aurasTab.label:SetTextColor(1, 1, 1, 1)
 		profilesFrame:Hide()
+		profilesTab.label:SetTextColor(1, 1, 1, 1)
 		HideUnitFrames()
 	end
 
-	local generalTab = mUI:CreateButton(140, 20, "General", settingsFrame, function()
+	generalTab = mUI:CreateButton(140, 20, "General", settingsFrame, function(self)
 		HideFrames()
 		generalFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	generalTab:SetPoint("TOPLEFT", settingsFrame, "BOTTOMLEFT", 2, 0)
 
-	local unitsTab = mUI:CreateButton(140, 20, "Units", settingsFrame, function()
+	unitsTab = mUI:CreateButton(140, 20, "Units", settingsFrame, function(self)
 		HideFrames()
 		unitsFrame:Show()
 		playerFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	unitsTab:SetPoint("TOPLEFT", generalTab, "TOPRIGHT", 2, 0)
 
-	local colorsTab = mUI:CreateButton(140, 20, "Colors", settingsFrame, function()
+	aurasTab = mUI:CreateButton(140, 20, "Auras", settingsFrame, function(self)
 		HideFrames()
-		colorsFrame:Show()
+		aurasFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
-	colorsTab:SetPoint("TOPLEFT", unitsTab, "TOPRIGHT", 2, 0)
+	aurasTab:SetPoint("TOPLEFT", unitsTab, "TOPRIGHT", 2, 0)
 
-	local profilesTab = mUI:CreateButton(140, 20, "Profiles", settingsFrame, function()
+	profilesTab = mUI:CreateButton(140, 20, "Profiles", settingsFrame, function(self)
 		HideFrames()
 		profilesFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	profilesTab:SetPoint("TOPRIGHT", settingsFrame, "BOTTOMRIGHT", -2, 0)
 
@@ -154,7 +163,7 @@ local function RegisterSettings()
 		edgeSize = 1,
 	})
 	generalFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
-	generalFrame:SetBackdropBorderColor(0, 0, 0, 1)
+	generalFrame:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
 
 	local titleText = generalFrame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("BOTTOM", generalFrame, "TOP", 0, 5)
@@ -162,56 +171,64 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("General")
 
-	local smoothCheck = CreateFrame("CheckButton", nil, generalFrame, "UICheckButtonTemplate")
-	smoothCheck:SetChecked(mUI.profile.settings.smooth)
-	smoothCheck:SetScript("OnClick", function(self)
-		mUI.profile.settings.smooth = self:GetChecked()
-	end)
+	local generalArea = mUI:CreateArea("", generalFrame)
+	generalArea:SetPoint("TOPLEFT", generalFrame, "TOPLEFT", 10, -10)
+	generalArea:SetPoint("TOPRIGHT", generalFrame, "TOPRIGHT", -10, -10)
+	generalArea:SetHeight(60)
 
-	local smoothCheck = mUI:CreateCheckBox("Enable Smooth Bars", mUI.profile.settings.smooth, generalFrame,
+	local smoothCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Smooth Bars", mUI.profile.settings.smooth, generalArea,
 		function(isChecked)
 			mUI.profile.settings.smooth = isChecked
 		end)
-	smoothCheck:SetPoint("TOPLEFT", 20, -20)
+	smoothCheck:SetPoint("LEFT", 10, 0)
 
-	local colorCheck = mUI:CreateCheckBox("Enable MangoUI colors", mUI.profile.settings.mangoColors, generalFrame,
+	local colorCheck = mUI:CreateCheckBox("|cff00ff00Enable|r MangoUI colors", mUI.profile.settings.mangoColors,
+		generalArea,
 		function(isChecked)
 			mUI.profile.settings.mangoColors = isChecked
 		end)
-	colorCheck:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -20)
+	colorCheck:SetPoint("CENTER", -60, 0)
 
-	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalFrame,
+	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalArea,
 		function(value)
 			mUI.profile.settings.borderSize = value
 		end)
-	borderSlider:SetPoint("TOPLEFT", colorCheck, "BOTTOMLEFT", 0, -30)
+	borderSlider:SetPoint("RIGHT", -10, 0)
 
-	local healthTextureDropdown = mUI:CreateDropdown("Health Texture:", mUI.profile.settings.healthTexture,
+	local textureArea = mUI:CreateArea("Textures", generalFrame)
+	textureArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -20)
+	textureArea:SetPoint("BOTTOMRIGHT", generalFrame, "BOTTOM", -5, 10)
+
+	local healthTextureDropdown = mUI:CreateDropdown("Health:", mUI.profile.settings.healthTexture,
 		LSM:List("statusbar"),
-		generalFrame, function(value)
+		textureArea, function(value)
 			mUI.profile.settings.healthTexture = value
 		end)
-	healthTextureDropdown:SetPoint("TOPRIGHT", 0, -20)
+	healthTextureDropdown:SetPoint("TOPLEFT", 10, -40)
 
-	local powerTextureDropdown = mUI:CreateDropdown("Power Texture:", mUI.profile.settings.powerTexture,
-		LSM:List("statusbar"), generalFrame,
+	local powerTextureDropdown = mUI:CreateDropdown("Power:", mUI.profile.settings.powerTexture,
+		LSM:List("statusbar"), textureArea,
 		function(value)
 			mUI.profile.settings.powerTexture = value
 		end)
 	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -20)
 
-	local castbarTextureDropdown = mUI:CreateDropdown("Castbar Texture:", mUI.profile.settings.castbarTexture,
+	local castbarTextureDropdown = mUI:CreateDropdown("Castbar:", mUI.profile.settings.castbarTexture,
 		LSM:List("statusbar"),
-		generalFrame, function(value)
+		textureArea, function(value)
 			mUI.profile.settings.castbarTexture = value
 		end)
 	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
 
-	local fontDropdown = mUI:CreateDropdown("Font:", mUI.profile.settings.font, LSM:List("font"), generalFrame,
+	local fontArea = mUI:CreateArea("Fonts", generalFrame)
+	fontArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -20)
+	fontArea:SetPoint("BOTTOMLEFT", generalFrame, "BOTTOM", 5, 10)
+
+	local fontDropdown = mUI:CreateDropdown("Font:", mUI.profile.settings.font, LSM:List("font"), fontArea,
 		function(value)
 			mUI.profile.settings.font = value
 		end)
-	fontDropdown:SetPoint("TOPLEFT", castbarTextureDropdown, "BOTTOMLEFT", 0, -20)
+	fontDropdown:SetPoint("TOPLEFT", 10, -40)
 
 	unitsFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
 	unitsFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)
@@ -240,37 +257,137 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Player")
 
-	local playerCheck = CreateFrame("CheckButton", nil, playerFrame, "UICheckButtonTemplate")
+	local playerCheck = mUI:CreateCheckBox("Enable Player frame", mUI.profile.player.enabled, playerFrame,
+		function(isChecked)
+			mUI.profile.player.enabled = isChecked
+		end)
 	playerCheck:SetPoint("TOPLEFT", 20, -20)
-	playerCheck.text:SetText("Enable playerframe")
-	playerCheck:SetChecked(mUI.profile.player.enabled)
-	playerCheck:SetScript("OnClick", function(self)
-		mUI.profile.player.enabled = self:GetChecked()
-	end)
 
-	local playerPortCheck = CreateFrame("CheckButton", nil, playerFrame, "UICheckButtonTemplate")
-	playerPortCheck:SetPoint("TOPLEFT", playerCheck, "BOTTOMLEFT", 0, -20)
-	playerPortCheck.text:SetText("Enable portrait")
-	playerPortCheck:SetChecked(mUI.profile.player.portrait.enabled)
-	playerPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.player.portrait.enabled = self:GetChecked()
-	end)
+	local playerPortraitCheck = mUI:CreateCheckBox("Enable Player portrait", mUI.profile.player.portrait.enabled,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.portrait.enabled = isChecked
+		end)
+	playerPortraitCheck:SetPoint("TOPLEFT", playerCheck, "BOTTOMLEFT", 0, -20)
 
-	local petCheck = CreateFrame("CheckButton", nil, playerFrame, "UICheckButtonTemplate")
-	petCheck:SetPoint("TOPLEFT", playerPortCheck, "BOTTOMLEFT", 0, -20)
-	petCheck.text:SetText("Enable pet frame")
-	petCheck:SetChecked(mUI.profile.pet.enabled)
-	petCheck:SetScript("OnClick", function(self)
-		mUI.profile.pet.enabled = self:GetChecked()
-	end)
+	local playerPowerCheck = mUI:CreateCheckBox("Enable Player power", mUI.profile.player.power.enabled,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.power.enabled = isChecked
+		end)
+	playerPowerCheck:SetPoint("TOPLEFT", playerPortraitCheck, "BOTTOMLEFT", 0, -20)
 
-	local petPortCheck = CreateFrame("CheckButton", nil, playerFrame, "UICheckButtonTemplate")
-	petPortCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -20)
-	petPortCheck.text:SetText("Enable pet portrait")
-	petPortCheck:SetChecked(mUI.profile.pet.portrait.enabled)
-	petPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.pet.portrait.enabled = self:GetChecked()
-	end)
+	local playerPowerDetachCheck = mUI:CreateCheckBox("Detach Player power", mUI.profile.player.power.detach,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.power.detach = isChecked
+		end)
+	playerPowerDetachCheck:SetPoint("TOPLEFT", playerPowerCheck, "BOTTOMLEFT", 0, -20)
+
+	local playerCastbarCheck = mUI:CreateCheckBox("Enable Player castbar", mUI.profile.player.castbar.enabled,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.castbar.enabled = isChecked
+		end)
+	playerCastbarCheck:SetPoint("TOPLEFT", playerPowerDetachCheck, "BOTTOMLEFT", 0, -20)
+
+	local playerCastbarDetachCheck = mUI:CreateCheckBox("Detach Player castbar", mUI.profile.player.castbar.detach,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.castbar.detach = isChecked
+		end)
+	playerCastbarDetachCheck:SetPoint("TOPLEFT", playerCastbarCheck, "BOTTOMLEFT", 0, -20)
+
+	local playerClasspowerCheck = mUI:CreateCheckBox("Enable Player classpower", mUI.profile.player.classpower.enabled,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.classpower.enabled = isChecked
+		end)
+	playerClasspowerCheck:SetPoint("TOPLEFT", playerCastbarDetachCheck, "BOTTOMLEFT", 0, -20)
+
+	local playerClasspowerDetachCheck = mUI:CreateCheckBox("Detach Player classpower", mUI.profile.player.classpower
+		.detach,
+		playerFrame,
+		function(isChecked)
+			mUI.profile.player.classpower.detach = isChecked
+		end)
+	playerClasspowerDetachCheck:SetPoint("TOPLEFT", playerClasspowerCheck, "BOTTOMLEFT", 0, -20)
+
+	local petCheck = mUI:CreateCheckBox("Enable Pet frame", mUI.profile.pet.enabled, playerFrame,
+		function(isChecked)
+			mUI.profile.pet.enabled = isChecked
+		end)
+	petCheck:SetPoint("TOPLEFT", playerClasspowerDetachCheck, "BOTTOMLEFT", 0, -50)
+
+	local petPortraitCheck = mUI:CreateCheckBox("Enable Pet portrait", mUI.profile.pet.portrait.enabled, playerFrame,
+		function(isChecked)
+			mUI.profile.pet.portrait.enabled = isChecked
+		end)
+	petPortraitCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -20)
+
+	local playerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.width, playerFrame,
+		function(value)
+			mUI.profile.player.width = value
+		end)
+	playerWidthSlider:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -30)
+
+	local playerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.height, playerFrame,
+		function(value)
+			mUI.profile.player.height = value
+		end)
+	playerHeightSlider:SetPoint("TOP", playerWidthSlider, "BOTTOM", 0, -30)
+
+	local petWidthSlider = mUI:CreateSlider(20, 400, 1, "Pet Width", mUI.profile.pet.width, playerFrame,
+		function(value)
+			mUI.profile.pet.width = value
+		end)
+	petWidthSlider:SetPoint("TOP", playerHeightSlider, "BOTTOM", 0, -50)
+
+	local petHeightSlider = mUI:CreateSlider(6, 200, 1, "Pet Height", mUI.profile.pet.height, playerFrame,
+		function(value)
+			mUI.profile.pet.height = value
+		end)
+	petHeightSlider:SetPoint("TOP", petWidthSlider, "BOTTOM", 0, -30)
+
+	local powerWidthSlider = mUI:CreateSlider(20, 400, 1, "Power Width", mUI.profile.player.power.width, playerFrame,
+		function(value)
+			mUI.profile.player.power.width = value
+		end)
+	powerWidthSlider:SetPoint("TOP", petHeightSlider, "BOTTOM", 0, -50)
+
+	local powerHeightSlider = mUI:CreateSlider(6, 200, 1, "Power Height", mUI.profile.player.power.height, playerFrame,
+		function(value)
+			mUI.profile.player.power.height = value
+		end)
+	powerHeightSlider:SetPoint("TOP", powerWidthSlider, "BOTTOM", 0, -30)
+
+	local castbarWidthSlider = mUI:CreateSlider(20, 400, 1, "Castbar Width", mUI.profile.player.castbar.width, playerFrame,
+		function(value)
+			mUI.profile.player.castbar.width = value
+		end)
+	castbarWidthSlider:SetPoint("TOP", powerHeightSlider, "BOTTOM", 0, -50)
+
+	local castbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Castbar Height", mUI.profile.player.castbar.height,
+		playerFrame,
+		function(value)
+			mUI.profile.player.castbar.height = value
+			print(value)
+		end)
+	castbarHeightSlider:SetPoint("TOP", castbarWidthSlider, "BOTTOM", 0, -30)
+
+	local classpowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Classpower Width", mUI.profile.player.classpower.width,
+		playerFrame,
+		function(value)
+			mUI.profile.player.classpower.width = value
+		end)
+	classpowerWidthSlider:SetPoint("TOP", playerFrame, "TOP", 0, -100)
+
+	local classpowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Classpower Height", mUI.profile.player.classpower.height,
+		playerFrame,
+		function(value)
+			mUI.profile.player.classpower.height = value
+		end)
+	classpowerHeightSlider:SetPoint("TOP", classpowerWidthSlider, "BOTTOM", 0, -30)
 
 	local targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function()
 		HideUnitFrames()
@@ -288,37 +405,32 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Target")
 
-	local targetCheck = CreateFrame("CheckButton", nil, targetFrame, "UICheckButtonTemplate")
+	local targetCheck = mUI:CreateCheckBox("Enable Target frame", mUI.profile.target.enabled, targetFrame,
+		function(isChecked)
+			mUI.profile.target.enabled = isChecked
+		end)
 	targetCheck:SetPoint("TOPLEFT", 20, -20)
-	targetCheck.text:SetText("Enable targetframe")
-	targetCheck:SetChecked(mUI.profile.target.enabled)
-	targetCheck:SetScript("OnClick", function(self)
-		mUI.profile.target.enabled = self:GetChecked()
-	end)
 
-	local targetPortCheck = CreateFrame("CheckButton", nil, targetFrame, "UICheckButtonTemplate")
-	targetPortCheck:SetPoint("TOPLEFT", targetCheck, "BOTTOMLEFT", 0, -20)
-	targetPortCheck.text:SetText("Enable portrait")
-	targetPortCheck:SetChecked(mUI.profile.target.portrait.enabled)
-	targetPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.target.portrait.enabled = self:GetChecked()
-	end)
+	local targetPortraitCheck = mUI:CreateCheckBox("Enable Target portrait", mUI.profile.target.portrait.enabled,
+		targetFrame,
+		function(isChecked)
+			mUI.profile.target.portrait.enabled = isChecked
+		end)
+	targetPortraitCheck:SetPoint("TOPLEFT", targetCheck, "BOTTOMLEFT", 0, -20)
 
-	local targettargetCheck = CreateFrame("CheckButton", nil, targetFrame, "UICheckButtonTemplate")
-	targettargetCheck:SetPoint("TOPLEFT", targetPortCheck, "BOTTOMLEFT", 0, -20)
-	targettargetCheck.text:SetText("Enable totframe")
-	targettargetCheck:SetChecked(mUI.profile.targettarget.enabled)
-	targettargetCheck:SetScript("OnClick", function(self)
-		mUI.profile.targettarget.enabled = self:GetChecked()
-	end)
+	local totCheck = mUI:CreateCheckBox("Enable Target of Target frame", mUI.profile.targettarget.enabled, targetFrame,
+		function(isChecked)
+			mUI.profile.targettarget.enabled = isChecked
+		end)
+	totCheck:SetPoint("TOPLEFT", targetPortraitCheck, "BOTTOMLEFT", 0, -20)
 
-	local targettargetPortCheck = CreateFrame("CheckButton", nil, targetFrame, "UICheckButtonTemplate")
-	targettargetPortCheck:SetPoint("TOPLEFT", targettargetCheck, "BOTTOMLEFT", 0, -20)
-	targettargetPortCheck.text:SetText("Enable target of target portrait")
-	targettargetPortCheck:SetChecked(mUI.profile.targettarget.portrait.enabled)
-	targettargetPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.targettarget.portrait.enabled = self:GetChecked()
-	end)
+	local totPortraitCheck = mUI:CreateCheckBox("Enable Target of Target portrait",
+		mUI.profile.targettarget.portrait.enabled,
+		targetFrame,
+		function(isChecked)
+			mUI.profile.targettarget.portrait.enabled = isChecked
+		end)
+	totPortraitCheck:SetPoint("TOPLEFT", totCheck, "BOTTOMLEFT", 0, -20)
 
 	local focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function()
 		HideUnitFrames()
@@ -336,21 +448,17 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Focus")
 
-	local focusCheck = CreateFrame("CheckButton", nil, focusFrame, "UICheckButtonTemplate")
+	local focusCheck = mUI:CreateCheckBox("Enable Focus frame", mUI.profile.focus.enabled, focusFrame,
+		function(isChecked)
+			mUI.profile.focus.enabled = isChecked
+		end)
 	focusCheck:SetPoint("TOPLEFT", 20, -20)
-	focusCheck.text:SetText("Enable focus frame")
-	focusCheck:SetChecked(mUI.profile.focus.enabled)
-	focusCheck:SetScript("OnClick", function(self)
-		mUI.profile.focus.enabled = self:GetChecked()
-	end)
 
-	local focusPortCheck = CreateFrame("CheckButton", nil, focusFrame, "UICheckButtonTemplate")
-	focusPortCheck:SetPoint("TOPLEFT", focusCheck, "BOTTOMLEFT", 0, -20)
-	focusPortCheck.text:SetText("Enable portrait")
-	focusPortCheck:SetChecked(mUI.profile.focus.portrait.enabled)
-	focusPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.focus.portrait.enabled = self:GetChecked()
-	end)
+	local focusPortraitCheck = mUI:CreateCheckBox("Enable Focus portrait", mUI.profile.focus.portrait.enabled, focusFrame,
+		function(isChecked)
+			mUI.profile.focus.portrait.enabled = isChecked
+		end)
+	focusPortraitCheck:SetPoint("TOPLEFT", focusCheck, "BOTTOMLEFT", 0, -20)
 
 	local partyTab = mUI:CreateButton(100, 20, "Party", unitsFrame, function()
 		HideUnitFrames()
@@ -368,21 +476,18 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Party")
 
-	local partyCheck = CreateFrame("CheckButton", nil, partyFrame, "UICheckButtonTemplate")
-	partyCheck:SetPoint("TOPLEFT", 20, -20)
-	partyCheck.text:SetText("Enable partyframes")
-	partyCheck:SetChecked(mUI.profile.party.enabled)
-	partyCheck:SetScript("OnClick", function(self)
-		mUI.profile.party.enabled = self:GetChecked()
-	end)
 
-	local partyPortCheck = CreateFrame("CheckButton", nil, partyFrame, "UICheckButtonTemplate")
-	partyPortCheck:SetPoint("TOPLEFT", partyCheck, "BOTTOMLEFT", 0, -20)
-	partyPortCheck.text:SetText("Enable portrait")
-	partyPortCheck:SetChecked(mUI.profile.party.portrait.enabled)
-	partyPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.party.portrait.enabled = self:GetChecked()
-	end)
+	local partyCheck = mUI:CreateCheckBox("Enable Party frames", mUI.profile.party.enabled, partyFrame,
+		function(isChecked)
+			mUI.profile.party.enabled = isChecked
+		end)
+	partyCheck:SetPoint("TOPLEFT", 20, -20)
+
+	local partyPortraitCheck = mUI:CreateCheckBox("Enable Party portraits", mUI.profile.party.portrait.enabled, partyFrame,
+		function(isChecked)
+			mUI.profile.party.portrait.enabled = isChecked
+		end)
+	partyPortraitCheck:SetPoint("TOPLEFT", partyCheck, "BOTTOMLEFT", 0, -20)
 
 	local raidTab = mUI:CreateButton(100, 20, "Raid", unitsFrame, function()
 		HideUnitFrames()
@@ -400,21 +505,11 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Raid")
 
-	local raidCheck = CreateFrame("CheckButton", nil, raidFrame, "UICheckButtonTemplate")
+	local raidCheck = mUI:CreateCheckBox("Enable Raid frames", mUI.profile.raid.enabled, raidFrame,
+		function(isChecked)
+			mUI.profile.raid.enabled = isChecked
+		end)
 	raidCheck:SetPoint("TOPLEFT", 20, -20)
-	raidCheck.text:SetText("Enable raidframes")
-	raidCheck:SetChecked(mUI.profile.raid.enabled)
-	raidCheck:SetScript("OnClick", function(self)
-		mUI.profile.raid.enabled = self:GetChecked()
-	end)
-
-	local raidPortCheck = CreateFrame("CheckButton", nil, raidFrame, "UICheckButtonTemplate")
-	raidPortCheck:SetPoint("TOPLEFT", raidCheck, "BOTTOMLEFT", 0, -20)
-	raidPortCheck.text:SetText("Enable portrait")
-	raidPortCheck:SetChecked(mUI.profile.raid.portrait.enabled)
-	raidPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.raid.portrait.enabled = self:GetChecked()
-	end)
 
 	local bossTab = mUI:CreateButton(100, 20, "Boss", unitsFrame, function()
 		HideUnitFrames()
@@ -432,63 +527,35 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Boss")
 
-	local bossCheck = CreateFrame("CheckButton", nil, bossFrame, "UICheckButtonTemplate")
+	local bossCheck = mUI:CreateCheckBox("Enable Boss frames", mUI.profile.boss.enabled, bossFrame,
+		function(isChecked)
+			mUI.profile.boss.enabled = isChecked
+		end)
 	bossCheck:SetPoint("TOPLEFT", 20, -20)
-	bossCheck.text:SetText("Enable bossframes")
-	bossCheck:SetChecked(mUI.profile.boss.enabled)
-	bossCheck:SetScript("OnClick", function(self)
-		mUI.profile.boss.enabled = self:GetChecked()
-	end)
 
-	local bossPortCheck = CreateFrame("CheckButton", nil, bossFrame, "UICheckButtonTemplate")
-	bossPortCheck:SetPoint("TOPLEFT", bossCheck, "BOTTOMLEFT", 0, -20)
-	bossPortCheck.text:SetText("Enable portrait")
-	bossPortCheck:SetChecked(mUI.profile.boss.portrait.enabled)
-	bossPortCheck:SetScript("OnClick", function(self)
-		mUI.profile.boss.portrait.enabled = self:GetChecked()
-	end)
+	local bossPortraitCheck = mUI:CreateCheckBox("Enable Boss portraits", mUI.profile.boss.portrait.enabled, bossFrame,
+		function(isChecked)
+			mUI.profile.boss.portrait.enabled = isChecked
+		end)
+	bossPortraitCheck:SetPoint("TOPLEFT", bossCheck, "BOTTOMLEFT", 0, -20)
 
-	colorsFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
-	colorsFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)
-	colorsFrame:SetPoint("BOTTOMRIGHT", settingsFrame, "BOTTOMRIGHT", -10, 10)
-	colorsFrame:SetBackdrop({
+	aurasFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
+	aurasFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)
+	aurasFrame:SetPoint("BOTTOMRIGHT", settingsFrame, "BOTTOMRIGHT", -10, 10)
+	aurasFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeSize = 1,
 	})
-	colorsFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
-	colorsFrame:SetBackdropBorderColor(0, 0, 0, 1)
-	colorsFrame:Hide()
+	aurasFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
+	aurasFrame:SetBackdropBorderColor(0, 0, 0, 1)
+	aurasFrame:Hide()
 
-	local titleText = colorsFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("BOTTOM", colorsFrame, "TOP", 0, 5)
+	local titleText = aurasFrame:CreateFontString(nil, "OVERLAY")
+	titleText:SetPoint("BOTTOM", aurasFrame, "TOP", 0, 5)
 	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Coming soon...")
-
-	--local function OpenColorPicker()
-	--	ColorPickerFrame.func = function()
-	--		local r, g, b = ColorPickerFrame:GetColorRGB()
-	--		local hexColor = string.format("%02x%02x%02x", r * 255, g * 255, b * 255)
-	--		print("Selected color: #" .. hexColor)
-	--	end
-	--
-	--	ColorPickerFrame:SetColorRGB(1, 0, 0)
-	--	ColorPickerFrame.hasOpacity = false
-	--	ColorPickerFrame.previousValues = { 1, 0, 0 }
-	--	ColorPickerFrame:Show()
-	--end
-	--
-	--local colorPickerButton = CreateFrame("Button", "MyAddonColorPickerButton", colorsFrame, "UIPanelButtonTemplate")
-	--colorPickerButton:SetPoint("TOPLEFT", 20, -20)
-	--colorPickerButton:SetSize(30, 30)
-	--colorPickerButton:SetNormalTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
-	--colorPickerButton:SetPushedTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
-	--colorPickerButton:SetHighlightTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
-	--colorPickerButton:GetNormalTexture():SetVertexColor(playerColor.r, playerColor.g, playerColor.b)
-	--colorPickerButton:GetPushedTexture():SetVertexColor(playerColor.r, playerColor.g, playerColor.b)
-	--colorPickerButton:GetHighlightTexture():SetVertexColor(playerColor.r, playerColor.g, playerColor.b)
-	--colorPickerButton:SetScript("OnClick", OpenColorPicker)
 
 	profilesFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
 	profilesFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)

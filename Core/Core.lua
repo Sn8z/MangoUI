@@ -1,4 +1,5 @@
 local addonName, mUI = ...
+local LSM = LibStub("LibSharedMedia-3.0")
 
 -- Register addon to the AddonCompartmentFrame
 if AddonCompartmentFrame then
@@ -12,11 +13,21 @@ if AddonCompartmentFrame then
 	})
 end
 
-local LSM = LibStub("LibSharedMedia-3.0")
+-- MangoUI button for GameMenu
+GameMenuFrame.Header:Hide()
+local gameMenuButton = CreateFrame("Button", "MangoGameMenuButton", GameMenuFrame, "UIPanelButtonTemplate")
+gameMenuButton:SetHeight(30)
+gameMenuButton:SetWidth(130)
+gameMenuButton:SetText("MangoUI")
+gameMenuButton:ClearAllPoints()
+gameMenuButton:SetPoint("CENTER", GameMenuFrame, "TOP", 0, 0)
+gameMenuButton:SetScript("OnClick", function()
+	mUI:ToggleOptions()
+	ToggleGameMenu()
+end)
 
 -- Inject Media
 -- Fonts (.ttf/.otf)
-
 -- Poppins
 LSM:Register(LSM.MediaType.FONT, "Poppins",
 	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Regular.ttf]])
@@ -64,6 +75,7 @@ LSM:Register(LSM.MediaType.STATUSBAR, "Tim", [[Interface\Addons\MangoUI\Media\St
 LSM:Register(LSM.MediaType.STATUSBAR, "Mauk", [[Interface\Addons\MangoUI\Media\Statusbars\mauk.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Brink", [[Interface\Addons\MangoUI\Media\Statusbars\brink.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Mango", [[Interface\Addons\MangoUI\Media\Statusbars\mango.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Nucks", [[Interface\Addons\MangoUI\Media\Statusbars\nucks.tga]])
 
 -- Borders
 

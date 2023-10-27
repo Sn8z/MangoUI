@@ -33,6 +33,7 @@ Options/slider.lua
 Options/button.lua
 Options/checkbox.lua
 Options/dropdown.lua
+Options/area.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua

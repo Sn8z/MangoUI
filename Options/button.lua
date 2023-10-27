@@ -4,20 +4,17 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local function btnEnter(self)
 	self:SetBackdropColor(0.2, 0.2, 0.2, 1)
 	self:SetBackdropBorderColor(0.3, 0.3, 0.3, 1)
-	self.label:SetTextColor(0.9, 0.9, 0.9, 1)
 end
 
 local function btnMouseDown(self)
 	self:SetBackdropColor(0.4, 0.4, 0.4, 1)
 	self:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
-	self.label:SetTextColor(1, 1, 1, 1)
 	self.label:AdjustPointsOffset(0, -1)
 end
 
 local function btnReset(self)
 	self:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
 	self:SetBackdropBorderColor(0, 0, 0, 1)
-	self.label:SetTextColor(0.8, 0.8, 0.8, 1)
 	self.label:SetPoint("CENTER")
 end
 
