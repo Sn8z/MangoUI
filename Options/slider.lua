@@ -1,6 +1,10 @@
 local _, mUI = ...
+local oUF = mUI.oUF
 
 local slider, editBox, label
+
+local _, class = UnitClass("player")
+local playerColor = oUF.colors.class[class]
 
 local function ebEscape(self)
 	self:ClearFocus()
@@ -29,8 +33,10 @@ function mUI:CreateSlider(min, max, step, labelText, value, frame, callback)
 	})
 	slider:SetBackdropColor(0, 0, 0, 1)
 	slider:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
-	slider:SetThumbTexture([[Interface\AddOns\MangoUI\Media\yellow.tga]])
-	slider:GetThumbTexture():SetSize(8,18)
+	slider:SetThumbTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
+	local thumb = slider:GetThumbTexture()
+	thumb:SetSize(8,18)
+	thumb:SetVertexColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	slider:SetMinMaxValues(min, max)
 	slider:SetValue(value)
 	slider:SetScript("OnValueChanged", function(self, value, userInput)

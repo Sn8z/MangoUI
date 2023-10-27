@@ -163,26 +163,22 @@ local function RegisterSettings()
 	titleText:SetText("General")
 
 	local smoothCheck = CreateFrame("CheckButton", nil, generalFrame, "UICheckButtonTemplate")
-	smoothCheck:SetPoint("TOPLEFT", 20, -20)
 	smoothCheck:SetChecked(mUI.profile.settings.smooth)
 	smoothCheck:SetScript("OnClick", function(self)
 		mUI.profile.settings.smooth = self:GetChecked()
 	end)
 
-	local smoothText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	smoothText:SetPoint("LEFT", smoothCheck, "RIGHT", 2, 0)
-	smoothText:SetText("Enable Smooth Bars")
+	local smoothCheck = mUI:CreateCheckBox("Enable Smooth Bars", mUI.profile.settings.smooth, generalFrame,
+		function(isChecked)
+			mUI.profile.settings.smooth = isChecked
+		end)
+	smoothCheck:SetPoint("TOPLEFT", 20, -20)
 
-	local colorCheck = CreateFrame("CheckButton", nil, generalFrame, "UICheckButtonTemplate")
+	local colorCheck = mUI:CreateCheckBox("Enable MangoUI colors", mUI.profile.settings.mangoColors, generalFrame,
+		function(isChecked)
+			mUI.profile.settings.mangoColors = isChecked
+		end)
 	colorCheck:SetPoint("TOPLEFT", smoothCheck, "BOTTOMLEFT", 0, -20)
-	colorCheck:SetChecked(mUI.profile.settings.mangoColors)
-	colorCheck:SetScript("OnClick", function(self)
-		mUI.profile.settings.mangoColors = self:GetChecked()
-	end)
-
-	local colorText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	colorText:SetPoint("LEFT", colorCheck, "RIGHT", 2, 0)
-	colorText:SetText("Enable MangoUI colors")
 
 	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalFrame,
 		function(value)
@@ -190,97 +186,32 @@ local function RegisterSettings()
 		end)
 	borderSlider:SetPoint("TOPLEFT", colorCheck, "BOTTOMLEFT", 0, -30)
 
-	local healthTextureDropdown = CreateFrame("Frame", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	local healthTextureDropdown = mUI:CreateDropdown("Health Texture:", mUI.profile.settings.healthTexture,
+		LSM:List("statusbar"),
+		generalFrame, function(value)
+			mUI.profile.settings.healthTexture = value
+		end)
 	healthTextureDropdown:SetPoint("TOPRIGHT", 0, -20)
-	UIDropDownMenu_SetWidth(healthTextureDropdown, 200)
-	UIDropDownMenu_SetText(healthTextureDropdown, mUI.profile.settings.healthTexture)
 
-	local healthText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	healthText:SetPoint("RIGHT", healthTextureDropdown, "LEFT", -2, 0)
-	healthText:SetText("Health Texture:")
-
-	local function healthTextureDropdownClick(self, arg1, arg2, checked)
-		mUI.profile.settings.healthTexture = arg1
-		UIDropDownMenu_SetText(healthTextureDropdown, arg1)
-	end
-
-	UIDropDownMenu_Initialize(healthTextureDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-		for _, v in pairs(LSM:List("statusbar")) do
-			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.healthTexture
-			info.func = healthTextureDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
-
-	local powerTextureDropdown = CreateFrame("Frame", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	local powerTextureDropdown = mUI:CreateDropdown("Power Texture:", mUI.profile.settings.powerTexture,
+		LSM:List("statusbar"), generalFrame,
+		function(value)
+			mUI.profile.settings.powerTexture = value
+		end)
 	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -20)
-	UIDropDownMenu_SetWidth(powerTextureDropdown, 200)
-	UIDropDownMenu_SetText(powerTextureDropdown, mUI.profile.settings.powerTexture)
 
-	local powerText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	powerText:SetPoint("RIGHT", powerTextureDropdown, "LEFT", -2, 0)
-	powerText:SetText("Power Texture:")
-
-	local function powerTextureDropdownClick(self, arg1, arg2, checked)
-		mUI.profile.settings.powerTexture = arg1
-		UIDropDownMenu_SetText(powerTextureDropdown, arg1)
-	end
-
-	UIDropDownMenu_Initialize(powerTextureDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-		for _, v in pairs(LSM:List("statusbar")) do
-			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.powerTexture
-			info.func = powerTextureDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
-
-	local castbarTextureDropdown = CreateFrame("Frame", "MangoTextureDropdown", generalFrame, "UIDropDownMenuTemplate")
+	local castbarTextureDropdown = mUI:CreateDropdown("Castbar Texture:", mUI.profile.settings.castbarTexture,
+		LSM:List("statusbar"),
+		generalFrame, function(value)
+			mUI.profile.settings.castbarTexture = value
+		end)
 	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
-	UIDropDownMenu_SetWidth(castbarTextureDropdown, 200)
-	UIDropDownMenu_SetText(castbarTextureDropdown, mUI.profile.settings.castbarTexture)
 
-	local castbarText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	castbarText:SetPoint("RIGHT", castbarTextureDropdown, "LEFT", -2, 0)
-	castbarText:SetText("Castbar Texture:")
-
-	local function castbarTextureDropdownClick(self, arg1, arg2, checked)
-		mUI.profile.settings.castbarTexture = arg1
-		UIDropDownMenu_SetText(castbarTextureDropdown, arg1)
-	end
-
-	UIDropDownMenu_Initialize(castbarTextureDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-		for _, v in pairs(LSM:List("statusbar")) do
-			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.castbarTexture
-			info.func = castbarTextureDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
-
-	local fontDropdown = CreateFrame("FRAME", "MangoFontDropdown", generalFrame, "UIDropDownMenuTemplate")
+	local fontDropdown = mUI:CreateDropdown("Font:", mUI.profile.settings.font, LSM:List("font"), generalFrame,
+		function(value)
+			mUI.profile.settings.font = value
+		end)
 	fontDropdown:SetPoint("TOPLEFT", castbarTextureDropdown, "BOTTOMLEFT", 0, -20)
-	UIDropDownMenu_SetWidth(fontDropdown, 200)
-	UIDropDownMenu_SetText(fontDropdown, mUI.profile.settings.font)
-
-	local fontText = generalFrame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-	fontText:SetPoint("RIGHT", fontDropdown, "LEFT", -2, 0)
-	fontText:SetText("Font:")
-
-	local function fontDropdownClick(self, arg1, arg2, checked)
-		mUI.profile.settings.font = arg1
-		UIDropDownMenu_SetText(fontDropdown, arg1)
-	end
-
-	UIDropDownMenu_Initialize(fontDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-		for _, v in pairs(LSM:List("font")) do
-			info.text, info.arg1, info.checked = v, v, v == mUI.profile.settings.font
-			info.func = fontDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
 
 	unitsFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
 	unitsFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)

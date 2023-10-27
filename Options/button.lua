@@ -37,7 +37,7 @@ function mUI:CreateButton(width, height, text, frame, callback)
 	button:SetScript("OnMouseUp", btnReset)
 	button:SetScript("OnClick", callback)
 
-	local label = button:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+	local label = button:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("CENTER")
 	label:SetJustifyH("CENTER")
 	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 14, "THINOUTLINE")
