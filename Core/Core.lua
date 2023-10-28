@@ -13,19 +13,6 @@ if AddonCompartmentFrame then
 	})
 end
 
--- MangoUI button for GameMenu
-GameMenuFrame.Header:Hide()
-local gameMenuButton = CreateFrame("Button", "MangoGameMenuButton", GameMenuFrame, "UIPanelButtonTemplate")
-gameMenuButton:SetHeight(30)
-gameMenuButton:SetWidth(130)
-gameMenuButton:SetText("MangoUI")
-gameMenuButton:ClearAllPoints()
-gameMenuButton:SetPoint("CENTER", GameMenuFrame, "TOP", 0, 0)
-gameMenuButton:SetScript("OnClick", function()
-	mUI:ToggleOptions()
-	ToggleGameMenu()
-end)
-
 -- Inject Media
 -- Fonts (.ttf/.otf)
 -- Poppins
