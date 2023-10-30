@@ -81,7 +81,9 @@ local defaultProfile = {
 		power = {
 			enabled = true,
 			detach = true,
-			classColor = true
+			classColor = true,
+			width = 200,
+			height = 8
 		},
 		castbar = {
 			enabled = true,
@@ -149,7 +151,9 @@ local defaultProfile = {
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			classColor = true,
+			width = 200,
+			height = 8
 		},
 		castbar = {
 			enabled = true,

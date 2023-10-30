@@ -10,14 +10,18 @@ local settingsFrame, generalFrame, unitsFrame, aurasFrame, profilesFrame
 local generalTab, unitsTab, aurasTab, profilesTab
 -- Nested frames for configuring unitframes
 local playerFrame, targetFrame, focusFrame, partyFrame, raidFrame, bossFrame
+local playerTab, targetTab, focusTab, partyTab, raidTab, bossTab
 
 local function RegisterSettings()
 	settingsFrame = CreateFrame("Frame", "MangoSettingsFrame", UIParent, "BackdropTemplate")
 	settingsFrame:SetSize(900, 600)
 	settingsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	settingsFrame:SetBackdrop({
-		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		--bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		bgFile = [[Interface\AddOns\MangoUI\Media\carbon.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		tile = true,
+		tileSize = 32,
 		edgeSize = 2,
 	})
 	settingsFrame:SetBackdropColor(0.12, 0.12, 0.12, 1)
@@ -53,7 +57,7 @@ local function RegisterSettings()
 	end)
 	closeButton:SetPoint("TOPRIGHT", -3, -3)
 
-	local reloadButton = mUI:CreateButton(100, 28, "Reload", settingsFrame, function() 
+	local reloadButton = mUI:CreateButton(100, 28, "Reload", settingsFrame, function()
 		ReloadUI()
 	end)
 	reloadButton:SetPoint("TOPRIGHT", closeButton, "TOPLEFT", -60, 0)
@@ -70,11 +74,17 @@ local function RegisterSettings()
 
 	local function HideUnitFrames()
 		playerFrame:Hide()
+		playerTab.label:SetTextColor(1, 1, 1, 1)
 		targetFrame:Hide()
+		targetTab.label:SetTextColor(1, 1, 1, 1)
 		focusFrame:Hide()
+		focusTab.label:SetTextColor(1, 1, 1, 1)
 		partyFrame:Hide()
+		partyTab.label:SetTextColor(1, 1, 1, 1)
 		raidFrame:Hide()
+		raidTab.label:SetTextColor(1, 1, 1, 1)
 		bossFrame:Hide()
+		bossTab.label:SetTextColor(1, 1, 1, 1)
 	end
 
 	local function HideFrames()
@@ -101,6 +111,7 @@ local function RegisterSettings()
 		unitsFrame:Show()
 		playerFrame:Show()
 		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
+		playerTab.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	unitsTab:SetPoint("TOPLEFT", generalTab, "TOPRIGHT", 2, 0)
 
@@ -207,156 +218,176 @@ local function RegisterSettings()
 	unitsFrame:SetBackdropBorderColor(0, 0, 0, 1)
 	unitsFrame:Hide()
 
-	local playerTab = mUI:CreateButton(100, 20, "Player", unitsFrame, function()
+	playerTab = mUI:CreateButton(100, 20, "Player", unitsFrame, function(self)
 		HideUnitFrames()
 		playerFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	playerTab:SetPoint("BOTTOMLEFT", unitsFrame, "TOPLEFT", 2, 0)
 
 	playerFrame = CreateFrame("Frame", nil, unitsFrame)
 	playerFrame:SetAllPoints()
 
-	local titleText = playerFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", playerFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Player")
+	local playerArea = mUI:CreateArea("", playerFrame)
+	playerArea:SetPoint("TOPLEFT", playerFrame, "TOPLEFT", 10, -10)
+	playerArea:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -10)
+	playerArea:SetHeight(80)
 
-	local playerCheck = mUI:CreateCheckBox("Enable Player frame", mUI.profile.player.enabled, playerFrame,
+	local playerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.enabled, playerArea,
 		function(isChecked)
 			mUI.profile.player.enabled = isChecked
 		end)
-	playerCheck:SetPoint("TOPLEFT", 20, -20)
+	playerCheck:SetPoint("LEFT", 20, 0)
 
-	local playerPortraitCheck = mUI:CreateCheckBox("Enable Player portrait", mUI.profile.player.portrait.enabled,
-		playerFrame,
+	local playerPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.player.portrait.enabled,
+		playerArea,
 		function(isChecked)
 			mUI.profile.player.portrait.enabled = isChecked
 		end)
-	playerPortraitCheck:SetPoint("TOPLEFT", playerCheck, "BOTTOMLEFT", 0, -20)
+	playerPortraitCheck:SetPoint("LEFT", playerCheck, "RIGHT", 80, 0)
 
-	local playerPowerCheck = mUI:CreateCheckBox("Enable Player power", mUI.profile.player.power.enabled,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.power.enabled = isChecked
-		end)
-	playerPowerCheck:SetPoint("TOPLEFT", playerPortraitCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerPowerDetachCheck = mUI:CreateCheckBox("Detach Player power", mUI.profile.player.power.detach,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.power.detach = isChecked
-		end)
-	playerPowerDetachCheck:SetPoint("TOPLEFT", playerPowerCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerCastbarCheck = mUI:CreateCheckBox("Enable Player castbar", mUI.profile.player.castbar.enabled,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.castbar.enabled = isChecked
-		end)
-	playerCastbarCheck:SetPoint("TOPLEFT", playerPowerDetachCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerCastbarDetachCheck = mUI:CreateCheckBox("Detach Player castbar", mUI.profile.player.castbar.detach,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.castbar.detach = isChecked
-		end)
-	playerCastbarDetachCheck:SetPoint("TOPLEFT", playerCastbarCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerClasspowerCheck = mUI:CreateCheckBox("Enable Player classpower", mUI.profile.player.classpower.enabled,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.classpower.enabled = isChecked
-		end)
-	playerClasspowerCheck:SetPoint("TOPLEFT", playerCastbarDetachCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerClasspowerDetachCheck = mUI:CreateCheckBox("Detach Player classpower", mUI.profile.player.classpower
-		.detach,
-		playerFrame,
-		function(isChecked)
-			mUI.profile.player.classpower.detach = isChecked
-		end)
-	playerClasspowerDetachCheck:SetPoint("TOPLEFT", playerClasspowerCheck, "BOTTOMLEFT", 0, -20)
-
-	local petCheck = mUI:CreateCheckBox("Enable Pet frame", mUI.profile.pet.enabled, playerFrame,
-		function(isChecked)
-			mUI.profile.pet.enabled = isChecked
-		end)
-	petCheck:SetPoint("TOPLEFT", playerClasspowerDetachCheck, "BOTTOMLEFT", 0, -50)
-
-	local petPortraitCheck = mUI:CreateCheckBox("Enable Pet portrait", mUI.profile.pet.portrait.enabled, playerFrame,
-		function(isChecked)
-			mUI.profile.pet.portrait.enabled = isChecked
-		end)
-	petPortraitCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -20)
-
-	local playerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.width, playerFrame,
+	local playerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.width, playerArea,
 		function(value)
 			mUI.profile.player.width = value
 		end)
-	playerWidthSlider:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -30)
+	playerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local playerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.height, playerFrame,
+	local playerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.height, playerArea,
 		function(value)
 			mUI.profile.player.height = value
 		end)
-	playerHeightSlider:SetPoint("TOP", playerWidthSlider, "BOTTOM", 0, -30)
+	playerHeightSlider:SetPoint("RIGHT", playerWidthSlider, "LEFT", -20, 0)
 
-	local petWidthSlider = mUI:CreateSlider(20, 400, 1, "Pet Width", mUI.profile.pet.width, playerFrame,
-		function(value)
-			mUI.profile.pet.width = value
+	local playerPowerArea = mUI:CreateArea("Power", playerFrame)
+	playerPowerArea:SetPoint("TOPLEFT", playerArea, "BOTTOMLEFT", 0, -10)
+	playerPowerArea:SetPoint("TOPRIGHT", playerArea, "BOTTOMRIGHT", 0, -10)
+	playerPowerArea:SetHeight(80)
+
+	local playerPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.power.enabled,
+		playerPowerArea,
+		function(isChecked)
+			mUI.profile.player.power.enabled = isChecked
 		end)
-	petWidthSlider:SetPoint("TOP", playerHeightSlider, "BOTTOM", 0, -50)
+	playerPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local petHeightSlider = mUI:CreateSlider(6, 200, 1, "Pet Height", mUI.profile.pet.height, playerFrame,
-		function(value)
-			mUI.profile.pet.height = value
+	local playerPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.power.detach,
+		playerPowerArea,
+		function(isChecked)
+			mUI.profile.player.power.detach = isChecked
 		end)
-	petHeightSlider:SetPoint("TOP", petWidthSlider, "BOTTOM", 0, -30)
+	playerPowerDetachCheck:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
 
-	local powerWidthSlider = mUI:CreateSlider(20, 400, 1, "Power Width", mUI.profile.player.power.width, playerFrame,
+	local powerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.power.width, playerPowerArea,
 		function(value)
 			mUI.profile.player.power.width = value
 		end)
-	powerWidthSlider:SetPoint("TOP", petHeightSlider, "BOTTOM", 0, -50)
+	powerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local powerHeightSlider = mUI:CreateSlider(6, 200, 1, "Power Height", mUI.profile.player.power.height, playerFrame,
+	local powerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.power.height, playerPowerArea,
 		function(value)
 			mUI.profile.player.power.height = value
 		end)
-	powerHeightSlider:SetPoint("TOP", powerWidthSlider, "BOTTOM", 0, -30)
+	powerHeightSlider:SetPoint("RIGHT", powerWidthSlider, "LEFT", -20, 0)
 
-	local castbarWidthSlider = mUI:CreateSlider(20, 400, 1, "Castbar Width", mUI.profile.player.castbar.width, playerFrame,
-		function(value)
-			mUI.profile.player.castbar.width = value
+	local playerClasspowerArea = mUI:CreateArea("Classpower", playerFrame)
+	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
+	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)
+	playerClasspowerArea:SetHeight(80)
+
+	local playerClasspowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.classpower.enabled,
+		playerClasspowerArea,
+		function(isChecked)
+			mUI.profile.player.classpower.enabled = isChecked
 		end)
-	castbarWidthSlider:SetPoint("TOP", powerHeightSlider, "BOTTOM", 0, -50)
+	playerClasspowerCheck:SetPoint("LEFT", 20, 0)
 
-	local castbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Castbar Height", mUI.profile.player.castbar.height,
-		playerFrame,
-		function(value)
-			mUI.profile.player.castbar.height = value
-			print(value)
+	local playerClasspowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.classpower
+		.detach,
+		playerClasspowerArea,
+		function(isChecked)
+			mUI.profile.player.classpower.detach = isChecked
 		end)
-	castbarHeightSlider:SetPoint("TOP", castbarWidthSlider, "BOTTOM", 0, -30)
+	playerClasspowerDetachCheck:SetPoint("LEFT", playerClasspowerCheck, "RIGHT", 80, 0)
 
-	local classpowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Classpower Width", mUI.profile.player.classpower.width,
-		playerFrame,
+	local classpowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.classpower.width,
+		playerClasspowerArea,
 		function(value)
 			mUI.profile.player.classpower.width = value
 		end)
-	classpowerWidthSlider:SetPoint("TOP", playerFrame, "TOP", 0, -100)
+	classpowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local classpowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Classpower Height", mUI.profile.player.classpower.height,
-		playerFrame,
+	local classpowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.classpower.height,
+		playerClasspowerArea,
 		function(value)
 			mUI.profile.player.classpower.height = value
 		end)
-	classpowerHeightSlider:SetPoint("TOP", classpowerWidthSlider, "BOTTOM", 0, -30)
+	classpowerHeightSlider:SetPoint("RIGHT", classpowerWidthSlider, "LEFT", -20, 0)
 
-	local targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function()
+	local playerCastbarArea = mUI:CreateArea("Castbar", playerFrame)
+	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)
+	playerCastbarArea:SetPoint("TOPRIGHT", playerClasspowerArea, "BOTTOMRIGHT", 0, -10)
+	playerCastbarArea:SetHeight(80)
+
+	local playerCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.castbar.enabled,
+		playerCastbarArea,
+		function(isChecked)
+			mUI.profile.player.castbar.enabled = isChecked
+		end)
+	playerCastbarCheck:SetPoint("LEFT", 20, 0)
+
+	local playerCastbarDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.castbar.detach,
+		playerCastbarArea,
+		function(isChecked)
+			mUI.profile.player.castbar.detach = isChecked
+		end)
+	playerCastbarDetachCheck:SetPoint("LEFT", playerCastbarCheck, "RIGHT", 80, 0)
+
+	local castbarWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.castbar.width, playerCastbarArea,
+		function(value)
+			mUI.profile.player.castbar.width = value
+		end)
+	castbarWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local castbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.castbar.height,
+		playerCastbarArea,
+		function(value)
+			mUI.profile.player.castbar.height = value
+		end)
+	castbarHeightSlider:SetPoint("RIGHT", castbarWidthSlider, "LEFT", -20, 0)
+
+	local playerPetArea = mUI:CreateArea("Pet", playerFrame)
+	playerPetArea:SetPoint("TOPLEFT", playerCastbarArea, "BOTTOMLEFT", 0, -10)
+	playerPetArea:SetPoint("BOTTOMRIGHT", playerFrame, "BOTTOMRIGHT", -10, 10)
+
+	local petCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.pet.enabled, playerPetArea,
+		function(isChecked)
+			mUI.profile.pet.enabled = isChecked
+		end)
+	petCheck:SetPoint("LEFT", 20, 0)
+
+	local petPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.pet.portrait.enabled,
+		playerPetArea,
+		function(isChecked)
+			mUI.profile.pet.portrait.enabled = isChecked
+		end)
+	petPortraitCheck:SetPoint("LEFT", petCheck, "RIGHT", 80, 0)
+
+	local petWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.pet.width, playerPetArea,
+		function(value)
+			mUI.profile.pet.width = value
+		end)
+	petWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local petHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.pet.height, playerPetArea,
+		function(value)
+			mUI.profile.pet.height = value
+		end)
+	petHeightSlider:SetPoint("RIGHT", petWidthSlider, "LEFT", -20, 0)
+
+	targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function(self)
 		HideUnitFrames()
 		targetFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	targetTab:SetPoint("LEFT", playerTab, "RIGHT", 2, 0)
 
@@ -364,42 +395,136 @@ local function RegisterSettings()
 	targetFrame:SetAllPoints()
 	targetFrame:Hide()
 
-	local titleText = targetFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", targetFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Target")
+	local targetArea = mUI:CreateArea("", targetFrame)
+	targetArea:SetPoint("TOPLEFT", targetFrame, "TOPLEFT", 10, -10)
+	targetArea:SetPoint("TOPRIGHT", targetFrame, "TOPRIGHT", -10, -10)
+	targetArea:SetHeight(80)
 
-	local targetCheck = mUI:CreateCheckBox("Enable Target frame", mUI.profile.target.enabled, targetFrame,
+	local targetCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.target.enabled, targetArea,
 		function(isChecked)
 			mUI.profile.target.enabled = isChecked
 		end)
-	targetCheck:SetPoint("TOPLEFT", 20, -20)
+	targetCheck:SetPoint("LEFT", 20, 0)
 
-	local targetPortraitCheck = mUI:CreateCheckBox("Enable Target portrait", mUI.profile.target.portrait.enabled,
-		targetFrame,
+	local targetPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.target.portrait.enabled,
+		targetArea,
 		function(isChecked)
 			mUI.profile.target.portrait.enabled = isChecked
 		end)
-	targetPortraitCheck:SetPoint("TOPLEFT", targetCheck, "BOTTOMLEFT", 0, -20)
+	targetPortraitCheck:SetPoint("LEFT", targetCheck, "RIGHT", 80, 0)
 
-	local totCheck = mUI:CreateCheckBox("Enable Target of Target frame", mUI.profile.targettarget.enabled, targetFrame,
+	local targetWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.target.width, targetArea,
+		function(value)
+			mUI.profile.target.width = value
+		end)
+	targetWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local targetHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.height, targetArea,
+		function(value)
+			mUI.profile.target.height = value
+		end)
+	targetHeightSlider:SetPoint("RIGHT", targetWidthSlider, "LEFT", -20, 0)
+
+	local targetPowerArea = mUI:CreateArea("Power", targetFrame)
+	targetPowerArea:SetPoint("TOPLEFT", targetArea, "BOTTOMLEFT", 0, -10)
+	targetPowerArea:SetPoint("TOPRIGHT", targetArea, "BOTTOMRIGHT", 0, -10)
+	targetPowerArea:SetHeight(80)
+
+	local targetPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.target.power.enabled,
+		targetPowerArea,
+		function(isChecked)
+			mUI.profile.target.power.enabled = isChecked
+		end)
+	targetPowerCheck:SetPoint("LEFT", 20, 0)
+
+	local targetPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.target.power.detach,
+		targetPowerArea,
+		function(isChecked)
+			mUI.profile.target.power.detach = isChecked
+		end)
+	targetPowerDetachCheck:SetPoint("LEFT", targetPowerCheck, "RIGHT", 80, 0)
+
+	local targetPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.target.power.width, targetPowerArea,
+		function(value)
+			mUI.profile.target.power.width = value
+		end)
+	targetPowerWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local targetPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.power.height, targetPowerArea,
+		function(value)
+			mUI.profile.target.power.height = value
+		end)
+	targetPowerHeightSlider:SetPoint("RIGHT", targetPowerWidthSlider, "LEFT", -20, 0)
+
+	local targetCastbarArea = mUI:CreateArea("Castbar", targetFrame)
+	targetCastbarArea:SetPoint("TOPLEFT", targetPowerArea, "BOTTOMLEFT", 0, -10)
+	targetCastbarArea:SetPoint("TOPRIGHT", targetPowerArea, "BOTTOMRIGHT", 0, -10)
+	targetCastbarArea:SetHeight(80)
+
+	local targetCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.target.castbar.enabled,
+		targetCastbarArea,
+		function(isChecked)
+			mUI.profile.target.castbar.enabled = isChecked
+		end)
+	targetCastbarCheck:SetPoint("LEFT", 20, 0)
+
+	local targetCastbarDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.target.castbar.detach,
+		targetCastbarArea,
+		function(isChecked)
+			mUI.profile.target.castbar.detach = isChecked
+		end)
+	targetCastbarDetachCheck:SetPoint("LEFT", targetCastbarCheck, "RIGHT", 80, 0)
+
+	local targetCastbarWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.target.castbar.width,
+		targetCastbarArea,
+		function(value)
+			mUI.profile.target.castbar.width = value
+		end)
+	targetCastbarWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local targetCastbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.castbar.height,
+		targetCastbarArea,
+		function(value)
+			mUI.profile.target.castbar.height = value
+		end)
+	targetCastbarHeightSlider:SetPoint("RIGHT", targetCastbarWidthSlider, "LEFT", -20, 0)
+
+	local totArea = mUI:CreateArea("Target of target", targetFrame)
+	totArea:SetPoint("TOPLEFT", targetCastbarArea, "BOTTOMLEFT", 0, -10)
+	totArea:SetPoint("TOPRIGHT", targetCastbarArea, "BOTTOMRIGHT", 0, -10)
+	totArea:SetHeight(80)
+
+	local totCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.targettarget.enabled,
+		totArea,
 		function(isChecked)
 			mUI.profile.targettarget.enabled = isChecked
 		end)
-	totCheck:SetPoint("TOPLEFT", targetPortraitCheck, "BOTTOMLEFT", 0, -20)
+	totCheck:SetPoint("LEFT", 20, 0)
 
-	local totPortraitCheck = mUI:CreateCheckBox("Enable Target of Target portrait",
+	local totPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait",
 		mUI.profile.targettarget.portrait.enabled,
-		targetFrame,
+		totArea,
 		function(isChecked)
 			mUI.profile.targettarget.portrait.enabled = isChecked
 		end)
-	totPortraitCheck:SetPoint("TOPLEFT", totCheck, "BOTTOMLEFT", 0, -20)
+	totPortraitCheck:SetPoint("LEFT", totCheck, "RIGHT", 80, 0)
 
-	local focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function()
+	local totWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.targettarget.width, totArea,
+		function(value)
+			mUI.profile.targettarget.width = value
+		end)
+	totWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local totHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.targettarget.height, totArea,
+		function(value)
+			mUI.profile.targettarget.height = value
+		end)
+	totHeightSlider:SetPoint("RIGHT", totWidthSlider, "LEFT", -20, 0)
+
+	focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function(self)
 		HideUnitFrames()
 		focusFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	focusTab:SetPoint("LEFT", targetTab, "RIGHT", 2, 0)
 
@@ -407,27 +532,104 @@ local function RegisterSettings()
 	focusFrame:SetAllPoints()
 	focusFrame:Hide()
 
-	local titleText = focusFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", focusFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Focus")
+	local focusArea = mUI:CreateArea("", focusFrame)
+	focusArea:SetPoint("TOPLEFT", focusFrame, "TOPLEFT", 10, -10)
+	focusArea:SetPoint("TOPRIGHT", focusFrame, "TOPRIGHT", -10, -10)
+	focusArea:SetHeight(80)
 
-	local focusCheck = mUI:CreateCheckBox("Enable Focus frame", mUI.profile.focus.enabled, focusFrame,
+	local focusCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.focus.enabled, focusArea,
 		function(isChecked)
 			mUI.profile.focus.enabled = isChecked
 		end)
-	focusCheck:SetPoint("TOPLEFT", 20, -20)
+	focusCheck:SetPoint("LEFT", 20, 0)
 
-	local focusPortraitCheck = mUI:CreateCheckBox("Enable Focus portrait", mUI.profile.focus.portrait.enabled, focusFrame,
+	local focusPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.focus.portrait.enabled,
+		focusArea,
 		function(isChecked)
 			mUI.profile.focus.portrait.enabled = isChecked
 		end)
-	focusPortraitCheck:SetPoint("TOPLEFT", focusCheck, "BOTTOMLEFT", 0, -20)
+	focusPortraitCheck:SetPoint("LEFT", focusCheck, "RIGHT", 80, 0)
 
-	local partyTab = mUI:CreateButton(100, 20, "Party", unitsFrame, function()
+	local focusWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.focus.width, focusArea,
+		function(value)
+			mUI.profile.focus.width = value
+		end)
+	focusWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local focusHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.height, focusArea,
+		function(value)
+			mUI.profile.focus.height = value
+		end)
+	focusHeightSlider:SetPoint("RIGHT", focusWidthSlider, "LEFT", -20, 0)
+
+	local focusPowerArea = mUI:CreateArea("Power", focusFrame)
+	focusPowerArea:SetPoint("TOPLEFT", focusArea, "BOTTOMLEFT", 0, -10)
+	focusPowerArea:SetPoint("TOPRIGHT", focusArea, "BOTTOMRIGHT", 0, -10)
+	focusPowerArea:SetHeight(80)
+
+	local focusPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.focus.power.enabled,
+		focusPowerArea,
+		function(isChecked)
+			mUI.profile.focus.power.enabled = isChecked
+		end)
+	focusPowerCheck:SetPoint("LEFT", 20, 0)
+
+	local focusPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.focus.power.detach,
+		focusPowerArea,
+		function(isChecked)
+			mUI.profile.focus.power.detach = isChecked
+		end)
+	focusPowerDetachCheck:SetPoint("LEFT", focusPowerCheck, "RIGHT", 80, 0)
+
+	local focusPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.focus.power.width, focusPowerArea,
+		function(value)
+			mUI.profile.focus.power.width = value
+		end)
+	focusPowerWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local focusPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.power.height, focusPowerArea,
+		function(value)
+			mUI.profile.focus.power.height = value
+		end)
+	focusPowerHeightSlider:SetPoint("RIGHT", focusPowerWidthSlider, "LEFT", -20, 0)
+
+	local focusCastbarArea = mUI:CreateArea("Castbar", focusFrame)
+	focusCastbarArea:SetPoint("TOPLEFT", focusPowerArea, "BOTTOMLEFT", 0, -10)
+	focusCastbarArea:SetPoint("TOPRIGHT", focusPowerArea, "BOTTOMRIGHT", 0, -10)
+	focusCastbarArea:SetHeight(80)
+
+	local focusCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.focus.castbar.enabled,
+		focusCastbarArea,
+		function(isChecked)
+			mUI.profile.focus.castbar.enabled = isChecked
+		end)
+	focusCastbarCheck:SetPoint("LEFT", 20, 0)
+
+	local focusCastbarDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.focus.castbar.detach,
+		focusCastbarArea,
+		function(isChecked)
+			mUI.profile.focus.castbar.detach = isChecked
+		end)
+	focusCastbarDetachCheck:SetPoint("LEFT", focusCastbarCheck, "RIGHT", 80, 0)
+
+	local focusCastbarWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.focus.castbar.width,
+		focusCastbarArea,
+		function(value)
+			mUI.profile.focus.castbar.width = value
+		end)
+	focusCastbarWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local focusCastbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.castbar.height,
+		focusCastbarArea,
+		function(value)
+			mUI.profile.focus.castbar.height = value
+		end)
+	focusCastbarHeightSlider:SetPoint("RIGHT", focusCastbarWidthSlider, "LEFT", -20, 0)
+
+	partyTab = mUI:CreateButton(100, 20, "Party", unitsFrame, function(self)
 		HideUnitFrames()
 		partyFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	partyTab:SetPoint("LEFT", focusTab, "RIGHT", 2, 0)
 
@@ -435,28 +637,40 @@ local function RegisterSettings()
 	partyFrame:SetAllPoints()
 	partyFrame:Hide()
 
-	local titleText = partyFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", partyFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Party")
+	local partyArea = mUI:CreateArea("", partyFrame)
+	partyArea:SetPoint("TOPLEFT", partyFrame, "TOPLEFT", 10, -10)
+	partyArea:SetPoint("TOPRIGHT", partyFrame, "TOPRIGHT", -10, -10)
+	partyArea:SetHeight(80)
 
-
-	local partyCheck = mUI:CreateCheckBox("Enable Party frames", mUI.profile.party.enabled, partyFrame,
+	local partyCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.party.enabled, partyArea,
 		function(isChecked)
 			mUI.profile.party.enabled = isChecked
 		end)
-	partyCheck:SetPoint("TOPLEFT", 20, -20)
+	partyCheck:SetPoint("LEFT", 20, 0)
 
-	local partyPortraitCheck = mUI:CreateCheckBox("Enable Party portraits", mUI.profile.party.portrait.enabled, partyFrame,
+	local partyPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.party.portrait.enabled,
+		partyArea,
 		function(isChecked)
 			mUI.profile.party.portrait.enabled = isChecked
 		end)
-	partyPortraitCheck:SetPoint("TOPLEFT", partyCheck, "BOTTOMLEFT", 0, -20)
+	partyPortraitCheck:SetPoint("LEFT", partyCheck, "RIGHT", 80, 0)
 
-	local raidTab = mUI:CreateButton(100, 20, "Raid", unitsFrame, function()
+	local partyWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.party.width, partyArea,
+		function(value)
+			mUI.profile.party.width = value
+		end)
+	partyWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local partyHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.party.height, partyArea,
+		function(value)
+			mUI.profile.party.height = value
+		end)
+	partyHeightSlider:SetPoint("RIGHT", partyWidthSlider, "LEFT", -20, 0)
+
+	raidTab = mUI:CreateButton(100, 20, "Raid", unitsFrame, function(self)
 		HideUnitFrames()
 		raidFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	raidTab:SetPoint("LEFT", partyTab, "RIGHT", 2, 0)
 
@@ -464,21 +678,33 @@ local function RegisterSettings()
 	raidFrame:SetAllPoints()
 	raidFrame:Hide()
 
-	local titleText = raidFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", raidFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Raid")
+	local raidArea = mUI:CreateArea("", raidFrame)
+	raidArea:SetPoint("TOPLEFT", raidFrame, "TOPLEFT", 10, -10)
+	raidArea:SetPoint("TOPRIGHT", raidFrame, "TOPRIGHT", -10, -10)
+	raidArea:SetHeight(80)
 
-	local raidCheck = mUI:CreateCheckBox("Enable Raid frames", mUI.profile.raid.enabled, raidFrame,
+	local raidCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.raid.enabled, raidArea,
 		function(isChecked)
 			mUI.profile.raid.enabled = isChecked
 		end)
-	raidCheck:SetPoint("TOPLEFT", 20, -20)
+	raidCheck:SetPoint("LEFT", 20, 0)
 
-	local bossTab = mUI:CreateButton(100, 20, "Boss", unitsFrame, function()
+	local raidWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.raid.width, raidArea,
+		function(value)
+			mUI.profile.raid.width = value
+		end)
+	raidWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local raidHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.raid.height, raidArea,
+		function(value)
+			mUI.profile.raid.height = value
+		end)
+	raidHeightSlider:SetPoint("RIGHT", raidWidthSlider, "LEFT", -20, 0)
+
+	bossTab = mUI:CreateButton(100, 20, "Boss", unitsFrame, function(self)
 		HideUnitFrames()
 		bossFrame:Show()
+		self.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	end)
 	bossTab:SetPoint("LEFT", raidTab, "RIGHT", 2, 0)
 
@@ -486,23 +712,35 @@ local function RegisterSettings()
 	bossFrame:SetAllPoints()
 	bossFrame:Hide()
 
-	local titleText = bossFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("TOP", bossFrame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("Boss")
+	local bossArea = mUI:CreateArea("", bossFrame)
+	bossArea:SetPoint("TOPLEFT", bossFrame, "TOPLEFT", 10, -10)
+	bossArea:SetPoint("TOPRIGHT", bossFrame, "TOPRIGHT", -10, -10)
+	bossArea:SetHeight(80)
 
-	local bossCheck = mUI:CreateCheckBox("Enable Boss frames", mUI.profile.boss.enabled, bossFrame,
+	local bossCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.boss.enabled, bossArea,
 		function(isChecked)
 			mUI.profile.boss.enabled = isChecked
 		end)
-	bossCheck:SetPoint("TOPLEFT", 20, -20)
+	bossCheck:SetPoint("LEFT", 20, 0)
 
-	local bossPortraitCheck = mUI:CreateCheckBox("Enable Boss portraits", mUI.profile.boss.portrait.enabled, bossFrame,
+	local bossPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.boss.portrait.enabled,
+		bossArea,
 		function(isChecked)
 			mUI.profile.boss.portrait.enabled = isChecked
 		end)
-	bossPortraitCheck:SetPoint("TOPLEFT", bossCheck, "BOTTOMLEFT", 0, -20)
+	bossPortraitCheck:SetPoint("LEFT", bossCheck, "RIGHT", 80, 0)
+
+	local bossWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.boss.width, bossArea,
+		function(value)
+			mUI.profile.boss.width = value
+		end)
+	bossWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local bossHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.boss.height, bossArea,
+		function(value)
+			mUI.profile.boss.height = value
+		end)
+	bossHeightSlider:SetPoint("RIGHT", bossWidthSlider, "LEFT", -20, 0)
 
 	aurasFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
 	aurasFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)

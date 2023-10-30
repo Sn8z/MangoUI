@@ -6,6 +6,8 @@ local function updatePoint(frame)
 	local point, _, relativePoint, offsetX, offsetY = frame:GetPoint(1)
 	offsetX = Round(offsetX)
 	offsetY = Round(offsetY)
+	--offsetX = math.floor(offsetX / 10 + 0.5) * 10
+	--offsetY = math.floor(offsetY / 10 + 0.5) * 10
 	frame:SetPoint(point, UIParent, relativePoint, offsetX, offsetY)
 end
 
