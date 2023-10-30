@@ -8,16 +8,16 @@ local playerColor = oUF.colors.class[class]
 -- Overall frames
 local settingsFrame, generalFrame, unitsFrame, aurasFrame, profilesFrame
 local generalTab, unitsTab, aurasTab, profilesTab
+
 -- Nested frames for configuring unitframes
 local playerFrame, targetFrame, focusFrame, partyFrame, raidFrame, bossFrame
 local playerTab, targetTab, focusTab, partyTab, raidTab, bossTab
 
 local function RegisterSettings()
 	settingsFrame = CreateFrame("Frame", "MangoSettingsFrame", UIParent, "BackdropTemplate")
-	settingsFrame:SetSize(900, 600)
+	settingsFrame:SetSize(900, 700)
 	settingsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	settingsFrame:SetBackdrop({
-		--bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		bgFile = [[Interface\AddOns\MangoUI\Media\carbon.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		tile = true,
@@ -140,12 +140,6 @@ local function RegisterSettings()
 	generalFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
 	generalFrame:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
 	generalTab.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-
-	local titleText = generalFrame:CreateFontString(nil, "OVERLAY")
-	titleText:SetPoint("BOTTOM", generalFrame, "TOP", 0, 5)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
-	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	titleText:SetText("General")
 
 	local generalArea = mUI:CreateArea("", generalFrame)
 	generalArea:SetPoint("TOPLEFT", generalFrame, "TOPLEFT", 10, -10)
