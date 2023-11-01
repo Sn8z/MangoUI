@@ -24,6 +24,10 @@ local defaultProfile = {
 		font = "Ubuntu Medium",
 		borderSize = 1,
 		mangoColors = true,
+		actionbars = {
+			enabled = true,
+			animations = false
+		},
 	},
 	player = {
 		enabled = true,

@@ -150,7 +150,7 @@ local function RegisterSettings()
 		function(isChecked)
 			mUI.profile.settings.smooth = isChecked
 		end)
-	smoothCheck:SetPoint("LEFT", 10, 0)
+	smoothCheck:SetPoint("LEFT", 20, 0)
 
 	local colorCheck = mUI:CreateCheckBox("|cff00ff00Enable|r MangoUI colors", mUI.profile.settings.mangoColors,
 		generalArea,
@@ -163,10 +163,28 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.settings.borderSize = value
 		end)
-	borderSlider:SetPoint("RIGHT", -10, 0)
+	borderSlider:SetPoint("RIGHT", -20, 0)
+
+	local actionbarArea = mUI:CreateArea("Actionbars |cffffaa00(Experimental)|r", generalFrame)
+	actionbarArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -10)
+	actionbarArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -10)
+	actionbarArea:SetHeight(60)
+
+	local actionbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Mango actionbars", mUI.profile.settings.actionbars.enabled, actionbarArea,
+		function(isChecked)
+			mUI.profile.settings.actionbars.enabled = isChecked
+		end)
+	actionbarCheck:SetPoint("LEFT", 20, 0)
+
+	local actionbarAnimCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Blizzard actionbar animations",
+		mUI.profile.settings.actionbars.animations, actionbarArea,
+		function(isChecked)
+			mUI.profile.settings.actionbars.animations = isChecked
+		end)
+	actionbarAnimCheck:SetPoint("CENTER", -60, 0)
 
 	local textureArea = mUI:CreateArea("Textures", generalFrame)
-	textureArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -20)
+	textureArea:SetPoint("TOPLEFT", actionbarArea, "BOTTOMLEFT", 0, -20)
 	textureArea:SetPoint("BOTTOMRIGHT", generalFrame, "BOTTOM", -5, 10)
 
 	local healthTextureDropdown = mUI:CreateDropdown("Health:", mUI.profile.settings.healthTexture,
@@ -191,7 +209,7 @@ local function RegisterSettings()
 	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
 
 	local fontArea = mUI:CreateArea("Fonts", generalFrame)
-	fontArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -20)
+	fontArea:SetPoint("TOPRIGHT", actionbarArea, "BOTTOMRIGHT", 0, -20)
 	fontArea:SetPoint("BOTTOMLEFT", generalFrame, "BOTTOM", 5, 10)
 
 	local fontDropdown = mUI:CreateDropdown("Font:", mUI.profile.settings.font, LSM:List("font"), fontArea,
