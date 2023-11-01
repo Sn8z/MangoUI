@@ -17,7 +17,7 @@ local function GetUnitStatus(unit)
 	elseif UnitIsGhost(unit) then
 		return "Ghost"
 	elseif UnitIsAFK(unit) then
-		return "Away"
+		return "AFK"
 	elseif UnitIsDead(unit) then
 		return "Dead"
 	end
@@ -56,4 +56,16 @@ oUF.Tags.Methods['mango:absorbs'] = function(unit)
 end
 
 oUF.Tags.Events['mango:absorbs'] = 'UNIT_ABSORB_AMOUNT_CHANGED'
+
+oUF.Tags.Methods['mango:group'] = function(unit)
+	if not UnitInRaid(unit) then return end
+	for i = 1, GetNumGroupMembers() do
+		local name, _, subGroup = GetRaidRosterInfo(i)
+		if (name == UnitName(unit)) then
+			return subGroup
+		end
+	end
+end
+
+oUF.Tags.Events['mango:group'] = 'GROUP_ROSTER_UPDATE'
 

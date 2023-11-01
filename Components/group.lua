@@ -4,8 +4,8 @@ local LSM = LibStub("LibSharedMedia-3.0")
 function mUI:CreateGroupNumber(self)
 	if self.unit ~= 'player' then return end
 	local grpNumber = self.Health:CreateFontString(nil, "OVERLAY")
-	local fSize = 14
+	local fSize = 12
 	grpNumber:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", -3, 3)
 	grpNumber:SetFont(LSM:Fetch("font", mUI.db.settings.font), fSize, "THINOUTLINE")
-	self:Tag(grpNumber, "[group]")
+	self:Tag(grpNumber, "[mango:group]")
 end

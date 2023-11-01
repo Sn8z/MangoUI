@@ -15,7 +15,7 @@ local playerTab, targetTab, focusTab, partyTab, raidTab, bossTab
 
 local function RegisterSettings()
 	settingsFrame = CreateFrame("Frame", "MangoSettingsFrame", UIParent, "BackdropTemplate")
-	settingsFrame:SetSize(900, 700)
+	settingsFrame:SetSize(900, 800)
 	settingsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	settingsFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\carbon.tga]],
@@ -225,7 +225,7 @@ local function RegisterSettings()
 	local playerArea = mUI:CreateArea("", playerFrame)
 	playerArea:SetPoint("TOPLEFT", playerFrame, "TOPLEFT", 10, -10)
 	playerArea:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -10)
-	playerArea:SetHeight(80)
+	playerArea:SetHeight(140)
 
 	local playerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.enabled, playerArea,
 		function(isChecked)
@@ -244,7 +244,7 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.player.width = value
 		end)
-	playerWidthSlider:SetPoint("RIGHT", -20, 0)
+	playerWidthSlider:SetPoint("TOPRIGHT", -20, -30)
 
 	local playerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.height, playerArea,
 		function(value)
@@ -252,10 +252,22 @@ local function RegisterSettings()
 		end)
 	playerHeightSlider:SetPoint("RIGHT", playerWidthSlider, "LEFT", -20, 0)
 
+	local playerXSlider = mUI:CreateSlider(-1000, 1000, 1, "X pos", mUI.profile.player.x, playerArea,
+		function(value)
+			mUI.profile.player.x = value
+		end)
+	playerXSlider:SetPoint("TOP", playerHeightSlider, "BOTTOM", 0, -40)
+
+	local playerYSlider = mUI:CreateSlider(-1000, 1000, 1, "Y pos", mUI.profile.player.y, playerArea,
+		function(value)
+			mUI.profile.player.y = value
+		end)
+	playerYSlider:SetPoint("TOP", playerWidthSlider, "BOTTOM", 0, -40)
+
 	local playerPowerArea = mUI:CreateArea("Power", playerFrame)
 	playerPowerArea:SetPoint("TOPLEFT", playerArea, "BOTTOMLEFT", 0, -10)
 	playerPowerArea:SetPoint("TOPRIGHT", playerArea, "BOTTOMRIGHT", 0, -10)
-	playerPowerArea:SetHeight(80)
+	playerPowerArea:SetHeight(140)
 
 	local playerPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.power.enabled,
 		playerPowerArea,
@@ -286,7 +298,7 @@ local function RegisterSettings()
 	local playerClasspowerArea = mUI:CreateArea("Classpower", playerFrame)
 	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
 	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)
-	playerClasspowerArea:SetHeight(80)
+	playerClasspowerArea:SetHeight(140)
 
 	local playerClasspowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.classpower.enabled,
 		playerClasspowerArea,
@@ -320,7 +332,7 @@ local function RegisterSettings()
 	local playerCastbarArea = mUI:CreateArea("Castbar", playerFrame)
 	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)
 	playerCastbarArea:SetPoint("TOPRIGHT", playerClasspowerArea, "BOTTOMRIGHT", 0, -10)
-	playerCastbarArea:SetHeight(80)
+	playerCastbarArea:SetHeight(140)
 
 	local playerCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.castbar.enabled,
 		playerCastbarArea,

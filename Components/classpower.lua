@@ -93,7 +93,6 @@ function mUI:CreateClassPower(self)
 				mUI.db.player.classpower.spacing)
 		end
 		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-		Bar:GetStatusBarTexture():SetHorizTile(false)
 		Bar:SetMinMaxValues(0, 1)
 		ClassPower[index] = Bar
 	end
