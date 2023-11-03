@@ -128,15 +128,11 @@ function frame:ADDON_LOADED(event, addOnName)
 			end
 		end
 
-		--mUI.db = MangoDB
-
-		-- print("Fetching profile for: " .. currentCharacter)
 		if not MangoDB.MangoCharacters[currentCharacter] then
 			MangoDB.MangoCharacters[currentCharacter] = "default"
 		end
 
 		local mangoProfile = MangoDB.MangoCharacters[currentCharacter] or "default"
-		-- print("Current profile: " .. mangoProfile)
 		mUI.profile = MangoDB.MangoProfiles[mangoProfile] or mUI.defaults.MangoProfiles["default"]
 		mUI.profiles = MangoDB.MangoProfiles
 

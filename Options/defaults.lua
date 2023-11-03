@@ -18,11 +18,11 @@ mUI.config.anchors = {
 local defaultProfile = {
 	settings = {
 		smooth = true,
-		healthTexture = "Erik",
-		powerTexture = "Erik",
-		castbarTexture = "Erik",
+		healthTexture = "Sn8z",
+		powerTexture = "Tim",
+		castbarTexture = "Tim",
 		font = "Ubuntu Medium",
-		borderSize = 1,
+		borderSize = 2,
 		mangoColors = true,
 		actionbars = {
 			enabled = true,
@@ -40,19 +40,21 @@ local defaultProfile = {
 		classColor = true,
 		power = {
 			enabled = true,
-			detach = false,
+			style = "RIGHT",
 			powerColor = true,
-			width = 200,
-			height = 20,
+			width = 160,
+			height = 10,
 			x = 0,
-			y = 0
+			y = 0,
+			showText = true,
+			fontSize = 14
 		},
 		castbar = {
 			enabled = true,
 			detach = false,
 			classColor = true,
 			shield = false,
-			icon = true,
+			icon = false,
 			width = 200,
 			height = 20,
 			x = 0,
@@ -63,13 +65,13 @@ local defaultProfile = {
 			detach = false,
 			classColor = false,
 			width = 200,
-			height = 20,
-			spacing = 5,
+			height = 8,
+			spacing = 3,
 			x = 0,
 			y = -200
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -84,10 +86,12 @@ local defaultProfile = {
 		classColor = true,
 		power = {
 			enabled = true,
-			detach = true,
-			classColor = true,
-			width = 200,
-			height = 8
+			style = "LEFT",
+			powerColor = true,
+			width = 160,
+			height = 10,
+			showText = true,
+			fontSize = 14
 		},
 		castbar = {
 			enabled = true,
@@ -101,7 +105,7 @@ local defaultProfile = {
 			y = 0
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -109,12 +113,17 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
-		height = 50,
+		width = 110,
+		height = 30,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			style = "INSET",
+			powerColor = true,
+			width = 90,
+			height = 8,
+			showText = false,
+			fontSize = 8
 		},
 		castbar = {
 			enabled = true,
@@ -124,7 +133,7 @@ local defaultProfile = {
 			height = 12
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -132,15 +141,20 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
-		height = 50,
+		width = 110,
+		height = 30,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			style = "INSET",
+			powerColor = true,
+			width = 90,
+			height = 8,
+			showText = false,
+			fontSize = 8
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -148,16 +162,19 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
-		height = 50,
+		width = 200,
+		height = 40,
 		x = 20,
 		y = 400,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true,
+			style = "INSET",
+			powerColor = true,
 			width = 200,
-			height = 8
+			height = 8,
+			showText = true,
+			fontSize = 12
 		},
 		castbar = {
 			enabled = true,
@@ -171,7 +188,7 @@ local defaultProfile = {
 			y = 0
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -179,12 +196,17 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
-		height = 50,
+		width = 180,
+		height = 40,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			style = "LEFT",
+			powerColor = true,
+			width = 120,
+			height = 8,
+			showText = true,
+			fontSize = 12
 		},
 		castbar = {
 			enabled = true,
@@ -194,7 +216,7 @@ local defaultProfile = {
 			height = 16
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -202,15 +224,20 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
-		height = 50,
+		width = 180,
+		height = 40,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			style = "RIGHT",
+			powerColor = true,
+			width = 120,
+			height = 8,
+			showText = false,
+			fontSize = 8
 		},
 		portrait = {
-			enabled = true,
+			enabled = false,
 			alpha = 0.2,
 		}
 	},
@@ -218,12 +245,17 @@ local defaultProfile = {
 		enabled = true,
 		anchor = "LEFT",
 		parentAnchor = "CENTER",
-		width = 220,
+		width = 70,
 		height = 50,
 		classColor = true,
 		power = {
 			enabled = true,
-			classColor = true
+			style = "NORMAL",
+			powerColor = true,
+			width = 200,
+			height = 8,
+			showText = false,
+			fontSize = 8
 		},
 		portrait = {
 			enabled = true,
@@ -236,6 +268,5 @@ mUI.defaults = {
 	MangoCharacters = {},
 	MangoProfiles = {
 		["default"] = defaultProfile,
-		["dark"] = darkProfile,
 	},
 }

@@ -16,6 +16,7 @@ local function SetupFrame(self)
 	mUI:CreateUnitName(self)
 	mUI:CreateRaidTarget(self)
 	mUI:CreateBorder(self, true)
+	mUI:CreatePowerBar(self)
 	mUI:CreatePortrait(self)
 
 	if mUI.profile.settings.mangoColors then
@@ -47,7 +48,6 @@ local function Primary(self, unit)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateHealthValue(self)
-	mUI:CreatePowerBar(self)
 	mUI:CreateAltPowerBar(self)
 
 	mUI:CreateBuffs(self)
@@ -82,9 +82,9 @@ oUF:RegisterStyle("MangoPrimary", Primary)
 
 local function Secondary(self, unit)
 	SetupFrame(self)
+	mUI:CreateCastbar(self)
 	if unit == "pet" then
 		self:SetSize(mUI.db.pet.width, mUI.db.pet.height)
-		mUI:CreateCastbar(self)
 	else
 		self:SetSize(mUI.db.targettarget.width, mUI.db.targettarget.height)
 	end
@@ -92,11 +92,9 @@ end
 oUF:RegisterStyle("MangoSecondary", Secondary)
 
 local function mBoss(self, unit)
-	--print("Making group: " .. unit)
 	SetupFrame(self)
-	self:SetSize(180, 42)
+	self:SetSize(mUI.profile.boss.width, mUI.profile.boss.height)
 	mUI:CreateDebuffs(self)
-	mUI:CreatePowerBar(self)
 	mUI:CreateCastbar(self)
 	mUI:CreateHealthValue(self)
 end
@@ -104,7 +102,7 @@ oUF:RegisterStyle("MangoBoss", mBoss)
 
 local function mParty(self, unit)
 	SetupFrame(self)
-	self:SetSize(190, 50)
+	self:SetSize(mUI.profile.party.width, mUI.profile.party.height)
 
 	mUI:CreateRoleIndicator(self)
 	mUI:CreateThreatIndicator(self)
@@ -114,7 +112,6 @@ local function mParty(self, unit)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
-	mUI:CreatePowerBar(self)
 	mUI:CreateStatusText(self)
 	self.DispelHighlight = true
 end
@@ -122,7 +119,7 @@ oUF:RegisterStyle("MangoParty", mParty)
 
 local function mRaid(self, unit)
 	SetupFrame(self)
-	self:SetSize(80, 45)
+	self:SetSize(mUI.profile.raid.width, mUI.profile.raid.height)
 	mUI:CreateRoleIndicator(self)
 	mUI:CreateThreatIndicator(self)
 	mUI:CreateLeaderIndicator(self)

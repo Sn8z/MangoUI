@@ -32,7 +32,7 @@ function mUI:CreateCastbar(self)
 		unit = "boss"
 	end
 	local settings = mUI.profile[unit]
-	if settings == nil then return end
+	if settings == nil or settings.castbar == nil then return end
 	if settings.castbar.enabled == false then return end
 
 	local Castbar = CreateFrame("StatusBar", nil, self)

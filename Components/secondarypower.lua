@@ -6,16 +6,17 @@ function mUI:CreateSecondaryPowerBar(self)
 	local AdditionalPower = CreateFrame('StatusBar', nil, self.Health)
 
 	AdditionalPower:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	AdditionalPower:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
-	AdditionalPower:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
-	AdditionalPower:SetHeight(2)
+	AdditionalPower:SetPoint("TOPRIGHT", self, "TOPLEFT", 0, 0)
+	AdditionalPower:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", 0, 0)
+	AdditionalPower:SetWidth(4)
+	AdditionalPower:SetOrientation("VERTICAL")
 
 	mUI:CreateBorder(AdditionalPower)
 
 	local Background = AdditionalPower:CreateTexture(nil, 'BACKGROUND')
 	Background:SetAllPoints(AdditionalPower)
 	Background:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	Background.multiplier = 1 / 3
+	Background.multiplier = 0.25
 
 	AdditionalPower.colorPower = true
 	AdditionalPower.colorClass = true

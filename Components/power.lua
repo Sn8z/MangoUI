@@ -5,6 +5,15 @@ local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
 local UnitPower, UnitPowerMax, UnitIsConnected, GetUnitPowerBarInfo = UnitPower, UnitPowerMax, UnitIsConnected,
 		GetUnitPowerBarInfo
 
+local function GetDisplayPower(element)
+	local unit = element.__owner.unit
+	local barInfo = GetUnitPowerBarInfo(unit)
+
+	if barInfo then
+		return ALTERNATE_POWER_INDEX, barInfo.minPower
+	end
+end
+
 local function SmoothUpdate(self, event, unit)
 	if (self.unit ~= unit) then return end
 	local element = self.Power
@@ -27,14 +36,9 @@ local function SmoothUpdate(self, event, unit)
 	element.min = min
 	element.max = max
 	element.displayType = displayType
-end
 
-local function GetDisplayPower(element)
-	local unit = element.__owner.unit
-	local barInfo = GetUnitPowerBarInfo(unit)
-
-	if barInfo then
-		return ALTERNATE_POWER_INDEX, barInfo.minPower
+	if (element.PostUpdate) then
+		element:PostUpdate(unit, cur, min, max)
 	end
 end
 
@@ -49,52 +53,48 @@ function mUI:CreatePowerBar(self)
 		unit = "boss"
 	end
 	local settings = mUI.profile[unit]
-	if settings == nil then return end
+	if settings == nil or settings.power == nil then return end
 	if settings.power.enabled == false then return end
-	
-	local Power = CreateFrame('StatusBar', nil, self)
+
+	local Power = CreateFrame('StatusBar', nil, self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 
-	if self.unit == "player" then
-		if mUI.db.player.power.detach then
-			Power:SetSize(mUI.db.player.power.width, mUI.db.player.power.height)
-			Power:SetPoint('CENTER', UIParent, 'CENTER', mUI.db.player.power.x, mUI.db.player.power.y)
-		else
-			Power:SetHeight(mUI.db.player.power.height)
-			Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -2)
-			Power:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -2)
-		end
-
-		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
-		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)
-		PowerAmount:SetFont(LSM:Fetch("font", mUI.db.settings.font), 16, "THINOUTLINE")
-		self:Tag(PowerAmount, "[mango:pp]")
-	elseif self.unit == 'target' then
-		Power:SetHeight(2)
-		Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -2)
-		Power:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -2)
-
-		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
-		PowerAmount:SetPoint('CENTER', Power, 'CENTER', 0, 0)
-		PowerAmount:SetFont(LSM:Fetch("font", mUI.db.settings.font), 14, "THINOUTLINE")
-		self:Tag(PowerAmount, "[mango:pp]")
-	elseif self.unit == 'party' then
-		Power:SetHeight(2)
-		Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -2)
-		Power:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -2)
+	if settings.power.style == "DETACH" and self.unit == "player" then
+		Power:SetSize(settings.power.width, settings.power.height)
+		Power:SetPoint("CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
+	elseif settings.power.style == "LEFT" then
+		Power:SetPoint("LEFT", self, "BOTTOMLEFT", 6, 0)
+		Power:SetSize(settings.power.width, settings.power.height)
+	elseif settings.power.style == "RIGHT" then
+		Power:SetPoint("RIGHT", self, "BOTTOMRIGHT", -6, 0)
+		Power:SetSize(settings.power.width, settings.power.height)
+	elseif settings.power.style == "INSET" then
+		Power:SetPoint("LEFT", self, "BOTTOMLEFT", 6, 0)
+		Power:SetPoint("RIGHT", self, "BOTTOMRIGHT", -6, 0)
+		Power:SetHeight(mUI.db.player.power.height)
 	else
-		Power:SetHeight(2)
-		Power:SetPoint('TOPLEFT', self.Health, 'BOTTOMLEFT', 0, -2)
-		Power:SetPoint('TOPRIGHT', self.Health, 'BOTTOMRIGHT', 0, -2)
+		Power:SetHeight(settings.power.height)
+		Power:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 0)
+		Power:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, 0)
 	end
 
+	if settings.power.showText then
+		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
+		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)
+		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.fontSize or 12, "THINOUTLINE")
+		self:Tag(PowerAmount, "[mango:pp]")
+	end
+
+	Power.colorDisconnected = true
+	Power.colorTapping = false
+	Power.colorThreat = false
 	Power.colorPower = true
+
 	Power.frequentUpdates = self.unit == 'player' or self.unit == 'target'
 	Power.displayAltPower = self.unit == 'boss'
-
 	mUI:CreateBorder(Power)
 
-	if mUI.db.settings.smooth then
+	if mUI.profile.settings.smooth then
 		Mixin(Power, SmoothStatusBarMixin)
 		Power.Override = SmoothUpdate
 	end
@@ -102,8 +102,9 @@ function mUI:CreatePowerBar(self)
 	local bg = Power:CreateTexture(nil, 'BACKGROUND')
 	bg:SetAllPoints(Power)
 	bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	bg.multiplier = 1 / 3
+	bg.multiplier = 0.4
 	Power.bg = bg
+
 	Power.GetDisplayPower = GetDisplayPower
 	Power.PostUpdate = PostUpdatePower
 	self.Power = Power

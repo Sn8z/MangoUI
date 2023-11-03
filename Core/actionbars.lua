@@ -101,7 +101,7 @@ function mUI:EnableActionbars()
 		local Icon = Button.icon
 		local Cooldown = Button.cooldown
 
-		local borderSize = 2
+		local borderSize = mUI.profile.settings.borderSize
 
 		Mixin(Button, BackdropTemplateMixin)
 		Button:SetBackdrop({
