@@ -21,10 +21,17 @@ local function PostCastStart(self, unit)
 	end
 end
 
--- Add back when new tag gets released
---local function PostUpdatePips(self, numStages)
---	print(numStages)
---end
+local function PostUpdateStage(self, stage)
+	if stage == 1 then
+		self:SetStatusBarColor(1, 1, 1)
+	elseif stage == 2 then
+		self:SetStatusBarColor(1, 0.8, 0.2)
+	elseif stage == 3 then
+		self:SetStatusBarColor(1, 0.6, 0)
+	elseif stage == 4 then
+		self:SetStatusBarColor(1, 0.2, 0)
+	end
+end
 
 function mUI:CreateCastbar(self)
 	local unit = self.unit
@@ -88,7 +95,7 @@ function mUI:CreateCastbar(self)
 		Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
 	end
 
-	--Castbar.PostUpdatePips = PostUpdatePips -- Add back when new functions from oUF gets released with a new tag
+	Castbar.PostUpdateStage = PostUpdateStage
 	Castbar.PostCastFail = PostCastFail
 	Castbar.PostCastStart = PostCastStart
 	self.Castbar = Castbar

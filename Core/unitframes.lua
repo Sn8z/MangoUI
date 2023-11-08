@@ -65,7 +65,7 @@ local function Primary(self, unit)
 		if mUI.profile.player.castbar.enabled then -- change db setting
 			local GCD = CreateFrame("StatusBar", nil, self)
 			GCD:SetSize(self.Castbar:GetWidth(), 2)
-			GCD:SetPoint('TOPLEFT', self.Castbar, 'BOTTOMLEFT', 0, -2)
+			GCD:SetPoint("BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 2)
 			GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.castbarTexture))
 			local gBackground = GCD:CreateTexture(nil, "BACKGROUND")
 			gBackground:SetAllPoints(GCD)

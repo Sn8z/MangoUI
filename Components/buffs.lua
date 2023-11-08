@@ -59,6 +59,7 @@ local playerAuras = {
 	[1784] = true,  -- Stealth
 	[13877] = true, -- Blade Flurry
 	[315496] = true, -- Slice and Dice
+	[315341] = true, -- Between The Eyes
 	[13750] = true, -- Adrenaline Rush
 	[394758] = true, -- Flagellation
 	[384631] = true, -- Flagellation

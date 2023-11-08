@@ -58,8 +58,9 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 			bg:SetColorTexture(0.15, 0.15, 0.15, 1)
 
 			local border = ClassPowerBgFrame:CreateTexture('ClassPowerBorder_'..index, 'BACKGROUND')
-			border:SetPoint("TOPLEFT", Bar, "TOPLEFT", -1, 1)
-			border:SetPoint("BOTTOMRIGHT", Bar, "BOTTOMRIGHT", 1, -1)
+			border:SetPoint("TOPLEFT", Bar, "TOPLEFT", -mUI.profile.settings.borderSize, mUI.profile.settings.borderSize)
+			border:SetPoint("BOTTOMRIGHT", Bar, "BOTTOMRIGHT", mUI.profile.settings.borderSize,
+				-mUI.profile.settings.borderSize)
 			border:SetColorTexture(0, 0, 0, 1)
 			bg.border = border
 			ClassPowerBg[index] = bg

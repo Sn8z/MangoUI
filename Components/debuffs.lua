@@ -6,7 +6,6 @@ local removedDebuffs = {
 
 local TargetDebuffs = {
 	[188389] = true, -- Flame Shock
-	[315341] = true, -- Between the Eyes
 	[316220] = true, -- Find Weakness
 	[1943] = true, -- Rupture
 	[703] = true,  -- Garrote
