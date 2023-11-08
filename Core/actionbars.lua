@@ -27,7 +27,7 @@ function mUI:BlockActionbarAnimations()
 	end
 end
 
-function mUI:EnableActionbars()
+function mUI:SkinActionbars()
 	local Bars = {
 		_G["MultiBarBottomLeft"],
 		_G["MultiBarBottomRight"],
@@ -248,7 +248,7 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	if mUI.profile.settings.actionbars.enabled then
-		mUI:EnableActionbars()
+		mUI:SkinActionbars()
 	end
 
 	if not mUI.profile.settings.actionbars.animations then

@@ -21,6 +21,7 @@ Core/db.lua
 Core/slash.lua
 Core/unitframes.lua
 Core/actionbars.lua
+Core/tooltip.lua
 Core/colors.lua
 Core/omnicd.lua
 

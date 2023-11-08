@@ -28,6 +28,9 @@ local defaultProfile = {
 			enabled = true,
 			animations = false
 		},
+		tooltip = {
+			enabled = true,
+		},
 	},
 	player = {
 		enabled = true,
