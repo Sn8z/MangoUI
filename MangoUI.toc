@@ -20,10 +20,12 @@ Core/core.lua
 Core/db.lua
 Core/slash.lua
 Core/unitframes.lua
-Core/actionbars.lua
-Core/tooltip.lua
 Core/colors.lua
 Core/omnicd.lua
+
+# Skins
+Skins/actionbars.lua
+Skins/tooltip.lua
 
 # Options
 Options/defaults.lua
