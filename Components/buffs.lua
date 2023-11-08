@@ -72,6 +72,7 @@ local playerAuras = {
 	[31224] = true, -- Cloak of Shadows
 	[1966] = true,  -- Feint
 	[5277] = true,  -- Evasion
+	[115192] = true,  -- Subterfuge
 }
 
 local function PlayerAuraFilter(element, unit, data)

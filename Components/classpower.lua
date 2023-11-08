@@ -15,7 +15,7 @@ local function PostVisibility(element, isVisible)
 end
 
 local function UpdateColor(element, powerType)
-	local color = element.__owner.colors.power[powerType] or {0, 0, 0}
+	local color = element.__owner.colors.power[powerType] or { 0, 0, 0 }
 	local r, g, b = color[1], color[2], color[3]
 	for i = 1, #element do
 		element[i]:SetStatusBarColor(r, g, b)
@@ -32,7 +32,7 @@ local function ClearBackground()
 	end
 end
 
-local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType, chargedPoints)
+local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType, ccp1, ccp2, ccp3)
 	UpdateColor(element, powerType)
 
 	if (hasMaxChanged) then
@@ -44,7 +44,7 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 
 			if mUI.db.player.classpower.detach then
 				Bar:SetWidth((mUI.db.player.classpower.width - totalSpacing) / max)
-			else 
+			else
 				Bar:SetWidth((element.__owner:GetWidth() - totalSpacing) / max)
 			end
 
@@ -53,11 +53,11 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 				Bar:SetPoint('LEFT', element[index - 1], 'RIGHT', spacing, 0)
 			end
 
-			local bg = ClassPowerBgFrame:CreateTexture('ClassPowerBG_'..index, 'BACKGROUND')
+			local bg = ClassPowerBgFrame:CreateTexture('ClassPowerBG_' .. index, 'BACKGROUND')
 			bg:SetAllPoints(Bar)
 			bg:SetColorTexture(0.15, 0.15, 0.15, 1)
 
-			local border = ClassPowerBgFrame:CreateTexture('ClassPowerBorder_'..index, 'BACKGROUND')
+			local border = ClassPowerBgFrame:CreateTexture('ClassPowerBorder_' .. index, 'BACKGROUND')
 			border:SetPoint("TOPLEFT", Bar, "TOPLEFT", -mUI.profile.settings.borderSize, mUI.profile.settings.borderSize)
 			border:SetPoint("BOTTOMRIGHT", Bar, "BOTTOMRIGHT", mUI.profile.settings.borderSize,
 				-mUI.profile.settings.borderSize)
@@ -67,12 +67,20 @@ local function PostUpdateClassPower(element, cur, max, hasMaxChanged, powerType,
 		end
 	end
 
-	if chargedPoints then
-		chargedPoints = GetUnitChargedPowerPoints('player') -- Look into this...
-		for i = 1, #chargedPoints do
-			element[chargedPoints[i]]:SetStatusBarColor(0.5, 0.5, 1, 1)
-			ClassPowerBg[chargedPoints[i]]:SetColorTexture(0.5, 0.5, 1, 0.4)
-		end
+	-- Charged Combo Points
+	if ccp1 then
+		element[ccp1]:SetStatusBarColor(0.5, 0.5, 1, 1)
+		ClassPowerBg[ccp1]:SetColorTexture(0.6, 0.6, 1, 0.45)
+	end
+
+	if ccp2 then
+		element[ccp2]:SetStatusBarColor(0.5, 0.5, 1, 1)
+		ClassPowerBg[ccp2]:SetColorTexture(0.6, 0.6, 1, 0.45)
+	end
+
+	if ccp3 then
+		element[ccp3]:SetStatusBarColor(0.5, 0.5, 1, 1)
+		ClassPowerBg[ccp3]:SetColorTexture(0.6, 0.6, 1, 0.45)
 	end
 end
 
@@ -85,7 +93,7 @@ function mUI:CreateClassPower(self)
 	local ClassPower = {}
 
 	for index = 1, 10 do
-		local Bar = CreateFrame('StatusBar', 'ClassPower_'..index, self)
+		local Bar = CreateFrame('StatusBar', 'ClassPower_' .. index, self)
 		Bar:SetHeight(mUI.db.player.classpower.height)
 		if mUI.db.player.classpower.detach then
 			Bar:SetPoint('LEFT', UIParent, 'CENTER', mUI.db.player.classpower.x, mUI.db.player.classpower.y)
