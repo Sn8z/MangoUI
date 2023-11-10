@@ -32,7 +32,7 @@ local function RegisterSettings()
 	settingsFrame:RegisterForDrag("LeftButton")
 	settingsFrame:SetScript("OnDragStart", settingsFrame.StartMoving)
 	settingsFrame:SetScript("OnDragStop", settingsFrame.StopMovingOrSizing)
-	--settingsFrame:Hide()
+	settingsFrame:Hide()
 
 	-- Logo
 	local logo = settingsFrame:CreateTexture(nil, "ARTWORK")

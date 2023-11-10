@@ -9,6 +9,22 @@ local function updatePoint(frame)
 	--offsetX = math.floor(offsetX / 10 + 0.5) * 10
 	--offsetY = math.floor(offsetY / 10 + 0.5) * 10
 	frame:SetPoint(point, UIParent, relativePoint, offsetX, offsetY)
+
+
+	local frameX, frameY = frame:GetCenter()
+	local parentX, parentY = frame:GetParent():GetCenter()
+
+	local oX = frameX - parentX
+	local oY = frameY - parentY
+
+	print("Frame X: " .. frameX)
+	print("Frame Y: " .. frameY)
+
+	print("Parent X: " .. parentX)
+	print("Parent Y: " .. parentY)
+
+	print("Pos X: " .. oX)
+	print("Pos Y: " .. oY)
 end
 
 local function OnMouseDown(self)

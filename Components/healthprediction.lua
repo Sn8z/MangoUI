@@ -2,7 +2,6 @@ local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 function mUI:CreateHealthPrediction(self)
-
 	local WIDTH = {
 		player = mUI.db.player.width,
 		target = mUI.db.target.width,

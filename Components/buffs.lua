@@ -73,6 +73,11 @@ local playerAuras = {
 	[1966] = true,  -- Feint
 	[5277] = true,  -- Evasion
 	[115192] = true,  -- Subterfuge
+	[358267] = true, -- Hover
+	[363916] = true, -- Obsidian Scales
+	[374348] = true, -- Renewing Blaze
+	[370553] = true, -- Tip the Scales
+	[375087] = true, -- Dragonrage
 }
 
 local function PlayerAuraFilter(element, unit, data)

@@ -36,7 +36,10 @@ function mUI:SkinTooltips()
 		QuestScrollFrame.StoryTooltip,
 		QuestScrollFrame.CampaignTooltip,
 		SettingsTooltip,
-		ChatMenu
+		ChatMenu,
+		DropDownList1MenuBackdrop,
+		DropDownList2MenuBackdrop,
+		LibDBIconTooltip
 	}
 	for _, tooltip in next, tooltips do
 		skinTooltip(tooltip)
