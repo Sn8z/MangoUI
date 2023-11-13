@@ -65,7 +65,7 @@ Components/debuffs.lua
 Components/roleindicator.lua
 Components/leaderindicator.lua
 Components/combatindicator.lua
-Components/threatindicator.lua
+Components/threatglow.lua
 Components/raidtargetindicator.lua
 Components/readycheckindicator.lua
 Components/resurrectionindicator.lua
