@@ -80,6 +80,73 @@ local playerAuras = {
 	[375087] = true, -- Dragonrage
 }
 
+local partyAuras = {
+	-- Evoker
+	[366155] = true, -- Reversion
+	[355941] = true, -- Dream Breath
+	[364343] = true, -- Echo
+	[373862] = true, -- Temporal Anomaly
+	[363534] = true, -- Rewind
+	[360827] = true, -- Blistering Scales
+	[395152] = true, -- Ebon Might
+	[409311] = true, -- Prescience
+	[369459] = true, -- Source of Magic
+	-- Druid
+	[102351] = true, -- Cenarion Ward
+	[33763] = true, -- Lifebloom
+	[8936] = true,  -- Regrowth
+	[774] = true,   -- Rejuvenation
+	[155777] = true, -- Rejuvenation Germination
+	[48438] = true, -- Wild Growth
+	[29166] = true, -- Innervate
+	[102342] = true, -- Ironbark
+	-- Monk
+	[325209] = true, -- Enveloping Breath
+	[124682] = true, -- Enveloping Mist
+	[191837] = true, -- Essence Font
+	[116849] = true, -- Life Cocoon
+	[115151] = true, -- Renewing Mist
+	[115175] = true, -- Soothing Mist
+	[116841] = true, -- Tiger's Lust
+	-- Paladin
+	[156910] = true, -- Beacon of Faith
+	[53563] = true, -- Beacon of Light
+	[200025] = true, -- Beacon of Virtue
+	[223306] = true, -- Bestow Faith
+	[243174] = true, -- Sacred Dawn
+	[200654] = true, -- Tyr's Deliverance
+	[287286] = true, -- Glimmer of Light
+	-- Priest
+	[214206] = true, -- Atonement
+	[152118] = true, -- Clarity of Will
+	[47788] = true, -- Guardian Spirit
+	[208065] = true, -- Light of T'uure
+	[21562] = true, -- PW: Fortitude
+	[17] = true,    -- PW: Shield
+	[33076] = true, -- Prayer of Mending
+	[139] = true,   -- Renew
+	[6788] = true,  -- Weakened Soul
+	[10060] = true, -- Power Infusion
+	-- Shaman
+	[204288] = true, -- Earth Shield
+	[52127] = true, -- Water Shield
+	[61295] = true, -- Riptide
+	[325174] = true, -- Spirit Link Totem
+	-- Rogue
+	[59628] = true, -- Tricks of the Trade
+	[57934] = true, -- Tricks of the Trade
+	-- Demon Hunter
+	[209426] = true, -- Darkness
+	-- Hunter
+	[35079] = true, -- Misdirect
+	[34477] = true, -- Misdirect
+	-- Warlock
+	[20707] = true, -- Soulstone
+	-- Death Knight
+	[145629] = true, -- Anti-Magic Zone
+}
+
+-- Player buff filter
 local function PlayerAuraFilter(element, unit, data)
 	if playerAuras[data.spellId] then
 		return true
@@ -88,8 +155,9 @@ local function PlayerAuraFilter(element, unit, data)
 	end
 end
 
+-- Party buffs filter
 local function PartyAuraFilter(element, unit, data)
-	if data.isPlayerAura and (data.duration > 0 and data.duration <= 500) then
+	if data.isPlayerAura and partyAuras[data.spellId] then
 		return true
 	else
 		return false
