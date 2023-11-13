@@ -6,6 +6,7 @@ local _, class = UnitClass("player")
 local playerColor = oUF.colors.class[class]
 
 local playerAuras = {
+	-- Monk
 	[116841] = true, -- Tiger's Lust
 	[388193] = true, -- Faeline Stomp
 	[195630] = true, -- Elusive Brawler
@@ -22,6 +23,7 @@ local playerAuras = {
 	[122278] = true, -- Dampen Harm
 	[125174] = true, -- Touch of Karma
 	[120954] = true, -- Fortified Brew
+	-- Demon Hunter
 	[203819] = true, -- Demon Spikes
 	[212800] = true, -- Blur
 	[209426] = true, -- Darkness
@@ -30,6 +32,7 @@ local playerAuras = {
 	[162264] = true, -- Metamorphosis
 	[187827] = true, -- Metamorphosis
 	[188501] = true, -- Spectral Sight
+	-- Druid
 	[102342] = true, -- Ironbark
 	[22812] = true, -- Barkskin
 	[192081] = true, -- Ironfur
@@ -40,22 +43,26 @@ local playerAuras = {
 	[48517] = true, -- Solar Eclipse
 	[191034] = true, -- Starfall
 	[372505] = true, -- Berserk
+	-- Priest
 	[19236] = true, -- Desperate Prayer
 	[586] = true,   -- Fade
 	[121557] = true, -- Angelic Feather
 	[47585] = true, -- Dispersion
 	[15286] = true, -- Vampiric Embrace
+	[10060] = true, -- Power Infusion
+	[194249] = true, -- Voidform
+	-- Paladin
 	[1022] = true,  -- Blessing of Protection
 	[184662] = true, -- Shield of Vengeance
 	[642] = true,   -- Divine Shield
 	[1044] = true,  -- Blessing of Freedom
 	[6940] = true,  -- Blessing of Sacrifice
-	[10060] = true, -- Power Infusion
-	[194249] = true, -- Voidform
+	-- Warrior
 	[97463] = true, -- Rallying Cry
 	[23920] = true, -- Spell Reflection
 	[184362] = true, -- Enrage
 	[85739] = true, -- Whirlwind
+	-- Rogue
 	[1784] = true,  -- Stealth
 	[13877] = true, -- Blade Flurry
 	[315496] = true, -- Slice and Dice
@@ -63,6 +70,7 @@ local playerAuras = {
 	[13750] = true, -- Adrenaline Rush
 	[394758] = true, -- Flagellation
 	[384631] = true, -- Flagellation
+	[196911] = true, -- Shadow Techniques
 	[185422] = true, -- Shadow Dance
 	[212283] = true, -- Symbols of Death
 	[121471] = true, -- Shadow Blades
@@ -73,6 +81,7 @@ local playerAuras = {
 	[1966] = true,  -- Feint
 	[5277] = true,  -- Evasion
 	[115192] = true,  -- Subterfuge
+	-- Evoker
 	[358267] = true, -- Hover
 	[363916] = true, -- Obsidian Scales
 	[374348] = true, -- Renewing Blaze
