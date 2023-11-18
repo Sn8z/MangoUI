@@ -94,6 +94,7 @@ oUF:RegisterStyle("MangoSecondary", Secondary)
 local function mBoss(self, unit)
 	SetupFrame(self)
 	self:SetSize(mUI.profile.boss.width, mUI.profile.boss.height)
+	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
 	mUI:CreateCastbar(self)
 	mUI:CreateHealthValue(self)
@@ -176,7 +177,7 @@ oUF:Factory(function(self)
 			if i == 1 then
 				boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
 			else
-				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 38)
+				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 50)
 			end
 		end
 	end

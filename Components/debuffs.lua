@@ -1,4 +1,9 @@
 local _, mUI = ...
+local oUF = mUI.oUF
+local LSM = LibStub('LibSharedMedia-3.0')
+
+local _, class = UnitClass("player")
+local playerColor = oUF.colors.class[class]
 
 local removedDebuffs = {
 	[206151] = true, -- Challenger's Burden
@@ -14,6 +19,7 @@ local TargetDebuffs = {
 	[360194] = true, -- Deathmark
 	[385627] = true, -- Kingsbane
 	[319504] = true, -- Shiv
+	[421976] = true, -- Caustic Splatter
 	[357209] = true, -- Fire Breath
 	[164812] = true, -- Moonfire
 	[164815] = true, -- Sunfire
@@ -51,7 +57,7 @@ local function AuraFilter(element, unit, data)
 end
 
 local function TargetAuraFilter(element, unit, data)
-	if TargetDebuffs[data.spellId] and data.isPlayerAura then
+if TargetDebuffs[data.spellId] and data.isPlayerAura then
 		return true
 	else
 		return false
@@ -70,6 +76,16 @@ local function PostCreateButtonBorder(self, button)
 	mUI:CreateBorder(button)
 	button:SetFrameStrata("LOW")
 	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	button.Cooldown:SetSwipeColor(0, 0, 0, 0.6)
+	button.Cooldown:SetDrawEdge(false)
+	button.Cooldown:SetReverse(true)
+	button.Cooldown:SetCountdownFont(LSM:Fetch("font", mUI.profile.settings.font), 8, "OUTLINE")
+
+	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 14, "OUTLINE")
+	button.Count:ClearAllPoints()
+	button.Count:SetPoint("CENTER", button, "BOTTOM", 0, 0)
+	button.Count:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 end
 
 function mUI:CreateDebuffs(self)
@@ -91,7 +107,8 @@ function mUI:CreateDebuffs(self)
 		Debuffs.initialAnchor = 'BOTTOMLEFT'
 		Debuffs['growth-x'] = 'RIGHT'
 		Debuffs['growth-y'] = 'UP'
-		Debuffs.size = 28
+		Debuffs.width = 34
+		Debuffs.height = 28
 		Debuffs.spacing = 5
 		Debuffs.FilterAura = TargetAuraFilter
 		Debuffs.PostCreateButton = PostCreateButtonBorder

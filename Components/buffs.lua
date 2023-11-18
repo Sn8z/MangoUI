@@ -80,7 +80,9 @@ local playerAuras = {
 	[31224] = true, -- Cloak of Shadows
 	[1966] = true,  -- Feint
 	[5277] = true,  -- Evasion
-	[115192] = true,  -- Subterfuge
+	[115192] = true, -- Subterfuge
+	[385754] = true, -- Indiscriminate Carnage
+	[385747] = true, -- Indiscriminate Carnage
 	-- Evoker
 	[358267] = true, -- Hover
 	[363916] = true, -- Obsidian Scales
@@ -157,11 +159,16 @@ local partyAuras = {
 
 -- Player buff filter
 local function PlayerAuraFilter(element, unit, data)
-	if playerAuras[data.spellId] then
+	if data.nameplateShowPersonal or playerAuras[data.spellId] then
 		return true
 	else
 		return false
 	end
+	--if playerAuras[data.spellId] then
+	--	return true
+	--else
+	--	return false
+	--end
 end
 
 -- Party buffs filter
@@ -206,7 +213,7 @@ end
 function mUI:CreateBuffs(self)
 	local Buffs = CreateFrame('Frame', nil, self)
 	if self.unit == 'player' then
-		Buffs:SetPoint('BOTTOMRIGHT', self, 'TOPRIGHT', 0, 8)
+		Buffs:SetPoint('BOTTOMRIGHT', self, 'TOPRIGHT', 0, 5)
 		Buffs.initialAnchor = 'BOTTOMRIGHT'
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'UP'
@@ -248,14 +255,13 @@ function mUI:CreateBuffs(self)
 		Buffs.FilterAura = PartyAuraFilter
 		Buffs.PostCreateButton = PostCreateButtonParty
 	else
-		Buffs:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', 0, 3)
-		Buffs.initialAnchor = 'BOTTOMLEFT'
-		Buffs['growth-x'] = 'RIGHT'
-		Buffs['growth-y'] = 'UP'
+		Buffs:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 5)
+		Buffs.initialAnchor = "BOTTOMLEFT"
+		Buffs['growth-x'] = "RIGHT"
+		Buffs['growth-y'] = "UP"
 		Buffs.size = 18
 		Buffs.spacing = 5
 		Buffs.showDebuffType = true
-		Buffs.onlyShowPlayer = true
 		Buffs.PostCreateButton = PostCreateButton
 	end
 

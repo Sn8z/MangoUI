@@ -31,6 +31,9 @@ local defaultProfile = {
 		tooltip = {
 			enabled = true,
 		},
+		bags = {
+			enabled = true,
+		},
 	},
 	player = {
 		enabled = true,

@@ -7,10 +7,11 @@ local function skinTooltip(self)
 	self:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = 2
+		edgeSize = 2,
+		insets = { left = 2, right = 2, top = 2, bottom = 2 }
 	})
-	self:SetBackdropColor(0, 0, 0, 0.8)
-	self:SetBackdropBorderColor(0.3, 0.3, 0.3, 1)
+	self:SetBackdropColor(0.07, 0.07, 0.07, 0.8)
+	self:SetBackdropBorderColor(0, 0, 0, 1)
 
 	-- Hide original background and border
 	if self.NineSlice then
@@ -39,6 +40,7 @@ function mUI:SkinTooltips()
 		ChatMenu,
 		DropDownList1MenuBackdrop,
 		DropDownList2MenuBackdrop,
+		BNToastFrame,
 		LibDBIconTooltip
 	}
 	for _, tooltip in next, tooltips do
@@ -48,8 +50,8 @@ function mUI:SkinTooltips()
 	-- Skin Statusbar of tooltip
 	GameTooltipStatusBar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.healthTexture))
 	GameTooltipStatusBar:ClearAllPoints()
-	GameTooltipStatusBar:SetPoint("LEFT", GameTooltip, "BOTTOMLEFT", 12, 0)
-	GameTooltipStatusBar:SetPoint("RIGHT", GameTooltip, "BOTTOMRIGHT", -12, 0)
+	GameTooltipStatusBar:SetPoint("TOPLEFT", GameTooltip, "BOTTOMLEFT", 2, 0)
+	GameTooltipStatusBar:SetPoint("TOPRIGHT", GameTooltip, "BOTTOMRIGHT", -2, 0)
 	mUI:CreateBorder(GameTooltipStatusBar)
 end
 
