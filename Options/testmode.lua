@@ -38,6 +38,5 @@ function mUI:ToggleFrames()
 	end
 end
 
--- Register slash command
 SLASH_MANGOTEST1, SLASH_MANGOTEST2 = "/mtest", "/mangotest"
 SlashCmdList["MANGOTEST"] = mUI.ToggleFrames

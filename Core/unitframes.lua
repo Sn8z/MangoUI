@@ -142,16 +142,34 @@ oUF:Factory(function(self)
 	if mUI.db.player.enabled then
 		player = self:Spawn("player")
 		player:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x, mUI.db.player.y)
+		mUI:AddMover(player, "Player", function(x, y)
+			mUI.profile.player.x = x
+			mUI.profile.player.y = y
+			mUI.profile.player.anchor = "CENTER"
+			mUI.profile.player.parentAnchor = "CENTER"
+		end)
 	end
 
 	if mUI.db.target.enabled then
 		target = self:Spawn("target")
 		target:SetPoint(mUI.db.target.anchor, UIParent, mUI.db.target.parentAnchor, mUI.db.target.x, mUI.db.target.y)
+		mUI:AddMover(target, "Target", function(x, y)
+			mUI.profile.target.x = x
+			mUI.profile.target.y = y
+			mUI.profile.target.anchor = "CENTER"
+			mUI.profile.target.parentAnchor = "CENTER"
+		end)
 	end
 
 	if mUI.db.focus.enabled then
 		focus = self:Spawn("focus")
 		focus:SetPoint(mUI.db.focus.anchor, UIParent, mUI.db.focus.parentAnchor, mUI.db.focus.x, mUI.db.focus.y)
+		mUI:AddMover(focus, "Focus", function(x, y)
+			mUI.profile.focus.x = x
+			mUI.profile.focus.y = y
+			mUI.profile.focus.anchor = "CENTER"
+			mUI.profile.focus.parentAnchor = "CENTER"
+		end)
 	end
 
 	-- Pet & ToT frames
@@ -160,15 +178,16 @@ oUF:Factory(function(self)
 	if mUI.db.targettarget.enabled then
 		tot = self:Spawn("targettarget")
 		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
+		mUI:AddMover(tot, "Target of target")
 	end
 
 	if mUI.db.pet.enabled then
 		pet = self:Spawn("pet")
 		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
+		mUI:AddMover(pet, "Pet")
 	end
 
 	if mUI.db.boss.enabled then
-		-- Boss frames
 		self:SetActiveStyle("MangoBoss")
 		local boss = {}
 		for i = 1, _G.MAX_BOSS_FRAMES do
@@ -179,6 +198,7 @@ oUF:Factory(function(self)
 			else
 				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 50)
 			end
+			mUI:AddMover(boss[i], "Boss" .. i)
 		end
 	end
 
