@@ -2,7 +2,7 @@ local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 function mUI:CreateUnitName(self)
-	local unitName = self.Health:CreateFontString(nil, "OVERLAY")
+	local unitName = self.Health:CreateFontString(nil, "ARTWORK")
 	local fSize = 16
 	if self.unit == 'player' then
 		unitName:SetPoint("LEFT", self.Health, "TOPLEFT", 6, 0)

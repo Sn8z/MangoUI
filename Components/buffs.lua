@@ -101,6 +101,7 @@ local partyAuras = {
 	[360827] = true, -- Blistering Scales
 	[395152] = true, -- Ebon Might
 	[409311] = true, -- Prescience
+	[410089] = true, -- Prescience
 	[369459] = true, -- Source of Magic
 	-- Druid
 	[102351] = true, -- Cenarion Ward
@@ -116,7 +117,7 @@ local partyAuras = {
 	[124682] = true, -- Enveloping Mist
 	[191837] = true, -- Essence Font
 	[116849] = true, -- Life Cocoon
-	[115151] = true, -- Renewing Mist
+	[119611] = true, -- Renewing Mist
 	[115175] = true, -- Soothing Mist
 	[116841] = true, -- Tiger's Lust
 	-- Paladin

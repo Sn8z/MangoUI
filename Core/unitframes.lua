@@ -133,6 +133,18 @@ local function mRaid(self, unit)
 end
 oUF:RegisterStyle("MangoRaid", mRaid)
 
+local function mFavourites(self, unit)
+	SetupFrame(self)
+	self:SetSize(120, 60)
+	mUI:CreateReadyCheck(self)
+	mUI:CreateResurrectionIndicator(self)
+	mUI:CreateBuffs(self)
+	mUI:CreateDebuffs(self)
+	mUI:CreateStatusText(self, 14)
+	self.DispelHighlight = true
+end
+oUF:RegisterStyle("MangoFavourites", mFavourites)
+
 oUF:Factory(function(self)
 	-- Player, Target & Focus frames
 	self:SetActiveStyle("MangoPrimary")
@@ -173,15 +185,15 @@ oUF:Factory(function(self)
 	end
 
 	-- Pet & ToT frames
-	self:SetActiveStyle("MangoSecondary")
-
 	if mUI.db.targettarget.enabled then
+		self:SetActiveStyle("MangoSecondary")
 		tot = self:Spawn("targettarget")
 		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
 		mUI:AddMover(tot, "Target of target")
 	end
 
 	if mUI.db.pet.enabled then
+		self:SetActiveStyle("MangoSecondary")
 		pet = self:Spawn("pet")
 		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
 		mUI:AddMover(pet, "Pet")
@@ -190,7 +202,7 @@ oUF:Factory(function(self)
 	if mUI.db.boss.enabled then
 		self:SetActiveStyle("MangoBoss")
 		local boss = {}
-		for i = 1, _G.MAX_BOSS_FRAMES do
+		for i = 1, MAX_BOSS_FRAMES or 5 do
 			boss[i] = self:Spawn('boss' .. i)
 
 			if i == 1 then
@@ -203,20 +215,79 @@ oUF:Factory(function(self)
 	end
 
 	if mUI.db.party.enabled then
-		-- Party frames
 		self:SetActiveStyle("MangoParty")
-		local party = self:SpawnHeader(nil, nil, 'party',
+		local party = self:SpawnHeader("MangoParty", nil, 'solo,party',
 			'showParty', true,
 			'showRaid', false,
-			'showPlayer', false,
+			'showSolo', false,
+			'showPlayer', true,
 			'yOffset', -16,
 			'groupBy', 'ASSIGNEDROLE',
 			'groupingOrder', 'DAMAGER,HEALER,TANK')
 		party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
 	end
 
+	if mUI.profile.favourites.enabled then
+		self:SetActiveStyle("MangoFavourites")
+		local favourites = self:SpawnHeader("MangoFavourites", nil, "solo,party,raid",
+			"showRaid", true,
+			"showParty", true,
+			"showSolo", true,
+			"showPlayer", true,
+			"columnAnchorPoint", "BOTTOM",
+			"columnSpacing", 5,
+			"point", "TOP",
+			"columnAnchorPoint", "TOP",
+			"groupingOrder", "1,2,3,4,5,6,7,8",
+			"groupBy", "GROUP",
+			"sortMethod", "GROUP",
+			"maxColumns", 8,
+			"unitsPerColumn", 5,
+			"columnSpacing", 4,
+			"xOffset", 10,
+			"yOffset", -20,
+			"nameList", table.concat(mUI.profile.favourites.units, ","))
+		favourites:SetPoint("CENTER", UIParent, "CENTER", 200, 60)
+
+		local function updateFavourites()
+			local favs = table.concat(mUI.profile.favourites.units, ",")
+			favourites:SetAttribute("nameList", favs)
+			print("FAVS: " .. favs)
+		end
+
+		local function addFavourite()
+			if (UnitExists("target") and (UnitInParty("target") or UnitInRaid("target"))) or UnitIsUnit("player", "target") then
+				table.insert(mUI.profile.favourites.units, GetUnitName("target", true))
+				updateFavourites()
+			else
+				if UIErrorsFrame then
+					UIErrorsFrame:AddExternalErrorMessage("Can't add that unit")
+				else
+					print("Can't add that unit")
+				end
+			end
+		end
+
+		local resetBtn = CreateFrame("Button", "MangoFavouriteResetButton", favourites, "UIPanelButtonTemplate")
+		resetBtn:SetSize(80, 22)
+		resetBtn:SetText("Reset")
+		resetBtn:SetPoint("TOP", UIParent, "TOP", 0, -5)
+		resetBtn:SetScript("OnClick", function()
+			table.wipe(mUI.profile.favourites.units)
+			updateFavourites()
+		end)
+
+		local addTargetBtn = CreateFrame("Button", "MangoFavouriteAddButton", favourites, "UIPanelButtonTemplate")
+		addTargetBtn:SetSize(160, 22)
+		addTargetBtn:SetText("Track current target")
+		addTargetBtn:SetPoint("LEFT", resetBtn, "RIGHT", 5, 0)
+		addTargetBtn:SetScript("OnClick", addFavourite)
+
+		SLASH_MANGOFAV1 = "/mfav"
+		SlashCmdList["MANGOFAV"] = addFavourite
+	end
+
 	if mUI.db.raid.enabled then
-		-- Raid frames
 		local HiddenFrame = CreateFrame("Frame")
 		HiddenFrame:Hide()
 
@@ -229,23 +300,26 @@ oUF:Factory(function(self)
 
 		self:SetActiveStyle("MangoRaid")
 		local raid = {}
-		for group = 1, _G.NUM_RAID_GROUPS do
+		for group = 1, NUM_RAID_GROUPS or 8 do
 			raid[group] = self:SpawnHeader(
-				nil, nil, 'raid',
-				'showRaid', true,
-				'maxColumns', 5,
-				'unitsPerColumn', 1,
-				'columnAnchorPoint', 'LEFT',
-				'columnSpacing', 5,
-				'groupBy', 'ASSIGNEDROLE',
-				'groupingOrder', 'DAMAGER,HEALER,TANK',
-				'groupFilter', group
+				"MangoRaid" .. group, nil, "solo,raid",
+				"showRaid", true,
+				"showParty", false,
+				"showSolo", false,
+				"showPlayer", true,
+				"maxColumns", 5,
+				"unitsPerColumn", 1,
+				"columnAnchorPoint", 'LEFT',
+				"columnSpacing", 5,
+				"groupBy", "ASSIGNEDROLE",
+				"groupingOrder", "DAMAGER,HEALER,TANK",
+				"groupFilter", group
 			)
 
 			if group == 1 then
-				raid[group]:SetPoint('TOPLEFT', UIParent, 'LEFT', 15, -15)
+				raid[group]:SetPoint("TOPLEFT", UIParent, "LEFT", 15, -15)
 			else
-				raid[group]:SetPoint('TOPLEFT', raid[group - 1], 'BOTTOMLEFT', 0, -5)
+				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -5)
 			end
 		end
 	end

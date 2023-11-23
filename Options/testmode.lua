@@ -11,7 +11,7 @@ local frames = {
 	"oUF_MangoPrimaryTarget",
 	"oUF_MangoPrimaryFocus",
 	"oUF_MangoSecondaryPet",
-	"oUF_MangoSecondaryTargetTarget"
+	"oUF_MangoSecondaryTargetTarget",
 }
 
 local function toggle(f)

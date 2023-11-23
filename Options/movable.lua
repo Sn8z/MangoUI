@@ -6,10 +6,11 @@ local locked = true
 
 -- Returns x & y pos of a frame relative to its parent
 local function GetPos(frame)
-	if not frame then return 0, 0 end
+	if not frame or not frame:GetParent() then
+		return 0, 0
+	end
 	local frameX, frameY = frame:GetCenter()
 	local parentX, parentY = frame:GetParent():GetCenter()
-
 	local oX = Round(frameX - parentX)
 	local oY = Round(frameY - parentY)
 
@@ -23,14 +24,14 @@ local function updateInfo(self)
 	end
 end
 
-local function savePoint(self)
-	self:ClearAllPoints()
-	local x, y = GetPos(self)
-	self:SetPoint("CENTER", UIParent, "CENTER", x, y)
+local function savePoint(mover)
+	mover:ClearAllPoints()
+	local x, y = GetPos(mover)
+	mover:SetPoint("CENTER", UIParent, "CENTER", x, y)
 
-	self.frame:ClearAllPoints()
-	self.frame:SetPoint("CENTER", UIParent, "CENTER", x, y)
-	self.callback(x, y)
+	mover.frame:ClearAllPoints()
+	mover.frame:SetPoint("CENTER", UIParent, "CENTER", x, y)
+	mover.callback(x, y)
 end
 
 local function OnEnter(self)
@@ -96,7 +97,57 @@ function mUI:AddMover(frame, name, callback)
 	moveUp:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
 	moveUp:SetBackdropBorderColor(0, 0, 0, 1)
 	moveUp:SetScript("OnClick", function()
-		mover:AdjustPointsOffset(0, 1)
+		local x, y = GetPos(mover)
+		mover:SetPoint("CENTER", UIParent, "CENTER", x, y + 1)
+		savePoint(mover)
+	end)
+
+	local moveDown = CreateFrame("Button", nil, mover, "BackdropTemplate")
+	moveDown:SetSize(16, 16)
+	moveDown:SetPoint("CENTER", mover, "BOTTOM", 0, 0)
+	moveDown:SetBackdrop({
+		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeSize = 2
+	})
+	moveDown:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+	moveDown:SetBackdropBorderColor(0, 0, 0, 1)
+	moveDown:SetScript("OnClick", function()
+		local x, y = GetPos(mover)
+		mover:SetPoint("CENTER", UIParent, "CENTER", x, y - 1)
+		savePoint(mover)
+	end)
+
+	local moveLeft = CreateFrame("Button", nil, mover, "BackdropTemplate")
+	moveLeft:SetSize(16, 16)
+	moveLeft:SetPoint("CENTER", mover, "LEFT", 0, 0)
+	moveLeft:SetBackdrop({
+		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeSize = 2
+	})
+	moveLeft:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+	moveLeft:SetBackdropBorderColor(0, 0, 0, 1)
+	moveLeft:SetScript("OnClick", function()
+		local x, y = GetPos(mover)
+		mover:SetPoint("CENTER", UIParent, "CENTER", x - 1, y)
+		savePoint(mover)
+	end)
+
+	local moveRight = CreateFrame("Button", nil, mover, "BackdropTemplate")
+	moveRight:SetSize(16, 16)
+	moveRight:SetPoint("CENTER", mover, "RIGHT", 0, 0)
+	moveRight:SetBackdrop({
+		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeSize = 2
+	})
+	moveRight:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+	moveRight:SetBackdropBorderColor(0, 0, 0, 1)
+	moveRight:SetScript("OnClick", function(self)
+		local x, y = GetPos(mover)
+		mover:SetPoint("CENTER", UIParent, "CENTER", x + 1, y)
+		savePoint(mover)
 	end)
 
 	mover.frame = frame

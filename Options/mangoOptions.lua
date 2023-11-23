@@ -725,6 +725,18 @@ local function RegisterSettings()
 		end)
 	raidHeightSlider:SetPoint("RIGHT", raidWidthSlider, "LEFT", -20, 0)
 
+	local raidPowerArea = mUI:CreateArea("Power", raidFrame)
+	raidPowerArea:SetPoint("TOPLEFT", raidArea, "BOTTOMLEFT", 0, -10)
+	raidPowerArea:SetPoint("TOPRIGHT", raidArea, "BOTTOMRIGHT", 0, -10)
+	raidPowerArea:SetHeight(80)
+
+	local raidPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.raid.power.enabled,
+		raidPowerArea,
+		function(isChecked)
+			mUI.profile.raid.power.enabled = isChecked
+		end)
+	raidPowerCheck:SetPoint("LEFT", 20, 0)
+
 	bossTab = mUI:CreateButton(100, 20, "Boss", unitsFrame, function(self)
 		HideUnitFrames()
 		bossFrame:Show()

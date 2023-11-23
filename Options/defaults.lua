@@ -226,6 +226,28 @@ local defaultProfile = {
 			alpha = 0.2,
 		}
 	},
+	favourites = {
+		enabled = true,
+		anchor = "CENTER",
+		parentAnchor = "CENTER",
+		width = 120,
+		height = 40,
+		classColor = true,
+		units = {},
+		power = {
+			enabled = true,
+			style = "INSET",
+			powerColor = true,
+			width = 120,
+			height = 8,
+			showText = false,
+			fontSize = 8
+		},
+		portrait = {
+			enabled = false,
+			alpha = 0.2,
+		}
+	},
 	party = {
 		enabled = true,
 		anchor = "LEFT",
