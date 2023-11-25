@@ -28,5 +28,7 @@ function mUI:CreateBorder(self, showTargeted)
 
 	if showTargeted and self.unit ~= "target" then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", updateBorder, true)
+		self:RegisterEvent("GROUP_ROSTER_UPDATE", updateBorder, true)
+		self:RegisterEvent("PLAYER_REGEN_DISABLED", updateBorder, true) -- Test this for updating borders when engaging combat
 	end
 end
