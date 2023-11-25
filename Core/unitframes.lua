@@ -149,7 +149,8 @@ oUF:Factory(function(self)
 	local player, target, focus, tot, pet
 	if mUI.profile.player.enabled then
 		player = self:Spawn("player")
-		player:SetPoint(mUI.profile.player.anchor, UIParent, mUI.profile.player.parentAnchor, mUI.profile.player.x, mUI.profile.player.y)
+		player:SetPoint(mUI.profile.player.anchor, UIParent, mUI.profile.player.parentAnchor, mUI.profile.player.x,
+			mUI.profile.player.y)
 		mUI:AddMover(player, "Player", function(x, y)
 			mUI.profile.player.x = x
 			mUI.profile.player.y = y
@@ -160,7 +161,8 @@ oUF:Factory(function(self)
 
 	if mUI.profile.target.enabled then
 		target = self:Spawn("target")
-		target:SetPoint(mUI.profile.target.anchor, UIParent, mUI.profile.target.parentAnchor, mUI.profile.target.x, mUI.profile.target.y)
+		target:SetPoint(mUI.profile.target.anchor, UIParent, mUI.profile.target.parentAnchor, mUI.profile.target.x,
+			mUI.profile.target.y)
 		mUI:AddMover(target, "Target", function(x, y)
 			mUI.profile.target.x = x
 			mUI.profile.target.y = y
@@ -171,7 +173,8 @@ oUF:Factory(function(self)
 
 	if mUI.profile.focus.enabled then
 		focus = self:Spawn("focus")
-		focus:SetPoint(mUI.profile.focus.anchor, UIParent, mUI.profile.focus.parentAnchor, mUI.profile.focus.x, mUI.profile.focus.y)
+		focus:SetPoint(mUI.profile.focus.anchor, UIParent, mUI.profile.focus.parentAnchor, mUI.profile.focus.x,
+			mUI.profile.focus.y)
 		mUI:AddMover(focus, "Focus", function(x, y)
 			mUI.profile.focus.x = x
 			mUI.profile.focus.y = y
@@ -294,15 +297,14 @@ oUF:Factory(function(self)
 	end
 
 	if mUI.profile.raid.enabled then
-		local HiddenFrame = CreateFrame("Frame")
-		HiddenFrame:Hide()
-
 		if CompactRaidFrameManager_SetSetting then
+			UIParent:UnregisterEvent("GROUP_ROSTER_UPDATE")
+			CompactRaidFrameManager_SetSetting("IsShown", "0")
 			CompactRaidFrameManager_SetSetting("IsShown", "0")
 			CompactRaidFrameManager:UnregisterAllEvents()
-			CompactRaidFrameManager:SetParent(HiddenFrame)
+			CompactRaidFrameManager:Hide()
 			CompactRaidFrameContainer:UnregisterAllEvents()
-			CompactRaidFrameContainer:SetParent(HiddenFrame)
+			CompactRaidFrameContainer:Hide()
 		end
 
 		self:SetActiveStyle("MangoRaid")
