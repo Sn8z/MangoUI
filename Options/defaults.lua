@@ -28,10 +28,15 @@ local defaultProfile = {
 			enabled = true,
 			animations = false
 		},
+		hide = {
+			bags = true,
+			social = true,
+			menu = true
+		},
 		tooltip = {
 			enabled = true,
 		},
-		bags = {
+		minimap = {
 			enabled = true,
 		},
 	},

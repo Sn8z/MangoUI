@@ -26,6 +26,9 @@ Core/omnicd.lua
 # Skins
 Skins/actionbars.lua
 Skins/tooltip.lua
+Skins/minimap.lua
+Skins/objectiveTracker.lua
+Skins/hideStuff.lua
 
 # Options
 Options/defaults.lua
