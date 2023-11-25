@@ -33,11 +33,11 @@ local function Primary(self, unit)
 	SetupFrame(self)
 
 	if unit == "target" then
-		self:SetSize(mUI.db.target.width, mUI.db.target.height)
+		self:SetSize(mUI.profile.target.width, mUI.profile.target.height)
 	elseif unit == "player" then
-		self:SetSize(mUI.db.player.width, mUI.db.player.height)
+		self:SetSize(mUI.profile.player.width, mUI.profile.player.height)
 	else
-		self:SetSize(mUI.db.focus.width, mUI.db.focus.height)
+		self:SetSize(mUI.profile.focus.width, mUI.profile.focus.height)
 	end
 
 	mUI:CreateCastbar(self)
@@ -84,9 +84,9 @@ local function Secondary(self, unit)
 	SetupFrame(self)
 	mUI:CreateCastbar(self)
 	if unit == "pet" then
-		self:SetSize(mUI.db.pet.width, mUI.db.pet.height)
+		self:SetSize(mUI.profile.pet.width, mUI.profile.pet.height)
 	else
-		self:SetSize(mUI.db.targettarget.width, mUI.db.targettarget.height)
+		self:SetSize(mUI.profile.targettarget.width, mUI.profile.targettarget.height)
 	end
 end
 oUF:RegisterStyle("MangoSecondary", Secondary)
@@ -103,8 +103,6 @@ oUF:RegisterStyle("MangoBoss", mBoss)
 
 local function mParty(self, unit)
 	SetupFrame(self)
-	self:SetSize(mUI.profile.party.width, mUI.profile.party.height)
-
 	mUI:CreateRoleIndicator(self)
 	mUI:CreateThreatGlow(self)
 	mUI:CreateLeaderIndicator(self)
@@ -120,7 +118,6 @@ oUF:RegisterStyle("MangoParty", mParty)
 
 local function mRaid(self, unit)
 	SetupFrame(self)
-	self:SetSize(mUI.profile.raid.width, mUI.profile.raid.height)
 	mUI:CreateRoleIndicator(self)
 	mUI:CreateLeaderIndicator(self)
 	mUI:CreateReadyCheck(self)
@@ -135,7 +132,6 @@ oUF:RegisterStyle("MangoRaid", mRaid)
 
 local function mFavourites(self, unit)
 	SetupFrame(self)
-	self:SetSize(120, 60)
 	mUI:CreateReadyCheck(self)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateBuffs(self)
@@ -151,9 +147,9 @@ oUF:Factory(function(self)
 
 	-- Check if unitframe is enabled or not
 	local player, target, focus, tot, pet
-	if mUI.db.player.enabled then
+	if mUI.profile.player.enabled then
 		player = self:Spawn("player")
-		player:SetPoint(mUI.db.player.anchor, UIParent, mUI.db.player.parentAnchor, mUI.db.player.x, mUI.db.player.y)
+		player:SetPoint(mUI.profile.player.anchor, UIParent, mUI.profile.player.parentAnchor, mUI.profile.player.x, mUI.profile.player.y)
 		mUI:AddMover(player, "Player", function(x, y)
 			mUI.profile.player.x = x
 			mUI.profile.player.y = y
@@ -162,9 +158,9 @@ oUF:Factory(function(self)
 		end)
 	end
 
-	if mUI.db.target.enabled then
+	if mUI.profile.target.enabled then
 		target = self:Spawn("target")
-		target:SetPoint(mUI.db.target.anchor, UIParent, mUI.db.target.parentAnchor, mUI.db.target.x, mUI.db.target.y)
+		target:SetPoint(mUI.profile.target.anchor, UIParent, mUI.profile.target.parentAnchor, mUI.profile.target.x, mUI.profile.target.y)
 		mUI:AddMover(target, "Target", function(x, y)
 			mUI.profile.target.x = x
 			mUI.profile.target.y = y
@@ -173,9 +169,9 @@ oUF:Factory(function(self)
 		end)
 	end
 
-	if mUI.db.focus.enabled then
+	if mUI.profile.focus.enabled then
 		focus = self:Spawn("focus")
-		focus:SetPoint(mUI.db.focus.anchor, UIParent, mUI.db.focus.parentAnchor, mUI.db.focus.x, mUI.db.focus.y)
+		focus:SetPoint(mUI.profile.focus.anchor, UIParent, mUI.profile.focus.parentAnchor, mUI.profile.focus.x, mUI.profile.focus.y)
 		mUI:AddMover(focus, "Focus", function(x, y)
 			mUI.profile.focus.x = x
 			mUI.profile.focus.y = y
@@ -185,21 +181,21 @@ oUF:Factory(function(self)
 	end
 
 	-- Pet & ToT frames
-	if mUI.db.targettarget.enabled then
+	if mUI.profile.targettarget.enabled then
 		self:SetActiveStyle("MangoSecondary")
 		tot = self:Spawn("targettarget")
 		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
 		mUI:AddMover(tot, "Target of target")
 	end
 
-	if mUI.db.pet.enabled then
+	if mUI.profile.pet.enabled then
 		self:SetActiveStyle("MangoSecondary")
 		pet = self:Spawn("pet")
 		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
 		mUI:AddMover(pet, "Pet")
 	end
 
-	if mUI.db.boss.enabled then
+	if mUI.profile.boss.enabled then
 		self:SetActiveStyle("MangoBoss")
 		local boss = {}
 		for i = 1, MAX_BOSS_FRAMES or 5 do
@@ -214,16 +210,21 @@ oUF:Factory(function(self)
 		end
 	end
 
-	if mUI.db.party.enabled then
+	if mUI.profile.party.enabled then
 		self:SetActiveStyle("MangoParty")
-		local party = self:SpawnHeader("MangoParty", nil, 'solo,party',
+		local party = self:SpawnHeader("MangoParty", nil, 'party',
 			'showParty', true,
 			'showRaid', false,
 			'showSolo', false,
 			'showPlayer', true,
 			'yOffset', -16,
 			'groupBy', 'ASSIGNEDROLE',
-			'groupingOrder', 'DAMAGER,HEALER,TANK')
+			'groupingOrder', 'DAMAGER,HEALER,TANK',
+			"oUF-initialConfigFunction", ([[
+        	self:SetWidth(%d)
+        	self:SetHeight(%d)
+      ]]):format(mUI.profile.party.width, mUI.profile.party.height)
+		)
 		party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
 	end
 
@@ -246,7 +247,12 @@ oUF:Factory(function(self)
 			"columnSpacing", 4,
 			"xOffset", 10,
 			"yOffset", -20,
-			"nameList", table.concat(mUI.profile.favourites.units, ","))
+			"nameList", table.concat(mUI.profile.favourites.units, ","),
+			"oUF-initialConfigFunction", ([[
+        	self:SetWidth(%d)
+        	self:SetHeight(%d)
+      ]]):format(100, 80)
+		)
 		favourites:SetPoint("CENTER", UIParent, "CENTER", 200, 60)
 
 		local function updateFavourites()
@@ -287,7 +293,7 @@ oUF:Factory(function(self)
 		SlashCmdList["MANGOFAV"] = addFavourite
 	end
 
-	if mUI.db.raid.enabled then
+	if mUI.profile.raid.enabled then
 		local HiddenFrame = CreateFrame("Frame")
 		HiddenFrame:Hide()
 
@@ -303,7 +309,7 @@ oUF:Factory(function(self)
 		local raid = {}
 		for group = 1, NUM_RAID_GROUPS or 8 do
 			raid[group] = self:SpawnHeader(
-				"MangoRaid" .. group, nil, "solo,raid",
+				"MangoRaid" .. group, nil, "raid",
 				"showRaid", true,
 				"showParty", false,
 				"showSolo", false,
@@ -314,11 +320,15 @@ oUF:Factory(function(self)
 				"columnSpacing", 5,
 				"groupBy", "ASSIGNEDROLE",
 				"groupingOrder", "DAMAGER,HEALER,TANK",
-				"groupFilter", group
+				"groupFilter", group,
+				"oUF-initialConfigFunction", ([[
+        	self:SetWidth(%d)
+        	self:SetHeight(%d)
+      ]]):format(mUI.profile.raid.width, mUI.profile.raid.height)
 			)
 
 			if group == 1 then
-				raid[group]:SetPoint("TOPLEFT", UIParent, "LEFT", 15, -15)
+				raid[group]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -15)
 			else
 				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -5)
 			end
