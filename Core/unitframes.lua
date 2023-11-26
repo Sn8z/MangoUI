@@ -131,6 +131,8 @@ end
 oUF:RegisterStyle("MangoRaid", mRaid)
 
 local function mFavourites(self, unit)
+	--print("SELFUNIT: " .. self.unit or "null")
+	--print("UNIT: " .. unit or "null")
 	SetupFrame(self)
 	mUI:CreateReadyCheck(self)
 	mUI:CreateResurrectionIndicator(self)
@@ -254,14 +256,13 @@ oUF:Factory(function(self)
 			"oUF-initialConfigFunction", ([[
         	self:SetWidth(%d)
         	self:SetHeight(%d)
-      ]]):format(100, 80)
+      ]]):format(mUI.profile.favourites.width, mUI.profile.favourites.height)
 		)
 		favourites:SetPoint("CENTER", UIParent, "CENTER", 200, 60)
 
 		local function updateFavourites()
 			local favs = table.concat(mUI.profile.favourites.units, ",")
 			favourites:SetAttribute("nameList", favs)
-			print("FAVS: " .. favs)
 		end
 
 		local function addFavourite()

@@ -13,6 +13,26 @@ if AddonCompartmentFrame then
 	})
 end
 
+-- Add vault slash command
+local function showVault()
+	if not WeeklyRewardsFrame then
+		C_AddOns.LoadAddOn("Blizzard_WeeklyRewards")
+	end
+
+	if WeeklyRewardsFrame:IsVisible() then
+		WeeklyRewardsFrame:Hide()
+	else
+		WeeklyRewardsFrame:Show()
+	end
+end
+
+SLASH_MANGOVAULT1 = "/vault"
+SlashCmdList["MANGOVAULT"] = showVault
+
+-- Add reload command
+SLASH_MANGORELOAD1 = "/rl"
+SlashCmdList["MANGORELOAD"] = ReloadUI
+
 -- Inject Media
 -- Fonts (.ttf/.otf)
 -- Poppins
