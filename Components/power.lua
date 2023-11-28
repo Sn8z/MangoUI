@@ -58,6 +58,7 @@ function mUI:CreatePowerBar(self)
 
 	local Power = CreateFrame('StatusBar', nil, self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+	Power:SetFrameLevel(self.Health:GetFrameLevel() + 2)
 
 	if settings.power.style == "DETACH" and self.unit == "player" then
 		Power:SetSize(settings.power.width, settings.power.height)

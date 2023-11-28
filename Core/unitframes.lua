@@ -208,10 +208,10 @@ oUF:Factory(function(self)
 
 			if i == 1 then
 				boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
+				mUI:AddMover(boss[i], "Boss")
 			else
 				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 50)
 			end
-			mUI:AddMover(boss[i], "Boss" .. i)
 		end
 	end
 

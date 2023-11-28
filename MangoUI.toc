@@ -21,6 +21,7 @@ Core/db.lua
 Core/unitframes.lua
 Core/colors.lua
 Core/omnicd.lua
+Core/fonts.lua
 
 # Skins
 Skins/actionbars.lua

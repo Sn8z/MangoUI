@@ -170,7 +170,8 @@ local function RegisterSettings()
 	actionbarArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -10)
 	actionbarArea:SetHeight(60)
 
-	local actionbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Mango actionbars", mUI.profile.settings.actionbars.enabled, actionbarArea,
+	local actionbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Mango actionbars",
+		mUI.profile.settings.actionbars.enabled, actionbarArea,
 		function(isChecked)
 			mUI.profile.settings.actionbars.enabled = isChecked
 		end)
@@ -191,21 +192,21 @@ local function RegisterSettings()
 		LSM:List("statusbar"),
 		textureArea, function(value)
 			mUI.profile.settings.healthTexture = value
-		end)
+		end, true)
 	healthTextureDropdown:SetPoint("TOPLEFT", 10, -40)
 
 	local powerTextureDropdown = mUI:CreateDropdown("Power:", mUI.profile.settings.powerTexture,
 		LSM:List("statusbar"), textureArea,
 		function(value)
 			mUI.profile.settings.powerTexture = value
-		end)
+		end, true)
 	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -20)
 
 	local castbarTextureDropdown = mUI:CreateDropdown("Castbar:", mUI.profile.settings.castbarTexture,
 		LSM:List("statusbar"),
 		textureArea, function(value)
 			mUI.profile.settings.castbarTexture = value
-		end)
+		end, true)
 	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
 
 	local fontArea = mUI:CreateArea("Fonts", generalFrame)

@@ -33,6 +33,15 @@ SlashCmdList["MANGOVAULT"] = showVault
 SLASH_MANGORELOAD1 = "/rl"
 SlashCmdList["MANGORELOAD"] = ReloadUI
 
+-- Autofill delete prompts
+local function fillDeletePrompt(popup)
+	if not popup then return end
+	popup.editBox:SetText(DELETE_ITEM_CONFIRM_STRING)
+end
+
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_ITEM"], "OnShow", fillDeletePrompt)
+hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_QUEST_ITEM"], "OnShow", fillDeletePrompt)
+
 -- Inject Media
 -- Fonts (.ttf/.otf)
 -- Poppins
@@ -74,6 +83,16 @@ LSM:Register(LSM.MediaType.FONT, "Gantari Medium",
 	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Medium.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Gantari Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Bold.ttf]])
+
+-- Overpass
+LSM:Register(LSM.MediaType.FONT, "Overpass",
+	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Overpass Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Overpass Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Overpass Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Bold.ttf]])
 
 -- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])

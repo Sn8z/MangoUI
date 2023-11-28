@@ -13,6 +13,11 @@ local function skinTooltip(self)
 	self:SetBackdropColor(0.07, 0.07, 0.07, 0.8)
 	self:SetBackdropBorderColor(0, 0, 0, 1)
 
+	if self.Border then
+		self.Border:SetAlpha(0)
+		self.Border:Hide()
+	end
+
 	-- Hide original background and border
 	if self.NineSlice then
 		self.NineSlice:SetBorderColor(0, 0, 0, 0)
@@ -25,6 +30,7 @@ function mUI:SkinTooltips()
 		ItemRefTooltip,
 		ItemRefShoppingTooltip1,
 		ItemRefShoppingTooltip2,
+		StaticPopup1,
 		FriendsTooltip,
 		WarCampaignTooltip,
 		EmbeddedItemTooltip,
