@@ -221,6 +221,12 @@ local function fixFonts()
 		Number15FontWhite,
 		NumberFontNormalRightRed,
 		NumberFont_Normal_Med,
+		SubSpellFont,
+		NewSubSpellFont,
+		TextStatusBarText,
+		QuestTitleFontBlackShadow,
+		QuestFont_Shadow_Small,
+		SpellBookPageText,
 	}
 
 	for i, FontObject in pairs(FontObjects) do
