@@ -235,7 +235,7 @@ oUF:Factory(function(self)
 
 	if mUI.profile.favourites.enabled then
 		self:SetActiveStyle("MangoFavourites")
-		local favourites = self:SpawnHeader("MangoFavourites", nil, "solo,party,raid",
+		local favourites = self:SpawnHeader("MangoFavourites", nil, "custom show;",
 			"showRaid", true,
 			"showParty", true,
 			"showSolo", true,

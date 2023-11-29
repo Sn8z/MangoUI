@@ -212,6 +212,7 @@ local function fixFonts()
 		PVPInfoTextFont,
 		GameFontNormalLarge,
 		GameFont_Gigantic,
+		Fancy22Font,
 		Fancy30Font,
 		DestinyFontHuge,
 		NumberFontNormal,
