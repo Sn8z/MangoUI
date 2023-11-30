@@ -228,6 +228,8 @@ local function fixFonts()
 		QuestTitleFontBlackShadow,
 		QuestFont_Shadow_Small,
 		SpellBookPageText,
+		ObjectiveFont,
+		QuestFont_Super_Huge,
 	}
 
 	for i, FontObject in pairs(FontObjects) do

@@ -18,13 +18,16 @@ local function styleHeader(header)
 end
 
 local headers = {
-	ObjectiveTrackerFrame.BlocksFrame.CampaignQuestHeader,
-	ObjectiveTrackerFrame.BlocksFrame.QuestHeader,
-	ObjectiveTrackerFrame.BlocksFrame.ProfessionHeader,
-	ObjectiveTrackerFrame.BlocksFrame.AchievementHeader,
-	ObjectiveTrackerFrame.BlocksFrame.ScenarioHeader,
-	ObjectiveTrackerFrame.BlocksFrame.AdventureHeader,
-	ObjectiveTrackerFrame.BlocksFrame.MonthlyActivitiesHeader,
+	ObjectiveTrackerBlocksFrame.QuestHeader,
+	ObjectiveTrackerBlocksFrame.AchievementHeader,
+	ObjectiveTrackerBlocksFrame.ScenarioHeader,
+	ObjectiveTrackerBlocksFrame.CampaignQuestHeader,
+	ObjectiveTrackerBlocksFrame.ProfessionHeader,
+	ObjectiveTrackerBlocksFrame.MonthlyActivitiesHeader,
+	ObjectiveTrackerBlocksFrame.AdventureHeader,
+	BONUS_OBJECTIVE_TRACKER_MODULE.Header,
+	WORLD_QUEST_TRACKER_MODULE.Header,
+	ObjectiveTrackerFrame.BlocksFrame.UIWidgetsHeader,
 }
 
 local function styleScenarioBlock()
