@@ -1,8 +1,6 @@
 local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local UnitHealth, UnitHealthMax, UnitIsConnected = UnitHealth, UnitHealthMax, UnitIsConnected
-
 local function SmoothUpdate(self, event, unit)
 	if (not unit or self.unit ~= unit) then return end
 	local element = self.Health

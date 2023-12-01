@@ -2,8 +2,6 @@ local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local ALTERNATE_POWER_INDEX = Enum.PowerType.Alternate or 10
-local UnitPower, UnitPowerMax, UnitIsConnected, GetUnitPowerBarInfo = UnitPower, UnitPowerMax, UnitIsConnected,
-		GetUnitPowerBarInfo
 
 local function GetDisplayPower(element)
 	local unit = element.__owner.unit

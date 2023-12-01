@@ -1,30 +1,94 @@
 local _, mUI = ...
--- Thanks to Phanx for this solution
+local oUF = mUI.oUF
+-- Thanks to Phanx for the initial inspiration to this solution
 
-local frames = {
-	"oUF_MangoBoss1",
-	"oUF_MangoBoss2",
-	"oUF_MangoBoss3",
-	"oUF_MangoBoss4",
-	"oUF_MangoBoss5",
-	"oUF_MangoPrimaryPlayer",
-	"oUF_MangoPrimaryTarget",
-	"oUF_MangoPrimaryFocus",
-	"oUF_MangoSecondaryPet",
-	"oUF_MangoSecondaryTargetTarget",
+local originalEnv, configEnv
+local frames = oUF.objects
+
+local powerTypes = {
+	Enum.PowerType.Mana,
+	Enum.PowerType.Rage,
+	Enum.PowerType.Focus,
+	Enum.PowerType.Energy
 }
 
-local function toggle(f)
-	if f.__realunit then
-		f:SetAttribute("unit", f.__realunit)
-		f.unit = f.__realunit
-		f.__realunit = nil
-		f:Hide()
+local function createConfigEnv()
+	if configEnv then return end
+	local customEnv = {
+		UnitPower = function(unit, displayType)
+			local maxPower = UnitPowerMax(unit, displayType) or 0
+			return random(1, (maxPower > 0 and maxPower) or 100)
+		end,
+		UnitPowerType = function(arg1)
+			return powerTypes[random(1, #powerTypes)]
+		end,
+		UnitHealth = function(unit)
+			local maxHealth = UnitHealthMax(unit)
+			return maxHealth and math.random(1, maxHealth) or 1
+		end,
+		UnitGetTotalHealAbsorbs = function(unit)
+			return random(10000, 250000)
+		end,
+		UnitGetIncomingHeals = function(unit)
+			return random(10000, 250000)
+		end,
+		UnitGetTotalAbsorbs = function(unit)
+			return random(10000, 250000)
+		end,
+		UnitAffectingCombat = function()
+			return true
+		end,
+		UnitIsGroupLeader = function()
+			return true
+		end,
+		UnitHasIncomingResurrection = function()
+			return true
+		end,
+		UnitIsPVP = function(unit)
+			return true
+		end,
+		UnitIsDND = function(unit)
+			return true
+		end,
+		UnitIsAFK = function(unit)
+			return true
+		end,
+		GetReadyCheckStatus = function(unit)
+			return random(1, 3)
+		end,
+		GetRaidTargetIndex = function(unit)
+			return random(1, 8)
+		end,
+	}
+
+	configEnv = setmetatable(customEnv, {
+		__index = customEnv,
+		__newindex = function(tbl, key, value) customEnv[key] = value end,
+	})
+end
+
+local function enableConfigEnv()
+	originalEnv = {}
+	for func, env in pairs(configEnv) do
+		originalEnv[func] = _G[func]
+		_G[func] = function(...) return env(...) end
+	end
+end
+
+local function disableConfigEnv()
+	for func, env in pairs(originalEnv) do
+		_G[func] = env
+	end
+	originalEnv = nil
+end
+
+local function toggle(frame)
+	if frame._realUnit then
+		frame:SetAttribute("unit", frame._realUnit)
+		frame._realUnit = nil
 	else
-		f.__realunit = f:GetAttribute("unit") or f.unit
-		f:SetAttribute("unit", "player")
-		f.unit = "player"
-		f:Show()
+		frame._realUnit = frame:GetAttribute("unit") or frame.unit
+		frame:SetAttribute("unit", "player")
 	end
 end
 
@@ -32,8 +96,16 @@ function mUI:ToggleFrames()
 	if InCombatLockdown() then
 		print("Can't toggle frames in combat.")
 	else
-		for i = 1, #frames do
-			toggle(_G[frames[i]])
+		createConfigEnv()
+
+		if originalEnv then
+			disableConfigEnv()
+		else
+			enableConfigEnv()
+		end
+
+		for _, frame in pairs(frames) do
+			toggle(frame)
 		end
 	end
 end

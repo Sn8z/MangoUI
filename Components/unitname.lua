@@ -25,4 +25,5 @@ function mUI:CreateUnitName(self)
 	end
 	unitName:SetFont(LSM:Fetch("font", mUI.db.settings.font), fSize, "THINOUTLINE")
 	self:Tag(unitName, "[name]")
+	self.Name = unitName
 end
