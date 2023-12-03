@@ -12,7 +12,7 @@ function mUI:GetMangoColors()
 	colors.tapped = oUF:CreateColor(50, 50, 50)
 
 	colors.runes = {
-		oUF:CreateColor(180, 0, 0), -- BLOOD
+		oUF:CreateColor(180, 0, 0),   -- BLOOD
 		oUF:CreateColor(70, 200, 255), -- FROST
 		oUF:CreateColor(180, 220, 130), -- UNHOLY
 	}
@@ -92,6 +92,12 @@ function mUI:GetMangoColors()
 	colors.power[19] = colors.power.ESSENCE
 	colors.power.ALTERNATE = oUF:CreateColor(100, 100, 255)
 	colors.power[10] = colors.power.ALTERNATE
+
+	-- Stagger colors for brewmasters
+	colors.power.STAGGER = {}
+	colors.power.STAGGER[1] = oUF:CreateColor(40, 255, 40)
+	colors.power.STAGGER[2] = oUF:CreateColor(255, 150, 40)
+	colors.power.STAGGER[3] = oUF:CreateColor(255, 40, 40)
 
 	return colors
 end

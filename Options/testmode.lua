@@ -35,6 +35,9 @@ local function createConfigEnv()
 		UnitGetTotalAbsorbs = function(unit)
 			return random(10000, 250000)
 		end,
+		UnitStagger = function(unit)
+			return random(0, UnitHealthMax("player"))
+		end,
 		UnitAffectingCombat = function()
 			return true
 		end,
