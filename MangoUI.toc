@@ -9,6 +9,8 @@
 ## X-SavedVariables: MangoDB
 ## OptionalDeps: oUF, LibSharedMedia-3.0, OmniCD
 
+TaintLess.xml
+
 # Libraries
 Libs\oUF\oUF.xml
 Libs\LibStub\LibStub.lua
