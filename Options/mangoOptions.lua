@@ -295,12 +295,12 @@ local function RegisterSettings()
 		end)
 	playerPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local playerPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.power.detach,
-		playerPowerArea,
-		function(isChecked)
-			mUI.profile.player.power.detach = isChecked
+	local playerPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.player.power.style,
+		mUI.config.powerstyles,
+		playerPowerArea, function(value)
+			mUI.profile.player.power.style = value
 		end)
-	playerPowerDetachCheck:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
+	playerPowerStyleDropdown:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
 
 	local powerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.power.width, playerPowerArea,
 		function(value)

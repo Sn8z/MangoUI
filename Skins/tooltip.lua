@@ -42,12 +42,14 @@ function mUI:SkinTooltips()
 		GameSmallHeaderTooltip,
 		QuestScrollFrame.StoryTooltip,
 		QuestScrollFrame.CampaignTooltip,
+		QueueStatusButtonDropDown,
 		SettingsTooltip,
 		ChatMenu,
 		DropDownList1MenuBackdrop,
 		DropDownList2MenuBackdrop,
 		BNToastFrame,
-		LibDBIconTooltip
+		LibDBIconTooltip,
+		QueueStatusFrame,
 	}
 	for _, tooltip in next, tooltips do
 		skinTooltip(tooltip)

@@ -160,16 +160,16 @@ local partyAuras = {
 
 -- Player buff filter
 local function PlayerAuraFilter(element, unit, data)
-	if data.nameplateShowPersonal or playerAuras[data.spellId] then
-		return true
-	else
-		return false
-	end
-	--if playerAuras[data.spellId] then
+	--if data.nameplateShowPersonal or playerAuras[data.spellId] then
 	--	return true
 	--else
 	--	return false
 	--end
+	if playerAuras[data.spellId] then
+		return true
+	else
+		return false
+	end
 end
 
 -- Party buffs filter

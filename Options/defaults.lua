@@ -14,6 +14,13 @@ mUI.config.anchors = {
 	"BOTTOMLEFT"
 }
 
+mUI.config.powerstyles = {
+	"DETACH",
+	"LEFT",
+	"RIGHT",
+	"INSET",
+}
+
 -- Defaults
 local defaultProfile = {
 	settings = {

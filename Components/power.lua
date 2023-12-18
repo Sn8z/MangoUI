@@ -54,7 +54,7 @@ function mUI:CreatePowerBar(self)
 	if settings == nil or settings.power == nil then return end
 	if settings.power.enabled == false then return end
 
-	local Power = CreateFrame('StatusBar', nil, self.Health)
+	local Power = CreateFrame("StatusBar", "ClassPower", self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	Power:SetFrameLevel(self.Health:GetFrameLevel() + 2)
 
