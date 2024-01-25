@@ -222,7 +222,7 @@ oUF:Factory(function(self)
 			'showRaid', false,
 			'showSolo', false,
 			'showPlayer', true,
-			'yOffset', -16,
+			'yOffset', -12,
 			'groupBy', 'ASSIGNEDROLE',
 			'groupingOrder', 'DAMAGER,HEALER,TANK',
 			"oUF-initialConfigFunction", ([[
@@ -320,7 +320,7 @@ oUF:Factory(function(self)
 				"maxColumns", 5,
 				"unitsPerColumn", 1,
 				"columnAnchorPoint", 'LEFT',
-				"columnSpacing", 5,
+				"columnSpacing", 3,
 				"groupBy", "ASSIGNEDROLE",
 				"groupingOrder", "DAMAGER,HEALER,TANK",
 				"groupFilter", group,
@@ -333,7 +333,7 @@ oUF:Factory(function(self)
 			if group == 1 then
 				raid[group]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -15)
 			else
-				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -5)
+				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -3)
 			end
 		end
 	end
