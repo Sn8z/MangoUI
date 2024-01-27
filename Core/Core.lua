@@ -94,6 +94,16 @@ LSM:Register(LSM.MediaType.FONT, "Overpass Semi Bold",
 LSM:Register(LSM.MediaType.FONT, "Overpass Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Bold.ttf]])
 
+-- Outfit
+LSM:Register(LSM.MediaType.FONT, "Outfit",
+	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Outfit Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Outfit Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Outfit Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Bold.ttf]])
+
 -- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Erik", [[Interface\Addons\MangoUI\Media\Statusbars\erik.tga]])
