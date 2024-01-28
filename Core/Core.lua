@@ -104,6 +104,16 @@ LSM:Register(LSM.MediaType.FONT, "Outfit Semi Bold",
 LSM:Register(LSM.MediaType.FONT, "Outfit Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Bold.ttf]])
 
+-- Exo2
+LSM:Register(LSM.MediaType.FONT, "Exo2",
+	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Exo2 Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Exo2 Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Exo2 Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Bold.ttf]])
+
 -- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Erik", [[Interface\Addons\MangoUI\Media\Statusbars\erik.tga]])
