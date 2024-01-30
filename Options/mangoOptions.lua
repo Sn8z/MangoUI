@@ -244,7 +244,7 @@ local function RegisterSettings()
 	local playerArea = mUI:CreateArea("", playerFrame)
 	playerArea:SetPoint("TOPLEFT", playerFrame, "TOPLEFT", 10, -10)
 	playerArea:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -10)
-	playerArea:SetHeight(140)
+	playerArea:SetHeight(120)
 
 	local playerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.enabled, playerArea,
 		function(isChecked)
@@ -286,7 +286,7 @@ local function RegisterSettings()
 	local playerPowerArea = mUI:CreateArea("Power", playerFrame)
 	playerPowerArea:SetPoint("TOPLEFT", playerArea, "BOTTOMLEFT", 0, -10)
 	playerPowerArea:SetPoint("TOPRIGHT", playerArea, "BOTTOMRIGHT", 0, -10)
-	playerPowerArea:SetHeight(140)
+	playerPowerArea:SetHeight(120)
 
 	local playerPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.power.enabled,
 		playerPowerArea,
@@ -317,7 +317,7 @@ local function RegisterSettings()
 	local playerClasspowerArea = mUI:CreateArea("Classpower", playerFrame)
 	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
 	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)
-	playerClasspowerArea:SetHeight(140)
+	playerClasspowerArea:SetHeight(120)
 
 	local playerClasspowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.classpower.enabled,
 		playerClasspowerArea,
@@ -351,7 +351,7 @@ local function RegisterSettings()
 	local playerCastbarArea = mUI:CreateArea("Castbar", playerFrame)
 	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)
 	playerCastbarArea:SetPoint("TOPRIGHT", playerClasspowerArea, "BOTTOMRIGHT", 0, -10)
-	playerCastbarArea:SetHeight(140)
+	playerCastbarArea:SetHeight(120)
 
 	local playerCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.castbar.enabled,
 		playerCastbarArea,
@@ -388,7 +388,7 @@ local function RegisterSettings()
 		function(isChecked)
 			mUI.profile.pet.enabled = isChecked
 		end)
-	petCheck:SetPoint("LEFT", 20, 0)
+	petCheck:SetPoint("TOPLEFT", 20, -20)
 
 	local petPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait", mUI.profile.pet.portrait.enabled,
 		playerPetArea,
@@ -408,6 +408,20 @@ local function RegisterSettings()
 			mUI.profile.pet.height = value
 		end)
 	petHeightSlider:SetPoint("RIGHT", petWidthSlider, "LEFT", -20, 0)
+
+	local playerPetPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r power", mUI.profile.pet.power.enabled,
+		playerPetArea,
+		function(isChecked)
+			mUI.profile.pet.power.enabled = isChecked
+		end)
+	playerPetPowerCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -30)
+
+	local playerPetPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.pet.power.style,
+		mUI.config.powerstyles,
+		playerPetArea, function(value)
+			mUI.profile.pet.power.style = value
+		end)
+	playerPetPowerStyleDropdown:SetPoint("LEFT", playerPetPowerCheck, "RIGHT", 80, 0)
 
 	targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function(self)
 		HideUnitFrames()
@@ -462,12 +476,12 @@ local function RegisterSettings()
 		end)
 	targetPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local targetPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.target.power.detach,
-		targetPowerArea,
-		function(isChecked)
-			mUI.profile.target.power.detach = isChecked
+	local targetPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.target.power.style,
+		mUI.config.powerstyles,
+		targetPowerArea, function(value)
+			mUI.profile.target.power.style = value
 		end)
-	targetPowerDetachCheck:SetPoint("LEFT", targetPowerCheck, "RIGHT", 80, 0)
+	targetPowerStyleDropdown:SetPoint("LEFT", targetPowerCheck, "RIGHT", 80, 0)
 
 	local targetPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.target.power.width, targetPowerArea,
 		function(value)
@@ -517,14 +531,14 @@ local function RegisterSettings()
 	local totArea = mUI:CreateArea("Target of target", targetFrame)
 	totArea:SetPoint("TOPLEFT", targetCastbarArea, "BOTTOMLEFT", 0, -10)
 	totArea:SetPoint("TOPRIGHT", targetCastbarArea, "BOTTOMRIGHT", 0, -10)
-	totArea:SetHeight(80)
+	totArea:SetHeight(120)
 
 	local totCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.targettarget.enabled,
 		totArea,
 		function(isChecked)
 			mUI.profile.targettarget.enabled = isChecked
 		end)
-	totCheck:SetPoint("LEFT", 20, 0)
+	totCheck:SetPoint("TOPLEFT", 20, -30)
 
 	local totPortraitCheck = mUI:CreateCheckBox("|cff00ff00Enable|r portrait",
 		mUI.profile.targettarget.portrait.enabled,
@@ -545,6 +559,20 @@ local function RegisterSettings()
 			mUI.profile.targettarget.height = value
 		end)
 	totHeightSlider:SetPoint("RIGHT", totWidthSlider, "LEFT", -20, 0)
+
+	local totPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r power", mUI.profile.targettarget.power.enabled,
+	totArea,
+		function(isChecked)
+			mUI.profile.targettarget.power.enabled = isChecked
+		end)
+	totPowerCheck:SetPoint("TOPLEFT", totCheck, "BOTTOMLEFT", 0, -30)
+
+	local totPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.targettarget.power.style,
+		mUI.config.powerstyles,
+		totArea, function(value)
+			mUI.profile.targettarget.power.style = value
+		end)
+	totPowerStyleDropdown:SetPoint("LEFT", totPowerCheck, "RIGHT", 80, 0)
 
 	focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function(self)
 		HideUnitFrames()
@@ -599,12 +627,12 @@ local function RegisterSettings()
 		end)
 	focusPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local focusPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.focus.power.detach,
-		focusPowerArea,
-		function(isChecked)
-			mUI.profile.focus.power.detach = isChecked
+	local focusPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.focus.power.style,
+		mUI.config.powerstyles,
+		focusPowerArea, function(value)
+			mUI.profile.focus.power.style = value
 		end)
-	focusPowerDetachCheck:SetPoint("LEFT", focusPowerCheck, "RIGHT", 80, 0)
+	focusPowerStyleDropdown:SetPoint("LEFT", focusPowerCheck, "RIGHT", 80, 0)
 
 	local focusPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.focus.power.width, focusPowerArea,
 		function(value)
@@ -692,6 +720,37 @@ local function RegisterSettings()
 		end)
 	partyHeightSlider:SetPoint("RIGHT", partyWidthSlider, "LEFT", -20, 0)
 
+	local partyPowerArea = mUI:CreateArea("Power", partyFrame)
+	partyPowerArea:SetPoint("TOPLEFT", partyArea, "BOTTOMLEFT", 0, -10)
+	partyPowerArea:SetPoint("TOPRIGHT", partyArea, "BOTTOMRIGHT", 0, -10)
+	partyPowerArea:SetHeight(80)
+
+	local partyPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.party.power.enabled,
+		partyPowerArea,
+		function(isChecked)
+			mUI.profile.party.power.enabled = isChecked
+		end)
+	partyPowerCheck:SetPoint("LEFT", 20, 0)
+
+	local partyPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.party.power.style,
+		mUI.config.powerstyles,
+		partyPowerArea, function(value)
+			mUI.profile.party.power.style = value
+		end)
+	partyPowerStyleDropdown:SetPoint("LEFT", partyPowerCheck, "RIGHT", 80, 0)
+
+	local partyPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.party.power.width, partyPowerArea,
+		function(value)
+			mUI.profile.party.power.width = value
+		end)
+	partyPowerWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local partyPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.party.power.height, partyPowerArea,
+		function(value)
+			mUI.profile.party.power.height = value
+		end)
+	partyPowerHeightSlider:SetPoint("RIGHT", partyPowerWidthSlider, "LEFT", -20, 0)
+
 	raidTab = mUI:CreateButton(100, 20, "Raid", unitsFrame, function(self)
 		HideUnitFrames()
 		raidFrame:Show()
@@ -778,6 +837,37 @@ local function RegisterSettings()
 			mUI.profile.boss.height = value
 		end)
 	bossHeightSlider:SetPoint("RIGHT", bossWidthSlider, "LEFT", -20, 0)
+
+	local bossPowerArea = mUI:CreateArea("Power", bossFrame)
+	bossPowerArea:SetPoint("TOPLEFT", bossArea, "BOTTOMLEFT", 0, -10)
+	bossPowerArea:SetPoint("TOPRIGHT", bossArea, "BOTTOMRIGHT", 0, -10)
+	bossPowerArea:SetHeight(80)
+
+	local bossPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.boss.power.enabled,
+		bossPowerArea,
+		function(isChecked)
+			mUI.profile.boss.power.enabled = isChecked
+		end)
+	bossPowerCheck:SetPoint("LEFT", 20, 0)
+
+	local bossPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.boss.power.style,
+		mUI.config.powerstyles,
+		bossPowerArea, function(value)
+			mUI.profile.boss.power.style = value
+		end)
+	bossPowerStyleDropdown:SetPoint("LEFT", bossPowerCheck, "RIGHT", 80, 0)
+
+	local bossPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.boss.power.width, bossPowerArea,
+		function(value)
+			mUI.profile.boss.power.width = value
+		end)
+	bossPowerWidthSlider:SetPoint("RIGHT", -20, 0)
+
+	local bossPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.boss.power.height, bossPowerArea,
+		function(value)
+			mUI.profile.boss.power.height = value
+		end)
+	bossPowerHeightSlider:SetPoint("RIGHT", bossPowerWidthSlider, "LEFT", -20, 0)
 
 	aurasFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
 	aurasFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)
