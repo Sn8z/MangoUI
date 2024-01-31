@@ -5,7 +5,7 @@ f:RegisterEvent("PLAYER_LOGIN")
 f:SetScript("OnEvent", function()
 	local frames = {
 		QuickJoinToastButton = mUI.profile.settings.hide.social,
-		MicroMenu = mUI.profile.settings.hide.menu,
+		MicroMenu = mUI.profile.settings.hide.menu and false,
 		BagsBar = mUI.profile.settings.hide.bags
 	}
 
