@@ -158,6 +158,18 @@ local partyAuras = {
 	[145629] = true, -- Anti-Magic Zone
 }
 
+local function GrowHorizontal(self, from, to)
+	for i = from, to do
+		local button = self[i]
+		if not button then break end
+		if i == 1 then
+			button:SetPoint("CENTER", -(((self.width + self.spacing) * (to - 1)) / 2), 0)
+		else
+			button:SetPoint("LEFT", self[i - 1], "RIGHT", self.spacing, 0)
+		end
+	end
+end
+
 -- Player buff filter
 local function PlayerAuraFilter(element, unit, data)
 	--if data.nameplateShowPersonal or playerAuras[data.spellId] then
@@ -214,17 +226,18 @@ end
 function mUI:CreateBuffs(self)
 	local Buffs = CreateFrame('Frame', nil, self)
 	if self.unit == 'player' then
-		Buffs:SetPoint('BOTTOMRIGHT', self, 'TOPRIGHT', 0, 5)
+		Buffs:SetPoint("CENTER", UIParent, "CENTER", 0, -120)
 		Buffs.initialAnchor = 'BOTTOMRIGHT'
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'UP'
 		Buffs.width = 34
 		Buffs.height = 28
-		Buffs.spacing = 5
+		Buffs.spacing = 6
 		Buffs.showDebuffType = false
 		Buffs.onlyShowPlayer = false
 		Buffs.FilterAura = PlayerAuraFilter
 		Buffs.PostCreateButton = PostCreateButton
+		Buffs.SetPosition = GrowHorizontal
 	elseif self.unit == 'target' then
 		Buffs:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -30)
 		Buffs.initialAnchor = 'TOPLEFT'
@@ -267,5 +280,6 @@ function mUI:CreateBuffs(self)
 	end
 
 	Buffs:SetSize((Buffs.width or Buffs.size) * 8, (Buffs.height or Buffs.size) * 2)
+	Buffs.reanchorIfVisibleChanged = true
 	self.Buffs = Buffs
 end
