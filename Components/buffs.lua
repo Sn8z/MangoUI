@@ -177,11 +177,18 @@ local function PlayerAuraFilter(element, unit, data)
 	--else
 	--	return false
 	--end
-	if playerAuras[data.spellId] then
+
+	if data.nameplateShowPersonal then
 		return true
 	else
 		return false
 	end
+
+	--if playerAuras[data.spellId] then
+	--	return true
+	--else
+	--	return false
+	--end
 end
 
 -- Party buffs filter
