@@ -84,7 +84,6 @@ function mUI:CreatePowerBar(self)
 		self:Tag(PowerAmount, "[mango:pp]")
 	end
 
-	Power.colorDisconnected = true
 	Power.colorTapping = false
 	Power.colorThreat = false
 	Power.colorPower = true

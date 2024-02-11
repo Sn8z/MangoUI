@@ -30,7 +30,6 @@ local defaultProfile = {
 		castbarTexture = "Tim",
 		font = "Ubuntu Medium",
 		borderSize = 2,
-		mangoColors = true,
 		actionbars = {
 			enabled = true,
 			animations = false

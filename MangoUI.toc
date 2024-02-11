@@ -20,8 +20,8 @@ Libs\LibSharedMedia-3.0\lib.xml
 # Core stuff and config
 Core/core.lua
 Core/db.lua
-Core/unitframes.lua
 Core/colors.lua
+Core/unitframes.lua
 Core/omnicd.lua
 Core/fonts.lua
 

@@ -2,6 +2,16 @@ local _, mUI = ...
 local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
+local function PostVisibility(element, isVisible)
+	for i = 1, #element.Backgrounds do
+		if isVisible then
+			element.Backgrounds[i]:Show()
+		else
+			element.Backgrounds[i]:Hide()
+		end
+	end
+end
+
 local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp2, ccp3)
 	local color = oUF.colors.power[powerType] or { 0, 0, 0 }
 	local r, g, b = color[1], color[2], color[3]
@@ -35,7 +45,7 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 	end
 
 	-- TODO: add settings
-	if max and max > 5 then
+	if max and max >= 5 then
 		element[max - 1]:SetStatusBarColor(1, 0.5, 0, 1)
 		element[max]:SetStatusBarColor(1, 0, 0, 1)
 	end
@@ -92,5 +102,6 @@ function mUI:CreateClassPower(self)
 		ClassPower.Backgrounds[i] = bg
 	end
 	ClassPower.PostUpdate = PostUpdate
+	ClassPower.PostVisibility = PostVisibility
 	self.ClassPower = ClassPower
 end

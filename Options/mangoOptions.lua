@@ -152,13 +152,6 @@ local function RegisterSettings()
 		end)
 	smoothCheck:SetPoint("LEFT", 20, 0)
 
-	local colorCheck = mUI:CreateCheckBox("|cff00ff00Enable|r MangoUI colors", mUI.profile.settings.mangoColors,
-		generalArea,
-		function(isChecked)
-			mUI.profile.settings.mangoColors = isChecked
-		end)
-	colorCheck:SetPoint("CENTER", -60, 0)
-
 	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalArea,
 		function(value)
 			mUI.profile.settings.borderSize = value

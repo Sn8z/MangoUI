@@ -19,10 +19,6 @@ local function SetupFrame(self)
 	mUI:CreatePowerBar(self)
 	mUI:CreatePortrait(self)
 
-	if mUI.profile.settings.mangoColors then
-		self.colors = mUI:GetMangoColors()
-	end
-
 	self.Range = {
 		insideAlpha = 1,
 		outsideAlpha = 1 / 4,
