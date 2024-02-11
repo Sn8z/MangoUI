@@ -341,6 +341,13 @@ local function RegisterSettings()
 		end)
 	classpowerHeightSlider:SetPoint("RIGHT", classpowerWidthSlider, "LEFT", -20, 0)
 
+	local classpowerSpacingSlider = mUI:CreateSlider(0, 50, 1, "Spacing", mUI.profile.player.classpower.spacing,
+		playerClasspowerArea,
+		function(value)
+			mUI.profile.player.classpower.spacing = value
+		end)
+	classpowerSpacingSlider:SetPoint("RIGHT", classpowerHeightSlider, "LEFT", -20, 0)
+
 	local playerCastbarArea = mUI:CreateArea("Castbar", playerFrame)
 	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)
 	playerCastbarArea:SetPoint("TOPRIGHT", playerClasspowerArea, "BOTTOMRIGHT", 0, -10)

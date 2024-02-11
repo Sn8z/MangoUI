@@ -83,7 +83,7 @@ local defaultProfile = {
 			classColor = false,
 			width = 200,
 			height = 8,
-			spacing = 3,
+			spacing = 4,
 			x = 0,
 			y = -200
 		},
