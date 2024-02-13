@@ -15,6 +15,7 @@ end
 
 -- Add vault slash command
 local function showVault()
+	mUI:StartMeasure("SHOW_VAULT")
 	if not WeeklyRewardsFrame then
 		C_AddOns.LoadAddOn("Blizzard_WeeklyRewards")
 	end
@@ -24,6 +25,7 @@ local function showVault()
 	else
 		WeeklyRewardsFrame:Show()
 	end
+	mUI:StopMeasure("SHOW_VAULT")
 end
 
 SLASH_MANGOVAULT1 = "/vault"

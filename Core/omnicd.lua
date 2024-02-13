@@ -1,5 +1,6 @@
-local addonName, mUI = ...
+local _, mUI = ...
 
+mUI:StartMeasure("OMNICD_SETUP")
 -- Thanks to Trinca for this solution (https://github.com/trincasidra/TrincaUI/blob/0eee1e909274169a25d51727e4ed0a535bd0da00/modules/omnicd.lua)
 if OmniCD and OmniCD[1] and OmniCD[1].unitFrameData then
 	OmniCD[1].unitFrameData[#OmniCD[1].unitFrameData + 1] = {
@@ -29,3 +30,5 @@ if OmniCD and OmniCD[1] and OmniCD[1].unitFrameData then
 		mUI.ToggleFrames()
 	end
 end
+
+mUI:StopMeasure("OMNICD_SETUP")

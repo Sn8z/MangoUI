@@ -146,6 +146,7 @@ oUF:Factory(function(self)
 	-- Check if unitframe is enabled or not
 	local player, target, focus, tot, pet
 	if mUI.profile.player.enabled then
+		mUI:StartMeasure("PLAYER_SETUP")
 		player = self:Spawn("player")
 		player:SetPoint(mUI.profile.player.anchor, UIParent, mUI.profile.player.parentAnchor, mUI.profile.player.x,
 			mUI.profile.player.y)
@@ -155,9 +156,11 @@ oUF:Factory(function(self)
 			mUI.profile.player.anchor = "CENTER"
 			mUI.profile.player.parentAnchor = "CENTER"
 		end)
+		mUI:StopMeasure("PLAYER_SETUP")
 	end
 
 	if mUI.profile.target.enabled then
+		mUI:StartMeasure("TARGET_SETUP")
 		target = self:Spawn("target")
 		target:SetPoint(mUI.profile.target.anchor, UIParent, mUI.profile.target.parentAnchor, mUI.profile.target.x,
 			mUI.profile.target.y)
@@ -167,9 +170,11 @@ oUF:Factory(function(self)
 			mUI.profile.target.anchor = "CENTER"
 			mUI.profile.target.parentAnchor = "CENTER"
 		end)
+		mUI:StopMeasure("TARGET_SETUP")
 	end
 
 	if mUI.profile.focus.enabled then
+		mUI:StartMeasure("FOCUS_SETUP")
 		focus = self:Spawn("focus")
 		focus:SetPoint(mUI.profile.focus.anchor, UIParent, mUI.profile.focus.parentAnchor, mUI.profile.focus.x,
 			mUI.profile.focus.y)
@@ -179,24 +184,30 @@ oUF:Factory(function(self)
 			mUI.profile.focus.anchor = "CENTER"
 			mUI.profile.focus.parentAnchor = "CENTER"
 		end)
+		mUI:StopMeasure("FOCUS_SETUP")
 	end
 
 	-- Pet & ToT frames
 	if mUI.profile.targettarget.enabled then
+		mUI:StartMeasure("TARGETTARGET_SETUP")
 		self:SetActiveStyle("MangoSecondary")
 		tot = self:Spawn("targettarget")
 		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
 		mUI:AddMover(tot, "Target of target")
+		mUI:StopMeasure("TARGETTARGET_SETUP")
 	end
 
 	if mUI.profile.pet.enabled then
+		mUI:StartMeasure("PET_SETUP")
 		self:SetActiveStyle("MangoSecondary")
 		pet = self:Spawn("pet")
 		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
 		mUI:AddMover(pet, "Pet")
+		mUI:StopMeasure("PET_SETUP")
 	end
 
 	if mUI.profile.boss.enabled then
+		mUI:StartMeasure("BOSS_SETUP")
 		self:SetActiveStyle("MangoBoss")
 		local boss = {}
 		for i = 1, MAX_BOSS_FRAMES or 5 do
@@ -209,9 +220,11 @@ oUF:Factory(function(self)
 				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 50)
 			end
 		end
+		mUI:StopMeasure("BOSS_SETUP")
 	end
 
 	if mUI.profile.party.enabled then
+		mUI:StartMeasure("PARTY_SETUP")
 		self:SetActiveStyle("MangoParty")
 		local party = self:SpawnHeader("MangoParty", nil, 'party',
 			'showParty', true,
@@ -227,6 +240,7 @@ oUF:Factory(function(self)
       ]]):format(mUI.profile.party.width, mUI.profile.party.height)
 		)
 		party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
+		mUI:StopMeasure("PARTY_SETUP")
 	end
 
 	if mUI.profile.favourites.enabled and false then --TODO(?)
@@ -294,6 +308,7 @@ oUF:Factory(function(self)
 	end
 
 	if mUI.profile.raid.enabled then
+		mUI:StartMeasure("RAIDFRAMES_SETUP")
 		if CompactRaidFrameManager_SetSetting then
 			UIParent:UnregisterEvent("GROUP_ROSTER_UPDATE")
 			CompactRaidFrameManager_SetSetting("IsShown", "0")
@@ -332,5 +347,6 @@ oUF:Factory(function(self)
 				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -3)
 			end
 		end
+		mUI:StopMeasure("RAIDFRAMES_SETUP")
 	end
 end)
