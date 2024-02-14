@@ -46,31 +46,10 @@ hooksecurefunc(StaticPopupDialogs["DELETE_GOOD_QUEST_ITEM"], "OnShow", fillDelet
 
 -- Inject Media
 -- Fonts (.ttf/.otf)
--- Poppins
-LSM:Register(LSM.MediaType.FONT, "Poppins",
-	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Poppins Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Poppins Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Poppins\Poppins-Bold.ttf]])
-
--- Cabin
-LSM:Register(LSM.MediaType.FONT, "Cabin",
-	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Cabin Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Cabin Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Cabin\Cabin-Bold.ttf]])
-
--- Rubik
-LSM:Register(LSM.MediaType.FONT, "Rubik",
-	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Rubik Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Rubik Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Rubik\Rubik-Bold.ttf]])
 
 -- Ubuntu
+LSM:Register(LSM.MediaType.FONT, "Ubuntu Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Light.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Ubuntu",
 	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Regular.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Ubuntu Medium",
@@ -78,15 +57,9 @@ LSM:Register(LSM.MediaType.FONT, "Ubuntu Medium",
 LSM:Register(LSM.MediaType.FONT, "Ubuntu Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Ubuntu\Ubuntu-Bold.ttf]])
 
--- Gantari
-LSM:Register(LSM.MediaType.FONT, "Gantari",
-	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Gantari Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Gantari Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Gantari\Gantari-Bold.ttf]])
-
 -- Overpass
+LSM:Register(LSM.MediaType.FONT, "Overpass Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Light.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Overpass",
 	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Regular.ttf]])
 LSM:Register(LSM.MediaType.FONT, "Overpass Medium",
@@ -96,25 +69,63 @@ LSM:Register(LSM.MediaType.FONT, "Overpass Semi Bold",
 LSM:Register(LSM.MediaType.FONT, "Overpass Bold",
 	[[Interface\Addons\MangoUI\Media\Fonts\Overpass\Overpass-Bold.ttf]])
 
--- Outfit
-LSM:Register(LSM.MediaType.FONT, "Outfit",
-	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Outfit Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Outfit Semi Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-SemiBold.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Outfit Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Outfit\Outfit-Bold.ttf]])
+-- Onest
+LSM:Register(LSM.MediaType.FONT, "Onest Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Onest\Onest-Light.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Onest",
+	[[Interface\Addons\MangoUI\Media\Fonts\Onest\Onest-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Onest Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Onest\Onest-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Onest Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Onest\Onest-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Onest Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Onest\Onest-Bold.ttf]])
 
--- Exo2
-LSM:Register(LSM.MediaType.FONT, "Exo2",
-	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Regular.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Exo2 Medium",
-	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Medium.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Exo2 Semi Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-SemiBold.ttf]])
-LSM:Register(LSM.MediaType.FONT, "Exo2 Bold",
-	[[Interface\Addons\MangoUI\Media\Fonts\Exo2\Exo2-Bold.ttf]])
+-- Mulish
+LSM:Register(LSM.MediaType.FONT, "Mulish Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Mulish\Mulish-Light.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Mulish",
+	[[Interface\Addons\MangoUI\Media\Fonts\Mulish\Mulish-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Mulish Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Mulish\Mulish-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Mulish Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Mulish\Mulish-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Mulish Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Mulish\Mulish-Bold.ttf]])
+
+-- Nunito
+LSM:Register(LSM.MediaType.FONT, "Nunito Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Nunito\Nunito-Light.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Nunito",
+	[[Interface\Addons\MangoUI\Media\Fonts\Nunito\Nunito-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Nunito Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Nunito\Nunito-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Nunito Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Nunito\Nunito-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Nunito Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Nunito\Nunito-Bold.ttf]])
+
+-- Inter
+LSM:Register(LSM.MediaType.FONT, "Inter Light",
+	[[Interface\Addons\MangoUI\Media\Fonts\Inter\Inter-Light.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Inter",
+	[[Interface\Addons\MangoUI\Media\Fonts\Inter\Inter-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Inter Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Inter\Inter-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Inter Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Inter\Inter-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Inter Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Inter\Inter-Bold.ttf]])
+
+-- Tektur
+LSM:Register(LSM.MediaType.FONT, "Tektur",
+	[[Interface\Addons\MangoUI\Media\Fonts\Tektur\Tektur-Regular.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Tektur Medium",
+	[[Interface\Addons\MangoUI\Media\Fonts\Tektur\Tektur-Medium.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Tektur Semi Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Tektur\Tektur-SemiBold.ttf]])
+LSM:Register(LSM.MediaType.FONT, "Tektur Bold",
+	[[Interface\Addons\MangoUI\Media\Fonts\Tektur\Tektur-Bold.ttf]])
 
 -- Statusbars (.tga/.blp)
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
