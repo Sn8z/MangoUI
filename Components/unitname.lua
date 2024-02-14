@@ -14,7 +14,7 @@ function mUI:CreateUnitName(self)
 		unitName:SetPoint("RIGHT", self.Health, "TOPRIGHT", -6, 0)
 		fSize = 14
 	elseif self.unit == 'party' then
-		unitName:SetPoint("LEFT", self.Health, "TOPLEFT", 6, 0)
+		unitName:SetPoint("TOPLEFT", self.Health, "TOPLEFT", 3, -3)
 		fSize = 14
 	elseif string.match(self.unit, "^boss[123456789]$") then
 		unitName:SetPoint("RIGHT", self.Health, "TOPRIGHT", -6, 0)
