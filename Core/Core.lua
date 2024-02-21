@@ -1,6 +1,6 @@
 local addonName, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
-
+mUI:StartMeasure("CORE_SETUP")
 -- Register addon to the AddonCompartmentFrame
 if AddonCompartmentFrame then
 	AddonCompartmentFrame:RegisterAddon({
@@ -141,3 +141,5 @@ LSM:Register(LSM.MediaType.STATUSBAR, "Vvik", [[Interface\Addons\MangoUI\Media\S
 -- Borders
 
 -- Sounds
+
+mUI:StopMeasure("CORE_SETUP")

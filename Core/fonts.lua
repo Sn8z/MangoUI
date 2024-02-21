@@ -1,7 +1,8 @@
-local addon, mUI = ...
+local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local function fixFonts()
+	mUI:StartMeasure("FONT_SETUP")
 	-- TODO: Make this a setting
 	local FONT                         = LSM:Fetch("font", mUI.profile.settings.font)
 	--local FONT                         = [[Interface\AddOns\MangoUI\Media\Fonts\Poppins\Poppins-Medium.ttf]]
@@ -253,6 +254,7 @@ local function fixFonts()
 		local _, size, style = FontObject:GetFont()
 		FontObject:SetFont(FONT, size or 12, style)
 	end
+	mUI:StopMeasure("FONT_SETUP")
 end
 
 local f = CreateFrame("Frame")
