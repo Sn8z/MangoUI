@@ -90,6 +90,13 @@ local playerAuras = {
 	[374348] = true, -- Renewing Blaze
 	[370553] = true, -- Tip the Scales
 	[375087] = true, -- Dragonrage
+	-- Shaman
+	[334196] = true, -- Hailstorm
+	[187878] = true, -- Crash Lightning
+	[333964] = true, -- Crash Lightning
+	[215785] = true, -- Hot Hand
+	[108271] = true, -- Astral Shift
+	[108281] = true, -- Ancestral Guidance
 }
 
 local partyAuras = {
