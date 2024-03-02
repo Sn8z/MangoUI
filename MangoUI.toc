@@ -67,6 +67,7 @@ Components/classpower.lua
 Components/stagger.lua
 Components/runes.lua
 Components/buffs.lua
+Components/priobuffs.lua
 Components/debuffs.lua
 Components/roleindicator.lua
 Components/leaderindicator.lua

@@ -32,6 +32,7 @@ local playerAuras = {
 	[162264] = true, -- Metamorphosis
 	[187827] = true, -- Metamorphosis
 	[188501] = true, -- Spectral Sight
+	[196555] = true, -- Netherwalk
 	-- Druid
 	[102342] = true, -- Ironbark
 	[22812] = true, -- Barkskin

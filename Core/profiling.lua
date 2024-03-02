@@ -1,6 +1,6 @@
 local _, mUI    = ...
 local data      = {}
-local enabled   = true
+local enabled   = false
 
 local dataFrame = CreateFrame("Frame", "MangoDataFrame", UIParent, "BackdropTemplate")
 dataFrame:SetPoint("CENTER")

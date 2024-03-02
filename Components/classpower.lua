@@ -50,6 +50,15 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 		element[max]:SetStatusBarColor(1, 0, 0, 1)
 	end
 
+	if max and max == 5 then
+		element[max - 1]:SetStatusBarColor(1, 0.5, 0, 1)
+		element[max]:SetStatusBarColor(1, 0, 0, 1)
+	elseif max and max >= 6 then
+		element[max - 2]:SetStatusBarColor(1, 0.5, 0, 1)
+		element[max - 1]:SetStatusBarColor(1, 0.3, 0, 1)
+		element[max]:SetStatusBarColor(1, 0, 0, 1)
+	end
+
 	-- Charged Combo Points
 	if ccp1 then
 		element[ccp1]:SetStatusBarColor(0, 0.5, 1, 1)

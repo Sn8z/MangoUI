@@ -57,6 +57,7 @@ local function Primary(self, unit)
 		mUI:CreateRunes(self)
 		mUI:CreateSecondaryPowerBar(self)
 		mUI:CreateTotems(self)
+		mUI:CreatePrioBuffs(self)
 
 		if mUI.profile.player.castbar.enabled then -- change db setting
 			local GCD = CreateFrame("StatusBar", nil, self)
@@ -106,6 +107,7 @@ local function mParty(self, unit)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
+	mUI:CreatePrioBuffs(self)
 	mUI:CreateDebuffs(self)
 	mUI:CreateStatusText(self)
 	self.DispelHighlight = true
@@ -120,6 +122,7 @@ local function mRaid(self, unit)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
+	mUI:CreatePrioBuffs(self)
 	mUI:CreateDebuffs(self)
 	mUI:CreateStatusText(self, 14)
 	self.DispelHighlight = true
