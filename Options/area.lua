@@ -1,9 +1,5 @@
 local _, mUI = ...
-local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
-
-local _, class = UnitClass("player")
-local playerColor = oUF.colors.class[class]
 
 function mUI:CreateArea(labelText, parent)
 	local area = CreateFrame("Frame", nil, parent, "BackdropTemplate")
@@ -13,7 +9,6 @@ function mUI:CreateArea(labelText, parent)
 		edgeSize = 1,
 	})
 	area:SetBackdropColor(0.08, 0.08, 0.08, 1)
-	--area:SetBackdropBorderColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	area:SetBackdropBorderColor(0.4, 0.4, 0.4, 1)
 
 	local label = area:CreateFontString(nil, "OVERLAY")

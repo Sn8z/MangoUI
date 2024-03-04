@@ -15,16 +15,16 @@ local playerTab, targetTab, focusTab, partyTab, raidTab, bossTab
 
 local function RegisterSettings()
 	settingsFrame = CreateFrame("Frame", "MangoSettingsFrame", UIParent, "BackdropTemplate")
-	settingsFrame:SetSize(900, 800)
+	settingsFrame:SetSize(1000, 700)
 	settingsFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 	settingsFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\carbon.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		tile = true,
 		tileSize = 32,
-		edgeSize = 2,
+		edgeSize = 1,
 	})
-	settingsFrame:SetBackdropColor(0.12, 0.12, 0.12, 1)
+	settingsFrame:SetBackdropColor(0.12, 0.12, 0.12, 0.8)
 	settingsFrame:SetBackdropBorderColor(0, 0, 0, 1)
 	settingsFrame:EnableMouse(true)
 	settingsFrame:SetMovable(true)
@@ -43,12 +43,12 @@ local function RegisterSettings()
 	-- Title Text
 	local titleText = settingsFrame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("LEFT", logo, "RIGHT", 10, 0)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 32, "THINOUTLINE")
+	titleText:SetFont(LSM:Fetch("font", "Onest Bold"), 32, "THINOUTLINE")
 	titleText:SetTextColor(1, 1, 1, 1)
 	titleText:SetText("Mango")
 	local titleTextAddon = settingsFrame:CreateFontString(nil, "OVERLAY")
 	titleTextAddon:SetPoint("LEFT", titleText, "RIGHT", 0, 0)
-	titleTextAddon:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 32, "THINOUTLINE")
+	titleTextAddon:SetFont(LSM:Fetch("font", "Onest Bold"), 32, "THINOUTLINE")
 	titleTextAddon:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleTextAddon:SetText("UI")
 
@@ -141,10 +141,12 @@ local function RegisterSettings()
 	generalFrame:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
 	generalTab.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 
-	local generalArea = mUI:CreateArea("", generalFrame)
-	generalArea:SetPoint("TOPLEFT", generalFrame, "TOPLEFT", 10, -10)
-	generalArea:SetPoint("TOPRIGHT", generalFrame, "TOPRIGHT", -10, -10)
-	generalArea:SetHeight(60)
+	local generalScroll = mUI:CreateScrollbox(generalFrame)
+
+	local generalArea = mUI:CreateArea("", generalScroll)
+	generalArea:SetPoint("TOPLEFT", generalScroll, "TOPLEFT", 10, -10)
+	generalArea:SetPoint("TOPRIGHT", generalScroll, "TOPRIGHT", -10, -10)
+	generalArea:SetHeight(120)
 
 	local smoothCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Smooth Bars", mUI.profile.settings.smooth, generalArea,
 		function(isChecked)
@@ -158,10 +160,10 @@ local function RegisterSettings()
 		end)
 	borderSlider:SetPoint("RIGHT", -20, 0)
 
-	local actionbarArea = mUI:CreateArea("Actionbars |cffffaa00(Experimental)|r", generalFrame)
+	local actionbarArea = mUI:CreateArea("Actionbars |cffffaa00(Experimental)|r", generalScroll)
 	actionbarArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -10)
 	actionbarArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -10)
-	actionbarArea:SetHeight(60)
+	actionbarArea:SetHeight(120)
 
 	local actionbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Mango actionbars",
 		mUI.profile.settings.actionbars.enabled, actionbarArea,
@@ -177,14 +179,16 @@ local function RegisterSettings()
 		end)
 	actionbarAnimCheck:SetPoint("CENTER", -60, 0)
 
-	local textureArea = mUI:CreateArea("Textures", generalFrame)
-	textureArea:SetPoint("TOPLEFT", actionbarArea, "BOTTOMLEFT", 0, -20)
-	textureArea:SetPoint("BOTTOMRIGHT", generalFrame, "BOTTOM", -5, 10)
+	local textureArea = mUI:CreateArea("Textures", generalScroll)
+	textureArea:SetPoint("TOPLEFT", actionbarArea, "BOTTOMLEFT", 0, -10)
+	textureArea:SetPoint("TOPRIGHT", actionbarArea, "BOTTOMRIGHT", 0, -10)
+	textureArea:SetHeight(200)
 
 	local healthTextureDropdown = mUI:CreateDropdown("Health:", mUI.profile.settings.healthTexture,
 		LSM:List("statusbar"),
 		textureArea, function(value)
 			mUI.profile.settings.healthTexture = value
+			--oUF_MangoPrimaryPlayer.Health:SetStatusBarTexture(LSM:Fetch("statusbar", value))
 		end, true)
 	healthTextureDropdown:SetPoint("TOPLEFT", 10, -40)
 
@@ -202,9 +206,10 @@ local function RegisterSettings()
 		end, true)
 	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
 
-	local fontArea = mUI:CreateArea("Fonts", generalFrame)
-	fontArea:SetPoint("TOPRIGHT", actionbarArea, "BOTTOMRIGHT", 0, -20)
-	fontArea:SetPoint("BOTTOMLEFT", generalFrame, "BOTTOM", 5, 10)
+	local fontArea = mUI:CreateArea("Fonts", generalScroll)
+	fontArea:SetPoint("TOPLEFT", textureArea, "BOTTOMLEFT", 0, -10)
+	fontArea:SetPoint("TOPRIGHT", textureArea, "BOTTOMRIGHT", 0, -10)
+	fontArea:SetHeight(800)
 
 	local fontDropdown = mUI:CreateDropdown("Font:", mUI.profile.settings.font, LSM:List("font"), fontArea,
 		function(value)
@@ -234,10 +239,12 @@ local function RegisterSettings()
 	playerFrame = CreateFrame("Frame", nil, unitsFrame)
 	playerFrame:SetAllPoints()
 
-	local playerArea = mUI:CreateArea("", playerFrame)
-	playerArea:SetPoint("TOPLEFT", playerFrame, "TOPLEFT", 10, -10)
-	playerArea:SetPoint("TOPRIGHT", playerFrame, "TOPRIGHT", -10, -10)
-	playerArea:SetHeight(120)
+	local playerScroll = mUI:CreateScrollbox(playerFrame)
+
+	local playerArea = mUI:CreateArea("", playerScroll)
+	playerArea:SetPoint("TOPLEFT", 10, -10)
+	playerArea:SetPoint("TOPRIGHT", -10, -10)
+	playerArea:SetHeight(160)
 
 	local playerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.enabled, playerArea,
 		function(isChecked)
@@ -258,7 +265,7 @@ local function RegisterSettings()
 		end)
 	playerWidthSlider:SetPoint("TOPRIGHT", -20, -30)
 
-	local playerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.height, playerArea,
+	local playerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.height, playerArea,
 		function(value)
 			mUI.profile.player.height = value
 		end)
@@ -276,10 +283,10 @@ local function RegisterSettings()
 		end)
 	playerYSlider:SetPoint("TOP", playerWidthSlider, "BOTTOM", 0, -40)
 
-	local playerPowerArea = mUI:CreateArea("Power", playerFrame)
+	local playerPowerArea = mUI:CreateArea("Power", playerScroll)
 	playerPowerArea:SetPoint("TOPLEFT", playerArea, "BOTTOMLEFT", 0, -10)
 	playerPowerArea:SetPoint("TOPRIGHT", playerArea, "BOTTOMRIGHT", 0, -10)
-	playerPowerArea:SetHeight(120)
+	playerPowerArea:SetHeight(160)
 
 	local playerPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.power.enabled,
 		playerPowerArea,
@@ -301,16 +308,16 @@ local function RegisterSettings()
 		end)
 	powerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local powerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.power.height, playerPowerArea,
+	local powerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.power.height, playerPowerArea,
 		function(value)
 			mUI.profile.player.power.height = value
 		end)
 	powerHeightSlider:SetPoint("RIGHT", powerWidthSlider, "LEFT", -20, 0)
 
-	local playerClasspowerArea = mUI:CreateArea("Classpower", playerFrame)
+	local playerClasspowerArea = mUI:CreateArea("Classpower", playerScroll)
 	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
 	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)
-	playerClasspowerArea:SetHeight(120)
+	playerClasspowerArea:SetHeight(160)
 
 	local playerClasspowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.classpower.enabled,
 		playerClasspowerArea,
@@ -334,7 +341,7 @@ local function RegisterSettings()
 		end)
 	classpowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local classpowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.classpower.height,
+	local classpowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.classpower.height,
 		playerClasspowerArea,
 		function(value)
 			mUI.profile.player.classpower.height = value
@@ -348,10 +355,10 @@ local function RegisterSettings()
 		end)
 	classpowerSpacingSlider:SetPoint("RIGHT", classpowerHeightSlider, "LEFT", -20, 0)
 
-	local playerCastbarArea = mUI:CreateArea("Castbar", playerFrame)
+	local playerCastbarArea = mUI:CreateArea("Castbar", playerScroll)
 	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)
 	playerCastbarArea:SetPoint("TOPRIGHT", playerClasspowerArea, "BOTTOMRIGHT", 0, -10)
-	playerCastbarArea:SetHeight(120)
+	playerCastbarArea:SetHeight(160)
 
 	local playerCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.castbar.enabled,
 		playerCastbarArea,
@@ -373,16 +380,17 @@ local function RegisterSettings()
 		end)
 	castbarWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local castbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.player.castbar.height,
+	local castbarHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.castbar.height,
 		playerCastbarArea,
 		function(value)
 			mUI.profile.player.castbar.height = value
 		end)
 	castbarHeightSlider:SetPoint("RIGHT", castbarWidthSlider, "LEFT", -20, 0)
 
-	local playerPetArea = mUI:CreateArea("Pet", playerFrame)
+	local playerPetArea = mUI:CreateArea("Pet", playerScroll)
 	playerPetArea:SetPoint("TOPLEFT", playerCastbarArea, "BOTTOMLEFT", 0, -10)
-	playerPetArea:SetPoint("BOTTOMRIGHT", playerFrame, "BOTTOMRIGHT", -10, 10)
+	playerPetArea:SetPoint("TOPRIGHT", playerCastbarArea, "BOTTOMRIGHT", 0, -10)
+	playerPetArea:SetHeight(160)
 
 	local petCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.pet.enabled, playerPetArea,
 		function(isChecked)
@@ -403,7 +411,7 @@ local function RegisterSettings()
 		end)
 	petWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local petHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.pet.height, playerPetArea,
+	local petHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.pet.height, playerPetArea,
 		function(value)
 			mUI.profile.pet.height = value
 		end)
@@ -434,9 +442,11 @@ local function RegisterSettings()
 	targetFrame:SetAllPoints()
 	targetFrame:Hide()
 
-	local targetArea = mUI:CreateArea("", targetFrame)
-	targetArea:SetPoint("TOPLEFT", targetFrame, "TOPLEFT", 10, -10)
-	targetArea:SetPoint("TOPRIGHT", targetFrame, "TOPRIGHT", -10, -10)
+	local targetScroll = mUI:CreateScrollbox(targetFrame)
+
+	local targetArea = mUI:CreateArea("", targetScroll)
+	targetArea:SetPoint("TOPLEFT", 10, -10)
+	targetArea:SetPoint("TOPRIGHT", -10, -10)
 	targetArea:SetHeight(80)
 
 	local targetCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.target.enabled, targetArea,
@@ -458,13 +468,13 @@ local function RegisterSettings()
 		end)
 	targetWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local targetHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.height, targetArea,
+	local targetHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.target.height, targetArea,
 		function(value)
 			mUI.profile.target.height = value
 		end)
 	targetHeightSlider:SetPoint("RIGHT", targetWidthSlider, "LEFT", -20, 0)
 
-	local targetPowerArea = mUI:CreateArea("Power", targetFrame)
+	local targetPowerArea = mUI:CreateArea("Power", targetScroll)
 	targetPowerArea:SetPoint("TOPLEFT", targetArea, "BOTTOMLEFT", 0, -10)
 	targetPowerArea:SetPoint("TOPRIGHT", targetArea, "BOTTOMRIGHT", 0, -10)
 	targetPowerArea:SetHeight(80)
@@ -489,13 +499,13 @@ local function RegisterSettings()
 		end)
 	targetPowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local targetPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.power.height, targetPowerArea,
+	local targetPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.target.power.height, targetPowerArea,
 		function(value)
 			mUI.profile.target.power.height = value
 		end)
 	targetPowerHeightSlider:SetPoint("RIGHT", targetPowerWidthSlider, "LEFT", -20, 0)
 
-	local targetCastbarArea = mUI:CreateArea("Castbar", targetFrame)
+	local targetCastbarArea = mUI:CreateArea("Castbar", targetScroll)
 	targetCastbarArea:SetPoint("TOPLEFT", targetPowerArea, "BOTTOMLEFT", 0, -10)
 	targetCastbarArea:SetPoint("TOPRIGHT", targetPowerArea, "BOTTOMRIGHT", 0, -10)
 	targetCastbarArea:SetHeight(80)
@@ -521,17 +531,17 @@ local function RegisterSettings()
 		end)
 	targetCastbarWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local targetCastbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.target.castbar.height,
+	local targetCastbarHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.target.castbar.height,
 		targetCastbarArea,
 		function(value)
 			mUI.profile.target.castbar.height = value
 		end)
 	targetCastbarHeightSlider:SetPoint("RIGHT", targetCastbarWidthSlider, "LEFT", -20, 0)
 
-	local totArea = mUI:CreateArea("Target of target", targetFrame)
+	local totArea = mUI:CreateArea("Target of target", targetScroll)
 	totArea:SetPoint("TOPLEFT", targetCastbarArea, "BOTTOMLEFT", 0, -10)
 	totArea:SetPoint("TOPRIGHT", targetCastbarArea, "BOTTOMRIGHT", 0, -10)
-	totArea:SetHeight(120)
+	totArea:SetHeight(160)
 
 	local totCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.targettarget.enabled,
 		totArea,
@@ -554,14 +564,14 @@ local function RegisterSettings()
 		end)
 	totWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local totHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.targettarget.height, totArea,
+	local totHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.targettarget.height, totArea,
 		function(value)
 			mUI.profile.targettarget.height = value
 		end)
 	totHeightSlider:SetPoint("RIGHT", totWidthSlider, "LEFT", -20, 0)
 
 	local totPowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r power", mUI.profile.targettarget.power.enabled,
-	totArea,
+		totArea,
 		function(isChecked)
 			mUI.profile.targettarget.power.enabled = isChecked
 		end)
@@ -585,9 +595,11 @@ local function RegisterSettings()
 	focusFrame:SetAllPoints()
 	focusFrame:Hide()
 
-	local focusArea = mUI:CreateArea("", focusFrame)
-	focusArea:SetPoint("TOPLEFT", focusFrame, "TOPLEFT", 10, -10)
-	focusArea:SetPoint("TOPRIGHT", focusFrame, "TOPRIGHT", -10, -10)
+	local focusScroll = mUI:CreateScrollbox(focusFrame)
+
+	local focusArea = mUI:CreateArea("", focusScroll)
+	focusArea:SetPoint("TOPLEFT", 10, -10)
+	focusArea:SetPoint("TOPRIGHT", -10, -10)
 	focusArea:SetHeight(80)
 
 	local focusCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.focus.enabled, focusArea,
@@ -609,13 +621,13 @@ local function RegisterSettings()
 		end)
 	focusWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local focusHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.height, focusArea,
+	local focusHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.focus.height, focusArea,
 		function(value)
 			mUI.profile.focus.height = value
 		end)
 	focusHeightSlider:SetPoint("RIGHT", focusWidthSlider, "LEFT", -20, 0)
 
-	local focusPowerArea = mUI:CreateArea("Power", focusFrame)
+	local focusPowerArea = mUI:CreateArea("Power", focusScroll)
 	focusPowerArea:SetPoint("TOPLEFT", focusArea, "BOTTOMLEFT", 0, -10)
 	focusPowerArea:SetPoint("TOPRIGHT", focusArea, "BOTTOMRIGHT", 0, -10)
 	focusPowerArea:SetHeight(80)
@@ -640,13 +652,13 @@ local function RegisterSettings()
 		end)
 	focusPowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local focusPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.power.height, focusPowerArea,
+	local focusPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.focus.power.height, focusPowerArea,
 		function(value)
 			mUI.profile.focus.power.height = value
 		end)
 	focusPowerHeightSlider:SetPoint("RIGHT", focusPowerWidthSlider, "LEFT", -20, 0)
 
-	local focusCastbarArea = mUI:CreateArea("Castbar", focusFrame)
+	local focusCastbarArea = mUI:CreateArea("Castbar", focusScroll)
 	focusCastbarArea:SetPoint("TOPLEFT", focusPowerArea, "BOTTOMLEFT", 0, -10)
 	focusCastbarArea:SetPoint("TOPRIGHT", focusPowerArea, "BOTTOMRIGHT", 0, -10)
 	focusCastbarArea:SetHeight(80)
@@ -672,7 +684,7 @@ local function RegisterSettings()
 		end)
 	focusCastbarWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local focusCastbarHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.focus.castbar.height,
+	local focusCastbarHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.focus.castbar.height,
 		focusCastbarArea,
 		function(value)
 			mUI.profile.focus.castbar.height = value
@@ -690,9 +702,11 @@ local function RegisterSettings()
 	partyFrame:SetAllPoints()
 	partyFrame:Hide()
 
-	local partyArea = mUI:CreateArea("", partyFrame)
-	partyArea:SetPoint("TOPLEFT", partyFrame, "TOPLEFT", 10, -10)
-	partyArea:SetPoint("TOPRIGHT", partyFrame, "TOPRIGHT", -10, -10)
+	local partyScroll = mUI:CreateScrollbox(partyFrame)
+
+	local partyArea = mUI:CreateArea("", partyScroll)
+	partyArea:SetPoint("TOPLEFT", 10, -10)
+	partyArea:SetPoint("TOPRIGHT", -10, -10)
 	partyArea:SetHeight(80)
 
 	local partyCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.party.enabled, partyArea,
@@ -714,13 +728,13 @@ local function RegisterSettings()
 		end)
 	partyWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local partyHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.party.height, partyArea,
+	local partyHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.party.height, partyArea,
 		function(value)
 			mUI.profile.party.height = value
 		end)
 	partyHeightSlider:SetPoint("RIGHT", partyWidthSlider, "LEFT", -20, 0)
 
-	local partyPowerArea = mUI:CreateArea("Power", partyFrame)
+	local partyPowerArea = mUI:CreateArea("Power", partyScroll)
 	partyPowerArea:SetPoint("TOPLEFT", partyArea, "BOTTOMLEFT", 0, -10)
 	partyPowerArea:SetPoint("TOPRIGHT", partyArea, "BOTTOMRIGHT", 0, -10)
 	partyPowerArea:SetHeight(80)
@@ -745,7 +759,7 @@ local function RegisterSettings()
 		end)
 	partyPowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local partyPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.party.power.height, partyPowerArea,
+	local partyPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.party.power.height, partyPowerArea,
 		function(value)
 			mUI.profile.party.power.height = value
 		end)
@@ -762,9 +776,11 @@ local function RegisterSettings()
 	raidFrame:SetAllPoints()
 	raidFrame:Hide()
 
-	local raidArea = mUI:CreateArea("", raidFrame)
-	raidArea:SetPoint("TOPLEFT", raidFrame, "TOPLEFT", 10, -10)
-	raidArea:SetPoint("TOPRIGHT", raidFrame, "TOPRIGHT", -10, -10)
+	local raidScroll = mUI:CreateScrollbox(raidFrame)
+
+	local raidArea = mUI:CreateArea("", raidScroll)
+	raidArea:SetPoint("TOPLEFT", 10, -10)
+	raidArea:SetPoint("TOPRIGHT", -10, -10)
 	raidArea:SetHeight(80)
 
 	local raidCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.raid.enabled, raidArea,
@@ -779,13 +795,13 @@ local function RegisterSettings()
 		end)
 	raidWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local raidHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.raid.height, raidArea,
+	local raidHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.raid.height, raidArea,
 		function(value)
 			mUI.profile.raid.height = value
 		end)
 	raidHeightSlider:SetPoint("RIGHT", raidWidthSlider, "LEFT", -20, 0)
 
-	local raidPowerArea = mUI:CreateArea("Power", raidFrame)
+	local raidPowerArea = mUI:CreateArea("Power", raidScroll)
 	raidPowerArea:SetPoint("TOPLEFT", raidArea, "BOTTOMLEFT", 0, -10)
 	raidPowerArea:SetPoint("TOPRIGHT", raidArea, "BOTTOMRIGHT", 0, -10)
 	raidPowerArea:SetHeight(80)
@@ -808,9 +824,11 @@ local function RegisterSettings()
 	bossFrame:SetAllPoints()
 	bossFrame:Hide()
 
-	local bossArea = mUI:CreateArea("", bossFrame)
-	bossArea:SetPoint("TOPLEFT", bossFrame, "TOPLEFT", 10, -10)
-	bossArea:SetPoint("TOPRIGHT", bossFrame, "TOPRIGHT", -10, -10)
+	local bossScroll = mUI:CreateScrollbox(bossFrame)
+
+	local bossArea = mUI:CreateArea("", bossScroll)
+	bossArea:SetPoint("TOPLEFT", 10, -10)
+	bossArea:SetPoint("TOPRIGHT", -10, -10)
 	bossArea:SetHeight(80)
 
 	local bossCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.boss.enabled, bossArea,
@@ -832,13 +850,13 @@ local function RegisterSettings()
 		end)
 	bossWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local bossHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.boss.height, bossArea,
+	local bossHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.boss.height, bossArea,
 		function(value)
 			mUI.profile.boss.height = value
 		end)
 	bossHeightSlider:SetPoint("RIGHT", bossWidthSlider, "LEFT", -20, 0)
 
-	local bossPowerArea = mUI:CreateArea("Power", bossFrame)
+	local bossPowerArea = mUI:CreateArea("Power", bossScroll)
 	bossPowerArea:SetPoint("TOPLEFT", bossArea, "BOTTOMLEFT", 0, -10)
 	bossPowerArea:SetPoint("TOPRIGHT", bossArea, "BOTTOMRIGHT", 0, -10)
 	bossPowerArea:SetHeight(80)
@@ -863,7 +881,7 @@ local function RegisterSettings()
 		end)
 	bossPowerWidthSlider:SetPoint("RIGHT", -20, 0)
 
-	local bossPowerHeightSlider = mUI:CreateSlider(6, 200, 1, "Height", mUI.profile.boss.power.height, bossPowerArea,
+	local bossPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.boss.power.height, bossPowerArea,
 		function(value)
 			mUI.profile.boss.power.height = value
 		end)
@@ -883,13 +901,15 @@ local function RegisterSettings()
 
 	local titleText = aurasFrame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("BOTTOM", aurasFrame, "TOP", 0, 5)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
+	titleText:SetFont(LSM:Fetch("font", "Onest Bold"), 20, "THINOUTLINE")
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Coming soon...")
 
+	mUI:CreateScrollbox(aurasFrame)
+
 	profilesFrame = CreateFrame("Frame", nil, settingsFrame, "BackdropTemplate")
-	profilesFrame:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 10, -100)
-	profilesFrame:SetPoint("BOTTOMRIGHT", settingsFrame, "BOTTOMRIGHT", -10, 10)
+	profilesFrame:SetPoint("TOPLEFT", 10, -100)
+	profilesFrame:SetPoint("BOTTOMRIGHT", -10, 10)
 	profilesFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
@@ -901,7 +921,7 @@ local function RegisterSettings()
 
 	local titleText = profilesFrame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("BOTTOM", profilesFrame, "TOP", 0, 5)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
+	titleText:SetFont(LSM:Fetch("font", "Onest Bold"), 20, "THINOUTLINE")
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Profiles")
 

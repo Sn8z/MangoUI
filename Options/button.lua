@@ -24,7 +24,7 @@ function mUI:CreateButton(width, height, text, frame, callback)
 	button:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = 2
+		edgeSize = 1
 	})
 	button:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
 	button:SetBackdropBorderColor(0, 0, 0, 1)
@@ -37,7 +37,7 @@ function mUI:CreateButton(width, height, text, frame, callback)
 	local label = button:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("CENTER")
 	label:SetJustifyH("CENTER")
-	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 14, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Bold"), 14, "THINOUTLINE")
 	label:SetText(text)
 	label:SetTextColor(0.8, 0.8, 0.8, 1)
 	button.label = label

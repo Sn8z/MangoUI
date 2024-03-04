@@ -24,7 +24,7 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	ddBtn:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = 2
+		edgeSize = 1
 	})
 	ddBtn:SetBackdropColor(0.1, 0.1, 0.1, 1)
 	ddBtn:SetBackdropBorderColor(0, 0, 0, 1)
@@ -43,7 +43,7 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	local label = ddBtn:CreateFontString(nil, "ARTWORK")
 	label:SetPoint("LEFT", 5, 0)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 12, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Bold"), 12, "THINOUTLINE")
 	label:SetText(text)
 	label:SetTextColor(0.8, 0.8, 0.8, 1)
 	ddBtn.label = label
@@ -54,8 +54,8 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	ddFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = 2,
-		insets = { left = 2, right = 2, top = 2, bottom = 2 }
+		edgeSize = 1,
+		insets = { left = 1, right = 1, top = 1, bottom = 1 }
 	})
 	ddFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
 	ddFrame:SetBackdropBorderColor(0, 0, 0, 1)
@@ -100,7 +100,7 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	local label = ddBtn:CreateFontString(nil, "ARTWORK")
 	label:SetPoint("BOTTOMLEFT", ddBtn, "TOPLEFT", 0, 5)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 10, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Bold"), 10, "THINOUTLINE")
 	label:SetText(labelText)
 	label:SetTextColor(1, 1, 1, 1)
 

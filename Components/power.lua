@@ -70,7 +70,7 @@ function mUI:CreatePowerBar(self)
 	elseif settings.power.style == "INSET" then
 		Power:SetPoint("LEFT", self, "BOTTOMLEFT", 6, 0)
 		Power:SetPoint("RIGHT", self, "BOTTOMRIGHT", -6, 0)
-		Power:SetHeight(mUI.db.player.power.height)
+		Power:SetHeight(settings.power.height)
 	else
 		Power:SetHeight(settings.power.height)
 		Power:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 0)
