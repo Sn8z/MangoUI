@@ -37,7 +37,7 @@ function mUI:CreateButton(width, height, text, frame, callback)
 	local label = button:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("CENTER")
 	label:SetJustifyH("CENTER")
-	label:SetFont(LSM:Fetch("font", "Onest Bold"), 14, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 14, "THINOUTLINE")
 	label:SetText(text)
 	label:SetTextColor(0.8, 0.8, 0.8, 1)
 	button.label = label

@@ -10,13 +10,13 @@ local function RegisterSettings()
 
 	local titleText = frame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("TOP", frame, "TOP", 0, -10)
-	titleText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 20, "THINOUTLINE")
+	titleText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 20, "THINOUTLINE")
 	titleText:SetTextColor(1, 1, 1, 1)
 	titleText:SetText("Mango|cff00aa00U|r|cffaa0000I|r")
 
 	local versionText = frame:CreateFontString(nil, "OVERLAY")
 	versionText:SetPoint("TOP", titleText, "BOTTOM", 0, -10)
-	versionText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 12, "THINOUTLINE")
+	versionText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
 	versionText:SetTextColor(0.8, 0.8, 0.8, 1)
 	versionText:SetText(GetAddOnMetadata(addonName, "version"))
 
@@ -27,10 +27,10 @@ local function RegisterSettings()
 
 	local infoText = frame:CreateFontString(nil, "OVERLAY")
 	infoText:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
-	infoText:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 12, "THINOUTLINE")
+	infoText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
 	infoText:SetTextColor(0.7, 0.7, 0.7, 1)
 	infoText:SetText(
-	"You can also type |cff00aa00/mango|r, |cffaa0000/mui|r or |cff0000aa/mangoui|r to open the settings menu.")
+		"You can also type |cff00aa00/mango|r, |cffaa0000/mui|r or |cff0000aa/mangoui|r to open the settings menu.")
 
 	local category, layout = Settings.RegisterCanvasLayoutCategory(frame, addonName)
 	Settings.MUI_CATEGORY_ID = category:GetID()

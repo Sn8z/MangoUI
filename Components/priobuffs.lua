@@ -95,6 +95,8 @@ local function PostCreateButton(self, button)
 
 	button.Cooldown:SetHideCountdownNumbers(true)
 	button.Cooldown:SetSwipeColor(0, 0, 0, 0.8)
+	button.Cooldown:SetDrawEdge(false)
+	button.Cooldown:SetReverse(true)
 
 	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 20, "OUTLINE")
 	button.Count:ClearAllPoints()
@@ -117,9 +119,9 @@ function mUI:CreatePrioBuffs(self)
 		PrioBuffs.initialAnchor = "BOTTOMRIGHT"
 		PrioBuffs["growth-x"] = "LEFT"
 		PrioBuffs["growth-y"] = "UP"
-		PrioBuffs.width = 24
-		PrioBuffs.height = 24
-		PrioBuffs.spacing = 6
+		PrioBuffs.width = 26
+		PrioBuffs.height = 26
+		PrioBuffs.spacing = 3
 		PrioBuffs.FilterAura = BuffFilter
 	elseif self.unit == "raid" then
 		PrioBuffs:SetPoint("CENTER")

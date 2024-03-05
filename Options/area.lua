@@ -14,7 +14,7 @@ function mUI:CreateArea(labelText, parent)
 	local label = area:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("LEFT", area, "TOPLEFT", 10, 0)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 14, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 14, "THINOUTLINE")
 	label:SetText(labelText)
 	label:SetTextColor(0.8, 0.8, 0.8, 1)
 	return area

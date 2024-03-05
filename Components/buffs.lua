@@ -215,8 +215,10 @@ local function PostCreateButtonParty(self, button)
 
 	button.Cooldown:SetHideCountdownNumbers(true)
 	button.Cooldown:SetSwipeColor(0, 0, 0, 0.8)
+	button.Cooldown:SetDrawEdge(false)
+	button.Cooldown:SetReverse(true)
 
-	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 20, "OUTLINE")
+	button.Count:SetFont(LSM:Fetch("font", mUI.profile.settings.font), 16, "OUTLINE")
 	button.Count:ClearAllPoints()
 	button.Count:SetPoint("CENTER", button, "TOP", 0, 0)
 end
@@ -268,8 +270,8 @@ function mUI:CreateBuffs(self)
 		Buffs.initialAnchor = 'TOPRIGHT'
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'DOWN'
-		Buffs.size = 18
-		Buffs.spacing = 5
+		Buffs.size = 20
+		Buffs.spacing = 3
 		Buffs.showDebuffType = true
 		Buffs.FilterAura = PartyAuraFilter
 		Buffs.PostCreateButton = PostCreateButtonParty

@@ -44,12 +44,6 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 		end
 	end
 
-	-- TODO: add settings
-	if max and max >= 5 then
-		element[max - 1]:SetStatusBarColor(1, 0.5, 0, 1)
-		element[max]:SetStatusBarColor(1, 0, 0, 1)
-	end
-
 	if max and max == 5 then
 		element[max - 1]:SetStatusBarColor(1, 0.5, 0, 1)
 		element[max]:SetStatusBarColor(1, 0, 0, 1)

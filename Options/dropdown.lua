@@ -17,10 +17,10 @@ local function btnReset(self)
 end
 
 function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
-	local ddBtn, ddFrame, ddParent, ddChild
+	local ddBtn, ddFrame
 
 	ddBtn = CreateFrame("Button", nil, frame, "BackdropTemplate")
-	ddBtn:SetSize(200, 24)
+	ddBtn:SetSize(220, 24)
 	ddBtn:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
@@ -28,6 +28,9 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	})
 	ddBtn:SetBackdropColor(0.1, 0.1, 0.1, 1)
 	ddBtn:SetBackdropBorderColor(0, 0, 0, 1)
+	if isTexture then
+		ddBtn:SetNormalTexture(LSM:Fetch("statusbar", text))
+	end
 	ddBtn:SetScript("OnEnter", btnEnter)
 	ddBtn:SetScript("OnLeave", btnReset)
 	ddBtn:SetScript("OnMouseDown", btnMouseDown)
@@ -43,14 +46,14 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	local label = ddBtn:CreateFontString(nil, "ARTWORK")
 	label:SetPoint("LEFT", 5, 0)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Onest Bold"), 12, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
 	label:SetText(text)
 	label:SetTextColor(0.8, 0.8, 0.8, 1)
 	ddBtn.label = label
 
 	ddFrame = CreateFrame("Frame", nil, ddBtn, "BackdropTemplate")
-	ddFrame:SetPoint("TOPLEFT", ddBtn, "BOTTOMLEFT", 0, -5)
-	ddFrame:SetSize(240, 400)
+	ddFrame:SetPoint("TOPLEFT", ddBtn, "BOTTOMLEFT", 0, 0)
+	ddFrame:SetSize(220, 200)
 	ddFrame:SetBackdrop({
 		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
@@ -63,36 +66,27 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	ddFrame:SetClampedToScreen(true)
 	ddFrame:Hide()
 
-	ddParent = CreateFrame("ScrollFrame", "dropdownParent", ddFrame, "UIPanelScrollFrameTemplate")
-	ddParent:SetPoint("TOPLEFT", 4, -4)
-	ddParent:SetPoint("BOTTOMRIGHT", -27, 4)
+	local scroll = mUI:CreateScrollbox(ddFrame)
 
-	ddChild = CreateFrame("Frame", nil, ddParent)
-	ddParent:SetScrollChild(ddChild)
-	ddChild:SetHeight(1)
-	ddChild:SetWidth(1)
-
-	ddParent.items = {}
+	scroll.items = {}
 	local function CreateDropdownItem(text, func)
-		local item = CreateFrame("Button", nil, ddChild)
-		item:SetSize(200, 20)
-		item:SetText(text)
-		item:SetNormalFontObject("GameFontNormal")
-		item:SetHighlightFontObject("GameFontHighlight")
-		item:SetPoint("TOPLEFT", 0, -((#ddParent.items * 20)))
-		item:SetScript("OnClick", func)
+		local item = mUI:CreateButton(216, 20, text, scroll, func)
+		item:SetPoint("TOPLEFT", 0, -(#scroll.items * 23))
 
-		if isTexture == true then
+		if isTexture then
 			item:SetNormalTexture(LSM:Fetch("statusbar", text))
 		end
 
-		ddParent.items[#ddParent.items + 1] = item
+		scroll.items[#scroll.items + 1] = item
 	end
 
 	for _, v in pairs(values) do
 		CreateDropdownItem(v, function()
 			callback(v)
 			ddBtn.label:SetText(v)
+			if isTexture then
+				ddBtn:SetNormalTexture(LSM:Fetch("statusbar", v))
+			end
 			ddFrame:Hide()
 		end)
 	end
@@ -100,7 +94,7 @@ function mUI:CreateDropdown(labelText, text, values, frame, callback, isTexture)
 	local label = ddBtn:CreateFontString(nil, "ARTWORK")
 	label:SetPoint("BOTTOMLEFT", ddBtn, "TOPLEFT", 0, 5)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Onest Bold"), 10, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
 	label:SetText(labelText)
 	label:SetTextColor(1, 1, 1, 1)
 

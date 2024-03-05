@@ -8,9 +8,18 @@ function mUI:CreateScrollbox(parent)
 	scrollFrame:SetPoint("BOTTOMRIGHT", -(scrollBarWidth + 15), 5)
 
 	local scroll = scrollFrame.ScrollBar
+	Mixin(scroll, BackdropTemplateMixin)
+	scroll:SetBackdrop({
+		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeSize = 1
+	})
+	scroll:SetBackdropColor(0.1, 0.1, 0.1, 0.9)
+	scroll:SetBackdropBorderColor(0.3, 0.3, 0.3, 1)
 	scroll:SetWidth(scrollBarWidth)
 	scroll:SetThumbTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
 	scroll.ThumbTexture:SetSize(scrollBarWidth, 2 * scrollBarWidth)
+	scroll.ThumbTexture:SetVertexColor(0.75, 0.75, 0.75, 0.8)
 
 	local scrollUp = scroll.ScrollUpButton
 	scrollUp:SetNormalTexture([[Interface\AddOns\MangoUI\Media\white.tga]])

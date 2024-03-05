@@ -24,7 +24,7 @@ local function RegisterSettings()
 		tileSize = 32,
 		edgeSize = 1,
 	})
-	settingsFrame:SetBackdropColor(0.12, 0.12, 0.12, 0.8)
+	settingsFrame:SetBackdropColor(0.2, 0.2, 0.2, 1)
 	settingsFrame:SetBackdropBorderColor(0, 0, 0, 1)
 	settingsFrame:EnableMouse(true)
 	settingsFrame:SetMovable(true)
@@ -37,40 +37,40 @@ local function RegisterSettings()
 	-- Logo
 	local logo = settingsFrame:CreateTexture(nil, "ARTWORK")
 	logo:SetTexture([[Interface\AddOns\MangoUI\Media\mangologo.tga]])
-	logo:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", -30, 30)
-	logo:SetSize(100, 100)
+	logo:SetPoint("TOPLEFT", settingsFrame, "TOPLEFT", 6, -6)
+	logo:SetSize(80, 80)
 
 	-- Title Text
 	local titleText = settingsFrame:CreateFontString(nil, "OVERLAY")
 	titleText:SetPoint("LEFT", logo, "RIGHT", 10, 0)
-	titleText:SetFont(LSM:Fetch("font", "Onest Bold"), 32, "THINOUTLINE")
+	titleText:SetFont(LSM:Fetch("font", "Onest Bold"), 38, "THINOUTLINE")
 	titleText:SetTextColor(1, 1, 1, 1)
 	titleText:SetText("Mango")
 	local titleTextAddon = settingsFrame:CreateFontString(nil, "OVERLAY")
 	titleTextAddon:SetPoint("LEFT", titleText, "RIGHT", 0, 0)
-	titleTextAddon:SetFont(LSM:Fetch("font", "Onest Bold"), 32, "THINOUTLINE")
+	titleTextAddon:SetFont(LSM:Fetch("font", "Onest Bold"), 38, "THINOUTLINE")
 	titleTextAddon:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleTextAddon:SetText("UI")
 
-	local closeButton = mUI:CreateButton(28, 28, "X", settingsFrame, function(self)
+	local closeButton = mUI:CreateButton(24, 24, "X", settingsFrame, function(self)
 		settingsFrame:Hide()
 	end)
-	closeButton:SetPoint("TOPRIGHT", -3, -3)
+	closeButton:SetPoint("BOTTOMRIGHT", settingsFrame, "TOPRIGHT", -3, 0)
 
-	local reloadButton = mUI:CreateButton(100, 28, "Reload", settingsFrame, function()
+	local reloadButton = mUI:CreateButton(120, 24, "Apply", settingsFrame, function()
 		ReloadUI()
 	end)
 	reloadButton:SetPoint("TOPRIGHT", closeButton, "TOPLEFT", -60, 0)
 
-	local testModeButton = mUI:CreateButton(100, 28, "Test Frames", settingsFrame, function()
+	local testModeButton = mUI:CreateButton(120, 24, "Test", settingsFrame, function()
 		mUI:ToggleFrames()
 	end)
-	testModeButton:SetPoint("TOPRIGHT", reloadButton, "TOPLEFT", -10, 0)
+	testModeButton:SetPoint("TOPRIGHT", reloadButton, "TOPLEFT", -6, 0)
 
-	local movableButton = mUI:CreateButton(100, 28, "Move Frames", settingsFrame, function()
+	local movableButton = mUI:CreateButton(120, 24, "Move", settingsFrame, function()
 		mUI:ToggleMovable()
 	end)
-	movableButton:SetPoint("TOPRIGHT", testModeButton, "TOPLEFT", -10, 0)
+	movableButton:SetPoint("TOPRIGHT", testModeButton, "TOPLEFT", -6, 0)
 
 	local function HideUnitFrames()
 		playerFrame:Hide()
@@ -138,7 +138,7 @@ local function RegisterSettings()
 		edgeSize = 1,
 	})
 	generalFrame:SetBackdropColor(0.1, 0.1, 0.1, 1)
-	generalFrame:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
+	generalFrame:SetBackdropBorderColor(0, 0, 0, 1)
 	generalTab.label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 
 	local generalScroll = mUI:CreateScrollbox(generalFrame)
@@ -188,7 +188,6 @@ local function RegisterSettings()
 		LSM:List("statusbar"),
 		textureArea, function(value)
 			mUI.profile.settings.healthTexture = value
-			--oUF_MangoPrimaryPlayer.Health:SetStatusBarTexture(LSM:Fetch("statusbar", value))
 		end, true)
 	healthTextureDropdown:SetPoint("TOPLEFT", 10, -40)
 
@@ -197,14 +196,14 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.settings.powerTexture = value
 		end, true)
-	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -20)
+	powerTextureDropdown:SetPoint("TOPLEFT", healthTextureDropdown, "BOTTOMLEFT", 0, -30)
 
 	local castbarTextureDropdown = mUI:CreateDropdown("Castbar:", mUI.profile.settings.castbarTexture,
 		LSM:List("statusbar"),
 		textureArea, function(value)
 			mUI.profile.settings.castbarTexture = value
 		end, true)
-	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -20)
+	castbarTextureDropdown:SetPoint("TOPLEFT", powerTextureDropdown, "BOTTOMLEFT", 0, -30)
 
 	local fontArea = mUI:CreateArea("Fonts", generalScroll)
 	fontArea:SetPoint("TOPLEFT", textureArea, "BOTTOMLEFT", 0, -10)
@@ -661,7 +660,7 @@ local function RegisterSettings()
 	local focusCastbarArea = mUI:CreateArea("Castbar", focusScroll)
 	focusCastbarArea:SetPoint("TOPLEFT", focusPowerArea, "BOTTOMLEFT", 0, -10)
 	focusCastbarArea:SetPoint("TOPRIGHT", focusPowerArea, "BOTTOMRIGHT", 0, -10)
-	focusCastbarArea:SetHeight(80)
+	focusCastbarArea:SetHeight(160)
 
 	local focusCastbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.focus.castbar.enabled,
 		focusCastbarArea,
@@ -682,7 +681,7 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.focus.castbar.width = value
 		end)
-	focusCastbarWidthSlider:SetPoint("RIGHT", -20, 0)
+	focusCastbarWidthSlider:SetPoint("TOPRIGHT", -20, -40)
 
 	local focusCastbarHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.focus.castbar.height,
 		focusCastbarArea,
@@ -690,6 +689,20 @@ local function RegisterSettings()
 			mUI.profile.focus.castbar.height = value
 		end)
 	focusCastbarHeightSlider:SetPoint("RIGHT", focusCastbarWidthSlider, "LEFT", -20, 0)
+
+	local focusCastbarXSlider = mUI:CreateSlider(-2000, 2000, 1, "X", mUI.profile.focus.castbar.x,
+		focusCastbarArea,
+		function(value)
+			mUI.profile.focus.castbar.x = value
+		end)
+	focusCastbarXSlider:SetPoint("TOP", focusCastbarWidthSlider, "BOTTOM", 0, -50)
+
+	local focusCastbarYSlider = mUI:CreateSlider(-2000, 2000, 1, "Y", mUI.profile.focus.castbar.y,
+		focusCastbarArea,
+		function(value)
+			mUI.profile.focus.castbar.y = value
+		end)
+	focusCastbarYSlider:SetPoint("TOP", focusCastbarHeightSlider, "BOTTOM", 0, -50)
 
 	partyTab = mUI:CreateButton(100, 20, "Party", unitsFrame, function(self)
 		HideUnitFrames()
@@ -925,25 +938,17 @@ local function RegisterSettings()
 	titleText:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	titleText:SetText("Profiles")
 
-	local profileDropdown = CreateFrame("Frame", "MangoFontDropdown", profilesFrame, "UIDropDownMenuTemplate")
-	profileDropdown:SetPoint("TOP", profilesFrame, "TOP", 0, -10)
-	UIDropDownMenu_SetWidth(profileDropdown, 200)
-	UIDropDownMenu_SetText(profileDropdown, "Current profile:" .. " " .. mUI:GetCurrentProfile())
-
-	local function profileDropdownClick(self, arg1, arg2, checked)
-		mUI:SetProfile(arg1)
-		UIDropDownMenu_SetText(profileDropdown, arg1)
+	local profiles = {}
+	for k, _ in next, mUI.profiles do
+		table.insert(profiles, k)
 	end
 
-	UIDropDownMenu_Initialize(profileDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-
-		for k, _ in next, mUI.profiles do
-			info.text, info.arg1, info.checked = k, k, k == mUI:GetCurrentProfile()
-			info.func = profileDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
+	local profileDropdown = mUI:CreateDropdown("Select profile:", mUI:GetCurrentProfile(),
+		profiles,
+		profilesFrame, function(value)
+			mUI:SetProfile(value)
+		end, false)
+	profileDropdown:SetPoint("TOP", 0, -30)
 
 	-- Create new profile
 	StaticPopupDialogs.CreateProfilePopup = {
@@ -1029,27 +1034,15 @@ local function RegisterSettings()
 		hideOnEscape = true
 	}
 
-	local deleteProfileDropdown = CreateFrame("Frame", "MangoFontDropdown", profilesFrame, "UIDropDownMenuTemplate")
-	deleteProfileDropdown:SetPoint("BOTTOM", profilesFrame, "BOTTOM", 0, 10)
-	UIDropDownMenu_SetWidth(deleteProfileDropdown, 200)
-	UIDropDownMenu_SetText(deleteProfileDropdown, "Delete profile")
-
-	local function deleteProfileDropdownClick(self, arg1, arg2, checked)
-		local dialog = StaticPopup_Show("DeleteProfilePopup")
-		if dialog then
-			dialog.profile = arg1
-		end
-		UIDropDownMenu_SetText(deleteProfileDropdown, arg1)
-	end
-
-	UIDropDownMenu_Initialize(deleteProfileDropdown, function(self, level, menuList)
-		local info = UIDropDownMenu_CreateInfo()
-		for k, _ in next, mUI.profiles do
-			info.text, info.arg1 = k, k
-			info.func = deleteProfileDropdownClick
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end)
+	local deleteProfileDropdown = mUI:CreateDropdown("", "Delete Profile",
+		profiles,
+		profilesFrame, function(value)
+			local dialog = StaticPopup_Show("DeleteProfilePopup")
+			if dialog then
+				dialog.profile = value
+			end
+		end, false)
+	deleteProfileDropdown:SetPoint("BOTTOM", profilesFrame, "BOTTOM", 0, 30)
 end
 
 SettingsRegistrar:AddRegistrant(RegisterSettings)

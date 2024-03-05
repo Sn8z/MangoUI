@@ -30,7 +30,7 @@ function mUI:CreateCheckBox(labelText, value, frame, callback)
 	local label = checkbox:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("LEFT", checkbox, "RIGHT", 5, 0)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Ubuntu Medium"), 10, "THINOUTLINE")
+	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 10, "THINOUTLINE")
 	label:SetText(labelText)
 	label:SetTextColor(1, 1, 1, 1)
 
