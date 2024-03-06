@@ -89,106 +89,101 @@ function mUI:SkinActionbars()
 	end
 
 	function StyleButton(Button)
+		local Border = Button.Border
 		local NormalTexture = Button.NormalTexture
 		local PushedTexture = Button.PushedTexture
 		local Highlight = Button.HighlightTexture
 		local CheckedTexture = Button.CheckedTexture
 		local Background = Button.SlotBackground
-		local Border = Button.Border
 		local NewActionTexture = Button.NewActionTexture
 		local SpellHighlightTexture = Button.SpellHighlightTexture
 		local QuickKeybindHighlightTexture = Button.QuickKeybindHighlightTexture
 		local Icon = Button.icon
 		local Cooldown = Button.cooldown
 
-		local borderSize = mUI.profile.settings.borderSize
+		if Icon then
+			local borderSize = mUI.profile.settings.borderSize or 1
+			local border = CreateFrame("Frame", nil, Button, "BackdropTemplate")
+			border:SetPoint("TOPLEFT", -borderSize, borderSize)
+			border:SetPoint("BOTTOMRIGHT", borderSize, -borderSize)
+			border:SetBackdrop({
+				edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+				edgeSize = borderSize,
+			})
+			border:SetBackdropBorderColor(0, 0, 0, 1)
+			border:SetFrameStrata(Button:GetFrameStrata())
+			border:SetFrameLevel(Button:GetFrameLevel() + 1)
 
-		Mixin(Button, BackdropTemplateMixin)
-		Button:SetBackdrop({
-			bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-			edgeSize = borderSize
-		})
-		Button:SetBackdropColor(0, 0, 0, 0.7)
-		Button:SetBackdropBorderColor(0, 0, 0, 1)
+			-- Zoom the spell icon to remove default borders
+			Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			Icon:SetDrawLayer("BACKGROUND", 1)
+		end
 
 		-- Background
 		if Background then
 			Background:SetTexture([[Interface\AddOns\MangoUI\Media\border.tga]])
-			Background:SetVertexColor(0, 0, 0, 0)
-			Background:SetDrawLayer("BACKGROUND", 0)
+			Background:SetVertexColor(0, 0, 0, 0.6)
 		end
 
 		-- Normal border texture
 		if NormalTexture then
-			NormalTexture:SetTexture([[Interface\AddOns\MangoUI\Media\debuffoverlay.tga]])
-			NormalTexture:SetVertexColor(0, 0, 0, 0)
-			NormalTexture:SetSize(Button:GetWidth(), Button:GetHeight())
+			NormalTexture:SetAlpha(0)
 		end
 
 		-- Pushed border texture
 		if PushedTexture then
 			PushedTexture:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
 			PushedTexture:SetVertexColor(0.6, 0.6, 0.6, 1)
-			PushedTexture:SetPoint("TOPLEFT", borderSize, -borderSize)
-			PushedTexture:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			PushedTexture:SetAllPoints(Icon)
 		end
 
 		-- Checked border texture
 		if CheckedTexture then
 			CheckedTexture:SetTexture([[Interface\AddOns\MangoUI\Media\debuffoverlay.tga]])
 			CheckedTexture:SetVertexColor(0.1, 0.8, 0.1, 0.8)
-			CheckedTexture:SetPoint("TOPLEFT", borderSize, -borderSize)
-			CheckedTexture:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			CheckedTexture:SetAllPoints(Icon)
 		end
 
 		-- Highlight texture
 		if Highlight then
 			Highlight:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
 			Highlight:SetVertexColor(0.8, 0.8, 0.8, 0.8)
-			Highlight:SetPoint("TOPLEFT", borderSize, -borderSize)
-			Highlight:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			Highlight:SetAllPoints(Icon)
 		end
 
-		-- Border texture
+		-- Highlight texture
 		if Border then
 			Border:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-			Border:SetPoint("TOPLEFT", borderSize, -borderSize)
-			Border:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			Border:SetVertexColor(0.8, 0.8, 0.8, 0.8)
+			Border:SetAllPoints(Icon)
 		end
 
 		-- New action texture
 		if NewActionTexture then
 			NewActionTexture:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-			NewActionTexture:SetPoint("TOPLEFT", borderSize, -borderSize)
-			NewActionTexture:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			NewActionTexture:SetAllPoints(Icon)
 		end
 
 		-- Spell highlight texture
 		if SpellHighlightTexture then
 			SpellHighlightTexture:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-			SpellHighlightTexture:SetPoint("TOPLEFT", borderSize, -borderSize)
-			SpellHighlightTexture:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			SpellHighlightTexture:SetAllPoints(Icon)
 		end
 
 		-- Quick keybind highlight texture
 		if QuickKeybindHighlightTexture then
 			QuickKeybindHighlightTexture:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-			QuickKeybindHighlightTexture:SetPoint("TOPLEFT", borderSize, -borderSize)
-			QuickKeybindHighlightTexture:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
+			QuickKeybindHighlightTexture:SetAllPoints(Icon)
 		end
 
 		-- Hide the icon mask
 		Button.IconMask:SetShown(false)
 
 		-- Reposition the cooldown frame
-		Cooldown:ClearAllPoints()
-		Cooldown:SetPoint("TOPLEFT", borderSize, -borderSize)
-		Cooldown:SetPoint("BOTTOMRIGHT", -borderSize, borderSize)
-
-		-- Zoom the spell icon to remove default borders
-		Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-		Icon:SetDrawLayer("BACKGROUND", 1)
+		if Cooldown then
+			Cooldown:ClearAllPoints()
+			Cooldown:SetAllPoints(Icon)
+		end
 	end
 
 	function UpdateHotkeys(Button)
@@ -250,7 +245,6 @@ f:SetScript("OnEvent", function()
 	if mUI.profile.settings.actionbars.enabled then
 		mUI:SkinActionbars()
 	end
-
 	if not mUI.profile.settings.actionbars.animations then
 		mUI:BlockActionbarAnimations()
 	end
