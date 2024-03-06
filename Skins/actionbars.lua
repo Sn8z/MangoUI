@@ -104,8 +104,10 @@ function mUI:SkinActionbars()
 		if Icon then
 			local borderSize = mUI.profile.settings.borderSize or 1
 			local border = CreateFrame("Frame", nil, Button, "BackdropTemplate")
-			border:SetPoint("TOPLEFT", -borderSize, borderSize)
-			border:SetPoint("BOTTOMRIGHT", borderSize, -borderSize)
+			--border:SetPoint("TOPLEFT", -borderSize, borderSize)
+			--border:SetPoint("BOTTOMRIGHT", borderSize, -borderSize)
+			PixelUtil.SetPoint(border, "TOPLEFT", Button, "TOPLEFT", -borderSize, borderSize)
+			PixelUtil.SetPoint(border, "BOTTOMRIGHT", Button, "BOTTOMRIGHT", borderSize, -borderSize)
 			border:SetBackdrop({
 				edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 				edgeSize = borderSize,
@@ -117,6 +119,7 @@ function mUI:SkinActionbars()
 			-- Zoom the spell icon to remove default borders
 			Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 			Icon:SetDrawLayer("BACKGROUND", 1)
+			Icon:SetAllPoints(Button)
 		end
 
 		-- Background
@@ -151,10 +154,11 @@ function mUI:SkinActionbars()
 			Highlight:SetAllPoints(Icon)
 		end
 
-		-- Highlight texture
+		-- Border texture
 		if Border then
 			Border:SetTexture([[Interface\AddOns\MangoUI\Media\highlight.tga]])
-			Border:SetVertexColor(0.8, 0.8, 0.8, 0.8)
+			--Border:SetVertexColor(0.8, 0.8, 0.8, 0.8)
+			--Border:SetAlpha(0)
 			Border:SetAllPoints(Icon)
 		end
 

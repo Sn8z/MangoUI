@@ -59,27 +59,27 @@ function mUI:CreatePowerBar(self)
 	Power:SetFrameLevel(self.Health:GetFrameLevel() + 2)
 
 	if settings.power.style == "DETACH" and self.unit == "player" then
-		Power:SetSize(settings.power.width, settings.power.height)
-		Power:SetPoint("CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
+		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
+		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
 	elseif settings.power.style == "LEFT" then
-		Power:SetPoint("LEFT", self, "BOTTOMLEFT", 6, 0)
-		Power:SetSize(settings.power.width, settings.power.height)
+		PixelUtil.SetPoint(Power, "LEFT", self, "BOTTOMLEFT", 6, 0)
+		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
 	elseif settings.power.style == "RIGHT" then
-		Power:SetPoint("RIGHT", self, "BOTTOMRIGHT", -6, 0)
-		Power:SetSize(settings.power.width, settings.power.height)
+		PixelUtil.SetPoint(Power, "RIGHT", self, "BOTTOMRIGHT", -6, 0)
+		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
 	elseif settings.power.style == "INSET" then
-		Power:SetPoint("LEFT", self, "BOTTOMLEFT", 6, 0)
-		Power:SetPoint("RIGHT", self, "BOTTOMRIGHT", -6, 0)
-		Power:SetHeight(settings.power.height)
+		PixelUtil.SetPoint(Power, "LEFT", self, "BOTTOMLEFT", 6, 0)
+		PixelUtil.SetPoint(Power, "RIGHT", self, "BOTTOMRIGHT", -6, 0)
+		PixelUtil.SetHeight(Power, settings.power.height)
 	else
-		Power:SetHeight(settings.power.height)
-		Power:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, 0)
-		Power:SetPoint("TOPRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		PixelUtil.SetPoint(Power, "TOPLEFT", self, "BOTTOMLEFT", 0, 0)
+		PixelUtil.SetPoint(Power, "TOPRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		PixelUtil.SetHeight(Power, settings.power.height)
 	end
 
 	if settings.power.showText then
 		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
-		PowerAmount:SetPoint("CENTER", Power, "CENTER", 0, 0)
+		PixelUtil.SetPoint(PowerAmount, "CENTER", Power, "CENTER", 0, 0)
 		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.fontSize or 12, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:pp]")
 	end
@@ -88,8 +88,8 @@ function mUI:CreatePowerBar(self)
 	Power.colorThreat = false
 	Power.colorPower = true
 
-	Power.frequentUpdates = self.unit == 'player' or self.unit == 'target'
-	Power.displayAltPower = self.unit == 'boss'
+	Power.frequentUpdates = self.unit == "player" or self.unit == "target"
+	Power.displayAltPower = self.unit == "boss"
 	mUI:CreateBorder(Power)
 
 	if mUI.profile.settings.smooth then
@@ -97,7 +97,7 @@ function mUI:CreatePowerBar(self)
 		Power.Override = SmoothUpdate
 	end
 
-	local bg = Power:CreateTexture(nil, 'BACKGROUND')
+	local bg = Power:CreateTexture(nil, "BACKGROUND")
 	bg:SetAllPoints(Power)
 	bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	bg.multiplier = 0.4

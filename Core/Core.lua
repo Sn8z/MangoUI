@@ -1,6 +1,6 @@
 local addonName, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
-mUI:StartMeasure("CORE_SETUP")
+
 -- Register addon to the AddonCompartmentFrame
 if AddonCompartmentFrame then
 	AddonCompartmentFrame:RegisterAddon({
@@ -15,7 +15,6 @@ end
 
 -- Add vault slash command
 local function showVault()
-	mUI:StartMeasure("SHOW_VAULT")
 	if not WeeklyRewardsFrame then
 		C_AddOns.LoadAddOn("Blizzard_WeeklyRewards")
 	end
@@ -25,13 +24,11 @@ local function showVault()
 	else
 		WeeklyRewardsFrame:Show()
 	end
-	mUI:StopMeasure("SHOW_VAULT")
 end
 
 SLASH_MANGOVAULT1 = "/vault"
 SlashCmdList["MANGOVAULT"] = showVault
 
--- Add reload command
 SLASH_MANGORELOAD1 = "/rl"
 SlashCmdList["MANGORELOAD"] = ReloadUI
 
@@ -141,5 +138,3 @@ LSM:Register(LSM.MediaType.STATUSBAR, "Vvik", [[Interface\Addons\MangoUI\Media\S
 -- Borders
 
 -- Sounds
-
-mUI:StopMeasure("CORE_SETUP")

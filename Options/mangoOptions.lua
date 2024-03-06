@@ -311,7 +311,7 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.player.power.width = value
 		end)
-	powerWidthSlider:SetPoint("RIGHT", -20, 0)
+	powerWidthSlider:SetPoint("TOPRIGHT", -20, -40)
 
 	local powerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.power.height, playerPowerArea,
 		function(value)
@@ -319,10 +319,22 @@ local function RegisterSettings()
 		end)
 	powerHeightSlider:SetPoint("RIGHT", powerWidthSlider, "LEFT", -20, 0)
 
+	local powerXSlider = mUI:CreateSlider(-2000, 2000, 1, "X", mUI.profile.player.power.x, playerPowerArea,
+		function(value)
+			mUI.profile.player.power.x = value
+		end)
+	powerXSlider:SetPoint("TOP", powerHeightSlider, "BOTTOM", 0, -50)
+
+	local powerYSlider = mUI:CreateSlider(-2000, 2000, 1, "Y", mUI.profile.player.power.y, playerPowerArea,
+		function(value)
+			mUI.profile.player.power.y = value
+		end)
+	powerYSlider:SetPoint("TOP", powerWidthSlider, "BOTTOM", 0, -50)
+
 	local playerClasspowerArea = mUI:CreateArea("Classpower", playerScroll)
 	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
 	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)
-	playerClasspowerArea:SetHeight(160)
+	playerClasspowerArea:SetHeight(180)
 
 	local playerClasspowerCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.player.classpower.enabled,
 		playerClasspowerArea,
@@ -344,7 +356,7 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.player.classpower.width = value
 		end)
-	classpowerWidthSlider:SetPoint("RIGHT", -20, 0)
+	classpowerWidthSlider:SetPoint("TOPRIGHT", -20, -40)
 
 	local classpowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.player.classpower.height,
 		playerClasspowerArea,
@@ -359,6 +371,20 @@ local function RegisterSettings()
 			mUI.profile.player.classpower.spacing = value
 		end)
 	classpowerSpacingSlider:SetPoint("RIGHT", classpowerHeightSlider, "LEFT", -20, 0)
+
+	local classpowerXSlider = mUI:CreateSlider(-2000, 2000, 1, "X", mUI.profile.player.classpower.x,
+		playerClasspowerArea,
+		function(value)
+			mUI.profile.player.classpower.x = value
+		end)
+	classpowerXSlider:SetPoint("TOP", classpowerWidthSlider, "BOTTOM", 0, -50)
+
+	local classpowerYSlider = mUI:CreateSlider(-2000, 2000, 1, "Y", mUI.profile.player.classpower.y,
+		playerClasspowerArea,
+		function(value)
+			mUI.profile.player.classpower.y = value
+		end)
+	classpowerYSlider:SetPoint("TOP", classpowerHeightSlider, "BOTTOM", 0, -50)
 
 	local playerCastbarArea = mUI:CreateArea("Castbar", playerScroll)
 	playerCastbarArea:SetPoint("TOPLEFT", playerClasspowerArea, "BOTTOMLEFT", 0, -10)

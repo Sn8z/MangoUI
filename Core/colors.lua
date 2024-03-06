@@ -1,6 +1,5 @@
 local _, mUI = ...
 local oUF = mUI.oUF
-mUI:StartMeasure("COLORS_SETUP")
 
 oUF.colors.health = oUF:CreateColor(40, 240, 40)
 oUF.colors.disconnected = oUF:CreateColor(30, 30, 30)
@@ -83,5 +82,3 @@ oUF.colors.power.ESSENCE = oUF:CreateColor(50, 168, 82)
 oUF.colors.power[19] = oUF.colors.power.ESSENCE
 oUF.colors.power.ALTERNATE = oUF:CreateColor(100, 100, 255)
 oUF.colors.power[10] = oUF.colors.power.ALTERNATE
-
-mUI:StopMeasure("COLORS_SETUP")

@@ -1,15 +1,15 @@
 local _, mUI = ...
 local oUF = mUI.oUF
-local LSM = LibStub('LibSharedMedia-3.0')
+local LSM = LibStub("LibSharedMedia-3.0")
 
-assert(oUF, 'MangoUI was unable to find oUF')
-assert(LSM, 'MangoUI was unable to find LibShareMedia')
+assert(oUF, "MangoUI was unable to find oUF")
+assert(LSM, "MangoUI was unable to find LibShareMedia")
 
 local function SetupFrame(self)
 	self:ClearAllPoints()
-	self:RegisterForClicks('AnyDown')
-	self:SetScript('OnEnter', UnitFrame_OnEnter)
-	self:SetScript('OnLeave', UnitFrame_OnLeave)
+	self:RegisterForClicks("AnyDown")
+	self:SetScript("OnEnter", UnitFrame_OnEnter)
+	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
@@ -28,12 +28,12 @@ end
 local function Primary(self, unit)
 	SetupFrame(self)
 
-	if unit == "target" then
-		self:SetSize(mUI.profile.target.width, mUI.profile.target.height)
-	elseif unit == "player" then
-		self:SetSize(mUI.profile.player.width, mUI.profile.player.height)
-	else
-		self:SetSize(mUI.profile.focus.width, mUI.profile.focus.height)
+	if unit == "player" then
+		PixelUtil.SetSize(self, mUI.profile.player.width, mUI.profile.player.height)
+	elseif unit == "target" then
+		PixelUtil.SetSize(self, mUI.profile.target.width, mUI.profile.target.height)
+	elseif unit == "focus" then
+		PixelUtil.SetSize(self, mUI.profile.focus.width, mUI.profile.focus.height)
 	end
 
 	mUI:CreateCastbar(self)
@@ -49,7 +49,7 @@ local function Primary(self, unit)
 	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
 
-	if unit == 'player' then
+	if unit == "player" then
 		mUI:CreateGroupNumber(self)
 		mUI:CreateAbsorbsNumber(self)
 		mUI:CreateClassPower(self)
@@ -59,10 +59,10 @@ local function Primary(self, unit)
 		mUI:CreateTotems(self)
 		mUI:CreatePrioBuffs(self)
 
-		if mUI.profile.player.castbar.enabled then -- change db setting
-			local GCD = CreateFrame("StatusBar", nil, self)
-			GCD:SetSize(self.Castbar:GetWidth(), 2)
-			GCD:SetPoint("BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 2)
+		if mUI.profile.player.castbar.enabled then
+			local GCD = CreateFrame("StatusBar", "MangoGCD", self)
+			PixelUtil.SetSize(GCD, self.Castbar:GetWidth(), 2)
+			PixelUtil.SetPoint(GCD, "BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 2)
 			GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.castbarTexture))
 			local gBackground = GCD:CreateTexture(nil, "BACKGROUND")
 			gBackground:SetAllPoints(GCD)
@@ -81,16 +81,16 @@ local function Secondary(self, unit)
 	SetupFrame(self)
 	mUI:CreateCastbar(self)
 	if unit == "pet" then
-		self:SetSize(mUI.profile.pet.width, mUI.profile.pet.height)
+		PixelUtil.SetSize(self, mUI.profile.pet.width, mUI.profile.pet.height)
 	else
-		self:SetSize(mUI.profile.targettarget.width, mUI.profile.targettarget.height)
+		PixelUtil.SetSize(self, mUI.profile.targettarget.width, mUI.profile.targettarget.height)
 	end
 end
 oUF:RegisterStyle("MangoSecondary", Secondary)
 
 local function mBoss(self, unit)
 	SetupFrame(self)
-	self:SetSize(mUI.profile.boss.width, mUI.profile.boss.height)
+	PixelUtil.SetSize(self, mUI.profile.boss.width, mUI.profile.boss.height)
 	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
 	mUI:CreateCastbar(self)
@@ -129,19 +129,6 @@ local function mRaid(self, unit)
 end
 oUF:RegisterStyle("MangoRaid", mRaid)
 
-local function mFavourites(self, unit)
-	--print("SELFUNIT: " .. self.unit or "null")
-	--print("UNIT: " .. unit or "null")
-	SetupFrame(self)
-	mUI:CreateReadyCheck(self)
-	mUI:CreateResurrectionIndicator(self)
-	mUI:CreateBuffs(self)
-	mUI:CreateDebuffs(self)
-	mUI:CreateStatusText(self, 14)
-	self.DispelHighlight = true
-end
-oUF:RegisterStyle("MangoFavourites", mFavourites)
-
 oUF:Factory(function(self)
 	-- Player, Target & Focus frames
 	self:SetActiveStyle("MangoPrimary")
@@ -149,169 +136,107 @@ oUF:Factory(function(self)
 	-- Check if unitframe is enabled or not
 	local player, target, focus, tot, pet
 	if mUI.profile.player.enabled then
-		mUI:StartMeasure("PLAYER_SETUP")
 		player = self:Spawn("player")
-		player:SetPoint(mUI.profile.player.anchor, UIParent, mUI.profile.player.parentAnchor, mUI.profile.player.x,
-			mUI.profile.player.y)
+		PixelUtil.SetPoint(
+			player,
+			mUI.profile.player.anchor,
+			UIParent, mUI.profile.player.parentAnchor,
+			mUI.profile.player.x,
+			mUI.profile.player.y
+		)
 		mUI:AddMover(player, "Player", function(x, y)
 			mUI.profile.player.x = x
 			mUI.profile.player.y = y
 			mUI.profile.player.anchor = "CENTER"
 			mUI.profile.player.parentAnchor = "CENTER"
 		end)
-		mUI:StopMeasure("PLAYER_SETUP")
 	end
 
 	if mUI.profile.target.enabled then
-		mUI:StartMeasure("TARGET_SETUP")
 		target = self:Spawn("target")
-		target:SetPoint(mUI.profile.target.anchor, UIParent, mUI.profile.target.parentAnchor, mUI.profile.target.x,
-			mUI.profile.target.y)
+		PixelUtil.SetPoint(
+			target,
+			mUI.profile.target.anchor,
+			UIParent,
+			mUI.profile.target.parentAnchor,
+			mUI.profile.target.x,
+			mUI.profile.target.y
+		)
 		mUI:AddMover(target, "Target", function(x, y)
 			mUI.profile.target.x = x
 			mUI.profile.target.y = y
 			mUI.profile.target.anchor = "CENTER"
 			mUI.profile.target.parentAnchor = "CENTER"
 		end)
-		mUI:StopMeasure("TARGET_SETUP")
 	end
 
 	if mUI.profile.focus.enabled then
-		mUI:StartMeasure("FOCUS_SETUP")
 		focus = self:Spawn("focus")
-		focus:SetPoint(mUI.profile.focus.anchor, UIParent, mUI.profile.focus.parentAnchor, mUI.profile.focus.x,
-			mUI.profile.focus.y)
+		PixelUtil.SetPoint(
+			focus,
+			mUI.profile.focus.anchor,
+			UIParent,
+			mUI.profile.focus.parentAnchor,
+			mUI.profile.focus.x,
+			mUI.profile.focus.y
+		)
 		mUI:AddMover(focus, "Focus", function(x, y)
 			mUI.profile.focus.x = x
 			mUI.profile.focus.y = y
 			mUI.profile.focus.anchor = "CENTER"
 			mUI.profile.focus.parentAnchor = "CENTER"
 		end)
-		mUI:StopMeasure("FOCUS_SETUP")
 	end
 
 	-- Pet & ToT frames
 	if mUI.profile.targettarget.enabled then
-		mUI:StartMeasure("TARGETTARGET_SETUP")
 		self:SetActiveStyle("MangoSecondary")
 		tot = self:Spawn("targettarget")
-		tot:SetPoint('TOPLEFT', target or UIParent, 'TOPRIGHT', 8, 0)
+		PixelUtil.SetPoint(tot, "TOPLEFT", target or UIParent, "TOPRIGHT", 8, 0)
 		mUI:AddMover(tot, "Target of target")
-		mUI:StopMeasure("TARGETTARGET_SETUP")
 	end
 
 	if mUI.profile.pet.enabled then
-		mUI:StartMeasure("PET_SETUP")
 		self:SetActiveStyle("MangoSecondary")
 		pet = self:Spawn("pet")
-		pet:SetPoint('TOPRIGHT', player or UIParent, 'TOPLEFT', -8, 0)
+		PixelUtil.SetPoint(pet, "TOPRIGHT", player or UIParent, "TOPLEFT", -8, 0)
 		mUI:AddMover(pet, "Pet")
-		mUI:StopMeasure("PET_SETUP")
 	end
 
 	if mUI.profile.boss.enabled then
-		mUI:StartMeasure("BOSS_SETUP")
 		self:SetActiveStyle("MangoBoss")
 		local boss = {}
 		for i = 1, MAX_BOSS_FRAMES or 5 do
-			boss[i] = self:Spawn('boss' .. i)
+			boss[i] = self:Spawn("boss" .. i)
 
 			if i == 1 then
-				boss[i]:SetPoint('BOTTOM', UIParent, 'BOTTOM', 550, 400)
+				PixelUtil.SetPoint(boss[i], "BOTTOM", UIParent, "BOTTOM", 550, 400)
 				mUI:AddMover(boss[i], "Boss")
 			else
-				boss[i]:SetPoint('BOTTOM', boss[i - 1], 'TOP', 0, 50)
+				PixelUtil.SetPoint(boss[i], "BOTTOM", boss[i - 1], "TOP", 0, 50)
 			end
 		end
-		mUI:StopMeasure("BOSS_SETUP")
 	end
 
 	if mUI.profile.party.enabled then
-		mUI:StartMeasure("PARTY_SETUP")
 		self:SetActiveStyle("MangoParty")
-		local party = self:SpawnHeader("MangoParty", nil, 'party',
-			'showParty', true,
-			'showRaid', false,
-			'showSolo', false,
-			'showPlayer', true,
-			'yOffset', -12,
-			'groupBy', 'ASSIGNEDROLE',
-			'groupingOrder', 'DAMAGER,HEALER,TANK',
+		local party = self:SpawnHeader("MangoParty", nil, "party",
+			"showParty", true,
+			"showRaid", false,
+			"showSolo", false,
+			"showPlayer", true,
+			"yOffset", -12,
+			"groupBy", "ASSIGNEDROLE",
+			"groupingOrder", "DAMAGER,HEALER,TANK",
 			"oUF-initialConfigFunction", ([[
         	self:SetWidth(%d)
         	self:SetHeight(%d)
       ]]):format(mUI.profile.party.width, mUI.profile.party.height)
 		)
-		party:SetPoint("CENTER", UIParent, "CENTER", mUI.profile.party.x, mUI.profile.party.y)
-		mUI:StopMeasure("PARTY_SETUP")
-	end
-
-	if mUI.profile.favourites.enabled and false then --TODO(?)
-		self:SetActiveStyle("MangoFavourites")
-		local favourites = self:SpawnHeader("MangoFavourites", nil, "custom show;",
-			"showRaid", true,
-			"showParty", true,
-			"showSolo", true,
-			"showPlayer", true,
-			"columnAnchorPoint", "BOTTOM",
-			"columnSpacing", 5,
-			"point", "TOP",
-			"columnAnchorPoint", "TOP",
-			"groupingOrder", "1,2,3,4,5,6,7,8",
-			"groupBy", "GROUP",
-			"sortMethod", "GROUP",
-			"maxColumns", 8,
-			"unitsPerColumn", 5,
-			"columnSpacing", 4,
-			"xOffset", 10,
-			"yOffset", -20,
-			"nameList", table.concat(mUI.profile.favourites.units, ","),
-			"oUF-initialConfigFunction", ([[
-        	self:SetWidth(%d)
-        	self:SetHeight(%d)
-      ]]):format(mUI.profile.favourites.width, mUI.profile.favourites.height)
-		)
-		favourites:SetPoint("CENTER", UIParent, "CENTER", 200, 60)
-
-		local function updateFavourites()
-			local favs = table.concat(mUI.profile.favourites.units, ",")
-			favourites:SetAttribute("nameList", favs)
-		end
-
-		local function addFavourite()
-			if (UnitExists("target") and (UnitInParty("target") or UnitInRaid("target"))) or UnitIsUnit("player", "target") then
-				table.insert(mUI.profile.favourites.units, GetUnitName("target", true))
-				updateFavourites()
-			else
-				if UIErrorsFrame then
-					UIErrorsFrame:AddExternalErrorMessage("Can't add that unit")
-				else
-					print("Can't add that unit")
-				end
-			end
-		end
-
-		local resetBtn = CreateFrame("Button", "MangoFavouriteResetButton", favourites, "UIPanelButtonTemplate")
-		resetBtn:SetSize(80, 22)
-		resetBtn:SetText("Reset")
-		resetBtn:SetPoint("TOP", UIParent, "TOP", 0, -5)
-		resetBtn:SetScript("OnClick", function()
-			table.wipe(mUI.profile.favourites.units)
-			updateFavourites()
-		end)
-
-		local addTargetBtn = CreateFrame("Button", "MangoFavouriteAddButton", favourites, "UIPanelButtonTemplate")
-		addTargetBtn:SetSize(160, 22)
-		addTargetBtn:SetText("Track current target")
-		addTargetBtn:SetPoint("LEFT", resetBtn, "RIGHT", 5, 0)
-		addTargetBtn:SetScript("OnClick", addFavourite)
-
-		SLASH_MANGOFAV1 = "/mfav"
-		SlashCmdList["MANGOFAV"] = addFavourite
+		PixelUtil.SetPoint(party, "CENTER", UIParent, "CENTER", mUI.profile.party.x, mUI.profile.party.y)
 	end
 
 	if mUI.profile.raid.enabled then
-		mUI:StartMeasure("RAIDFRAMES_SETUP")
 		if CompactRaidFrameManager_SetSetting then
 			UIParent:UnregisterEvent("GROUP_ROSTER_UPDATE")
 			CompactRaidFrameManager_SetSetting("IsShown", "0")
@@ -333,7 +258,7 @@ oUF:Factory(function(self)
 				"showPlayer", true,
 				"maxColumns", 5,
 				"unitsPerColumn", 1,
-				"columnAnchorPoint", 'LEFT',
+				"columnAnchorPoint", "LEFT",
 				"columnSpacing", 3,
 				"groupBy", "ASSIGNEDROLE",
 				"groupingOrder", "DAMAGER,HEALER,TANK",
@@ -345,11 +270,10 @@ oUF:Factory(function(self)
 			)
 
 			if group == 1 then
-				raid[group]:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 15, -15)
+				PixelUtil.SetPoint(raid[group], "TOPLEFT", UIParent, "TOPLEFT", 15, -15)
 			else
-				raid[group]:SetPoint("TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -3)
+				PixelUtil.SetPoint(raid[group], "TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -3)
 			end
 		end
-		mUI:StopMeasure("RAIDFRAMES_SETUP")
 	end
 end)
