@@ -146,13 +146,19 @@ local function RegisterSettings()
 	local generalArea = mUI:CreateArea("", generalScroll)
 	generalArea:SetPoint("TOPLEFT", generalScroll, "TOPLEFT", 10, -10)
 	generalArea:SetPoint("TOPRIGHT", generalScroll, "TOPRIGHT", -10, -10)
-	generalArea:SetHeight(120)
+	generalArea:SetHeight(160)
 
 	local smoothCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Smooth Bars", mUI.profile.settings.smooth, generalArea,
 		function(isChecked)
 			mUI.profile.settings.smooth = isChecked
 		end)
-	smoothCheck:SetPoint("LEFT", 20, 0)
+	smoothCheck:SetPoint("TOPLEFT", 20, -40)
+
+	local aurasCheck = mUI:CreateCheckBox("|cff00ff00Enable|r aura skin", mUI.profile.settings.auras.enabled, generalArea,
+		function(isChecked)
+			mUI.profile.settings.auras.enabled = isChecked
+		end)
+	aurasCheck:SetPoint("TOP", smoothCheck, "BOTTOM", 0, -30)
 
 	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalArea,
 		function(value)
@@ -720,7 +726,7 @@ local function RegisterSettings()
 	local partyArea = mUI:CreateArea("", partyScroll)
 	partyArea:SetPoint("TOPLEFT", 10, -10)
 	partyArea:SetPoint("TOPRIGHT", -10, -10)
-	partyArea:SetHeight(80)
+	partyArea:SetHeight(160)
 
 	local partyCheck = mUI:CreateCheckBox("|cff00ff00Enable|r", mUI.profile.party.enabled, partyArea,
 		function(isChecked)
@@ -739,13 +745,25 @@ local function RegisterSettings()
 		function(value)
 			mUI.profile.party.width = value
 		end)
-	partyWidthSlider:SetPoint("RIGHT", -20, 0)
+	partyWidthSlider:SetPoint("TOPRIGHT", -20, -40)
 
 	local partyHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.party.height, partyArea,
 		function(value)
 			mUI.profile.party.height = value
 		end)
 	partyHeightSlider:SetPoint("RIGHT", partyWidthSlider, "LEFT", -20, 0)
+
+	local partyXSlider = mUI:CreateSlider(-2000, 2000, 1, "X", mUI.profile.party.x, partyArea,
+		function(value)
+			mUI.profile.party.x = value
+		end)
+	partyXSlider:SetPoint("TOP", partyWidthSlider, "BOTTOM", 0, -40)
+
+	local partyYSlider = mUI:CreateSlider(-2000, 2000, 1, "Y", mUI.profile.party.y, partyArea,
+		function(value)
+			mUI.profile.party.y = value
+		end)
+	partyYSlider:SetPoint("TOP", partyHeightSlider, "BOTTOM", 0, -40)
 
 	local partyPowerArea = mUI:CreateArea("Power", partyScroll)
 	partyPowerArea:SetPoint("TOPLEFT", partyArea, "BOTTOMLEFT", 0, -10)

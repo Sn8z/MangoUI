@@ -4,8 +4,12 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("VARIABLES_LOADED")
 f:SetScript("OnEvent", function()
 	if mUI.profile.settings.minimap.enabled then
+		-- https://warcraft.wiki.gg/wiki/UIOBJECT_Minimap
 		Minimap:SetMaskTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
-		local size = 2
+		Minimap:SetArchBlobRingScalar(0)
+		Minimap:SetQuestBlobRingScalar(0)
+
+		local size = 1
 		local border = CreateFrame("Frame", "MinimapBorder", Minimap, "BackdropTemplate")
 		border:SetBackdrop({
 			--edgeFile = [[Interface\AddOns\MangoUI\Media\borderglow.tga]],
@@ -23,6 +27,7 @@ f:SetScript("OnEvent", function()
 		ExpansionLandingPageMinimapButton:ClearAllPoints()
 		ExpansionLandingPageMinimapButton:SetParent(Minimap)
 		ExpansionLandingPageMinimapButton:SetPoint("TOPRIGHT", 12, 12)
+
 
 		function GetMinimapShape()
 			return "SQUARE"

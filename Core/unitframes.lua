@@ -242,7 +242,7 @@ oUF:Factory(function(self)
         	self:SetHeight(%d)
       ]]):format(mUI.profile.party.width, mUI.profile.party.height)
 		)
-		party:SetPoint('BOTTOM', UIParent, 'LEFT', 380, -160)
+		party:SetPoint("CENTER", UIParent, "CENTER", mUI.profile.party.x, mUI.profile.party.y)
 		mUI:StopMeasure("PARTY_SETUP")
 	end
 

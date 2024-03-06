@@ -12,9 +12,9 @@ local removedDebuffs = {
 local TargetDebuffs = {
 	[188389] = true, -- Flame Shock
 	[316220] = true, -- Find Weakness
-	[1943] = true, -- Rupture
+	[1943] = true,  -- Rupture
 	[703] = true,   -- Garrote
-	[121411] = true,   -- Crimson Tempest
+	[121411] = true, -- Crimson Tempest
 	[394036] = true, -- Serrated Bonespike
 	[360194] = true, -- Deathmark
 	[385627] = true, -- Kingsbane
@@ -26,10 +26,10 @@ local TargetDebuffs = {
 	[202347] = true, -- Stellar Flare
 	[271788] = true, -- Serpent Sting
 	[14914] = true, -- Holy Fire
-	[589] = true, -- Shadow Word: Pain
-	[34914] = true,   -- Vampiric Touch
-	[335467] = true,   -- Devouring Plague
-	[375901] = true,   -- Mindgames
+	[589] = true,   -- Shadow Word: Pain
+	[34914] = true, -- Vampiric Touch
+	[335467] = true, -- Devouring Plague
+	[375901] = true, -- Mindgames
 	[214621] = true, -- Schism
 	[204213] = true, -- Purge the Wicked
 	[157736] = true, -- Immolate
@@ -57,7 +57,7 @@ local function AuraFilter(element, unit, data)
 end
 
 local function TargetAuraFilter(element, unit, data)
-if TargetDebuffs[data.spellId] and data.isPlayerAura then
+	if TargetDebuffs[data.spellId] and data.isPlayerAura then
 		return true
 	else
 		return false
@@ -65,11 +65,18 @@ if TargetDebuffs[data.spellId] and data.isPlayerAura then
 end
 
 local function PostCreateButton(self, button)
+	button:SetFrameStrata("LOW")
+
 	button.Overlay:SetTexture([[Interface\AddOns\MangoUI\Media\debuffoverlay.tga]])
 	button.Overlay:SetAllPoints()
 	button.Overlay:SetTexCoord(0, 1, 0, 1)
-	button:SetFrameStrata("LOW")
+
 	button.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+
+	button.Cooldown:SetSwipeColor(0, 0, 0, 0.6)
+	button.Cooldown:SetDrawEdge(false)
+	button.Cooldown:SetReverse(true)
+	button.Cooldown:SetCountdownFont(LSM:Fetch("font", mUI.profile.settings.font), 8, "OUTLINE")
 end
 
 local function PostCreateButtonBorder(self, button)
@@ -125,7 +132,7 @@ function mUI:CreateDebuffs(self)
 		Debuffs.showType = false
 	elseif self.unit == 'party' then
 		Debuffs:SetPoint('BOTTOMLEFT', self.Health, 'BOTTOMRIGHT', 5, 0)
-		Debuffs.size = 28
+		Debuffs.size = 36
 		Debuffs.spacing = 5
 		Debuffs.initialAnchor = 'BOTTOMLEFT'
 		Debuffs['growth-x'] = 'RIGHT'

@@ -29,7 +29,7 @@ local defaultProfile = {
 		powerTexture = "Tim",
 		castbarTexture = "Tim",
 		font = "Onest Semi Bold",
-		borderSize = 2,
+		borderSize = 1,
 		actionbars = {
 			enabled = true,
 			animations = false
@@ -44,6 +44,9 @@ local defaultProfile = {
 		},
 		minimap = {
 			enabled = true,
+		},
+		auras = {
+			enabled = true
 		},
 	},
 	player = {
@@ -261,11 +264,13 @@ local defaultProfile = {
 	},
 	party = {
 		enabled = true,
-		anchor = "LEFT",
+		anchor = "CENTER",
 		parentAnchor = "CENTER",
 		width = 180,
 		height = 40,
 		classColor = true,
+		x = -600,
+		y = 40,
 		power = {
 			enabled = true,
 			style = "RIGHT",
