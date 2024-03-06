@@ -22,7 +22,7 @@ function mUI:CreateHealth(self)
 	local Health = CreateFrame("StatusBar", nil, self)
 	Health:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.healthTexture))
 	Health:SetAllPoints()
-	
+
 	local hBackground = Health:CreateTexture(nil, "BACKGROUND")
 	hBackground:SetAllPoints(Health)
 	hBackground:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.healthTexture))

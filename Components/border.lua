@@ -13,7 +13,7 @@ end
 function mUI:CreateBorder(self, showTargeted)
 	showTargeted = showTargeted or false
 	local size = mUI.profile.settings.borderSize or 1
-	local border = CreateFrame('Frame', nil, self, "BackdropTemplate")
+	local border = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	border:SetPoint("TOPLEFT", self, "TOPLEFT", -size, size)
 	border:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", size, -size)
 	border:SetFrameStrata(self:GetFrameStrata())
@@ -29,6 +29,6 @@ function mUI:CreateBorder(self, showTargeted)
 	if showTargeted and self.unit ~= "target" then
 		self:RegisterEvent("PLAYER_TARGET_CHANGED", updateBorder, true)
 		self:RegisterEvent("GROUP_ROSTER_UPDATE", updateBorder, true)
-		self:RegisterEvent("PLAYER_REGEN_DISABLED", updateBorder, true) -- Test this for updating borders when engaging combat
+		self:RegisterEvent("PLAYER_REGEN_DISABLED", updateBorder, true)
 	end
 end

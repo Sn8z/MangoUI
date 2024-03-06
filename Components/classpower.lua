@@ -27,14 +27,14 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 			local totalSpacing = (max - 1) * spacing
 
 			if mUI.db.player.classpower.detach then
-				Bar:SetWidth((mUI.db.player.classpower.width - totalSpacing) / max)
+				PixelUtil.SetWidth(Bar, (mUI.db.player.classpower.width - totalSpacing) / max)
 			else
-				Bar:SetWidth((element.__owner:GetWidth() - totalSpacing) / max)
+				PixelUtil.SetWidth(Bar, (element.__owner:GetWidth() - totalSpacing) / max)
 			end
 
 			if (i > 1) then
 				Bar:ClearAllPoints()
-				Bar:SetPoint('LEFT', element[i - 1], 'RIGHT', spacing, 0)
+				PixelUtil.SetPoint(Bar, "LEFT", element[i - 1], "RIGHT", spacing, 0)
 			end
 			element.Backgrounds[i]:Show()
 		end
@@ -80,12 +80,25 @@ function mUI:CreateClassPower(self)
 
 	for i = 1, 10 do
 		local Bar = CreateFrame("StatusBar", "ClassPower" .. i, self)
-		Bar:SetHeight(mUI.db.player.classpower.height)
+		PixelUtil.SetHeight(Bar, mUI.db.player.classpower.height)
 		if mUI.db.player.classpower.detach then
-			Bar:SetPoint('LEFT', UIParent, 'CENTER', mUI.db.player.classpower.x, mUI.db.player.classpower.y)
+			PixelUtil.SetPoint(
+				Bar,
+				"LEFT",
+				UIParent,
+				"CENTER",
+				mUI.db.player.classpower.x,
+				mUI.db.player.classpower.y
+			)
 		else
-			Bar:SetPoint('BOTTOMLEFT', self, 'TOPLEFT', (i - 1) * (Bar:GetWidth() + mUI.db.player.classpower.spacing),
-				mUI.db.player.classpower.spacing)
+			PixelUtil.SetPoint(
+				Bar,
+				"BOTTOMLEFT",
+				self,
+				"TOPLEFT",
+				(i - 1) * (Bar:GetWidth() + mUI.db.player.classpower.spacing),
+				mUI.db.player.classpower.spacing
+			)
 		end
 		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 		ClassPower[i] = Bar
@@ -97,8 +110,8 @@ function mUI:CreateClassPower(self)
 			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 			edgeSize = borderSize,
 		})
-		bg:SetPoint("TOPLEFT", Bar, -borderSize, borderSize)
-		bg:SetPoint("BOTTOMRIGHT", Bar, borderSize, -borderSize)
+		PixelUtil.SetPoint(bg, "TOPLEFT", Bar, "TOPLEFT", -borderSize, borderSize)
+		PixelUtil.SetPoint(bg, "BOTTOMRIGHT", Bar, "BOTTOMRIGHT", borderSize, -borderSize)
 		bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
 		bg:SetBackdropBorderColor(0, 0, 0, 1)
 

@@ -27,8 +27,8 @@ function mUI:CreateThreatGlow(self)
 		edgeSize = size,
 	})
 	local offset = (mUI.profile.settings.borderSize or 0) + size
-	glow:SetPoint("TOPLEFT", self, "TOPLEFT", -offset, offset)
-	glow:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", offset, -offset)
+	PixelUtil.SetPoint(glow, "TOPLEFT", self, "TOPLEFT", -offset, offset)
+	PixelUtil.SetPoint(glow, "BOTTOMRIGHT", self, "BOTTOMRIGHT", offset, -offset)
 	glow:SetFrameStrata(self:GetFrameStrata())
 	glow:SetFrameLevel(self:GetFrameLevel())
 	glow:SetBackdropColor(0, 0, 0, 0)

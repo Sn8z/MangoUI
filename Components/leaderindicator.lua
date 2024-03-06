@@ -12,9 +12,9 @@ local function UpdateLeaderIndicator(self, event)
 end
 
 function mUI:CreateLeaderIndicator(self)
-	local LeaderIndicator = self.Health:CreateTexture(nil, 'OVERLAY')
-	LeaderIndicator:SetSize(20, 20)
-	LeaderIndicator:SetPoint("BOTTOMRIGHT", self.Health, "TOPRIGHT", -3, -6)
+	local LeaderIndicator = self.Health:CreateTexture(nil, "OVERLAY")
+	PixelUtil.SetSize(LeaderIndicator, 20, 20)
+	PixelUtil.SetPoint(LeaderIndicator, "BOTTOMRIGHT", self.Health, "TOPRIGHT", -3, -6)
 	LeaderIndicator.Override = UpdateLeaderIndicator
 	self.LeaderIndicator = LeaderIndicator
 end

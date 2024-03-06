@@ -15,10 +15,9 @@ local function UpdateRoleIndicator(self, event)
 end
 
 function mUI:CreateRoleIndicator(self)
-	--if self.unit ~= "party" and self.unit ~= "player" then return end
-	local indicator = self.Health:CreateTexture(nil, 'OVERLAY')
-	indicator:SetSize(18, 18)
-	indicator:SetPoint('BOTTOMRIGHT', self.Health, 'BOTTOMRIGHT', -3, 3)
+	local indicator = self.Health:CreateTexture(nil, "OVERLAY")
+	PixelUtil.SetSize(indicator, 18, 18)
+	PixelUtil.SetPoint(indicator, "BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", -3, 3)
 	indicator.Override = UpdateRoleIndicator
 	self.GroupRoleIndicator = indicator
 end

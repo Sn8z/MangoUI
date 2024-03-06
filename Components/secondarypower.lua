@@ -4,15 +4,13 @@ local LSM = LibStub("LibSharedMedia-3.0")
 function mUI:CreateSecondaryPowerBar(self)
 	if not self then return end
 
-	local AdditionalPower = CreateFrame("StatusBar", nil, self)
+	local AdditionalPower = CreateFrame("StatusBar", nil, self.Health)
 	AdditionalPower:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	AdditionalPower:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
-	AdditionalPower:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
-	AdditionalPower:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+	PixelUtil.SetPoint(AdditionalPower, "BOTTOMLEFT", self, "BOTTOMLEFT", 0, 0)
+	PixelUtil.SetPoint(AdditionalPower, "BOTTOMRIGHT", self, "BOTTOMRIGHT", 0, 0)
+	PixelUtil.SetHeight(AdditionalPower, 4)
+	--AdditionalPower:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 
-	-- TODO: add as settings
-	AdditionalPower:SetHeight(4)
-	--mUI:CreateBorder(AdditionalPower)
 	AdditionalPower.colorPower = true
 	AdditionalPower.colorClass = true
 	AdditionalPower.frequentUpdates = true

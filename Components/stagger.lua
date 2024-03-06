@@ -4,16 +4,23 @@ local LSM = LibStub("LibSharedMedia-3.0")
 local UnitClass = UnitClass
 
 function mUI:CreateStaggerBar(self)
-	local _, _, classIndex = UnitClass('player')
-	if classIndex ~= 10 then return end -- Check for Monk
-	local Stagger = CreateFrame('StatusBar', nil, self)
+	local _, _, classIndex = UnitClass("player")
+	if classIndex ~= 10 then return end
+	local Stagger = CreateFrame("StatusBar", "MangoStagger", self)
 	if mUI.profile.player.classpower.detach then
-		Stagger:SetSize(mUI.profile.player.classpower.width, mUI.profile.player.classpower.height)
-		Stagger:SetPoint('LEFT', UIParent, 'CENTER', mUI.profile.player.classpower.x, mUI.profile.player.classpower.y)
+		PixelUtil.SetSize(Stagger, mUI.profile.player.classpower.width, mUI.profile.player.classpower.height)
+		PixelUtil.SetPoint(
+			Stagger,
+			"LEFT",
+			UIParent,
+			"CENTER",
+			mUI.profile.player.classpower.x,
+			mUI.profile.player.classpower.y
+		)
 	else
-		Stagger:SetHeight(mUI.profile.player.classpower.height)
-		Stagger:SetPoint('BOTTOMLEFT', self.Health, 'TOPLEFT', 0, 2)
-		Stagger:SetPoint('BOTTOMRIGHT', self.Health, 'TOPRIGHT', 0, 2)
+		PixelUtil.SetHeight(Stagger, mUI.profile.player.classpower.height)
+		PixelUtil.SetPoint(Stagger, "BOTTOMLEFT", self.Health, "TOPLEFT", 0, 2)
+		PixelUtil.SetPoint(Stagger, "BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 2)
 	end
 	Stagger:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 

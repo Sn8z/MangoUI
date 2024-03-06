@@ -54,18 +54,18 @@ function mUI:CreateCastbar(self)
 	Castbar.bg = cbBackground
 
 	if settings.castbar.icon and false then
-		local Icon = Castbar:CreateTexture(nil, 'OVERLAY')
-		Icon:SetSize(settings.castbar.height, settings.castbar.height)
-		Icon:SetPoint('TOPLEFT', Castbar, 'TOPLEFT')
-		Icon:SetTexCoord(0.2, 0.8, 0.2, 0.8)
+		local Icon = Castbar:CreateTexture(nil, "OVERLAY")
+		PixelUtil.SetSize(Icon, settings.castbar.height, settings.castbar.height)
+		PixelUtil.SetPoint(Icon, "LEFT", Castbar, "LEFT", 0, 0)
+		Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		Castbar.Icon = Icon
 	end
 
 	if settings.castbar.shield then
-		local Shield = Castbar:CreateTexture(nil, 'OVERLAY')
+		local Shield = Castbar:CreateTexture(nil, "OVERLAY")
 		Shield:SetTexture([[Interface\AddOns\MangoUI\Media\shield.tga]])
-		Shield:SetSize(26, 26)
-		Shield:SetPoint('CENTER', Castbar, 'LEFT', -5, 0)
+		PixelUtil.SetSize(Shield, 26, 26)
+		PixelUtil.SetPoint(Shield, "CENTER", Castbar, "LEFT", -5, 0)
 		Castbar.Shield = Shield
 	end
 
@@ -78,21 +78,26 @@ function mUI:CreateCastbar(self)
 
 	local SpellName = Castbar:CreateFontString(nil, "OVERLAY")
 	if Castbar.Icon then
-		SpellName:SetPoint("LEFT", Castbar.Icon:GetWidth() + 4, 0)
+		PixelUtil.SetPoint(SpellName, "LEFT", Castbar.Icon, "RIGHT", 4, 0)
 	else
-		SpellName:SetPoint("LEFT", 4, 0)
+		PixelUtil.SetPoint(SpellName, "LEFT", Castbar, "LEFT", 4, 0)
 	end
 	SpellName:SetFont(font, 14, "THINOUTLINE")
 	Castbar.Text = SpellName
 
 	Castbar:ClearAllPoints()
 	if settings.castbar.detach and settings.castbar.detach ~= nil then
-		Castbar:SetSize(settings.castbar.width, settings.castbar.height)
-		Castbar:SetPoint('CENTER', UIParent, 'CENTER', settings.castbar.x, settings.castbar.y)
+		--Castbar:SetSize(settings.castbar.width, settings.castbar.height)
+		--Castbar:SetPoint('CENTER', UIParent, 'CENTER', settings.castbar.x, settings.castbar.y)
+		PixelUtil.SetSize(Castbar, settings.castbar.width, settings.castbar.height)
+		PixelUtil.SetPoint(Castbar, "CENTER", UIParent, "CENTER", settings.castbar.x, settings.castbar.y)
 	else
-		Castbar:SetHeight(settings.castbar.height)
-		Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6) -- Find a way to calculate these numbers in a smart way
-		Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
+		--Castbar:SetHeight(settings.castbar.height)
+		--Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6)
+		--Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
+		PixelUtil.SetHeight(Castbar, settings.castbar.height)
+		PixelUtil.SetPoint(Castbar, "TOPLEFT", self, "BOTTOMLEFT", 0, -6)
+		PixelUtil.SetPoint(Castbar, "TOPRIGHT", self, "BOTTOMRIGHT", 0, -6)
 	end
 
 	Castbar.PostUpdateStage = PostUpdateStage
