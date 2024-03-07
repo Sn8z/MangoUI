@@ -2,8 +2,6 @@ local _, mUI = ...
 local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local GetActionCooldown, IsUsableAction = GetActionCooldown, IsUsableAction
-
 local _, class = UnitClass("player")
 local playerColor = oUF.colors.class[class]
 
@@ -102,24 +100,25 @@ function mUI:SkinActionbars()
 		local Cooldown = Button.cooldown
 
 		if Icon then
+			-- Zoom the spell icon to remove default borders
+			Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+			Icon:SetDrawLayer("BACKGROUND", 1)
+			--Icon:SetAllPoints(Button)
+
 			local borderSize = mUI.profile.settings.borderSize or 1
 			local border = CreateFrame("Frame", nil, Button, "BackdropTemplate")
-			--border:SetPoint("TOPLEFT", -borderSize, borderSize)
-			--border:SetPoint("BOTTOMRIGHT", borderSize, -borderSize)
-			PixelUtil.SetPoint(border, "TOPLEFT", Button, "TOPLEFT", -borderSize, borderSize)
-			PixelUtil.SetPoint(border, "BOTTOMRIGHT", Button, "BOTTOMRIGHT", borderSize, -borderSize)
+			border:SetAllPoints()
+			--border:SetPoint("TOPLEFT", Icon, "TOPLEFT", -borderSize, borderSize)
+			--border:SetPoint("BOTTOMRIGHT", Icon, "BOTTOMRIGHT", borderSize, -borderSize)
+			--PixelUtil.SetPoint(border, "TOPLEFT", Icon, "TOPLEFT", -borderSize, borderSize)
+			--PixelUtil.SetPoint(border, "BOTTOMRIGHT", Icon, "BOTTOMRIGHT", borderSize, -borderSize)
 			border:SetBackdrop({
 				edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 				edgeSize = borderSize,
 			})
 			border:SetBackdropBorderColor(0, 0, 0, 1)
-			border:SetFrameStrata(Button:GetFrameStrata())
-			border:SetFrameLevel(Button:GetFrameLevel() + 1)
-
-			-- Zoom the spell icon to remove default borders
-			Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
-			Icon:SetDrawLayer("BACKGROUND", 1)
-			Icon:SetAllPoints(Button)
+			--border:SetFrameStrata(Button:GetFrameStrata())
+			--border:SetFrameLevel(Button:GetFrameLevel() + 1)
 		end
 
 		-- Background
@@ -131,6 +130,7 @@ function mUI:SkinActionbars()
 		-- Normal border texture
 		if NormalTexture then
 			NormalTexture:SetAlpha(0)
+			--NormalTexture:SetVertexColor(0, 0, 0)
 		end
 
 		-- Pushed border texture
@@ -210,37 +210,37 @@ function mUI:SkinActionbars()
 	EditModeManagerFrame:HookScript('OnHide', Init)
 
 	-- Desaturate cooldowns
-	local function darken(Button)
-		local Icon = Button.icon
-		local Action = Button.action
-
-		if not Action then return end
-		local _, duration, _ = GetActionCooldown(Action)
-
-		if duration >= 1.5 then
-			Icon:SetDesaturated(true)
-			Icon:SetVertexColor(0.8, 0.8, 0.8)
-		elseif IsUsableAction(Action) then
-			Icon:SetDesaturated(false)
-			Icon:SetVertexColor(1, 1, 1)
-		else
-			Icon:SetDesaturated(false)
-			Icon:SetVertexColor(0.4, 0.4, 0.4)
-		end
-	end
-
-	local function updateCooldowns(self, elapsed)
-		self.timer = self.timer + elapsed
-		if self.timer >= 0.2 then
-			for i = 1, #Buttons do
-				darken(Buttons[i])
-			end
-		end
-	end
-
-	local darkenCooldownEventFrame = CreateFrame('Frame')
-	darkenCooldownEventFrame.timer = 0
-	darkenCooldownEventFrame:HookScript("OnUpdate", updateCooldowns)
+	--local function darken(Button)
+	--	local Icon = Button.icon
+	--	local Action = Button.action
+	--
+	--	if not Action then return end
+	--	local _, duration, _ = GetActionCooldown(Action)
+	--
+	--	if duration >= 1.5 then
+	--		Icon:SetDesaturated(true)
+	--		Icon:SetVertexColor(0.8, 0.8, 0.8)
+	--	elseif IsUsableAction(Action) then
+	--		Icon:SetDesaturated(false)
+	--		Icon:SetVertexColor(1, 1, 1)
+	--	else
+	--		Icon:SetDesaturated(false)
+	--		Icon:SetVertexColor(0.4, 0.4, 0.4)
+	--	end
+	--end
+	--
+	--local function updateCooldowns(self, elapsed)
+	--	self.timer = self.timer + elapsed
+	--	if self.timer >= 0.2 then
+	--		for i = 1, #Buttons do
+	--			darken(Buttons[i])
+	--		end
+	--	end
+	--end
+	--
+	--local darkenCooldownEventFrame = CreateFrame('Frame')
+	--darkenCooldownEventFrame.timer = 0
+	--darkenCooldownEventFrame:HookScript("OnUpdate", updateCooldowns)
 end
 
 local f = CreateFrame("Frame")

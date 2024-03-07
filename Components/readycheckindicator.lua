@@ -1,7 +1,7 @@
 local _, mUI = ...
 
 function mUI:CreateReadyCheck(self)
-	local ReadyCheck = self.Health:CreateTexture(nil, "OVERLAY")
+	local ReadyCheck = self.Indicators:CreateTexture(nil, "OVERLAY")
 	PixelUtil.SetSize(ReadyCheck, 26, 26)
 	PixelUtil.SetPoint(ReadyCheck, "CENTER", self, "CENTER", 0, 0)
 

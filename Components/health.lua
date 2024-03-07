@@ -22,10 +22,14 @@ function mUI:CreateHealth(self)
 	local Health = CreateFrame("StatusBar", nil, self)
 	Health:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.healthTexture))
 	Health:SetAllPoints()
+	self.Health = Health
 
 	local hBackground = Health:CreateTexture(nil, "BACKGROUND")
 	hBackground:SetAllPoints(Health)
 	hBackground:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.healthTexture))
+	self.Health.bg = hBackground
+
+	mUI:CreateHealthBorder(self, true)
 
 	Health.frequentUpdates = true
 	Health.colorTapping = true
@@ -40,7 +44,4 @@ function mUI:CreateHealth(self)
 		Mixin(Health, SmoothStatusBarMixin)
 		Health.Override = SmoothUpdate
 	end
-
-	self.Health = Health
-	self.Health.bg = hBackground
 end

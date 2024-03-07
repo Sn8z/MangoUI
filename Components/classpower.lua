@@ -102,6 +102,7 @@ function mUI:CreateClassPower(self)
 		end
 		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 		ClassPower[i] = Bar
+		mUI:CreateBorder(Bar)
 
 		local bg = CreateFrame("Frame", "ClassPowerBg" .. i, self, "BackdropTemplate")
 		local borderSize = mUI.profile.settings.borderSize or 1
@@ -110,8 +111,9 @@ function mUI:CreateClassPower(self)
 			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 			edgeSize = borderSize,
 		})
-		PixelUtil.SetPoint(bg, "TOPLEFT", Bar, "TOPLEFT", -borderSize, borderSize)
-		PixelUtil.SetPoint(bg, "BOTTOMRIGHT", Bar, "BOTTOMRIGHT", borderSize, -borderSize)
+		--PixelUtil.SetPoint(bg, "TOPLEFT", Bar, "TOPLEFT", -borderSize, borderSize)
+		--PixelUtil.SetPoint(bg, "BOTTOMRIGHT", Bar, "BOTTOMRIGHT", borderSize, -borderSize)
+		bg:SetAllPoints(Bar)
 		bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
 		bg:SetBackdropBorderColor(0, 0, 0, 1)
 

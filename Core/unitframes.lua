@@ -11,11 +11,20 @@ local function SetupFrame(self)
 	self:SetScript("OnEnter", UnitFrame_OnEnter)
 	self:SetScript("OnLeave", UnitFrame_OnLeave)
 
+	local textLayer = CreateFrame("Frame", nil, self)
+	textLayer:SetAllPoints()
+	textLayer:SetFrameLevel(5)
+	self.Texts = textLayer
+
+	local indicatorLayer = CreateFrame("Frame", nil, self)
+	indicatorLayer:SetAllPoints()
+	indicatorLayer:SetFrameLevel(5)
+	self.Indicators = indicatorLayer
+
 	mUI:CreateHealth(self)
 	mUI:CreateHealthPrediction(self)
 	mUI:CreateUnitName(self)
 	mUI:CreateRaidTarget(self)
-	mUI:CreateBorder(self, true)
 	mUI:CreatePowerBar(self)
 	mUI:CreatePortrait(self)
 

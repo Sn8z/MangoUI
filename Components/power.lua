@@ -54,9 +54,9 @@ function mUI:CreatePowerBar(self)
 	if settings == nil or settings.power == nil then return end
 	if settings.power.enabled == false then return end
 
-	local Power = CreateFrame("StatusBar", "ClassPower", self.Health)
+	local Power = CreateFrame("StatusBar", "Power", self)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	Power:SetFrameLevel(self.Health:GetFrameLevel() + 2)
+	Power:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 
 	if settings.power.style == "DETACH" and self.unit == "player" then
 		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
@@ -78,7 +78,7 @@ function mUI:CreatePowerBar(self)
 	end
 
 	if settings.power.showText then
-		local PowerAmount = Power:CreateFontString(nil, "OVERLAY")
+		local PowerAmount = self.Texts:CreateFontString(nil, "OVERLAY")
 		PixelUtil.SetPoint(PowerAmount, "CENTER", Power, "CENTER", 0, 0)
 		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.fontSize or 12, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:pp]")
@@ -90,6 +90,7 @@ function mUI:CreatePowerBar(self)
 
 	Power.frequentUpdates = self.unit == "player" or self.unit == "target"
 	Power.displayAltPower = self.unit == "boss"
+
 	mUI:CreateBorder(Power)
 
 	if mUI.profile.settings.smooth then

@@ -15,9 +15,9 @@ local function UpdateRoleIndicator(self, event)
 end
 
 function mUI:CreateRoleIndicator(self)
-	local indicator = self.Health:CreateTexture(nil, "OVERLAY")
+	local indicator = self.Indicators:CreateTexture(nil, "OVERLAY")
 	PixelUtil.SetSize(indicator, 18, 18)
-	PixelUtil.SetPoint(indicator, "BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", -3, 3)
+	PixelUtil.SetPoint(indicator, "BOTTOMRIGHT", self, "BOTTOMRIGHT", -3, 3)
 	indicator.Override = UpdateRoleIndicator
 	self.GroupRoleIndicator = indicator
 end

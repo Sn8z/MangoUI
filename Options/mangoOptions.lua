@@ -307,7 +307,7 @@ local function RegisterSettings()
 		end)
 	playerPowerStyleDropdown:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
 
-	local powerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.power.width, playerPowerArea,
+	local powerWidthSlider = mUI:CreateSlider(10, 1000, 1, "Width", mUI.profile.player.power.width, playerPowerArea,
 		function(value)
 			mUI.profile.player.power.width = value
 		end)
@@ -351,7 +351,7 @@ local function RegisterSettings()
 		end)
 	playerClasspowerDetachCheck:SetPoint("LEFT", playerClasspowerCheck, "RIGHT", 80, 0)
 
-	local classpowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.player.classpower.width,
+	local classpowerWidthSlider = mUI:CreateSlider(20, 1000, 1, "Width", mUI.profile.player.classpower.width,
 		playerClasspowerArea,
 		function(value)
 			mUI.profile.player.classpower.width = value
