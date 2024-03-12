@@ -61,6 +61,10 @@ function mUI:CreatePowerBar(self)
 	if settings.power.style == "DETACH" and self.unit == "player" then
 		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
 		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
+		mUI:AddMover(Power, "Player Power", function(x, y)
+			settings.power.x = x
+			settings.power.y = y
+		end)
 	elseif settings.power.style == "LEFT" then
 		PixelUtil.SetPoint(Power, "LEFT", self, "BOTTOMLEFT", 6, 0)
 		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)

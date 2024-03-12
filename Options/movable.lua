@@ -11,8 +11,8 @@ local function GetPos(frame)
 	end
 	local frameX, frameY = frame:GetCenter()
 	local parentX, parentY = frame:GetParent():GetCenter()
-	local oX = Round(frameX - parentX)
-	local oY = Round(frameY - parentY)
+	local oX = Round((frameX or 0) - (parentX or 0))
+	local oY = Round((frameY or 0) - (parentY or 0))
 
 	return oX, oY
 end

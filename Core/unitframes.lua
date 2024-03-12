@@ -70,8 +70,8 @@ local function Primary(self, unit)
 
 		if mUI.profile.player.castbar.enabled then
 			local GCD = CreateFrame("StatusBar", "MangoGCD", self)
-			PixelUtil.SetSize(GCD, self.Castbar:GetWidth(), 2)
-			PixelUtil.SetPoint(GCD, "BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 2)
+			PixelUtil.SetSize(GCD, self.Castbar:GetWidth(), 4)
+			PixelUtil.SetPoint(GCD, "BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 0)
 			GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.castbarTexture))
 			local gBackground = GCD:CreateTexture(nil, "BACKGROUND")
 			gBackground:SetAllPoints(GCD)
@@ -201,15 +201,21 @@ oUF:Factory(function(self)
 	if mUI.profile.targettarget.enabled then
 		self:SetActiveStyle("MangoSecondary")
 		tot = self:Spawn("targettarget")
-		PixelUtil.SetPoint(tot, "TOPLEFT", target or UIParent, "TOPRIGHT", 8, 0)
-		mUI:AddMover(tot, "Target of target")
+		PixelUtil.SetPoint(tot, "CENTER", UIParent, "CENTER", mUI.profile.targettarget.x, mUI.profile.targettarget.y)
+		mUI:AddMover(tot, "Target of target", function(x, y)
+			mUI.profile.targettarget.x = x
+			mUI.profile.targettarget.y = y
+		end)
 	end
 
 	if mUI.profile.pet.enabled then
 		self:SetActiveStyle("MangoSecondary")
 		pet = self:Spawn("pet")
-		PixelUtil.SetPoint(pet, "TOPRIGHT", player or UIParent, "TOPLEFT", -8, 0)
-		mUI:AddMover(pet, "Pet")
+		PixelUtil.SetPoint(pet, "CENTER", UIParent, "CENTER", mUI.profile.pet.x, mUI.profile.pet.y)
+		mUI:AddMover(pet, "Pet", function(x, y)
+			mUI.profile.pet.x = x
+			mUI.profile.pet.y = y
+		end)
 	end
 
 	if mUI.profile.boss.enabled then
@@ -219,8 +225,11 @@ oUF:Factory(function(self)
 			boss[i] = self:Spawn("boss" .. i)
 
 			if i == 1 then
-				PixelUtil.SetPoint(boss[i], "BOTTOM", UIParent, "BOTTOM", 550, 400)
-				mUI:AddMover(boss[i], "Boss")
+				PixelUtil.SetPoint(boss[i], "CENTER", UIParent, "CENTER", mUI.profile.boss.x, mUI.profile.boss.y)
+				mUI:AddMover(boss[i], "Boss", function(x, y)
+					mUI.profile.boss.x = x
+					mUI.profile.boss.y = y
+				end)
 			else
 				PixelUtil.SetPoint(boss[i], "BOTTOM", boss[i - 1], "TOP", 0, 50)
 			end
@@ -243,6 +252,10 @@ oUF:Factory(function(self)
       ]]):format(mUI.profile.party.width, mUI.profile.party.height)
 		)
 		PixelUtil.SetPoint(party, "CENTER", UIParent, "CENTER", mUI.profile.party.x, mUI.profile.party.y)
+		mUI:AddMover(party, "Party", function(x, y)
+			mUI.profile.party.x = x
+			mUI.profile.party.y = y
+		end)
 	end
 
 	if mUI.profile.raid.enabled then
@@ -257,32 +270,42 @@ oUF:Factory(function(self)
 		end
 
 		self:SetActiveStyle("MangoRaid")
-		local raid = {}
-		for group = 1, NUM_RAID_GROUPS or 8 do
-			raid[group] = self:SpawnHeader(
-				"MangoRaid" .. group, nil, "raid",
-				"showRaid", true,
-				"showParty", false,
-				"showSolo", false,
-				"showPlayer", true,
-				"maxColumns", 5,
-				"unitsPerColumn", 1,
-				"columnAnchorPoint", "LEFT",
-				"columnSpacing", 3,
-				"groupBy", "ASSIGNEDROLE",
-				"groupingOrder", "DAMAGER,HEALER,TANK",
-				"groupFilter", group,
-				"oUF-initialConfigFunction", ([[
+
+		local raid = self:SpawnHeader("MangoRaid", nil, "raid",
+			"showParty", false,
+			"showRaid", true,
+			"showSolo", false,
+			"showPlayer", true,
+			"maxColumns", 8,
+			"unitsPerColumn", 5,
+			"columnAnchorPoint", "LEFT",
+			"columnSpacing", 1,
+			"xOffset", 1,
+			"yOffset", -1,
+			"groupBy", "GROUP",
+			"groupingOrder", "DAMAGER,HEALER,TANK",
+			"oUF-initialConfigFunction", ([[
         	self:SetWidth(%d)
         	self:SetHeight(%d)
       ]]):format(mUI.profile.raid.width, mUI.profile.raid.height)
-			)
-
-			if group == 1 then
-				PixelUtil.SetPoint(raid[group], "TOPLEFT", UIParent, "TOPLEFT", 15, -15)
-			else
-				PixelUtil.SetPoint(raid[group], "TOPLEFT", raid[group - 1], "BOTTOMLEFT", 0, -3)
+		)
+		PixelUtil.SetPoint(
+			raid,
+			mUI.profile.raid.anchor,
+			UIParent,
+			mUI.profile.raid.parentAnchor,
+			mUI.profile.raid.x,
+			mUI.profile.raid.y
+		)
+		mUI:AddMover(
+			raid,
+			"Raid",
+			function(x, y)
+				mUI.profile.raid.x = x
+				mUI.profile.raid.y = y
+				mUI.profile.raid.anchor = "TOPLEFT"
+				mUI.profile.raid.parentAnchor = "CENTER"
 			end
-		end
+		)
 	end
 end)

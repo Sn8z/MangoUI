@@ -22,6 +22,7 @@ local defensives = {
 	[19236] = true, -- Desperate Prayer
 	[586] = true,   -- Fade
 	[47585] = true, -- Dispersion
+	[27827] = true, -- Spirit of Redemption
 	-- Paladin
 	[184662] = true, -- Shield of Vengeance
 	[642] = true,   -- Divine Shield

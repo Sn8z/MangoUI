@@ -15,6 +15,7 @@ mUI.config.anchors = {
 }
 
 mUI.config.powerstyles = {
+	"NORMAL",
 	"DETACH",
 	"LEFT",
 	"RIGHT",
@@ -135,6 +136,8 @@ local defaultProfile = {
 		parentAnchor = "CENTER",
 		width = 110,
 		height = 30,
+		x = -480,
+		y = -180,
 		classColor = true,
 		power = {
 			enabled = true,
@@ -163,6 +166,8 @@ local defaultProfile = {
 		parentAnchor = "CENTER",
 		width = 110,
 		height = 30,
+		x = 480,
+		y = -180,
 		classColor = true,
 		power = {
 			enabled = true,
@@ -219,6 +224,8 @@ local defaultProfile = {
 		width = 180,
 		height = 40,
 		classColor = true,
+		x = 350,
+		y = -350,
 		power = {
 			enabled = true,
 			style = "LEFT",
@@ -240,37 +247,15 @@ local defaultProfile = {
 			alpha = 0.2,
 		}
 	},
-	favourites = {
-		enabled = true,
-		anchor = "CENTER",
-		parentAnchor = "CENTER",
-		width = 100,
-		height = 70,
-		classColor = true,
-		units = {},
-		power = {
-			enabled = true,
-			style = "INSET",
-			powerColor = true,
-			width = 120,
-			height = 8,
-			showText = false,
-			fontSize = 8
-		},
-		portrait = {
-			enabled = false,
-			alpha = 0.2,
-		}
-	},
 	party = {
 		enabled = true,
 		anchor = "CENTER",
 		parentAnchor = "CENTER",
 		width = 180,
 		height = 40,
-		classColor = true,
 		x = -600,
 		y = 40,
+		classColor = true,
 		power = {
 			enabled = true,
 			style = "RIGHT",
@@ -287,10 +272,12 @@ local defaultProfile = {
 	},
 	raid = {
 		enabled = true,
-		anchor = "LEFT",
+		anchor = "TOPLEFT",
 		parentAnchor = "CENTER",
 		width = 70,
 		height = 50,
+		x = 0,
+		y = 0,
 		classColor = true,
 		power = {
 			enabled = true,

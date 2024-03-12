@@ -26,9 +26,8 @@ function mUI:CreateThreatGlow(self)
 		edgeFile = [[Interface\AddOns\MangoUI\Media\borderglow.tga]],
 		edgeSize = size,
 	})
-	local offset = (mUI.profile.settings.borderSize or 0) + size
-	PixelUtil.SetPoint(glow, "TOPLEFT", self, "TOPLEFT", -offset, offset)
-	PixelUtil.SetPoint(glow, "BOTTOMRIGHT", self, "BOTTOMRIGHT", offset, -offset)
+	PixelUtil.SetPoint(glow, "TOPLEFT", self, "TOPLEFT", -size, size)
+	PixelUtil.SetPoint(glow, "BOTTOMRIGHT", self, "BOTTOMRIGHT", size, -size)
 	glow:SetFrameStrata(self:GetFrameStrata())
 	glow:SetFrameLevel(self:GetFrameLevel())
 	glow:SetBackdropColor(0, 0, 0, 0)

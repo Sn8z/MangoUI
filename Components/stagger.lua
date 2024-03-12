@@ -23,20 +23,13 @@ function mUI:CreateStaggerBar(self)
 		PixelUtil.SetPoint(Stagger, "BOTTOMRIGHT", self.Health, "TOPRIGHT", 0, 2)
 	end
 	Stagger:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+	mUI:CreateBorder(Stagger)
 
-	local bg = CreateFrame("Frame", "StaggerBg", Stagger, "BackdropTemplate")
-	local borderSize = mUI.profile.settings.borderSize or 1
-	bg:SetBackdrop({
-		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = borderSize,
-	})
-	bg:SetPoint("TOPLEFT", Stagger, -borderSize, borderSize)
-	bg:SetPoint("BOTTOMRIGHT", Stagger, borderSize, -borderSize)
-	bg:SetFrameStrata("BACKGROUND")
-	bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
-	bg:SetBackdropBorderColor(0, 0, 0, 1)
-	Stagger.Background = bg
+	local bg = Stagger:CreateTexture(nil, "BACKGROUND")
+	bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+	bg:SetAllPoints()
+	bg.multiplier = 1 / 6
+	Stagger.bg = bg
 
 	self.Stagger = Stagger
 end

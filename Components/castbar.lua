@@ -87,14 +87,14 @@ function mUI:CreateCastbar(self)
 
 	Castbar:ClearAllPoints()
 	if settings.castbar.detach and settings.castbar.detach ~= nil then
-		--Castbar:SetSize(settings.castbar.width, settings.castbar.height)
-		--Castbar:SetPoint('CENTER', UIParent, 'CENTER', settings.castbar.x, settings.castbar.y)
 		PixelUtil.SetSize(Castbar, settings.castbar.width, settings.castbar.height)
 		PixelUtil.SetPoint(Castbar, "CENTER", UIParent, "CENTER", settings.castbar.x, settings.castbar.y)
+
+		mUI:AddMover(Castbar, self.unit .. "_Castbar", function(x, y)
+			settings.castbar.x = x
+			settings.castbar.y = y
+		end)
 	else
-		--Castbar:SetHeight(settings.castbar.height)
-		--Castbar:SetPoint('TOPLEFT', self, 'BOTTOMLEFT', 0, -6)
-		--Castbar:SetPoint('TOPRIGHT', self, 'BOTTOMRIGHT', 0, -6)
 		PixelUtil.SetHeight(Castbar, settings.castbar.height)
 		PixelUtil.SetPoint(Castbar, "TOPLEFT", self, "BOTTOMLEFT", 0, -6)
 		PixelUtil.SetPoint(Castbar, "TOPRIGHT", self, "BOTTOMRIGHT", 0, -6)

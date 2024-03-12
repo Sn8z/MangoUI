@@ -24,6 +24,7 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 		local spacing = mUI.db.player.classpower.spacing
 		for i = 1, max do
 			local Bar = element[i]
+			Bar:ClearAllPoints()
 			local totalSpacing = (max - 1) * spacing
 
 			if mUI.db.player.classpower.detach then
@@ -32,7 +33,35 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 				PixelUtil.SetWidth(Bar, (element.__owner:GetWidth() - totalSpacing) / max)
 			end
 
-			if (i > 1) then
+			PixelUtil.SetHeight(Bar, mUI.db.player.classpower.height)
+			if i == 1 then
+				if mUI.profile.player.classpower.detach then
+					PixelUtil.SetPoint(
+						Bar,
+						"LEFT",
+						UIParent,
+						"CENTER",
+						mUI.db.player.classpower.x,
+						mUI.db.player.classpower.y
+					)
+				else
+					PixelUtil.SetPoint(
+						Bar,
+						"BOTTOMLEFT",
+						element.__owner,
+						"TOPLEFT",
+						0,
+						1
+					)
+				end
+			elseif i == max then
+				PixelUtil.SetPoint(Bar, "LEFT", element[i - 1], "RIGHT", spacing, 0)
+				if mUI.profile.player.classpower.detach then
+					PixelUtil.SetPoint(Bar, "RIGHT", element[1], "LEFT", mUI.db.player.classpower.width, 0)
+				else
+					PixelUtil.SetPoint(Bar, "RIGHT", element[1], "LEFT", element.__owner:GetWidth(), 0)
+				end
+			elseif i > 1 then
 				Bar:ClearAllPoints()
 				PixelUtil.SetPoint(Bar, "LEFT", element[i - 1], "RIGHT", spacing, 0)
 			end
@@ -81,25 +110,6 @@ function mUI:CreateClassPower(self)
 	for i = 1, 10 do
 		local Bar = CreateFrame("StatusBar", "ClassPower" .. i, self)
 		PixelUtil.SetHeight(Bar, mUI.db.player.classpower.height)
-		if mUI.db.player.classpower.detach then
-			PixelUtil.SetPoint(
-				Bar,
-				"LEFT",
-				UIParent,
-				"CENTER",
-				mUI.db.player.classpower.x,
-				mUI.db.player.classpower.y
-			)
-		else
-			PixelUtil.SetPoint(
-				Bar,
-				"BOTTOMLEFT",
-				self,
-				"TOPLEFT",
-				(i - 1) * (Bar:GetWidth() + mUI.db.player.classpower.spacing),
-				mUI.db.player.classpower.spacing
-			)
-		end
 		Bar:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 		ClassPower[i] = Bar
 		mUI:CreateBorder(Bar)

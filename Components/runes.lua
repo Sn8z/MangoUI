@@ -23,19 +23,27 @@ function mUI:CreateRunes(self)
 
 			Rune:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 
-			local bg = CreateFrame("Frame", "RuneBg" .. i, Rune, "BackdropTemplate")
-			local borderSize = mUI.profile.settings.borderSize or 1
-			bg:SetBackdrop({
-				bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-				edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-				edgeSize = borderSize,
-			})
-			bg:SetPoint("TOPLEFT", Rune, -borderSize, borderSize)
-			bg:SetPoint("BOTTOMRIGHT", Rune, borderSize, -borderSize)
-			bg:SetFrameStrata("BACKGROUND")
-			bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
-			bg:SetBackdropBorderColor(0, 0, 0, 1)
-			Rune.Background = bg
+			--local bg = CreateFrame("Frame", "RuneBg" .. i, Rune, "BackdropTemplate")
+			--local borderSize = mUI.profile.settings.borderSize or 1
+			--bg:SetBackdrop({
+			--	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			--	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			--	edgeSize = borderSize,
+			--})
+			--bg:SetPoint("TOPLEFT", Rune, -borderSize, borderSize)
+			--bg:SetPoint("BOTTOMRIGHT", Rune, borderSize, -borderSize)
+			--bg:SetFrameStrata("BACKGROUND")
+			--bg:SetBackdropColor(0.15, 0.15, 0.15, 1)
+			--bg:SetBackdropBorderColor(0, 0, 0, 1)
+			--Rune.Background = bg
+
+			local bg = Rune:CreateTexture(nil, "BACKGROUND")
+			bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+			bg:SetAllPoints()
+			bg.multiplier = 1 / 6
+			Rune.bg = bg
+
+			mUI:CreateBorder(Rune)
 
 			Runes.colorSpec = true
 			Runes.sortOrder = "asc"
