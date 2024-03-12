@@ -107,6 +107,7 @@ local function fixFonts()
 		SystemFont_NamePlateCastBar,
 		-- /SharedXML/SharedFonts.xml
 		SystemFont_Tiny2,
+		SystemFont_Tiny,
 		SystemFont_Shadow_Small,
 		Game10Font_o1,
 		SystemFont_Small,
