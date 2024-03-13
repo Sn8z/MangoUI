@@ -1,9 +1,7 @@
 local _, mUI = ...
-local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local _, class = UnitClass("player")
-local playerColor = oUF.colors.class[class]
+local playerColor = mUI:GetClassColor("player")
 
 function mUI:CreateCheckBox(labelText, value, frame, callback)
 	local checkbox = CreateFrame("CheckButton", nil, frame, "BackdropTemplate")
@@ -13,13 +11,12 @@ function mUI:CreateCheckBox(labelText, value, frame, callback)
 		edgeSize = 1
 	})
 	checkbox:SetBackdropColor(0, 0, 0, 1)
-	checkbox:SetBackdropBorderColor(0.5, 0.5, 0.5, 1)
+	checkbox:SetBackdropBorderColor(0.25, 0.25, 0.25, 1)
 	checkbox:SetSize(18, 18)
 	checkbox:SetChecked(value)
 	checkbox:SetCheckedTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
 	local checkedTexture = checkbox:GetCheckedTexture()
-	--checkedTexture:SetVertexColor(playerColor.r, playerColor.g, playerColor.b, 1)
-	checkedTexture:SetVertexColor(0, 1, 0, 1)
+	checkedTexture:SetVertexColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	checkedTexture:SetPoint("TOPLEFT", 1, -1)
 	checkedTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 	checkbox:SetDisabledCheckedTexture([[Interface\AddOns\MangoUI\Media\white.tga]])

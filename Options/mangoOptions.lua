@@ -1,9 +1,7 @@
 local _, mUI = ...
-local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local _, class = UnitClass("player")
-local playerColor = oUF.colors.class[class]
+local playerColor = mUI:GetClassColor("player")
 
 -- Overall frames
 local settingsFrame, generalFrame, unitsFrame, aurasFrame, profilesFrame

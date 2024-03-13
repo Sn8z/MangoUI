@@ -174,11 +174,28 @@ local function fixFonts()
 		Game69Font_Shadow2,
 		Game72Font,
 		Game72Font_Shadow,
+		-- /Interface/GlueXML/GlueFonts.xml
+		SystemFont_Shadow_Outline_Small,
+		SystemFont_Outline_Med1,
+		SystemFont_Outline_Med2,
+		SystemFont_Shadow_Outline_Large,
+		SystemFont_Shadow_Outline_Gigantor,
+		EditBoxFont_Large,
+		NumberFont_OutlineThick_Med1,
+		NumberFont_OutlineThick_Med2,
+		OptionsFont,
+		OptionsFontSmall,
+		OptionsFontLarge,
+		OptionsFontHighlight,
+		OptionsFontHighlightSmall,
+		FactionName_Shadow_Medium,
+		FactionName_Shadow_Large,
+		FactionName_Shadow_Huge,
 	}
 
-	for _, FontObject in pairs(fonts) do
-		local _, size, style = FontObject:GetFont()
-		FontObject:SetFont(FONT, size or 12, style)
+	for _, font in pairs(fonts) do
+		local _, size, style = font:GetFont()
+		font:SetFont(FONT, size or 12, style)
 	end
 end
 
