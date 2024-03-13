@@ -54,9 +54,9 @@ function mUI:CreatePowerBar(self)
 	if settings == nil or settings.power == nil then return end
 	if settings.power.enabled == false then return end
 
-	local Power = CreateFrame("StatusBar", "Power", self)
+	local Power = CreateFrame("StatusBar", "Power", self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	Power:SetFrameLevel(self.Health:GetFrameLevel() + 1)
+	--Power:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 
 	if settings.power.style == "DETACH" and self.unit == "player" then
 		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
@@ -112,21 +112,22 @@ function mUI:CreatePowerBar(self)
 	Power.PostUpdate = PostUpdatePower
 	self.Power = Power
 
+	if self.unit == "player" then
+		local powerPrediction = CreateFrame("StatusBar", nil, Power)
+		powerPrediction:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+		powerPrediction:SetStatusBarColor(0.7, 0.7, 0.7, 0.5)
+		powerPrediction:SetReverseFill(true)
+		powerPrediction:SetPoint("TOP")
+		powerPrediction:SetPoint("BOTTOM")
+		powerPrediction:SetPoint("RIGHT", Power:GetStatusBarTexture(), "RIGHT")
+		powerPrediction:SetWidth(200)
 
-	local powerPrediction = CreateFrame("StatusBar", nil, Power)
-	powerPrediction:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	powerPrediction:SetStatusBarColor(0.7, 0.7, 0.7, 0.5)
-	powerPrediction:SetReverseFill(true)
-	powerPrediction:SetPoint("TOP")
-	powerPrediction:SetPoint("BOTTOM")
-	powerPrediction:SetPoint("RIGHT", Power:GetStatusBarTexture(), "RIGHT")
-	powerPrediction:SetWidth(200)
-
-	if self.PowerPrediction then
-		self.PowerPrediction.mainBar = powerPrediction
-	else
-		self.PowerPrediction = {
-			mainBar = powerPrediction,
-		}
+		if self.PowerPrediction then
+			self.PowerPrediction.mainBar = powerPrediction
+		else
+			self.PowerPrediction = {
+				mainBar = powerPrediction,
+			}
+		end
 	end
 end

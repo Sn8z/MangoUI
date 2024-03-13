@@ -23,20 +23,22 @@ function mUI:CreateSecondaryPowerBar(self)
 
 	self.AdditionalPower = AdditionalPower
 
-	local altPowerPrediction = CreateFrame("StatusBar", nil, AdditionalPower)
-	altPowerPrediction:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	altPowerPrediction:SetStatusBarColor(0.7, 0.7, 0.7, 0.5)
-	altPowerPrediction:SetReverseFill(true)
-	altPowerPrediction:SetPoint("TOP")
-	altPowerPrediction:SetPoint("BOTTOM")
-	altPowerPrediction:SetPoint("RIGHT", AdditionalPower:GetStatusBarTexture(), "RIGHT")
-	altPowerPrediction:SetWidth(200)
+	if self.unit == "player" then
+		local altPowerPrediction = CreateFrame("StatusBar", nil, AdditionalPower)
+		altPowerPrediction:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+		altPowerPrediction:SetStatusBarColor(0.7, 0.7, 0.7, 0.5)
+		altPowerPrediction:SetReverseFill(true)
+		altPowerPrediction:SetPoint("TOP")
+		altPowerPrediction:SetPoint("BOTTOM")
+		altPowerPrediction:SetPoint("RIGHT", AdditionalPower:GetStatusBarTexture(), "RIGHT")
+		altPowerPrediction:SetWidth(200)
 
-	if self.PowerPrediction then
-		self.PowerPrediction.altBar = altPowerPrediction
-	else
-		self.PowerPrediction = {
-			altBar = altPowerPrediction,
-		}
+		if self.PowerPrediction then
+			self.PowerPrediction.altBar = altPowerPrediction
+		else
+			self.PowerPrediction = {
+				altBar = altPowerPrediction,
+			}
+		end
 	end
 end

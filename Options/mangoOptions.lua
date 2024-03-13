@@ -460,6 +460,12 @@ local function RegisterSettings()
 		end)
 	playerPetPowerStyleDropdown:SetPoint("LEFT", playerPetPowerCheck, "RIGHT", 80, 0)
 
+	local petPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.pet.power.height, playerPetArea,
+		function(value)
+			mUI.profile.pet.power.height = value
+		end)
+	petPowerHeightSlider:SetPoint("TOP", playerPetPowerStyleDropdown, "BOTTOM", 0, -20)
+
 	targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function(self)
 		HideUnitFrames()
 		targetFrame:Show()
@@ -612,6 +618,12 @@ local function RegisterSettings()
 			mUI.profile.targettarget.power.style = value
 		end)
 	totPowerStyleDropdown:SetPoint("LEFT", totPowerCheck, "RIGHT", 80, 0)
+
+	local totPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.targettarget.power.height, totArea,
+		function(value)
+			mUI.profile.targettarget.power.height = value
+		end)
+	totPowerHeightSlider:SetPoint("TOP", totPowerStyleDropdown, "BOTTOM", 0, -20)
 
 	focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function(self)
 		HideUnitFrames()
