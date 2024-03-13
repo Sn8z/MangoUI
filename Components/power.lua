@@ -111,4 +111,22 @@ function mUI:CreatePowerBar(self)
 	Power.GetDisplayPower = GetDisplayPower
 	Power.PostUpdate = PostUpdatePower
 	self.Power = Power
+
+
+	local powerPrediction = CreateFrame("StatusBar", nil, Power)
+	powerPrediction:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+	powerPrediction:SetStatusBarColor(0.7, 0.7, 0.7, 0.5)
+	powerPrediction:SetReverseFill(true)
+	powerPrediction:SetPoint("TOP")
+	powerPrediction:SetPoint("BOTTOM")
+	powerPrediction:SetPoint("RIGHT", Power:GetStatusBarTexture(), "RIGHT")
+	powerPrediction:SetWidth(200)
+
+	if self.PowerPrediction then
+		self.PowerPrediction.mainBar = powerPrediction
+	else
+		self.PowerPrediction = {
+			mainBar = powerPrediction,
+		}
+	end
 end

@@ -1,6 +1,8 @@
 local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
+local playerColor = mUI:GetClassColor("player")
+
 local movers = {}
 local locked = true
 
@@ -35,7 +37,7 @@ local function savePoint(mover)
 end
 
 local function OnEnter(self)
-	self:SetBackdropBorderColor(1, 0, 0, 1)
+	self:SetBackdropBorderColor(playerColor.r, playerColor.g, playerColor.b, 1)
 end
 
 local function OnLeave(self)
@@ -63,6 +65,7 @@ function mUI:AddMover(frame, name, callback)
 	mover:SetBackdropBorderColor(0, 0, 0, 1)
 	mover:SetFrameLevel(frame:GetFrameLevel() + 1)
 	mover:SetMovable(true)
+	mover:SetClampedToScreen(true)
 	mover:SetScript("OnMouseDown", OnMouseDown)
 	mover:SetScript("OnMouseUp", OnMouseUp)
 	mover:SetScript("OnEnter", OnEnter)
@@ -74,14 +77,14 @@ function mUI:AddMover(frame, name, callback)
 	label:SetJustifyH("LEFT")
 	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 14, "THINOUTLINE")
 	label:SetText(name)
-	label:SetTextColor(1, 0.5, 0.2, 1)
+	label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	mover.label = label
 
 	local info = mover:CreateFontString(nil, "OVERLAY")
 	info:SetPoint("CENTER")
 	info:SetJustifyH("CENTER")
 	info:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
-	local x, y = GetPos(frame)
+	local x, y = GetPos(mover)
 	info:SetText("X: " .. x .. " Y: " .. y)
 	info:SetTextColor(1, 1, 1, 1)
 	mover.info = info
@@ -109,7 +112,6 @@ function mUI:ToggleMovable()
 			frameLock(frame)
 		end
 	end
-
 	locked = not locked
 end
 
