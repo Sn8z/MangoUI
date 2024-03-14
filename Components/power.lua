@@ -43,6 +43,9 @@ end
 local function PostUpdatePower(element, unit, cur, min, max)
 	local shouldShow = max ~= 0
 	element:SetShown(shouldShow)
+	if element.text then
+		element.text:SetShown(shouldShow)
+	end
 end
 
 function mUI:CreatePowerBar(self)
@@ -56,7 +59,6 @@ function mUI:CreatePowerBar(self)
 
 	local Power = CreateFrame("StatusBar", "Power", self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
-	--Power:SetFrameLevel(self.Health:GetFrameLevel() + 1)
 
 	if settings.power.style == "DETACH" and self.unit == "player" then
 		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
@@ -86,6 +88,7 @@ function mUI:CreatePowerBar(self)
 		PixelUtil.SetPoint(PowerAmount, "CENTER", Power, "CENTER", 0, 0)
 		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.fontSize or 12, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:pp]")
+		Power.text = PowerAmount
 	end
 
 	Power.colorTapping = false
