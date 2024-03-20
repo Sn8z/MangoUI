@@ -1,8 +1,8 @@
 local _, mUI = ...
 local oUF = mUI.oUF
 
-oUF.colors.health = oUF:CreateColor(40, 240, 40)
-oUF.colors.disconnected = oUF:CreateColor(30, 30, 30)
+oUF.colors.health = oUF:CreateColor(40, 40, 40)
+oUF.colors.disconnected = oUF:CreateColor(10, 10, 10)
 oUF.colors.tapped = oUF:CreateColor(50, 50, 50)
 
 oUF.colors.runes = {

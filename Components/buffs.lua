@@ -249,7 +249,7 @@ function mUI:CreateBuffs(self)
 		Buffs['growth-y'] = 'UP'
 		Buffs.width = 34
 		Buffs.height = 28
-		Buffs.spacing = 6
+		Buffs.spacing = 2
 		Buffs.showDebuffType = false
 		Buffs.onlyShowPlayer = false
 		Buffs.FilterAura = PlayerAuraFilter
@@ -261,7 +261,7 @@ function mUI:CreateBuffs(self)
 		Buffs['growth-x'] = 'RIGHT'
 		Buffs['growth-y'] = 'DOWN'
 		Buffs.size = 26
-		Buffs.spacing = 5
+		Buffs.spacing = 2
 		Buffs.showDebuffType = true
 		Buffs.onlyShowPlayer = false
 		Buffs.PostCreateButton = PostCreateButton
@@ -271,7 +271,7 @@ function mUI:CreateBuffs(self)
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'DOWN'
 		Buffs.size = 20
-		Buffs.spacing = 3
+		Buffs.spacing = 2
 		Buffs.showDebuffType = true
 		Buffs.FilterAura = PartyAuraFilter
 		Buffs.PostCreateButton = PostCreateButtonParty
@@ -281,7 +281,7 @@ function mUI:CreateBuffs(self)
 		Buffs['growth-x'] = 'LEFT'
 		Buffs['growth-y'] = 'DOWN'
 		Buffs.size = 18
-		Buffs.spacing = 5
+		Buffs.spacing = 2
 		Buffs.showDebuffType = true
 		Buffs.FilterAura = PartyAuraFilter
 		Buffs.PostCreateButton = PostCreateButtonParty
@@ -290,8 +290,8 @@ function mUI:CreateBuffs(self)
 		Buffs.initialAnchor = "BOTTOMLEFT"
 		Buffs['growth-x'] = "RIGHT"
 		Buffs['growth-y'] = "UP"
-		Buffs.size = 18
-		Buffs.spacing = 5
+		Buffs.size = 28
+		Buffs.spacing = 2
 		Buffs.showDebuffType = true
 		Buffs.PostCreateButton = PostCreateButton
 	end

@@ -34,10 +34,13 @@ function mUI:CreateHealth(self)
 	Health.frequentUpdates = true
 	Health.colorTapping = true
 	Health.colorDisconnected = true
-	Health.colorClass = true
-	Health.colorSmooth = true
-	Health.colorReaction = true
-	Health.colorHealth = true
+
+	if mUI.profile.settings.dark then
+		Health.colorHealth = true
+	else
+		Health.colorClass = true
+		Health.colorReaction = true
+	end
 	hBackground.multiplier = 1 / 3
 
 	if mUI.db.settings.smooth then

@@ -51,7 +51,7 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 						element.__owner,
 						"TOPLEFT",
 						0,
-						1
+						0
 					)
 				end
 			elseif i == max then

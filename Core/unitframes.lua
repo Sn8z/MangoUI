@@ -18,7 +18,7 @@ local function SetupFrame(self)
 
 	local indicatorLayer = CreateFrame("Frame", nil, self)
 	indicatorLayer:SetAllPoints()
-	indicatorLayer:SetFrameLevel(5)
+	indicatorLayer:SetFrameLevel(6)
 	self.Indicators = indicatorLayer
 
 	mUI:CreateHealth(self)

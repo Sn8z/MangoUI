@@ -105,7 +105,7 @@ function mUI:CreateDebuffs(self)
 		Debuffs['growth-x'] = 'RIGHT'
 		Debuffs['growth-y'] = 'DOWN'
 		Debuffs.size = 32
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.FilterAura = AuraFilter
 		Debuffs.PostCreateButton = PostCreateButton
 		Debuffs.showType = true
@@ -116,7 +116,7 @@ function mUI:CreateDebuffs(self)
 		Debuffs['growth-y'] = 'UP'
 		Debuffs.width = 34
 		Debuffs.height = 28
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.FilterAura = TargetAuraFilter
 		Debuffs.PostCreateButton = PostCreateButtonBorder
 		Debuffs.showType = false
@@ -126,14 +126,14 @@ function mUI:CreateDebuffs(self)
 		Debuffs['growth-x'] = 'LEFT'
 		Debuffs['growth-y'] = 'DOWN'
 		Debuffs.size = 28
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.FilterAura = TargetAuraFilter
 		Debuffs.PostCreateButton = PostCreateButtonBorder
 		Debuffs.showType = false
 	elseif self.unit == 'party' then
 		Debuffs:SetPoint('BOTTOMLEFT', self.Health, 'BOTTOMRIGHT', 5, 0)
 		Debuffs.size = 36
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.initialAnchor = 'BOTTOMLEFT'
 		Debuffs['growth-x'] = 'RIGHT'
 		Debuffs['growth-y'] = 'UP'
@@ -143,7 +143,7 @@ function mUI:CreateDebuffs(self)
 	elseif self.unit == 'raid' then
 		Debuffs:SetPoint('BOTTOMLEFT', self.Health, 'BOTTOMLEFT', 3, 3)
 		Debuffs.size = 18
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.initialAnchor = 'BOTTOMLEFT'
 		Debuffs['growth-x'] = 'RIGHT'
 		Debuffs['growth-y'] = 'UP'
@@ -153,7 +153,7 @@ function mUI:CreateDebuffs(self)
 	else
 		Debuffs:SetPoint('BOTTOMLEFT', self.Health, 'BOTTOMRIGHT', 5, 0)
 		Debuffs.size = 28
-		Debuffs.spacing = 5
+		Debuffs.spacing = 2
 		Debuffs.initialAnchor = 'BOTTOMLEFT'
 		Debuffs['growth-x'] = 'RIGHT'
 		Debuffs['growth-y'] = 'UP'

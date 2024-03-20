@@ -9,7 +9,7 @@ function mUI:CreatePortrait(self)
 	if settings == nil or settings.portrait == nil then return end
 	if settings.portrait.enabled == false or settings.portrait.enabled == nil then return end
 
-	local Portrait = CreateFrame("PlayerModel", nil, self)
+	local Portrait = CreateFrame("PlayerModel", nil, self.Health)
 	Portrait:SetAllPoints(self.Health)
 	Portrait:SetAlpha(settings.portrait.alpha or 0.4)
 	self.Portrait = Portrait

@@ -150,13 +150,38 @@ local function RegisterSettings()
 		function(isChecked)
 			mUI.profile.settings.smooth = isChecked
 		end)
-	smoothCheck:SetPoint("TOPLEFT", 20, -40)
+	smoothCheck:SetPoint("TOPLEFT", 20, -20)
 
 	local aurasCheck = mUI:CreateCheckBox("|cff00ff00Enable|r aura skin", mUI.profile.settings.auras.enabled, generalArea,
 		function(isChecked)
 			mUI.profile.settings.auras.enabled = isChecked
 		end)
 	aurasCheck:SetPoint("TOP", smoothCheck, "BOTTOM", 0, -30)
+
+	local darkCheck = mUI:CreateCheckBox("|cff00ff00Enable|r darkmode", mUI.profile.settings.dark, generalArea,
+		function(isChecked)
+			mUI.profile.settings.dark = isChecked
+		end)
+	darkCheck:SetPoint("TOP", aurasCheck, "BOTTOM", 0, -30)
+
+	local socialBtnCheck = mUI:CreateCheckBox("|cff00ff00Hide|r social button", mUI.profile.settings.hide.social,
+		generalArea,
+		function(isChecked)
+			mUI.profile.settings.hide.social = isChecked
+		end)
+	socialBtnCheck:SetPoint("LEFT", smoothCheck, "RIGHT", 150, 0)
+
+	local microMenuCheck = mUI:CreateCheckBox("|cff00ff00Hide|r micromenu", mUI.profile.settings.hide.menu, generalArea,
+		function(isChecked)
+			mUI.profile.settings.hide.menu = isChecked
+		end)
+	microMenuCheck:SetPoint("TOP", socialBtnCheck, "BOTTOM", 0, -30)
+
+	local bagBarCheck = mUI:CreateCheckBox("|cff00ff00Hide|r bags", mUI.profile.settings.hide.bags, generalArea,
+		function(isChecked)
+			mUI.profile.settings.hide.bags = isChecked
+		end)
+	bagBarCheck:SetPoint("TOP", microMenuCheck, "BOTTOM", 0, -30)
 
 	local borderSlider = mUI:CreateSlider(0, 10, 1, "Border Size", mUI.profile.settings.borderSize, generalArea,
 		function(value)
@@ -395,6 +420,13 @@ local function RegisterSettings()
 			mUI.profile.player.castbar.enabled = isChecked
 		end)
 	playerCastbarCheck:SetPoint("LEFT", 20, 0)
+
+	local playerCastbarIconCheck = mUI:CreateCheckBox("|cff00ff00Show|r icon", mUI.profile.player.castbar.icon,
+		playerCastbarArea,
+		function(isChecked)
+			mUI.profile.player.castbar.icon = isChecked
+		end)
+	playerCastbarIconCheck:SetPoint("TOP", playerCastbarCheck, "BOTTOM", 0, -30)
 
 	local playerCastbarDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.castbar.detach,
 		playerCastbarArea,

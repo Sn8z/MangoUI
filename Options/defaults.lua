@@ -26,6 +26,7 @@ mUI.config.powerstyles = {
 local defaultProfile = {
 	settings = {
 		smooth = true,
+		dark = false,
 		healthTexture = "Tim",
 		powerTexture = "Tim",
 		castbarTexture = "Tim",

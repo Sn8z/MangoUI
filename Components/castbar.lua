@@ -53,7 +53,7 @@ function mUI:CreateCastbar(self)
 	cbBackground.multiplier = 0.5
 	Castbar.bg = cbBackground
 
-	if settings.castbar.icon and false then
+	if settings.castbar.icon then
 		local Icon = Castbar:CreateTexture(nil, "OVERLAY")
 		PixelUtil.SetSize(Icon, settings.castbar.height, settings.castbar.height)
 		PixelUtil.SetPoint(Icon, "LEFT", Castbar, "LEFT", 0, 0)
