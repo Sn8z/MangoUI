@@ -56,6 +56,7 @@ function mUI:CreatePowerBar(self)
 
 	local Power = CreateFrame("StatusBar", "Power", self.Health)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
+	Power:SetReverseFill(settings.power.reverse)
 	Power:SetFrameStrata("MEDIUM")
 
 	if settings.power.detach and self.unit == "player" then
