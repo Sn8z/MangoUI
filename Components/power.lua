@@ -58,26 +58,16 @@ function mUI:CreatePowerBar(self)
 	Power:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	Power:SetFrameStrata("MEDIUM")
 
-	if settings.power.style == "DETACH" and self.unit == "player" then
+	if settings.power.detach and self.unit == "player" then
 		PixelUtil.SetPoint(Power, "CENTER", UIParent, "CENTER", settings.power.x, settings.power.y)
 		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
 		mUI:AddMover(Power, "Player Power", function(x, y)
 			settings.power.x = x
 			settings.power.y = y
 		end)
-	elseif settings.power.style == "LEFT" then
-		PixelUtil.SetPoint(Power, "LEFT", self, "BOTTOMLEFT", 6, 0)
-		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
-	elseif settings.power.style == "RIGHT" then
-		PixelUtil.SetPoint(Power, "RIGHT", self, "BOTTOMRIGHT", -6, 0)
-		PixelUtil.SetSize(Power, settings.power.width, settings.power.height)
-	elseif settings.power.style == "INSET" then
-		PixelUtil.SetPoint(Power, "LEFT", self, "BOTTOMLEFT", 6, 0)
-		PixelUtil.SetPoint(Power, "RIGHT", self, "BOTTOMRIGHT", -6, 0)
-		PixelUtil.SetHeight(Power, settings.power.height)
 	else
-		PixelUtil.SetPoint(Power, "TOPLEFT", self, "BOTTOMLEFT", 0, 0)
-		PixelUtil.SetPoint(Power, "TOPRIGHT", self, "BOTTOMRIGHT", 0, 0)
+		PixelUtil.SetPoint(Power, "TOPLEFT", self, "BOTTOMLEFT", settings.power.offsetL, settings.power.offsetY)
+		PixelUtil.SetPoint(Power, "TOPRIGHT", self, "BOTTOMRIGHT", settings.power.offsetR, settings.power.offsetY)
 		PixelUtil.SetHeight(Power, settings.power.height)
 	end
 
@@ -86,10 +76,17 @@ function mUI:CreatePowerBar(self)
 	textLayer:SetFrameLevel(5)
 	Power.Texts = textLayer
 
-	if settings.power.showText then
+	if settings.power.text.enabled then
 		local PowerAmount = Power.Texts:CreateFontString(nil, "OVERLAY")
-		PixelUtil.SetPoint(PowerAmount, "CENTER", Power, "CENTER", 0, 0)
-		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.fontSize or 12, "THINOUTLINE")
+		PixelUtil.SetPoint(
+			PowerAmount,
+			settings.power.text.anchor,
+			Power,
+			settings.power.text.parentAnchor,
+			settings.power.text.offsetX,
+			settings.power.text.offsetY
+		)
+		PowerAmount:SetFont(LSM:Fetch("font", mUI.profile.settings.font), settings.power.text.size or 12, "THINOUTLINE")
 		self:Tag(PowerAmount, "[mango:power]")
 	end
 

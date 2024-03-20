@@ -131,7 +131,6 @@ local function mRaid(self, unit)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
-	mUI:CreatePrioBuffs(self)
 	mUI:CreateDebuffs(self)
 	mUI:CreateStatusText(self, 14)
 	self.DispelHighlight = true

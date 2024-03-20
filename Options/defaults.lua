@@ -14,14 +14,6 @@ mUI.config.anchors = {
 	"BOTTOMLEFT"
 }
 
-mUI.config.powerstyles = {
-	"NORMAL",
-	"DETACH",
-	"LEFT",
-	"RIGHT",
-	"INSET",
-}
-
 -- Defaults
 local defaultProfile = {
 	settings = {
@@ -59,22 +51,29 @@ local defaultProfile = {
 		height = 50,
 		x = -200,
 		y = -210,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "RIGHT",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 160,
 			height = 10,
 			x = 0,
 			y = 0,
-			showText = true,
-			fontSize = 14
+			text = {
+				enabled = true,
+				size = 14,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		castbar = {
 			enabled = true,
 			detach = false,
-			classColor = true,
 			shield = false,
 			icon = false,
 			width = 200,
@@ -85,7 +84,6 @@ local defaultProfile = {
 		classpower = {
 			enabled = true,
 			detach = false,
-			classColor = false,
 			width = 200,
 			height = 8,
 			spacing = 4,
@@ -95,7 +93,7 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	target = {
 		enabled = true,
@@ -105,20 +103,29 @@ local defaultProfile = {
 		height = 50,
 		x = 200,
 		y = -210,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "LEFT",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 160,
 			height = 10,
-			showText = true,
-			fontSize = 14
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 14,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		castbar = {
 			enabled = true,
 			detach = false,
-			classColor = true,
 			shield = false,
 			icon = true,
 			width = 200,
@@ -129,7 +136,7 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	pet = {
 		enabled = true,
@@ -139,19 +146,28 @@ local defaultProfile = {
 		height = 30,
 		x = -480,
 		y = -180,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "INSET",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 90,
 			height = 8,
-			showText = false,
-			fontSize = 8
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 10,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		castbar = {
 			enabled = true,
-			classColor = true,
 			shield = false,
 			icon = true,
 			height = 12
@@ -159,7 +175,7 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	targettarget = {
 		enabled = true,
@@ -169,20 +185,30 @@ local defaultProfile = {
 		height = 30,
 		x = 480,
 		y = -180,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "INSET",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 90,
 			height = 8,
-			showText = false,
-			fontSize = 8
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 10,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	focus = {
 		enabled = true,
@@ -192,20 +218,29 @@ local defaultProfile = {
 		height = 40,
 		x = 20,
 		y = 400,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "INSET",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 200,
-			height = 8,
-			showText = true,
-			fontSize = 12
+			height = 10,
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 12,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		castbar = {
 			enabled = true,
 			detach = false,
-			classColor = true,
 			shield = false,
 			icon = true,
 			width = 200,
@@ -216,7 +251,7 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	boss = {
 		enabled = true,
@@ -224,21 +259,30 @@ local defaultProfile = {
 		parentAnchor = "CENTER",
 		width = 180,
 		height = 40,
-		classColor = true,
 		x = 350,
 		y = -350,
 		power = {
 			enabled = true,
-			style = "LEFT",
-			powerColor = true,
-			width = 120,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
+			width = 160,
 			height = 8,
-			showText = true,
-			fontSize = 12
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 12,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		castbar = {
 			enabled = true,
-			classColor = true,
 			shield = false,
 			icon = true,
 			height = 16
@@ -246,7 +290,7 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	party = {
 		enabled = true,
@@ -256,20 +300,30 @@ local defaultProfile = {
 		height = 40,
 		x = -600,
 		y = 40,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "RIGHT",
-			powerColor = true,
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
 			width = 120,
 			height = 8,
-			showText = false,
-			fontSize = 8
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 10,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
-		}
+		},
 	},
 	raid = {
 		enabled = true,
@@ -279,21 +333,31 @@ local defaultProfile = {
 		height = 50,
 		x = 0,
 		y = 0,
-		classColor = true,
 		power = {
 			enabled = true,
-			style = "NORMAL",
-			powerColor = true,
-			width = 200,
-			height = 8,
-			showText = false,
-			fontSize = 8
+			detach = false,
+			reverse = false,
+			offsetL = 0,
+			offsetR = 0,
+			offsetY = 0,
+			width = 160,
+			height = 10,
+			x = 0,
+			y = 0,
+			text = {
+				enabled = true,
+				size = 10,
+				anchor = "CENTER",
+				parentAnchor = "CENTER",
+				offsetX = 0,
+				offsetY = 0,
+			},
 		},
 		portrait = {
 			enabled = true,
 			alpha = 0.2,
-		}
-	}
+		},
+	},
 }
 
 mUI.defaults = {

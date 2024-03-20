@@ -323,12 +323,12 @@ local function RegisterSettings()
 		end)
 	playerPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local playerPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.player.power.style,
-		mUI.config.powerstyles,
-		playerPowerArea, function(value)
-			mUI.profile.player.power.style = value
+	local playerPowerDetachCheck = mUI:CreateCheckBox("Detach", mUI.profile.player.power.detach,
+		playerPowerArea,
+		function(isChecked)
+			mUI.profile.player.power.detach = isChecked
 		end)
-	playerPowerStyleDropdown:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
+	playerPowerDetachCheck:SetPoint("LEFT", playerPowerCheck, "RIGHT", 80, 0)
 
 	local powerWidthSlider = mUI:CreateSlider(10, 1000, 1, "Width", mUI.profile.player.power.width, playerPowerArea,
 		function(value)
@@ -485,18 +485,11 @@ local function RegisterSettings()
 		end)
 	playerPetPowerCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -30)
 
-	local playerPetPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.pet.power.style,
-		mUI.config.powerstyles,
-		playerPetArea, function(value)
-			mUI.profile.pet.power.style = value
-		end)
-	playerPetPowerStyleDropdown:SetPoint("LEFT", playerPetPowerCheck, "RIGHT", 80, 0)
-
 	local petPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.pet.power.height, playerPetArea,
 		function(value)
 			mUI.profile.pet.power.height = value
 		end)
-	petPowerHeightSlider:SetPoint("TOP", playerPetPowerStyleDropdown, "BOTTOM", 0, -20)
+	petPowerHeightSlider:SetPoint("TOP", playerPetPowerCheck, "BOTTOM", 0, -20)
 
 	targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function(self)
 		HideUnitFrames()
@@ -552,13 +545,6 @@ local function RegisterSettings()
 			mUI.profile.target.power.enabled = isChecked
 		end)
 	targetPowerCheck:SetPoint("LEFT", 20, 0)
-
-	local targetPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.target.power.style,
-		mUI.config.powerstyles,
-		targetPowerArea, function(value)
-			mUI.profile.target.power.style = value
-		end)
-	targetPowerStyleDropdown:SetPoint("LEFT", targetPowerCheck, "RIGHT", 80, 0)
 
 	local targetPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.target.power.width, targetPowerArea,
 		function(value)
@@ -644,18 +630,11 @@ local function RegisterSettings()
 		end)
 	totPowerCheck:SetPoint("TOPLEFT", totCheck, "BOTTOMLEFT", 0, -30)
 
-	local totPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.targettarget.power.style,
-		mUI.config.powerstyles,
-		totArea, function(value)
-			mUI.profile.targettarget.power.style = value
-		end)
-	totPowerStyleDropdown:SetPoint("LEFT", totPowerCheck, "RIGHT", 80, 0)
-
 	local totPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.targettarget.power.height, totArea,
 		function(value)
 			mUI.profile.targettarget.power.height = value
 		end)
-	totPowerHeightSlider:SetPoint("TOP", totPowerStyleDropdown, "BOTTOM", 0, -20)
+	totPowerHeightSlider:SetPoint("TOP", totPowerCheck, "BOTTOM", 0, -20)
 
 	focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function(self)
 		HideUnitFrames()
@@ -711,13 +690,6 @@ local function RegisterSettings()
 			mUI.profile.focus.power.enabled = isChecked
 		end)
 	focusPowerCheck:SetPoint("LEFT", 20, 0)
-
-	local focusPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.focus.power.style,
-		mUI.config.powerstyles,
-		focusPowerArea, function(value)
-			mUI.profile.focus.power.style = value
-		end)
-	focusPowerStyleDropdown:SetPoint("LEFT", focusPowerCheck, "RIGHT", 80, 0)
 
 	local focusPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.focus.power.width, focusPowerArea,
 		function(value)
@@ -845,13 +817,6 @@ local function RegisterSettings()
 		end)
 	partyPowerCheck:SetPoint("LEFT", 20, 0)
 
-	local partyPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.party.power.style,
-		mUI.config.powerstyles,
-		partyPowerArea, function(value)
-			mUI.profile.party.power.style = value
-		end)
-	partyPowerStyleDropdown:SetPoint("LEFT", partyPowerCheck, "RIGHT", 80, 0)
-
 	local partyPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.party.power.width, partyPowerArea,
 		function(value)
 			mUI.profile.party.power.width = value
@@ -966,13 +931,6 @@ local function RegisterSettings()
 			mUI.profile.boss.power.enabled = isChecked
 		end)
 	bossPowerCheck:SetPoint("LEFT", 20, 0)
-
-	local bossPowerStyleDropdown = mUI:CreateDropdown("Style:", mUI.profile.boss.power.style,
-		mUI.config.powerstyles,
-		bossPowerArea, function(value)
-			mUI.profile.boss.power.style = value
-		end)
-	bossPowerStyleDropdown:SetPoint("LEFT", bossPowerCheck, "RIGHT", 80, 0)
 
 	local bossPowerWidthSlider = mUI:CreateSlider(20, 400, 1, "Width", mUI.profile.boss.power.width, bossPowerArea,
 		function(value)
