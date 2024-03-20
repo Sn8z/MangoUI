@@ -66,9 +66,7 @@ Components/altpower.lua
 Components/power.lua
 Components/secondarypower.lua
 Components/castbar.lua
-Components/classpower.lua
-Components/stagger.lua
-Components/runes.lua
+Components/classpowers.lua
 Components/buffs.lua
 Components/priobuffs.lua
 Components/debuffs.lua
