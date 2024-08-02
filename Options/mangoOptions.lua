@@ -363,6 +363,13 @@ local function RegisterSettings()
 		end)
 	powerOffsetYSlider:SetPoint("TOP", powerOffsetRSlider, "BOTTOM", 0, -50)
 
+	local powerFontSlider = mUI:CreateSlider(4, 200, 1, "Font Size", mUI.profile.player.power.text.size,
+		playerPowerArea,
+		function(value)
+			mUI.profile.player.power.text.size = value
+		end)
+	powerFontSlider:SetPoint("TOP", powerOffsetLSlider, "BOTTOM", 0, -50)
+
 	local playerClasspowerArea = mUI:CreateArea("Classpower", playerScroll)
 	playerClasspowerArea:SetPoint("TOPLEFT", playerPowerArea, "BOTTOMLEFT", 0, -10)
 	playerClasspowerArea:SetPoint("TOPRIGHT", playerPowerArea, "BOTTOMRIGHT", 0, -10)

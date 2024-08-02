@@ -24,9 +24,9 @@ f:SetScript("OnEvent", function()
 		border:SetBackdropBorderColor(0, 0, 0, 1)
 		MinimapBackdrop:Hide()
 
-		ExpansionLandingPageMinimapButton:ClearAllPoints()
-		ExpansionLandingPageMinimapButton:SetParent(Minimap)
-		ExpansionLandingPageMinimapButton:SetPoint("TOPRIGHT", 12, 12)
+		-- ExpansionLandingPageMinimapButton:ClearAllPoints()
+		-- ExpansionLandingPageMinimapButton:SetParent(Minimap)
+		-- ExpansionLandingPageMinimapButton:SetPoint("TOPRIGHT", 12, 12)
 
 
 		function GetMinimapShape()

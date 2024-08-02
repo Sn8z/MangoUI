@@ -1,4 +1,4 @@
-## Interface: 100206
+## Interface: 110000
 ## Title: MangoUI
 ## Version: @project-version@
 ## X-oUF: MangoUI
@@ -32,21 +32,21 @@ Skins/auras.lua
 Skins/actionbars.lua
 Skins/tooltip.lua
 Skins/minimap.lua
-Skins/objectiveTracker.lua
+# Skins/objectiveTracker.lua
 Skins/hideStuff.lua
 
 # Options
 Options/defaults.lua
-Options/blizzOptionsMenu.lua
-Options/testmode.lua
-Options/movable.lua
-Options/mangoOptions.lua
 Options/slider.lua
 Options/button.lua
 Options/checkbox.lua
 Options/dropdown.lua
 Options/area.lua
 Options/scrollbox.lua
+Options/blizzOptionsMenu.lua
+Options/movable.lua
+Options/testmode.lua
+Options/mangoOptions.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua

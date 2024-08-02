@@ -154,7 +154,6 @@ function mUI:CreateClassPowers(self)
 		local Runes = {}
 		local numberOfRunes = 6
 		local totalSpacing = settings.classpower.spacing * (numberOfRunes - 1)
-		print("TS_ " .. totalSpacing)
 		for i = 1, 6 do
 			local Rune = CreateFrame("StatusBar", "MangoRune" .. i, classPowerPlaceholder)
 			PixelUtil.SetHeight(Rune, settings.classpower.height)

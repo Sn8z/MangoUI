@@ -74,7 +74,7 @@ function mUI:CreatePowerBar(self)
 
 	local textLayer = CreateFrame("Frame", nil, Power)
 	textLayer:SetAllPoints()
-	textLayer:SetFrameLevel(5)
+	textLayer:SetFrameLevel(6)
 	Power.Texts = textLayer
 
 	if settings.power.text.enabled then
