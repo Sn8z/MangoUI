@@ -20,7 +20,7 @@ local function Update(self, event, unit)
 
 	local canDispel, debuffType = false, nil
 	for i = 1, 40 do
-		local name, _, _, type = UnitAura(unit, i, "HARMFUL")
+		local name, _, _, type = C_UnitAuras.GetAuraDataByIndex(unit, i, "HARMFUL")
 
 		if(name and type) then
 			if (playerCanDispel[type]) then

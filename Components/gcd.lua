@@ -3,7 +3,7 @@ local oUF = mUI.oUF
 
 local Update = function(self, event, unit)
 	if self.GCD then
-		local start, duration = GetSpellCooldown(61305)
+		local start, duration = C_Spell.GetSpellCooldown(61305)
 		if (not start) then return end
 		if (not duration) then duration = 0 end
 
