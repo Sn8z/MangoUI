@@ -66,19 +66,6 @@ local function Primary(self, unit)
 		mUI:CreateTotems(self)
 		mUI:CreatePrioBuffs(self)
 
-		if mUI.profile.player.castbar.enabled then
-			local GCD = CreateFrame("StatusBar", "MangoGCD", self)
-			PixelUtil.SetSize(GCD, self.Castbar:GetWidth(), 4)
-			PixelUtil.SetPoint(GCD, "BOTTOMLEFT", self.Castbar, "TOPLEFT", 0, 0)
-			GCD:SetStatusBarTexture(LSM:Fetch("statusbar", mUI.profile.settings.castbarTexture))
-			local gBackground = GCD:CreateTexture(nil, "BACKGROUND")
-			gBackground:SetAllPoints(GCD)
-			gBackground:SetColorTexture(0.15, 0.15, 0.15, 1)
-			GCD.bg = gBackground
-			mUI:CreateBorder(GCD)
-			self.GCD = GCD
-		end
-
 		self.DispelHighlight = true
 	end
 end

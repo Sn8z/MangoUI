@@ -50,7 +50,6 @@ Options/mangoOptions.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua
-Components/gcd.lua
 Components/tags.lua
 
 # Unitframe components
