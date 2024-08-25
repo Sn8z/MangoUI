@@ -32,7 +32,6 @@ Skins/auras.lua
 Skins/actionbars.lua
 Skins/tooltip.lua
 Skins/minimap.lua
-# Skins/objectiveTracker.lua
 Skins/hideStuff.lua
 
 # Options

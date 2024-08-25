@@ -191,6 +191,8 @@ local function fixFonts()
 		FactionName_Shadow_Medium,
 		FactionName_Shadow_Large,
 		FactionName_Shadow_Huge,
+		ObjectiveTrackerLineFont,
+		ObjectiveTrackerHeaderFont,
 	}
 
 	for _, font in pairs(fonts) do
