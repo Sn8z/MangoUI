@@ -487,11 +487,11 @@ local function RegisterSettings()
 		end)
 	playerPetPowerCheck:SetPoint("TOPLEFT", petCheck, "BOTTOMLEFT", 0, -30)
 
-	local petPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.pet.power.height, playerPetArea,
+	local petPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Power Height", mUI.profile.pet.power.height, playerPetArea,
 		function(value)
 			mUI.profile.pet.power.height = value
 		end)
-	petPowerHeightSlider:SetPoint("TOP", playerPetPowerCheck, "BOTTOM", 0, -20)
+	petPowerHeightSlider:SetPoint("LEFT", playerPetPowerCheck, "RIGHT", 120, 0)
 
 	targetTab = mUI:CreateButton(100, 20, "Target", unitsFrame, function(self)
 		HideUnitFrames()
@@ -632,11 +632,11 @@ local function RegisterSettings()
 		end)
 	totPowerCheck:SetPoint("TOPLEFT", totCheck, "BOTTOMLEFT", 0, -30)
 
-	local totPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Height", mUI.profile.targettarget.power.height, totArea,
+	local totPowerHeightSlider = mUI:CreateSlider(2, 200, 1, "Power Height", mUI.profile.targettarget.power.height, totArea,
 		function(value)
 			mUI.profile.targettarget.power.height = value
 		end)
-	totPowerHeightSlider:SetPoint("TOP", totPowerCheck, "BOTTOM", 0, -20)
+	totPowerHeightSlider:SetPoint("LEFT", totPowerCheck, "RIGHT", 120, 0)
 
 	focusTab = mUI:CreateButton(100, 20, "Focus", unitsFrame, function(self)
 		HideUnitFrames()
