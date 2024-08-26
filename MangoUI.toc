@@ -30,7 +30,6 @@ Core/fonts.lua
 # Skins
 Skins/auras.lua
 Skins/actionbars.lua
-Skins/tooltip.lua
 Skins/minimap.lua
 Skins/hideStuff.lua
 

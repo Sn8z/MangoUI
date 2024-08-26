@@ -33,9 +33,6 @@ local defaultProfile = {
 			social = true,
 			menu = true
 		},
-		tooltip = {
-			enabled = true,
-		},
 		minimap = {
 			enabled = true,
 		},
