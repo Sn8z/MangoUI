@@ -189,28 +189,9 @@ local function RegisterSettings()
 		end)
 	borderSlider:SetPoint("RIGHT", -20, 0)
 
-	local actionbarArea = mUI:CreateArea("Actionbars |cffffaa00(Experimental)|r", generalScroll)
-	actionbarArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -10)
-	actionbarArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -10)
-	actionbarArea:SetHeight(120)
-
-	local actionbarCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Mango actionbars",
-		mUI.profile.settings.actionbars.enabled, actionbarArea,
-		function(isChecked)
-			mUI.profile.settings.actionbars.enabled = isChecked
-		end)
-	actionbarCheck:SetPoint("LEFT", 20, 0)
-
-	local actionbarAnimCheck = mUI:CreateCheckBox("|cff00ff00Enable|r Blizzard actionbar animations",
-		mUI.profile.settings.actionbars.animations, actionbarArea,
-		function(isChecked)
-			mUI.profile.settings.actionbars.animations = isChecked
-		end)
-	actionbarAnimCheck:SetPoint("CENTER", -60, 0)
-
 	local textureArea = mUI:CreateArea("Textures", generalScroll)
-	textureArea:SetPoint("TOPLEFT", actionbarArea, "BOTTOMLEFT", 0, -10)
-	textureArea:SetPoint("TOPRIGHT", actionbarArea, "BOTTOMRIGHT", 0, -10)
+	textureArea:SetPoint("TOPLEFT", generalArea, "BOTTOMLEFT", 0, -10)
+	textureArea:SetPoint("TOPRIGHT", generalArea, "BOTTOMRIGHT", 0, -10)
 	textureArea:SetHeight(200)
 
 	local healthTextureDropdown = mUI:CreateDropdown("Health:", mUI.profile.settings.healthTexture,
