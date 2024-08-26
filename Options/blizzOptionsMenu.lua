@@ -1,7 +1,7 @@
 local addonName, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
-local CreateFrame, GetAddOnMetadata = CreateFrame, GetAddOnMetadata
+local CreateFrame, GetAddOnMetadata = CreateFrame, C_AddOns.GetAddOnMetadata
 
 local function RegisterSettings()
 	local frame = CreateFrame("Frame")
@@ -30,7 +30,7 @@ local function RegisterSettings()
 	infoText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
 	infoText:SetTextColor(0.7, 0.7, 0.7, 1)
 	infoText:SetText(
-		"You can also type |cff00aa00/mango|r, |cffaa0000/mui|r or |cff0000aa/mangoui|r to open the settings menu.")
+		"You can also type |cff00aa00/mango|r, |cffffa500/mui|r or |cffaa00aa/mangoui|r to open the settings menu.")
 
 	local category, layout = Settings.RegisterCanvasLayoutCategory(frame, addonName)
 	Settings.MUI_CATEGORY_ID = category:GetID()
