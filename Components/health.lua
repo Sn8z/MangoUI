@@ -41,7 +41,7 @@ function mUI:CreateHealth(self)
 		Health.colorClass = true
 		Health.colorReaction = true
 	end
-	hBackground.multiplier = 1 / 3
+	hBackground.multiplier = 1 / 5
 
 	if mUI.db.settings.smooth then
 		Mixin(Health, SmoothStatusBarMixin)
