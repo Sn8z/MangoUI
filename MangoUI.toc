@@ -40,10 +40,10 @@ Options/checkbox.lua
 Options/dropdown.lua
 Options/area.lua
 Options/scrollbox.lua
-Options/blizzOptionsMenu.lua
 Options/movable.lua
 Options/testmode.lua
 Options/mangoOptions.lua
+Options/blizzOptionsMenu.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua

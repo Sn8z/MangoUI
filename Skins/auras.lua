@@ -122,7 +122,7 @@ end
 local f = CreateFrame("Frame")
 f:RegisterEvent("ADDON_LOADED")
 f:SetScript("OnEvent", function(_, event, name)
-	if mUI.profile.settings.auras.enabled and addonName == name then
+	if mUI.profile.settings.auras and addonName == name then
 		SkinAuras()
 	end
 end)

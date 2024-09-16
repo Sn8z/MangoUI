@@ -24,21 +24,13 @@ local defaultProfile = {
 		castbarTexture = "Tim",
 		font = "Onest Semi Bold",
 		borderSize = 1,
-		actionbars = {
-			enabled = true,
-			animations = false
-		},
 		hide = {
 			bags = true,
 			social = true,
 			menu = true
 		},
-		minimap = {
-			enabled = true,
-		},
-		auras = {
-			enabled = true
-		},
+		minimap = true,
+		auras = true,
 	},
 	player = {
 		enabled = true,
