@@ -45,23 +45,30 @@ for i = 0, h do
 	end
 end
 
-local moveManager = CreateFrame("Frame", "MangoMoveManager", grid, "BackdropTemplate")
-moveManager:SetSize(250, 60)
-moveManager:SetPoint("TOPLEFT", 30, -30)
-moveManager:SetBackdrop({
-	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-	edgeSize = 1
-})
-moveManager:SetBackdropColor(0, 0, 0, 0.8)
-moveManager:SetBackdropBorderColor(0, 0, 0, 1)
-moveManager:SetFrameStrata("DIALOG")
-moveManager:SetClampedToScreen(true)
+-- local moveManager = CreateFrame("Frame", "MangoMoveManager", grid, "BackdropTemplate")
+-- moveManager:SetSize(250, 60)
+-- moveManager:SetPoint("TOPLEFT", 30, -30)
+-- moveManager:SetBackdrop({
+-- 	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+-- 	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+-- 	edgeSize = 1
+-- })
+-- moveManager:SetBackdropColor(0, 0, 0, 0.8)
+-- moveManager:SetBackdropBorderColor(0, 0, 0, 1)
+-- moveManager:SetFrameStrata("DIALOG")
+-- moveManager:SetClampedToScreen(true)
 
-local hideBtn = mUI:CreateButton(100, 20, "Hide", moveManager, function()
-	mUI:ToggleMovable()
-end)
-hideBtn:SetPoint("LEFT", 10, 0)
+-- local hideBtn = CreateFrame("Button", "MangoHideMovable", moveManager)
+-- hideBtn:SetScript("OnClick", function()
+-- 	mUI:ToggleMovable()
+-- end)
+-- local label = hideBtn:CreateFontString(nil, "OVERLAY")
+-- label:SetPoint("CENTER")
+-- label:SetJustifyH("CENTER")
+-- label:SetFont("GameFontHighlight", 14, "OUTLINE")
+-- label:SetText("Hide")
+-- label:SetTextColor(0.8, 0.8, 0.8, 1)
+-- hideBtn.label = label
 
 local function PrettifyName(name)
 	name = name:gsub("_", " ")
@@ -190,7 +197,6 @@ local function frameLock(frame)
 end
 
 function mUI:ToggleMovable()
-	mUI:ToggleOptions()
 	for _, frame in pairs(movers) do
 		if locked then
 			frameUnlock(frame)

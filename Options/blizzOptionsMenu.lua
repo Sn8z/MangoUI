@@ -108,10 +108,11 @@ local function createDropdown(category, options)
 end
 
 local function RegisterSettings()
-	local category = Settings.RegisterVerticalLayoutCategory("Mango UI")
+	local category, layout = Settings.RegisterVerticalLayoutCategory("Mango UI")
 	category.name = "Mango UI"
 	mUI.category = category -- Save for later use
 	Settings.RegisterAddOnCategory(category)
+	Settings.MUI_CATEGORY_ID = category:GetID()
 
 	-- TODO: Get defaults from correct place
 	createCheckbox(category, {
@@ -184,6 +185,8 @@ local function RegisterSettings()
 		["step"] = 1
 	})
 
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Hide"));
+
 	createCheckbox(category, {
 		["variable"] = "social",
 		["db"] = mUI.profile.settings.hide,
@@ -204,6 +207,20 @@ local function RegisterSettings()
 		["default"] = false,
 		["title"] = "Hide bags"
 	})
+
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Other"));
+
+	createButton(layout, "Apply settings", "Apply", function()
+		ReloadUI()
+	end, "Apply all settings and reload UI")
+
+	createButton(layout, "Test frames", "Test", function()
+		mUI:ToggleFrames()
+	end, "Toggle all frames for testing purposes")
+
+	createButton(layout, "Move frames", "Toggle", function()
+		mUI:ToggleMovable()
+	end, "Toggle movable frames")
 end
 
 -- Player settings
@@ -872,3 +889,11 @@ SettingsRegistrar:AddRegistrant(function()
 	createAurasSettings()
 	createProfileSettings()
 end)
+
+function mUI:ToggleOptions()
+	Settings.OpenToCategory(Settings.MUI_CATEGORY_ID)
+end
+
+SLASH_MANGOUI1, SLASH_MANGOUI2, SLASH_MANGOUI3 = '/mui', '/mango', '/mangoui'
+
+SlashCmdList["MANGOUI"] = mUI.ToggleOptions
