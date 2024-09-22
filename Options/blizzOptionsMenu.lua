@@ -58,8 +58,7 @@ local CreateFrame, GetAddOnMetadata = CreateFrame, C_AddOns.GetAddOnMetadata
 -- SettingsRegistrar:AddRegistrant(RegisterSettings)
 
 local function createSubCategory(category, name)
-	local subCategory, subLayout = Settings.RegisterVerticalLayoutSubcategory(category, name)
-	return subCategory, subLayout
+	return Settings.RegisterVerticalLayoutSubcategory(category, name)
 end
 
 local function onSettingChanged(setting, value)
@@ -113,6 +112,7 @@ local function RegisterSettings()
 	mUI.category = category -- Save for later use
 	Settings.RegisterAddOnCategory(category)
 	Settings.MUI_CATEGORY_ID = category:GetID()
+
 
 	-- TODO: Get defaults from correct place
 	createCheckbox(category, {
@@ -757,7 +757,48 @@ local function createPetSettings()
 end
 
 local function createAurasSettings()
-	local auras = createSubCategory(mUI.category, "Auras")
+	local f = CreateFrame("Frame")
+	local aurasCategory, aurasLayout = Settings.RegisterCanvasLayoutSubcategory(mUI.category, f, "Auras")
+
+	local ScrollBox = CreateFrame("Frame", nil, f, "WowScrollBoxList")
+	ScrollBox:SetPoint("TOPLEFT")
+	ScrollBox:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, -23)
+	--ScrollBox:SetSize(300, 300)
+
+	local ScrollBar = CreateFrame("EventFrame", nil, f, "MinimalScrollBar")
+	ScrollBar:SetPoint("TOPLEFT", ScrollBox, "TOPRIGHT")
+	ScrollBar:SetPoint("BOTTOMLEFT", ScrollBox, "BOTTOMRIGHT")
+
+	local DataProvider = CreateDataProvider()
+	local ScrollView = CreateScrollBoxListLinearView()
+	ScrollView:SetDataProvider(DataProvider)
+
+	ScrollUtil.InitScrollBoxListWithScrollBar(ScrollBox, ScrollBar, ScrollView)
+
+	-- The 'button' argument is the frame that our data will inhabit in our list
+	-- The 'data' argument will be the data table mentioned above
+	local function Initializer(button, data)
+		local playerName = data.PlayerName
+		local playerClass = data.PlayerClass
+		button:SetScript("OnClick", function()
+			print(playerName .. ": " .. playerClass)
+			DataProvider:Insert({
+				PlayerName = "Ghost",
+				PlayerClass = "Priest"
+			})
+		end)
+		button:SetText(playerName)
+	end
+
+	-- The first argument here can either be a frame type or frame template. We're just passing the "UIPanelButtonTemplate" template here
+	ScrollView:SetElementInitializer("UIPanelButtonTemplate", Initializer)
+
+	local myData = {
+		PlayerName = "Ghost",
+		PlayerClass = "Priest"
+	}
+
+	DataProvider:Insert(myData)
 end
 
 local function createProfileSettings()
