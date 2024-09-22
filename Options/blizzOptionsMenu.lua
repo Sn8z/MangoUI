@@ -175,11 +175,31 @@ local function RegisterSettings()
 		["options"] = LSM:List("font"),
 	})
 
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Border"));
+
+	createDropdown(category, {
+		["variable"] = "borderTexture",
+		["db"] = mUI.profile.settings,
+		["default"] = "Mango Border",
+		["title"] = "Border",
+		["options"] = LSM:List("border"),
+	})
+
 	createSlider(category, {
 		["variable"] = "borderSize",
 		["db"] = mUI.profile.settings,
 		["default"] = 1,
 		["title"] = "Border size",
+		["min"] = 0,
+		["max"] = 10,
+		["step"] = 1
+	})
+
+	createSlider(category, {
+		["variable"] = "borderOffset",
+		["db"] = mUI.profile.settings,
+		["default"] = 1,
+		["title"] = "Border offset",
 		["min"] = 0,
 		["max"] = 10,
 		["step"] = 1

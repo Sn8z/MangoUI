@@ -1,4 +1,5 @@
 local _, mUI = ...
+local LSM = LibStub("LibSharedMedia-3.0")
 
 local UnitIsUnit, UnitExists = UnitIsUnit, UnitExists
 
@@ -13,11 +14,14 @@ end
 function mUI:CreateHealthBorder(self, showTargeted)
 	showTargeted = showTargeted or false
 	local borderSize = mUI.profile.settings.borderSize or 1
+	local borderOffset = mUI.profile.settings.borderOffset or 0
+	local borderTexture = LSM:Fetch("border", mUI.profile.settings.borderTexture)
 	local border = CreateFrame("Frame", nil, self.Health, "BackdropTemplate")
-	border:SetAllPoints()
+	border:SetPoint("TOPLEFT", self.Health, "TOPLEFT", -borderOffset, borderOffset)
+	border:SetPoint("BOTTOMRIGHT", self.Health, "BOTTOMRIGHT", borderOffset, -borderOffset)
 	border:SetBackdrop({
-		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeSize = borderSize,
+		edgeFile = borderTexture,
+		edgeSize = borderSize
 	})
 	border:SetBackdropBorderColor(0, 0, 0, 1)
 	self.Border = border
@@ -29,8 +33,8 @@ function mUI:CreateHealthBorder(self, showTargeted)
 	end
 end
 
-function mUI:CreateBorder(self)
-	local borderSize = mUI.profile.settings.borderSize or 1
+function mUI:CreateBorder(self, size)
+	local borderSize = size or 1
 	local border = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	border:SetAllPoints()
 	border:SetBackdrop({
