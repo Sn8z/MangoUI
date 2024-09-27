@@ -95,7 +95,7 @@ end
 
 local function mergeTables(table1, table2)
 	for key, value in pairs(table2) do
-		if type(value) == "table" then
+		if type(value) == "table" and next(value) then
 			if table1[key] == nil or type(table1[key]) ~= "table" then
 				table1[key] = {}
 			end
@@ -138,8 +138,6 @@ function frame:ADDON_LOADED(event, addOnName)
 
 		-- Check if there are new fields in the defaults and if so add them to the DB
 		mergeTables(mUI.profile, mUI.defaults.MangoProfiles["default"])
-
-		mUI.db = mUI.profile --temporary until name is changed everywhere
 	end
 end
 

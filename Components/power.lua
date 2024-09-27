@@ -111,7 +111,7 @@ function mUI:CreatePowerBar(self)
 	bg:SetAllPoints(Power)
 	bg:SetTexture(LSM:Fetch("statusbar", mUI.profile.settings.powerTexture))
 	bg:SetDrawLayer("BORDER")
-	bg.multiplier = 0.4
+	bg.multiplier = 1 / 5
 	Power.bg = bg
 
 	Power.GetDisplayPower = GetDisplayPower

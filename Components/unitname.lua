@@ -23,7 +23,7 @@ function mUI:CreateUnitName(self)
 		PixelUtil.SetPoint(unitName, "CENTER", self.Texts, "CENTER", 0, 0)
 		fSize = 14
 	end
-	unitName:SetFont(LSM:Fetch("font", mUI.db.settings.font), fSize, "THINOUTLINE")
+	unitName:SetFont(LSM:Fetch("font", mUI.profile.settings.font), fSize, "THINOUTLINE")
 	self:Tag(unitName, "[mango:name]")
 	self.Name = unitName
 end

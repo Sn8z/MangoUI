@@ -1,61 +1,6 @@
 local _, mUI = ...
+local oUF = mUI.oUF
 local LSM = LibStub("LibSharedMedia-3.0")
-
-local CreateFrame, GetAddOnMetadata = CreateFrame, C_AddOns.GetAddOnMetadata
-
--- local function RegisterSettings()
--- 	local frame = CreateFrame("Frame")
--- 	local background = frame:CreateTexture()
--- 	background:SetAllPoints(frame)
-
--- 	local titleText = frame:CreateFontString(nil, "OVERLAY")
--- 	titleText:SetPoint("TOP", frame, "TOP", 0, -10)
--- 	titleText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 20, "THINOUTLINE")
--- 	titleText:SetTextColor(1, 1, 1, 1)
--- 	titleText:SetText("Mango|cff00aa00U|r|cffaa0000I|r")
-
--- 	local versionText = frame:CreateFontString(nil, "OVERLAY")
--- 	versionText:SetPoint("TOP", titleText, "BOTTOM", 0, -10)
--- 	versionText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
--- 	versionText:SetTextColor(0.8, 0.8, 0.8, 1)
--- 	versionText:SetText(GetAddOnMetadata(addonName, "version"))
-
--- 	local button = mUI:CreateButton(120, 30, "Settings", frame, function()
--- 		mUI:ToggleOptions()
--- 	end)
--- 	button:SetPoint("TOP", versionText, "BOTTOM", 0, -50)
-
--- 	local infoText = frame:CreateFontString(nil, "OVERLAY")
--- 	infoText:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 10, 10)
--- 	infoText:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
--- 	infoText:SetTextColor(0.7, 0.7, 0.7, 1)
--- 	infoText:SetText(
--- 		"You can also type |cff00aa00/mango|r, |cffffa500/mui|r or |cffaa00aa/mangoui|r to open the settings menu.")
-
--- 	local category, layout = Settings.RegisterCanvasLayoutCategory(frame, addonName)
--- 	Settings.MUI_CATEGORY_ID = category:GetID()
--- 	Settings.RegisterAddOnCategory(category)
--- end
-
--- local function RegisterSettings()
--- 	local panel = CreateFrame("Frame", "MangoUISettings")
--- 	panel.name = "MangoUI";
-
--- 	-- panel.okay = function(self)
--- 	-- 	Settings.Save()
--- 	-- 	mUI:ToggleOptions()
--- 	-- end
-
--- 	-- panel.cancel = function(self)
--- 	-- 	mUI:ToggleOptions()
--- 	-- end
-
--- 	local category, layout = Settings.RegisterVerticalLayoutCategory(panel, addonName)
--- 	Settings.MUI_CATEGORY_ID = category:GetID()
--- 	Settings.RegisterAddOnCategory(category)
--- end
-
--- SettingsRegistrar:AddRegistrant(RegisterSettings)
 
 local function createSubCategory(category, name)
 	return Settings.RegisterVerticalLayoutSubcategory(category, name)
@@ -63,6 +8,11 @@ end
 
 local function onSettingChanged(setting, value)
 	print("Setting changed:", setting:GetVariable(), value)
+
+	-- Update all oUF elements
+	for _, obj in next, oUF.objects do
+		obj:UpdateAllElements("MANGO_UPDATE")
+	end
 end
 
 local function createSetting(category, variable, db, default, title)
@@ -133,15 +83,17 @@ local function RegisterSettings()
 		["variable"] = "minimap",
 		["db"] = mUI.profile.settings,
 		["default"] = false,
-		["title"] = "Minimap skin"
+		["title"] = "Skin Minimap"
 	})
 
 	createCheckbox(category, {
 		["variable"] = "auras",
 		["db"] = mUI.profile.settings,
 		["default"] = false,
-		["title"] = "Aura skin"
+		["title"] = "Skin Blizzard auras"
 	})
+
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Textures"));
 
 	createDropdown(category, {
 		["variable"] = "healthTexture",
@@ -166,6 +118,8 @@ local function RegisterSettings()
 		["title"] = "Castbar texture",
 		["options"] = LSM:List("statusbar"),
 	})
+
+	layout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Font"));
 
 	createDropdown(category, {
 		["variable"] = "font",
@@ -776,49 +730,10 @@ local function createPetSettings()
 	})
 end
 
-local function createAurasSettings()
-	local f = CreateFrame("Frame")
-	local aurasCategory, aurasLayout = Settings.RegisterCanvasLayoutSubcategory(mUI.category, f, "Auras")
+local function createAuraSettings()
+	local auraCategory, auraLayout = createSubCategory(mUI.category, "Auras")
 
-	local ScrollBox = CreateFrame("Frame", nil, f, "WowScrollBoxList")
-	ScrollBox:SetPoint("TOPLEFT")
-	ScrollBox:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, -23)
-	--ScrollBox:SetSize(300, 300)
-
-	local ScrollBar = CreateFrame("EventFrame", nil, f, "MinimalScrollBar")
-	ScrollBar:SetPoint("TOPLEFT", ScrollBox, "TOPRIGHT")
-	ScrollBar:SetPoint("BOTTOMLEFT", ScrollBox, "BOTTOMRIGHT")
-
-	local DataProvider = CreateDataProvider()
-	local ScrollView = CreateScrollBoxListLinearView()
-	ScrollView:SetDataProvider(DataProvider)
-
-	ScrollUtil.InitScrollBoxListWithScrollBar(ScrollBox, ScrollBar, ScrollView)
-
-	-- The 'button' argument is the frame that our data will inhabit in our list
-	-- The 'data' argument will be the data table mentioned above
-	local function Initializer(button, data)
-		local playerName = data.PlayerName
-		local playerClass = data.PlayerClass
-		button:SetScript("OnClick", function()
-			print(playerName .. ": " .. playerClass)
-			DataProvider:Insert({
-				PlayerName = "Ghost",
-				PlayerClass = "Priest"
-			})
-		end)
-		button:SetText(playerName)
-	end
-
-	-- The first argument here can either be a frame type or frame template. We're just passing the "UIPanelButtonTemplate" template here
-	ScrollView:SetElementInitializer("UIPanelButtonTemplate", Initializer)
-
-	local myData = {
-		PlayerName = "Ghost",
-		PlayerClass = "Priest"
-	}
-
-	DataProvider:Insert(myData)
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Coming soon..."));
 end
 
 local function createProfileSettings()
@@ -947,7 +862,8 @@ SettingsRegistrar:AddRegistrant(function()
 	createPartySettings()
 	createRaidSettings()
 	createPetSettings()
-	createAurasSettings()
+	createAuraSettings()
+	mUI:createAuraFilterSettings()
 	createProfileSettings()
 end)
 

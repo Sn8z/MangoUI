@@ -37,6 +37,7 @@ Options/defaults.lua
 Options/movable.lua
 Options/testmode.lua
 Options/blizzOptionsMenu.lua
+Options/auraFilters.lua
 
 # Custom unitframe elements
 Components/dispelhighlight.lua

@@ -180,6 +180,20 @@ end
 
 -- Player buff filter
 local function PlayerAuraFilter(element, unit, data)
+	if mUI.profile.player.buffs.exclude[data.spellId] then
+		return false
+	end
+
+	if mUI.profile.player.buffs.include[data.spellId] then
+		return true
+	end
+
+	if data.nameplateShowPersonal and mUI.profile.player.buffs.blizzard then
+		return true
+	end
+
+	return false
+
 	--if data.nameplateShowPersonal or playerAuras[data.spellId] then
 	--	return true
 	--else
@@ -192,11 +206,11 @@ local function PlayerAuraFilter(element, unit, data)
 	--	return false
 	--end
 
-	if playerAuras[data.spellId] then
-		return true
-	else
-		return false
-	end
+	-- if playerAuras[data.spellId] then
+	-- 	return true
+	-- else
+	-- 	return false
+	-- end
 end
 
 -- Party buffs filter

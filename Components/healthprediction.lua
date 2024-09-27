@@ -3,13 +3,13 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 function mUI:CreateHealthPrediction(self)
 	local WIDTH = {
-		player = mUI.db.player.width,
-		target = mUI.db.target.width,
-		pet = mUI.db.pet.width,
-		targettarget = mUI.db.targettarget.width,
-		focus = mUI.db.focus.width,
-		raid = mUI.db.raid.width,
-		party = mUI.db.party.width
+		player = mUI.profile.player.width,
+		target = mUI.profile.target.width,
+		pet = mUI.profile.pet.width,
+		targettarget = mUI.profile.targettarget.width,
+		focus = mUI.profile.focus.width,
+		raid = mUI.profile.raid.width,
+		party = mUI.profile.party.width
 	}
 
 	local frameLevel = self.Health:GetFrameLevel()

@@ -23,12 +23,12 @@ local function PostUpdate(element, cur, max, hasMaxChanged, powerType, ccp1, ccp
 	end
 
 	if (hasMaxChanged) then
-		local spacing = mUI.db.player.classpower.spacing
+		local spacing = mUI.profile.player.classpower.spacing
 		for i = 1, max do
 			element[i]:ClearAllPoints()
 			local totalSpacing = (max - 1) * spacing
 			PixelUtil.SetWidth(element[i], (element[i]:GetParent():GetWidth() - totalSpacing) / max)
-			PixelUtil.SetHeight(element[i], mUI.db.player.classpower.height)
+			PixelUtil.SetHeight(element[i], mUI.profile.player.classpower.height)
 			if i == 1 then
 				PixelUtil.SetPoint(
 					element[i],

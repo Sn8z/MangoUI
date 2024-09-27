@@ -85,6 +85,18 @@ local defaultProfile = {
 			enabled = false,
 			alpha = 0.2,
 		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
 	},
 	target = {
 		enabled = true,
