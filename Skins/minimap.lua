@@ -5,7 +5,7 @@ f:RegisterEvent("VARIABLES_LOADED")
 f:SetScript("OnEvent", function()
 	if mUI.profile.settings.minimap then
 		-- https://warcraft.wiki.gg/wiki/UIOBJECT_Minimap
-		Minimap:SetMaskTexture([[Interface\AddOns\MangoUI\Media\white.tga]])
+		Minimap:SetMaskTexture([[Interface\AddOns\MangoUI\Media\square.tga]])
 		Minimap:SetArchBlobRingScalar(0)
 		Minimap:SetQuestBlobRingScalar(0)
 

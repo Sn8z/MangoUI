@@ -116,6 +116,8 @@ LSM:Register(LSM.MediaType.STATUSBAR, "Liv", [[Interface\Addons\MangoUI\Media\St
 LSM:Register(LSM.MediaType.STATUSBAR, "Vvik", [[Interface\Addons\MangoUI\Media\Statusbars\vvik.tga]])
 
 -- Borders
+LSM:Register(LSM.MediaType.BORDER, "MangoRound", [[Interface\AddOns\MangoUI\Media\Borders\border1.tga]])
 LSM:Register(LSM.MediaType.BORDER, "MangoSquare", [[Interface\AddOns\MangoUI\Media\border.tga]])
 LSM:Register(LSM.MediaType.BORDER, "MangoGlow", [[Interface\AddOns\MangoUI\Media\borderglow.tga]])
+
 -- Sounds

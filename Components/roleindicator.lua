@@ -3,9 +3,9 @@ local _, mUI = ...
 local function UpdateRoleIndicator(self)
 	local role = UnitGroupRolesAssigned(self.unit)
 	if role == "HEALER" then
-		self.GroupRoleIndicator:SetTexture([[Interface\AddOns\MangoUI\Media\healer.tga]])
+		self.GroupRoleIndicator:SetTexture([[Interface\AddOns\MangoUI\Media\icons\healer.tga]])
 	elseif role == "TANK" then
-		self.GroupRoleIndicator:SetTexture([[Interface\AddOns\MangoUI\Media\tank.tga]])
+		self.GroupRoleIndicator:SetTexture([[Interface\AddOns\MangoUI\Media\icons\tank.tga]])
 	else
 		self.GroupRoleIndicator:SetTexture(nil)
 	end

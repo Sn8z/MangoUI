@@ -37,7 +37,7 @@ local function createSlider(category, options)
 	setting:SetValueChangedCallback(options.func or onSettingChanged)
 	local sliderOptions = Settings.CreateSliderOptions(options.min, options.max, options.step)
 	sliderOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
-		return string.format("%.1f", value)
+		return string.format("%.0f", value)
 	end)
 	Settings.CreateSlider(category, setting, sliderOptions, options.title)
 end
@@ -208,13 +208,6 @@ local function createPlayerSettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(playerCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.player.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
-
 	createSlider(playerCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.player,
@@ -241,7 +234,7 @@ local function createPlayerSettings()
 		["variable"] = "enabled",
 		["db"] = mUI.profile.player.power,
 		["default"] = true,
-		["title"] = "Enable"
+		["title"] = "|cff00ff00Enable|r"
 	})
 
 	createCheckbox(playerCategory, {
@@ -267,15 +260,15 @@ local function createPlayerSettings()
 		["min"] = 1,
 		["max"] = 1000,
 		["step"] = 1,
-		["default"] = 200,
+		["default"] = 10,
 		["title"] = "Height"
 	})
 
 	createSlider(playerCategory, {
 		["variable"] = "offsetL",
 		["db"] = mUI.profile.player.power,
-		["min"] = -2000,
-		["max"] = 2000,
+		["min"] = -200,
+		["max"] = 200,
 		["step"] = 1,
 		["default"] = 0,
 		["title"] = "Offset Left"
@@ -284,8 +277,8 @@ local function createPlayerSettings()
 	createSlider(playerCategory, {
 		["variable"] = "offsetR",
 		["db"] = mUI.profile.player.power,
-		["min"] = -2000,
-		["max"] = 2000,
+		["min"] = -200,
+		["max"] = 200,
 		["step"] = 1,
 		["default"] = 0,
 		["title"] = "Offset Right"
@@ -294,8 +287,8 @@ local function createPlayerSettings()
 	createSlider(playerCategory, {
 		["variable"] = "offsetY",
 		["db"] = mUI.profile.player.power,
-		["min"] = -2000,
-		["max"] = 2000,
+		["min"] = -200,
+		["max"] = 200,
 		["step"] = 1,
 		["default"] = 0,
 		["title"] = "Offset Y"
@@ -305,7 +298,7 @@ local function createPlayerSettings()
 		["variable"] = "size",
 		["db"] = mUI.profile.player.power.text,
 		["min"] = 4,
-		["max"] = 200,
+		["max"] = 100,
 		["step"] = 1,
 		["default"] = 14,
 		["title"] = "Font Size"
@@ -317,7 +310,7 @@ local function createPlayerSettings()
 		["variable"] = "enabled",
 		["db"] = mUI.profile.player.classpower,
 		["default"] = true,
-		["title"] = "Enable"
+		["title"] = "|cff00ff00Enable|r"
 	})
 
 	createCheckbox(playerCategory, {
@@ -363,7 +356,7 @@ local function createPlayerSettings()
 		["variable"] = "enabled",
 		["db"] = mUI.profile.player.castbar,
 		["default"] = true,
-		["title"] = "Enable"
+		["title"] = "|cff00ff00Enable|r"
 	})
 
 	createCheckbox(playerCategory, {
@@ -398,6 +391,25 @@ local function createPlayerSettings()
 		["default"] = 200,
 		["title"] = "Height"
 	})
+
+	playerLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(playerCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.player.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(playerCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.player.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
+	})
 end
 
 local function createTargetSettings()
@@ -408,13 +420,6 @@ local function createTargetSettings()
 		["db"] = mUI.profile.target,
 		["default"] = true,
 		["title"] = "|cff00ff00Enable|r"
-	})
-
-	createCheckbox(targetCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.target.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
 	})
 
 	createSlider(targetCategory, {
@@ -462,8 +467,48 @@ local function createTargetSettings()
 		["min"] = 1,
 		["max"] = 1000,
 		["step"] = 1,
-		["default"] = 200,
+		["default"] = 10,
 		["title"] = "Height"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.target.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.target.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.target.power,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.target.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
 	})
 
 	targetLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
@@ -501,6 +546,25 @@ local function createTargetSettings()
 		["default"] = 200,
 		["title"] = "Height"
 	})
+
+	targetLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(targetCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.target.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.target.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
+	})
 end
 
 local function createTargetTargetSettings()
@@ -511,13 +575,6 @@ local function createTargetTargetSettings()
 		["db"] = mUI.profile.targettarget,
 		["default"] = true,
 		["title"] = "|cff00ff00Enable|r"
-	})
-
-	createCheckbox(totCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.targettarget.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
 	})
 
 	createSlider(totCategory, {
@@ -538,6 +595,96 @@ local function createTargetTargetSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	totLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(totCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.targettarget.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.targettarget.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.targettarget.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.targettarget.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.targettarget.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.targettarget.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.targettarget.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
+	})
+
+	totLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	totLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(totCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.targettarget.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(totCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.targettarget.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
 	})
 end
 
@@ -551,13 +698,6 @@ local function createFocusSettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(focusCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.focus.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
-
 	createSlider(focusCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.focus,
@@ -576,6 +716,96 @@ local function createFocusSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	focusLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(focusCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.focus.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.focus.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.focus.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.focus.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.focus.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.focus.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.focus.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
+	})
+
+	focusLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	focusLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(focusCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.focus.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.focus.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
 	})
 end
 
@@ -589,13 +819,6 @@ local function createBossSettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(bossCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.boss.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
-
 	createSlider(bossCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.boss,
@@ -614,6 +837,96 @@ local function createBossSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	bossLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(bossCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.boss.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.boss.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.boss.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.boss.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.boss.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.boss.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.boss.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
+	})
+
+	bossLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	bossLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(bossCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.boss.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.boss.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
 	})
 end
 
@@ -627,13 +940,6 @@ local function createPartySettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(partyCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.party.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
-
 	createSlider(partyCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.party,
@@ -652,6 +958,96 @@ local function createPartySettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	partyLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(partyCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.party.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.party.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.party.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.party.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.party.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.party.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.party.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
+	})
+
+	partyLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	partyLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(partyCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.party.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(partyCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.party.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
 	})
 end
 
@@ -665,13 +1061,6 @@ local function createRaidSettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(raidCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.raid.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
-
 	createSlider(raidCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.raid,
@@ -690,6 +1079,75 @@ local function createRaidSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	raidLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(raidCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.raid.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.raid.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.raid.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.raid.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.raid.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.raid.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(raidCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.raid.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
 	})
 end
 
@@ -703,12 +1161,6 @@ local function createPetSettings()
 		["title"] = "|cff00ff00Enable|r"
 	})
 
-	createCheckbox(petCategory, {
-		["variable"] = "enabled",
-		["db"] = mUI.profile.pet.portrait,
-		["default"] = true,
-		["title"] = "Portrait"
-	})
 	createSlider(petCategory, {
 		["variable"] = "width",
 		["db"] = mUI.profile.pet,
@@ -727,6 +1179,96 @@ local function createPetSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	petLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Power"));
+
+	createCheckbox(petCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.pet.power,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.pet.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.pet.power,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 10,
+		["title"] = "Height"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "offsetL",
+		["db"] = mUI.profile.pet.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Left"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "offsetR",
+		["db"] = mUI.profile.pet.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Right"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.pet.power,
+		["min"] = -200,
+		["max"] = 200,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "size",
+		["db"] = mUI.profile.pet.power.text,
+		["min"] = 4,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 14,
+		["title"] = "Font Size"
+	})
+
+	petLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	petLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
+
+	createCheckbox(petCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.pet.portrait,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "alpha",
+		["db"] = mUI.profile.pet.portrait,
+		["min"] = 0,
+		["max"] = 1,
+		["step"] = 0.1,
+		["default"] = 0.2,
+		["title"] = "Alpha"
 	})
 end
 
