@@ -410,6 +410,35 @@ local function createPlayerSettings()
 		["default"] = 0.2,
 		["title"] = "Alpha"
 	})
+
+	playerLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Totems"));
+
+	createCheckbox(playerCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.totems,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createSlider(playerCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.totems,
+		["min"] = 1,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 20,
+		["title"] = "Width"
+	})
+
+	createSlider(playerCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.totems,
+		["min"] = 1,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 20,
+		["title"] = "Height"
+	})
 end
 
 local function createTargetSettings()
@@ -1275,7 +1304,155 @@ end
 local function createAuraSettings()
 	local auraCategory, auraLayout = createSubCategory(mUI.category, "Auras")
 
-	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Coming soon..."));
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Player"));
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.player.buffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.player.buffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.player.debuffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Debuffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.player.debuffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Debuffs"
+	})
+
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Target"));
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.target.buffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.target.buffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.target.debuffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Debuffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.target.debuffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Debuffs"
+	})
+
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Party"));
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.party.buffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.party.buffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.party.debuffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Debuffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.party.debuffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Debuffs"
+	})
+
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Raid"));
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.raid.buffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.raid.buffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.raid.debuffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Debuffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.raid.debuffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Debuffs"
+	})
+
+	auraLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Focus"));
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.focus.buffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.focus.buffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Buffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.focus.debuffs,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r Debuffs"
+	})
+
+	createCheckbox(auraCategory, {
+		["variable"] = "blizzard",
+		["db"] = mUI.profile.focus.debuffs,
+		["default"] = true,
+		["title"] = "Show Blizzard Debuffs"
+	})
 end
 
 local function createProfileSettings()

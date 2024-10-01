@@ -89,35 +89,110 @@ function mUI:createAuraFilterSettings()
 	scrollChild:SetHeight(10000)
 
 	-- Player buffs include
-	local pBuffs, pBuffsDataProvider = createScrollBox(scrollChild, "Player Buffs |cff00ff00(include)|r",
+	local playerBuffsInclude, pBuffsDataProvider = createScrollBox(scrollChild, "Player Buffs |cff00ff00(include)|r",
 		mUI.profile.player.buffs.include)
-	pBuffs:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 60, -80)
+	playerBuffsInclude:SetPoint("TOPLEFT", scrollChild, "TOPLEFT", 60, -80)
 
 	-- Player buffs exclude
-	local pBuffsExclude, pBuffsExcludeDataProvider = createScrollBox(scrollChild, "Player Buffs |cffff0000(exclude)|r",
+	local playerBuffsExclude, pBuffsExcludeDataProvider = createScrollBox(scrollChild, "Player Buffs |cffff0000(exclude)|r",
 		mUI.profile.player.buffs.exclude)
-	pBuffsExclude:SetPoint("TOPLEFT", pBuffs, "BOTTOMLEFT", 0, -80)
+	playerBuffsExclude:SetPoint("TOPLEFT", playerBuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Player debuffs include
+	local playerDebuffsInclude, pDebuffsDataProvider = createScrollBox(scrollChild, "Player Debuffs |cff00ff00(include)|r",
+		mUI.profile.player.debuffs.include)
+	playerDebuffsInclude:SetPoint("TOPLEFT", playerBuffsExclude, "BOTTOMLEFT", 0, -80)
+
 	-- Player debuffs exclude
+	local playerDebuffsExclude, pDebuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Player Debuffs |cffff0000(exclude)|r",
+		mUI.profile.player.debuffs.exclude)
+	playerDebuffsExclude:SetPoint("TOPLEFT", playerDebuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Target buffs include
+	local targetBuffsInclude, tBuffsDataProvider = createScrollBox(scrollChild, "Target Buffs |cff00ff00(include)|r",
+		mUI.profile.target.buffs.include)
+	targetBuffsInclude:SetPoint("TOPLEFT", playerDebuffsExclude, "BOTTOMLEFT", 0, -80)
+
 	-- Target buffs exclude
+	local targetBuffsExclude, tBuffsExcludeDataProvider = createScrollBox(scrollChild, "Target Buffs |cffff0000(exclude)|r",
+		mUI.profile.target.buffs.exclude)
+	targetBuffsExclude:SetPoint("TOPLEFT", targetBuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Target Debuffs include
+	local targetDebuffsInclude, tDebuffsDataProvider = createScrollBox(scrollChild, "Target Debuffs |cff00ff00(include)|r",
+		mUI.profile.target.debuffs.include)
+	targetDebuffsInclude:SetPoint("TOPLEFT", targetBuffsExclude, "BOTTOMLEFT", 0, -80)
+
 	-- Target Debuffs exclude
+	local targetDebuffsExclude, tDebuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Target Debuffs |cffff0000(exclude)|r",
+		mUI.profile.target.debuffs.exclude)
+	targetDebuffsExclude:SetPoint("TOPLEFT", targetDebuffsInclude, "BOTTOMLEFT", 0, -80)
 
-	-- Group buffs include
-	-- Group buffs exclude
+	-- Party buffs include
+	local partyBuffsInclude, pBuffsDataProvider = createScrollBox(scrollChild, "Party Buffs |cff00ff00(include)|r",
+		mUI.profile.party.buffs.include)
+	partyBuffsInclude:SetPoint("TOPLEFT", targetDebuffsExclude, "BOTTOMLEFT", 0, -80)
 
-	-- Group Debuffs include
-	-- Group Debuffs exclude
+	-- Party buffs exclude
+	local partyBuffsExclude, pBuffsExcludeDataProvider = createScrollBox(scrollChild, "Party Buffs |cffff0000(exclude)|r",
+		mUI.profile.party.buffs.exclude)
+	partyBuffsExclude:SetPoint("TOPLEFT", partyBuffsInclude, "BOTTOMLEFT", 0, -80)
 
-	-- Group Prio buffs
+	-- Party Debuffs include
+	local partyDebuffsInclude, pDebuffsDataProvider = createScrollBox(scrollChild, "Party Debuffs |cff00ff00(include)|r",
+		mUI.profile.party.debuffs.include)
+	partyDebuffsInclude:SetPoint("TOPLEFT", partyBuffsExclude, "BOTTOMLEFT", 0, -80)
+
+	-- Party Debuffs exclude
+	local partyDebuffsExclude, pDebuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Party Debuffs |cffff0000(exclude)|r",
+		mUI.profile.party.debuffs.exclude)
+	partyDebuffsExclude:SetPoint("TOPLEFT", partyDebuffsInclude, "BOTTOMLEFT", 0, -80)
+
+	-- Raid buffs include
+	local raidBuffsInclude, rBuffsDataProvider = createScrollBox(scrollChild, "Raid Buffs |cff00ff00(include)|r",
+		mUI.profile.raid.buffs.include)
+	raidBuffsInclude:SetPoint("TOPLEFT", partyDebuffsExclude, "BOTTOMLEFT", 0, -80)
+
+	-- Raid buffs exclude
+	local raidBuffsExclude, rBuffsExcludeDataProvider = createScrollBox(scrollChild, "Raid Buffs |cffff0000(exclude)|r",
+		mUI.profile.raid.buffs.exclude)
+	raidBuffsExclude:SetPoint("TOPLEFT", raidBuffsInclude, "BOTTOMLEFT", 0, -80)
+
+	-- Raid Debuffs include
+	local raidDebuffsInclude, rDebuffsDataProvider = createScrollBox(scrollChild, "Raid Debuffs |cff00ff00(include)|r",
+		mUI.profile.raid.debuffs.include)
+	raidDebuffsInclude:SetPoint("TOPLEFT", raidBuffsExclude, "BOTTOMLEFT", 0, -80)
+
+	-- Raid Debuffs exclude
+	local raidDebuffsExclude, rDebuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Raid Debuffs |cffff0000(exclude)|r",
+		mUI.profile.raid.debuffs.exclude)
+	raidDebuffsExclude:SetPoint("TOPLEFT", raidDebuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Focus buffs include
+	local focusBuffsInclude, fBuffsDataProvider = createScrollBox(scrollChild, "Focus Buffs |cff00ff00(include)|r",
+		mUI.profile.focus.buffs.include)
+	focusBuffsInclude:SetPoint("TOPLEFT", raidDebuffsExclude, "BOTTOMLEFT", 0, -80)
+
 	-- Focus buffs exclude
+	local focusBuffsExclude, fBuffsExcludeDataProvider = createScrollBox(scrollChild, "Focus Buffs |cffff0000(exclude)|r",
+		mUI.profile.focus.buffs.exclude)
+	focusBuffsExclude:SetPoint("TOPLEFT", focusBuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Focus Debuffs include
+	local focusDebuffsInclude, fDebuffsDataProvider = createScrollBox(scrollChild, "Focus Debuffs |cff00ff00(include)|r",
+		mUI.profile.focus.debuffs.include)
+	focusDebuffsInclude:SetPoint("TOPLEFT", focusBuffsExclude, "BOTTOMLEFT", 0, -80)
+
 	-- Focus Debuffs exclude
+	local focusDebuffsExclude, fDebuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Focus Debuffs |cffff0000(exclude)|r",
+		mUI.profile.focus.debuffs.exclude)
+	focusDebuffsExclude:SetPoint("TOPLEFT", focusDebuffsInclude, "BOTTOMLEFT", 0, -80)
+
+	-- Group Prio buffs
+	-- TODO
 end

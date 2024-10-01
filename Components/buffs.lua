@@ -5,100 +5,6 @@ local LSM = LibStub('LibSharedMedia-3.0')
 local _, class = UnitClass("player")
 local playerColor = oUF.colors.class[class]
 
-local playerAuras = {
-	-- Monk
-	[116841] = true, -- Tiger's Lust
-	[388193] = true, -- Faeline Stomp
-	[195630] = true, -- Elusive Brawler
-	[387184] = true, -- Weapons of Order
-	[137639] = true, -- Storm Earth Fire
-	[152173] = true, -- Serenity
-	[196741] = true, -- Hit Combo
-	[202090] = true, -- Teachings of the Monastery
-	[388026] = true, -- Ancient Teachings
-	[116847] = true, -- Rushing Jade Wind
-	[322507] = true, -- Celestial Brew
-	[325092] = true, -- Purified Chi
-	[122783] = true, -- Diffuse Magic
-	[122278] = true, -- Dampen Harm
-	[125174] = true, -- Touch of Karma
-	[120954] = true, -- Fortified Brew
-	-- Demon Hunter
-	[203819] = true, -- Demon Spikes
-	[212800] = true, -- Blur
-	[209426] = true, -- Darkness
-	[258920] = true, -- Immolation Aura
-	[208628] = true, -- Momentum
-	[162264] = true, -- Metamorphosis
-	[187827] = true, -- Metamorphosis
-	[188501] = true, -- Spectral Sight
-	[196555] = true, -- Netherwalk
-	-- Druid
-	[102342] = true, -- Ironbark
-	[22812] = true, -- Barkskin
-	[192081] = true, -- Ironfur
-	[61336] = true, -- Survival Instincts
-	[124974] = true, -- Natures Vigil
-	[29166] = true, -- Innervate
-	[48518] = true, -- Lunar Eclipse
-	[48517] = true, -- Solar Eclipse
-	[191034] = true, -- Starfall
-	[372505] = true, -- Berserk
-	-- Priest
-	[19236] = true, -- Desperate Prayer
-	[586] = true,   -- Fade
-	[121557] = true, -- Angelic Feather
-	[47585] = true, -- Dispersion
-	[15286] = true, -- Vampiric Embrace
-	[10060] = true, -- Power Infusion
-	[194249] = true, -- Voidform
-	-- Paladin
-	[1022] = true,  -- Blessing of Protection
-	[184662] = true, -- Shield of Vengeance
-	[642] = true,   -- Divine Shield
-	[1044] = true,  -- Blessing of Freedom
-	[6940] = true,  -- Blessing of Sacrifice
-	-- Warrior
-	[97463] = true, -- Rallying Cry
-	[23920] = true, -- Spell Reflection
-	[184362] = true, -- Enrage
-	[85739] = true, -- Whirlwind
-	-- Rogue
-	[1784] = true,  -- Stealth
-	[13877] = true, -- Blade Flurry
-	[315496] = true, -- Slice and Dice
-	[315341] = true, -- Between The Eyes
-	[13750] = true, -- Adrenaline Rush
-	[394758] = true, -- Flagellation
-	[384631] = true, -- Flagellation
-	[196911] = true, -- Shadow Techniques
-	[185422] = true, -- Shadow Dance
-	[212283] = true, -- Symbols of Death
-	[121471] = true, -- Shadow Blades
-	[393969] = true, -- Danse Macabre
-	[381623] = true, -- Thistle Tea
-	[277925] = true, -- Shuriken Tornado
-	[31224] = true, -- Cloak of Shadows
-	[1966] = true,  -- Feint
-	[5277] = true,  -- Evasion
-	[115192] = true, -- Subterfuge
-	[385754] = true, -- Indiscriminate Carnage
-	[385747] = true, -- Indiscriminate Carnage
-	-- Evoker
-	[358267] = true, -- Hover
-	[363916] = true, -- Obsidian Scales
-	[374348] = true, -- Renewing Blaze
-	[370553] = true, -- Tip the Scales
-	[375087] = true, -- Dragonrage
-	-- Shaman
-	[334196] = true, -- Hailstorm
-	[187878] = true, -- Crash Lightning
-	[333964] = true, -- Crash Lightning
-	[215785] = true, -- Hot Hand
-	[108271] = true, -- Astral Shift
-	[108281] = true, -- Ancestral Guidance
-}
-
 local partyAuras = {
 	-- Evoker
 	[366155] = true, -- Reversion
@@ -193,28 +99,19 @@ local function PlayerAuraFilter(element, unit, data)
 	end
 
 	return false
-
-	--if data.nameplateShowPersonal or playerAuras[data.spellId] then
-	--	return true
-	--else
-	--	return false
-	--end
-
-	--if data.nameplateShowPersonal then
-	--	return true
-	--else
-	--	return false
-	--end
-
-	-- if playerAuras[data.spellId] then
-	-- 	return true
-	-- else
-	-- 	return false
-	-- end
 end
 
 -- Party buffs filter
 local function PartyAuraFilter(element, unit, data)
+	if data.isPlayerAura and partyAuras[data.spellId] then
+		return true
+	else
+		return false
+	end
+end
+
+-- Raid buffs filter
+local function RaidAuraFilter(element, unit, data)
 	if data.isPlayerAura and partyAuras[data.spellId] then
 		return true
 	else
@@ -297,7 +194,7 @@ function mUI:CreateBuffs(self)
 		Buffs.size = 18
 		Buffs.spacing = 2
 		Buffs.showDebuffType = true
-		Buffs.FilterAura = PartyAuraFilter
+		Buffs.FilterAura = RaidAuraFilter
 		Buffs.PostCreateButton = PostCreateButtonParty
 	else
 		Buffs:SetPoint("BOTTOMLEFT", self.Health, "TOPLEFT", 0, 5)

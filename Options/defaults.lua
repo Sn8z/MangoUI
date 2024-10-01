@@ -34,6 +34,15 @@ local defaultProfile = {
 		minimap = true,
 		auras = true,
 	},
+	totems = {
+		enabled = true,
+		anchor = "CENTER",
+		parentAnchor = "CENTER",
+		width = 32,
+		height = 32,
+		x = 0,
+		y = 0,
+	},
 	player = {
 		enabled = true,
 		anchor = "RIGHT",
@@ -139,6 +148,18 @@ local defaultProfile = {
 		portrait = {
 			enabled = false,
 			alpha = 0.2,
+		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
 		},
 	},
 	pet = {
@@ -255,6 +276,18 @@ local defaultProfile = {
 			enabled = false,
 			alpha = 0.2,
 		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
 	},
 	boss = {
 		enabled = true,
@@ -294,6 +327,18 @@ local defaultProfile = {
 			enabled = false,
 			alpha = 0.2,
 		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
 	},
 	party = {
 		enabled = true,
@@ -327,6 +372,18 @@ local defaultProfile = {
 			enabled = false,
 			alpha = 0.2,
 		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
 	},
 	raid = {
 		enabled = true,
@@ -359,6 +416,18 @@ local defaultProfile = {
 		portrait = {
 			enabled = true,
 			alpha = 0.2,
+		},
+		buffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
+		},
+		debuffs = {
+			enabled = true,
+			blizzard = true,
+			include = {},
+			exclude = {},
 		},
 	},
 }

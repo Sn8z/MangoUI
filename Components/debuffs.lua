@@ -57,11 +57,21 @@ local function AuraFilter(element, unit, data)
 end
 
 local function TargetAuraFilter(element, unit, data)
-	if TargetDebuffs[data.spellId] and data.isPlayerAura then
+	if not data.isPlayerAura then return false end
+
+	if mUI.profile.target.debuffs.include[data.spellId] then
 		return true
-	else
+	end
+
+	if mUI.profile.target.debuffs.exclude[data.spellId] then
 		return false
 	end
+
+	if data.nameplateShowPersonal and mUI.profile.target.debuffs.blizzard then
+		return true
+	end
+
+	return false
 end
 
 local function PostCreateButton(self, button)

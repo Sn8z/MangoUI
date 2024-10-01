@@ -108,12 +108,12 @@ LSM:Register(LSM.MediaType.FONT, "Ubuntu Bold",
 LSM:Register(LSM.MediaType.STATUSBAR, "Sn8z", [[Interface\Addons\MangoUI\Media\Statusbars\sn8z.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Erik", [[Interface\Addons\MangoUI\Media\Statusbars\erik.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Tim", [[Interface\Addons\MangoUI\Media\Statusbars\tim.tga]])
-LSM:Register(LSM.MediaType.STATUSBAR, "Mauk", [[Interface\Addons\MangoUI\Media\Statusbars\mauk.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Maukie", [[Interface\Addons\MangoUI\Media\Statusbars\maukie.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Brink", [[Interface\Addons\MangoUI\Media\Statusbars\brink.tga]])
-LSM:Register(LSM.MediaType.STATUSBAR, "Mango", [[Interface\Addons\MangoUI\Media\Statusbars\mango.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "MangoFocus", [[Interface\Addons\MangoUI\Media\Statusbars\mangofocus.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Nucks", [[Interface\Addons\MangoUI\Media\Statusbars\nucks.tga]])
 LSM:Register(LSM.MediaType.STATUSBAR, "Liv", [[Interface\Addons\MangoUI\Media\Statusbars\liv.tga]])
-LSM:Register(LSM.MediaType.STATUSBAR, "Vvik", [[Interface\Addons\MangoUI\Media\Statusbars\vvik.tga]])
+LSM:Register(LSM.MediaType.STATUSBAR, "Vesper", [[Interface\Addons\MangoUI\Media\Statusbars\vesper.tga]])
 
 -- Borders
 LSM:Register(LSM.MediaType.BORDER, "MangoRound", [[Interface\AddOns\MangoUI\Media\Borders\border1.tga]])

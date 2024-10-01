@@ -2,6 +2,7 @@ local _, mUI = ...
 local LSM = LibStub("LibSharedMedia-3.0")
 
 local playerColor = mUI:GetClassColor("player")
+local font = LSM:Fetch("font", "Outfit Bold")
 
 local movers = {}
 local locked = true
@@ -11,7 +12,7 @@ grid:SetAllPoints()
 grid:SetBackdrop({
 	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
 })
-grid:SetBackdropColor(0, 0, 0, 0.6)
+grid:SetBackdropColor(0, 0, 0, 0.3)
 grid:SetFrameStrata("BACKGROUND")
 grid:Hide()
 
@@ -45,30 +46,40 @@ for i = 0, h do
 	end
 end
 
--- local moveManager = CreateFrame("Frame", "MangoMoveManager", grid, "BackdropTemplate")
--- moveManager:SetSize(250, 60)
--- moveManager:SetPoint("TOPLEFT", 30, -30)
--- moveManager:SetBackdrop({
--- 	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
--- 	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
--- 	edgeSize = 1
--- })
--- moveManager:SetBackdropColor(0, 0, 0, 0.8)
--- moveManager:SetBackdropBorderColor(0, 0, 0, 1)
--- moveManager:SetFrameStrata("DIALOG")
--- moveManager:SetClampedToScreen(true)
+local moveManager = CreateFrame("Frame", "MangoMoveManager", grid, "BackdropTemplate")
+moveManager:SetSize(250, 60)
+moveManager:SetPoint("TOPLEFT", 30, -30)
+moveManager:SetBackdrop({
+	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	edgeSize = 2
+})
+moveManager:SetBackdropColor(0, 0, 0, 0.65)
+moveManager:SetBackdropBorderColor(0.33, 0.33, 0.33, 1)
+moveManager:SetFrameStrata("DIALOG")
+moveManager:SetClampedToScreen(true)
 
--- local hideBtn = CreateFrame("Button", "MangoHideMovable", moveManager)
--- hideBtn:SetScript("OnClick", function()
--- 	mUI:ToggleMovable()
--- end)
--- local label = hideBtn:CreateFontString(nil, "OVERLAY")
--- label:SetPoint("CENTER")
--- label:SetJustifyH("CENTER")
--- label:SetFont("GameFontHighlight", 14, "OUTLINE")
--- label:SetText("Hide")
--- label:SetTextColor(0.8, 0.8, 0.8, 1)
--- hideBtn.label = label
+local hideBtn = CreateFrame("Button", "MangoHideMovable", moveManager, "BackdropTemplate")
+hideBtn:SetSize(80, 25)
+hideBtn:SetPoint("CENTER", moveManager, "CENTER")
+hideBtn:SetBackdrop({
+	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	edgeSize = 2
+})
+hideBtn:SetBackdropColor(0, 0, 0, 1)
+hideBtn:SetBackdropBorderColor(0.33, 0.33, 0.33, 1)
+hideBtn:SetScript("OnClick", function()
+	mUI:ToggleMovable()
+end)
+
+local label = hideBtn:CreateFontString(nil, "OVERLAY")
+label:SetPoint("CENTER")
+label:SetJustifyH("CENTER")
+label:SetFont(font, 14, "OUTLINE")
+label:SetText("Hide")
+label:SetTextColor(0.8, 0.8, 0.8, 1)
+hideBtn.label = label
 
 local function PrettifyName(name)
 	name = name:gsub("_", " ")
@@ -167,7 +178,7 @@ function mUI:AddMover(frame, name, callback)
 	local label = mover:CreateFontString(nil, "OVERLAY")
 	label:SetPoint("LEFT", mover, "TOPLEFT", 6, 0)
 	label:SetJustifyH("LEFT")
-	label:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 14, "THINOUTLINE")
+	label:SetFont(font, 14, "OUTLINE")
 	label:SetText(PrettifyName(name))
 	label:SetTextColor(playerColor.r, playerColor.g, playerColor.b, 1)
 	mover.label = label
@@ -175,7 +186,7 @@ function mUI:AddMover(frame, name, callback)
 	local info = mover:CreateFontString(nil, "OVERLAY")
 	info:SetPoint("CENTER")
 	info:SetJustifyH("CENTER")
-	info:SetFont(LSM:Fetch("font", "Onest Semi Bold"), 12, "THINOUTLINE")
+	info:SetFont(font, 12, "OUTLINE")
 	local x, y = GetPos(mover)
 	info:SetText("X: " .. x .. " Y: " .. y)
 	info:SetTextColor(1, 1, 1, 1)
