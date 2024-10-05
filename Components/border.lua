@@ -39,7 +39,7 @@ function mUI:CreateBorder(self, size)
 	local border = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	border:SetAllPoints()
 	border:SetBackdrop({
-		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 		edgeSize = borderSize,
 	})
 	border:SetBackdropBorderColor(0, 0, 0, 1)

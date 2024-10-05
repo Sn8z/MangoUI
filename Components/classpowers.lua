@@ -122,8 +122,8 @@ function mUI:CreateClassPowers(self)
 		local bg = CreateFrame("Frame", "MangoClassPowerBg" .. i, classPowerPlaceholder, "BackdropTemplate")
 		local borderSize = 1 -- TODO: Get from settings
 		bg:SetBackdrop({
-			bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
+			edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 			edgeSize = borderSize,
 		})
 		bg:SetAllPoints(Bar)

@@ -10,7 +10,7 @@ local locked = true
 local grid = CreateFrame("Frame", "MangoGrid", UIParent, "BackdropTemplate")
 grid:SetAllPoints()
 grid:SetBackdrop({
-	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 })
 grid:SetBackdropColor(0, 0, 0, 0.3)
 grid:SetFrameStrata("BACKGROUND")
@@ -50,8 +50,8 @@ local moveManager = CreateFrame("Frame", "MangoMoveManager", grid, "BackdropTemp
 moveManager:SetSize(250, 60)
 moveManager:SetPoint("TOPLEFT", 30, -30)
 moveManager:SetBackdrop({
-	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
+	edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 	edgeSize = 2
 })
 moveManager:SetBackdropColor(0, 0, 0, 0.65)
@@ -63,8 +63,8 @@ local hideBtn = CreateFrame("Button", "MangoHideMovable", moveManager, "Backdrop
 hideBtn:SetSize(80, 25)
 hideBtn:SetPoint("CENTER", moveManager, "CENTER")
 hideBtn:SetBackdrop({
-	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
+	edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 	edgeSize = 2
 })
 hideBtn:SetBackdropColor(0, 0, 0, 1)
@@ -160,8 +160,8 @@ function mUI:AddMover(frame, name, callback)
 	local mover = CreateFrame("Frame", nil, grid, "BackdropTemplate")
 	mover:SetAllPoints(frame)
 	mover:SetBackdrop({
-		bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 		edgeSize = 1
 	})
 	mover:SetBackdropColor(0, 0, 0, 0.8)

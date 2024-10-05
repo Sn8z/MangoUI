@@ -29,7 +29,7 @@ local function SkinBuff(buff)
 	local border = CreateFrame("Frame", nil, buff, "BackdropTemplate")
 	border:SetAllPoints(icon)
 	border:SetBackdrop({
-		edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 		edgeSize = size
 	})
 	border:SetBackdropBorderColor(0, 0, 0, 1)

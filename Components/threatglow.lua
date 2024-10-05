@@ -23,7 +23,7 @@ function mUI:CreateThreatGlow(self)
 	local size = 4
 	local glow = CreateFrame("Frame", nil, self, "BackdropTemplate")
 	glow:SetBackdrop({
-		edgeFile = [[Interface\AddOns\MangoUI\Media\borderglow.tga]],
+		edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangoglow.tga]],
 		edgeSize = size,
 	})
 	PixelUtil.SetPoint(glow, "TOPLEFT", self, "TOPLEFT", -size, size)

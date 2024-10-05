@@ -6,8 +6,8 @@ local dataFrame = CreateFrame("Frame", "MangoDataFrame", UIParent, "BackdropTemp
 dataFrame:SetPoint("CENTER")
 dataFrame:SetSize(450, 450)
 dataFrame:SetBackdrop({
-	bgFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
-	edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+	bgFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
+	edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 	edgeSize = 1,
 })
 dataFrame:SetBackdropColor(0.08, 0.08, 0.08, 0.8)

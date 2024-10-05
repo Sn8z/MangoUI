@@ -59,7 +59,7 @@ function mUI:CreateCastbar(self)
 		PixelUtil.SetPoint(IconFrame, "RIGHT", Castbar, "LEFT", 0, 0)
 		PixelUtil.SetSize(IconFrame, iconSize, iconSize)
 		IconFrame:SetBackdrop({
-			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 			edgeSize = 1,
 		})
 		IconFrame:SetBackdropBorderColor(0, 0, 0, 1)

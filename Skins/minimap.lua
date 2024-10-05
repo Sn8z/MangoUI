@@ -13,7 +13,7 @@ f:SetScript("OnEvent", function()
 		local border = CreateFrame("Frame", "MinimapBorder", Minimap, "BackdropTemplate")
 		border:SetBackdrop({
 			--edgeFile = [[Interface\AddOns\MangoUI\Media\borderglow.tga]],
-			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			edgeFile = [[Interface\AddOns\MangoUI\Media\Borders\mangobasic.tga]],
 			edgeSize = size,
 		})
 		border:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -size, size)
