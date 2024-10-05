@@ -34,15 +34,6 @@ local defaultProfile = {
 		minimap = true,
 		auras = true,
 	},
-	totems = {
-		enabled = true,
-		anchor = "CENTER",
-		parentAnchor = "CENTER",
-		width = 32,
-		height = 32,
-		x = 0,
-		y = 0,
-	},
 	player = {
 		enabled = true,
 		anchor = "RIGHT",
@@ -106,6 +97,11 @@ local defaultProfile = {
 			blizzard = true,
 			include = {},
 			exclude = {},
+		},
+		prio = {
+			enabled = true,
+			width = 28,
+			height = 28,
 		},
 	},
 	target = {
@@ -296,6 +292,11 @@ local defaultProfile = {
 			include = {},
 			exclude = {},
 		},
+		prio = {
+			enabled = true,
+			width = 28,
+			height = 28,
+		},
 	},
 	boss = {
 		enabled = true,
@@ -397,6 +398,11 @@ local defaultProfile = {
 			include = {},
 			exclude = {},
 		},
+		prio = {
+			enabled = true,
+			width = 28,
+			height = 28,
+		},
 	},
 	raid = {
 		enabled = true,
@@ -442,6 +448,25 @@ local defaultProfile = {
 			include = {},
 			exclude = {},
 		},
+		prio = {
+			enabled = true,
+			width = 28,
+			height = 28,
+		},
+	},
+	prio = {
+		default = true,
+		include = {},
+		exclude = {},
+	},
+	totems = {
+		enabled = true,
+		anchor = "CENTER",
+		parentAnchor = "CENTER",
+		width = 32,
+		height = 32,
+		x = 0,
+		y = 0,
 	},
 }
 

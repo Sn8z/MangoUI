@@ -9,37 +9,6 @@ local removedDebuffs = {
 	[206151] = true, -- Challenger's Burden
 }
 
-local TargetDebuffs = {
-	[188389] = true, -- Flame Shock
-	[316220] = true, -- Find Weakness
-	[1943] = true,  -- Rupture
-	[703] = true,   -- Garrote
-	[121411] = true, -- Crimson Tempest
-	[394036] = true, -- Serrated Bonespike
-	[360194] = true, -- Deathmark
-	[385627] = true, -- Kingsbane
-	[319504] = true, -- Shiv
-	[421976] = true, -- Caustic Splatter
-	[357209] = true, -- Fire Breath
-	[164812] = true, -- Moonfire
-	[164815] = true, -- Sunfire
-	[202347] = true, -- Stellar Flare
-	[271788] = true, -- Serpent Sting
-	[14914] = true, -- Holy Fire
-	[589] = true,   -- Shadow Word: Pain
-	[34914] = true, -- Vampiric Touch
-	[335467] = true, -- Devouring Plague
-	[375901] = true, -- Mindgames
-	[214621] = true, -- Schism
-	[204213] = true, -- Purge the Wicked
-	[157736] = true, -- Immolate
-	[197277] = true, -- Judgment
-	[207771] = true, -- Fiery Brand
-	[207407] = true, -- Soul Carver
-	[370966] = true, -- The Hunt
-	[370969] = true, -- The Hunt
-}
-
 local function RaidAuraFilter(element, unit, data)
 	if data.isRaid or data.isBossAura then
 		return true

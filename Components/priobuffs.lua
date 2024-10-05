@@ -81,12 +81,40 @@ local function PlayerBuffFilter(_, _, data)
 	end
 end
 
-local function BuffFilter(_, _, data)
-	if defensives[data.spellId] or externals[data.spellId] then
-		return true
-	else
+local function BuffFilter(element, unit, data)
+	if mUI.profile.prio.exclude[data.spellId] then
 		return false
 	end
+
+	if mUI.profile.prio.include[data.spellId] then
+		return true
+	end
+
+	if mUI.profile.prio.default and (defensives[data.spellId] or externals[data.spellId]) then
+		return true
+	end
+
+	return false
+
+	-- if mUI.profile.player.buffs.exclude[data.spellId] then
+	-- 	return false
+	-- end
+
+	-- if mUI.profile.player.buffs.include[data.spellId] then
+	-- 	return true
+	-- end
+
+	-- if data.nameplateShowPersonal and mUI.profile.player.buffs.blizzard then
+	-- 	return true
+	-- end
+
+	-- return false
+
+	-- if defensives[data.spellId] or externals[data.spellId] then
+	-- 	return true
+	-- else
+	-- 	return false
+	-- end
 end
 
 local function PostCreateButton(self, button)
