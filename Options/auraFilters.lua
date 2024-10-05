@@ -194,5 +194,14 @@ function mUI:createAuraFilterSettings()
 	focusDebuffsExclude:SetPoint("TOPLEFT", focusDebuffsInclude, "BOTTOMLEFT", 0, -80)
 
 	-- Group Prio buffs
-	-- TODO
+	local groupPrioBuffsInclude, groupPrioBuffsDataProvider = createScrollBox(scrollChild,
+		"Group Prio Buffs |cff00ff00(include)|r",
+		mUI.profile.prio.include)
+	groupPrioBuffsInclude:SetPoint("TOPLEFT", focusDebuffsExclude, "BOTTOMLEFT", 0, -80)
+
+	-- Group Prio Buffs exclude
+	local groupPrioBuffsExclude, groupPrioBuffsExcludeDataProvider = createScrollBox(scrollChild,
+		"Group Prio Buffs |cffff0000(exclude)|r",
+		mUI.profile.prio.exclude)
+	groupPrioBuffsExclude:SetPoint("TOPLEFT", groupPrioBuffsInclude, "BOTTOMLEFT", 0, -80)
 end

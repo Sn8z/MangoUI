@@ -57,6 +57,7 @@ local function Primary(self, unit)
 
 	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
+	mUI:CreatePrioBuffs(self)
 
 	if unit == "player" then
 		mUI:CreateGroupNumber(self)
@@ -64,7 +65,6 @@ local function Primary(self, unit)
 		mUI:CreateClassPowers(self)
 		mUI:CreateSecondaryPowerBar(self)
 		mUI:CreateTotems(self)
-		mUI:CreatePrioBuffs(self)
 
 		self.DispelHighlight = true
 	end
@@ -101,8 +101,8 @@ local function mParty(self, unit)
 	mUI:CreateResurrectionIndicator(self)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
-	mUI:CreatePrioBuffs(self)
 	mUI:CreateDebuffs(self)
+	mUI:CreatePrioBuffs(self)
 	mUI:CreateStatusText(self)
 	self.DispelHighlight = true
 end
@@ -117,6 +117,7 @@ local function mRaid(self, unit)
 	mUI:CreateSummonIndicator(self)
 	mUI:CreateBuffs(self)
 	mUI:CreateDebuffs(self)
+	mUI:CreatePrioBuffs(self)
 	mUI:CreateStatusText(self, 14)
 	self.DispelHighlight = true
 end

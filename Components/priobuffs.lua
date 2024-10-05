@@ -95,26 +95,6 @@ local function BuffFilter(element, unit, data)
 	end
 
 	return false
-
-	-- if mUI.profile.player.buffs.exclude[data.spellId] then
-	-- 	return false
-	-- end
-
-	-- if mUI.profile.player.buffs.include[data.spellId] then
-	-- 	return true
-	-- end
-
-	-- if data.nameplateShowPersonal and mUI.profile.player.buffs.blizzard then
-	-- 	return true
-	-- end
-
-	-- return false
-
-	-- if defensives[data.spellId] or externals[data.spellId] then
-	-- 	return true
-	-- else
-	-- 	return false
-	-- end
 end
 
 local function PostCreateButton(self, button)
@@ -133,40 +113,33 @@ local function PostCreateButton(self, button)
 end
 
 function mUI:CreatePrioBuffs(self)
-	local PrioBuffs = CreateFrame("Frame", nil, self)
-	if self.unit == "player" then
-		PrioBuffs:SetPoint("CENTER")
-		PrioBuffs.initialAnchor = "BOTTOMRIGHT"
-		PrioBuffs["growth-x"] = "LEFT"
-		PrioBuffs["growth-y"] = "UP"
-		PrioBuffs.width = 24
-		PrioBuffs.height = 24
-		PrioBuffs.spacing = 6
-		PrioBuffs.FilterAura = PlayerBuffFilter
-	elseif self.unit == "party" then
-		PrioBuffs:SetPoint("CENTER")
-		PrioBuffs.initialAnchor = "BOTTOMRIGHT"
-		PrioBuffs["growth-x"] = "LEFT"
-		PrioBuffs["growth-y"] = "UP"
-		PrioBuffs.width = 26
-		PrioBuffs.height = 26
-		PrioBuffs.spacing = 3
-		PrioBuffs.FilterAura = BuffFilter
-	elseif self.unit == "raid" then
-		PrioBuffs:SetPoint("CENTER")
-		PrioBuffs.initialAnchor = "BOTTOMRIGHT"
-		PrioBuffs["growth-x"] = "LEFT"
-		PrioBuffs["growth-y"] = "UP"
-		PrioBuffs.width = 24
-		PrioBuffs.height = 24
-		PrioBuffs.spacing = 5
-		PrioBuffs.FilterAura = BuffFilter
+	local unit = self.unit
+	if string.match(self.unit, "^boss[123456789]$") then
+		unit = "boss"
 	end
+	local settings = mUI.profile[unit]
+	if settings == nil or settings.prio == nil then return end
+	if settings.prio.enabled == false then return end
+
+	local PrioBuffs = CreateFrame("Frame", nil, self)
+	PrioBuffs:SetPoint("CENTER")
+	PrioBuffs.initialAnchor = "BOTTOMRIGHT"
+	PrioBuffs["growth-x"] = "LEFT"
+	PrioBuffs["growth-y"] = "UP"
+	PrioBuffs.width = settings.prio.width
+	PrioBuffs.height = settings.prio.height
+	PrioBuffs.spacing = 6
 	PrioBuffs.showDebuffType = false
 	PrioBuffs.onlyShowPlayer = false
 	PrioBuffs.PostCreateButton = PostCreateButton
 	PrioBuffs.SetPosition = GrowHorizontal
 	PrioBuffs:SetSize((PrioBuffs.width or PrioBuffs.size) * 8, (PrioBuffs.height or PrioBuffs.size) * 2)
 	PrioBuffs.reanchorIfVisibleChanged = true
+
+	if self.unit == "player" then
+		PrioBuffs.FilterAura = PlayerBuffFilter
+	else
+		PrioBuffs.FilterAura = BuffFilter
+	end
 	self.Auras = PrioBuffs
 end
