@@ -53,10 +53,19 @@ function mUI:CreateCastbar(self)
 	cbBackground.multiplier = 0.5
 	Castbar.bg = cbBackground
 
+	local iconSize = settings.castbar.height
 	if settings.castbar.icon then
-		local Icon = Castbar:CreateTexture(nil, "OVERLAY")
-		PixelUtil.SetSize(Icon, settings.castbar.height, settings.castbar.height)
-		PixelUtil.SetPoint(Icon, "LEFT", Castbar, "LEFT", 0, 0)
+		local IconFrame = CreateFrame("Frame", nil, Castbar, "BackdropTemplate")
+		PixelUtil.SetPoint(IconFrame, "RIGHT", Castbar, "LEFT", 0, 0)
+		PixelUtil.SetSize(IconFrame, iconSize, iconSize)
+		IconFrame:SetBackdrop({
+			edgeFile = [[Interface\AddOns\MangoUI\Media\border.tga]],
+			edgeSize = 1,
+		})
+		IconFrame:SetBackdropBorderColor(0, 0, 0, 1)
+
+		local Icon = IconFrame:CreateTexture(nil, "BACKGROUND")
+		Icon:SetAllPoints(IconFrame)
 		Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 		Castbar.Icon = Icon
 	end
@@ -73,31 +82,39 @@ function mUI:CreateCastbar(self)
 
 	local SpellCasttime = Castbar:CreateFontString(nil, "OVERLAY")
 	SpellCasttime:SetPoint("RIGHT", -4, 0)
-	SpellCasttime:SetFont(font, 14, "THINOUTLINE")
+	SpellCasttime:SetFont(font, 14, "OUTLINE")
 	Castbar.Time = SpellCasttime
 
 	local SpellName = Castbar:CreateFontString(nil, "OVERLAY")
-	if Castbar.Icon then
-		PixelUtil.SetPoint(SpellName, "LEFT", Castbar.Icon, "RIGHT", 4, 0)
-	else
-		PixelUtil.SetPoint(SpellName, "LEFT", Castbar, "LEFT", 4, 0)
-	end
-	SpellName:SetFont(font, 14, "THINOUTLINE")
+	PixelUtil.SetPoint(SpellName, "LEFT", Castbar.Icon, "RIGHT", 4, 0)
+
+	SpellName:SetFont(font, 14, "OUTLINE")
 	Castbar.Text = SpellName
 
 	Castbar:ClearAllPoints()
 	if settings.castbar.detach and settings.castbar.detach ~= nil then
-		PixelUtil.SetSize(Castbar, settings.castbar.width, settings.castbar.height)
-		PixelUtil.SetPoint(Castbar, "CENTER", UIParent, "CENTER", settings.castbar.x, settings.castbar.y)
-
+		if settings.castbar.icon then
+			PixelUtil.SetSize(Castbar, settings.castbar.width - iconSize, settings.castbar.height)
+			PixelUtil.SetPoint(Castbar, "CENTER", UIParent, "CENTER", settings.castbar.x + iconSize,
+				settings.castbar.y)
+		else
+			PixelUtil.SetSize(Castbar, settings.castbar.width, settings.castbar.height)
+			PixelUtil.SetPoint(Castbar, "CENTER", UIParent, "CENTER", settings.castbar.x, settings.castbar.y)
+		end
 		mUI:AddMover(Castbar, self.unit .. "_Castbar", function(x, y)
 			settings.castbar.x = x
 			settings.castbar.y = y
 		end)
 	else
-		PixelUtil.SetHeight(Castbar, settings.castbar.height)
-		PixelUtil.SetPoint(Castbar, "TOPLEFT", self, "BOTTOMLEFT", 0, -6)
-		PixelUtil.SetPoint(Castbar, "TOPRIGHT", self, "BOTTOMRIGHT", 0, -6)
+		if settings.castbar.icon then
+			PixelUtil.SetSize(Castbar, settings.castbar.width - iconSize, settings.castbar.height)
+			PixelUtil.SetPoint(Castbar, "TOPLEFT", self, "BOTTOMLEFT", iconSize, settings.castbar.offsetY)
+			PixelUtil.SetPoint(Castbar, "TOPRIGHT", self, "BOTTOMRIGHT", 0, settings.castbar.offsetY)
+		else
+			PixelUtil.SetHeight(Castbar, settings.castbar.height)
+			PixelUtil.SetPoint(Castbar, "TOPLEFT", self, "BOTTOMLEFT", 0, settings.castbar.offsetY)
+			PixelUtil.SetPoint(Castbar, "TOPRIGHT", self, "BOTTOMRIGHT", 0, settings.castbar.offsetY)
+		end
 	end
 
 	Castbar.PostUpdateStage = PostUpdateStage

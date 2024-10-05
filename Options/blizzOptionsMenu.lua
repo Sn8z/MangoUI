@@ -99,7 +99,7 @@ local function RegisterSettings()
 		["variable"] = "healthTexture",
 		["db"] = mUI.profile.settings,
 		["default"] = "Tim",
-		["title"] = "Health texture",
+		["title"] = "Health",
 		["options"] = LSM:List("statusbar"),
 	})
 
@@ -107,7 +107,7 @@ local function RegisterSettings()
 		["variable"] = "powerTexture",
 		["db"] = mUI.profile.settings,
 		["default"] = "Tim",
-		["title"] = "Power texture",
+		["title"] = "Power",
 		["options"] = LSM:List("statusbar"),
 	})
 
@@ -115,7 +115,7 @@ local function RegisterSettings()
 		["variable"] = "castbarTexture",
 		["db"] = mUI.profile.settings,
 		["default"] = "Tim",
-		["title"] = "Castbar texture",
+		["title"] = "Castbar",
 		["options"] = LSM:List("statusbar"),
 	})
 
@@ -360,6 +360,13 @@ local function createPlayerSettings()
 	})
 
 	createCheckbox(playerCategory, {
+		["variable"] = "detach",
+		["db"] = mUI.profile.player.castbar,
+		["default"] = false,
+		["title"] = "Detach"
+	})
+
+	createCheckbox(playerCategory, {
 		["variable"] = "icon",
 		["db"] = mUI.profile.player.castbar,
 		["default"] = true,
@@ -367,10 +374,10 @@ local function createPlayerSettings()
 	})
 
 	createCheckbox(playerCategory, {
-		["variable"] = "detach",
+		["variable"] = "shield",
 		["db"] = mUI.profile.player.castbar,
-		["default"] = false,
-		["title"] = "Detach"
+		["default"] = true,
+		["title"] = "Show shield"
 	})
 
 	createSlider(playerCategory, {
@@ -382,6 +389,7 @@ local function createPlayerSettings()
 		["default"] = 200,
 		["title"] = "Width"
 	})
+
 	createSlider(playerCategory, {
 		["variable"] = "height",
 		["db"] = mUI.profile.player.castbar,
@@ -390,6 +398,16 @@ local function createPlayerSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	createSlider(playerCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.player.castbar,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
 	})
 
 	playerLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
@@ -550,20 +568,17 @@ local function createTargetSettings()
 	})
 
 	createCheckbox(targetCategory, {
-		["variable"] = "detach",
+		["variable"] = "icon",
 		["db"] = mUI.profile.target.castbar,
 		["default"] = false,
-		["title"] = "Detach"
+		["title"] = "Show icon"
 	})
 
-	createSlider(targetCategory, {
-		["variable"] = "width",
+	createCheckbox(targetCategory, {
+		["variable"] = "shield",
 		["db"] = mUI.profile.target.castbar,
-		["min"] = 1,
-		["max"] = 1000,
-		["step"] = 1,
-		["default"] = 200,
-		["title"] = "Width"
+		["default"] = false,
+		["title"] = "Show shield"
 	})
 
 	createSlider(targetCategory, {
@@ -574,6 +589,16 @@ local function createTargetSettings()
 		["step"] = 1,
 		["default"] = 200,
 		["title"] = "Height"
+	})
+
+	createSlider(targetCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.target.castbar,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
 	})
 
 	targetLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
@@ -694,8 +719,6 @@ local function createTargetTargetSettings()
 		["default"] = 14,
 		["title"] = "Font Size"
 	})
-
-	totLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
 
 	totLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
 
@@ -818,6 +841,64 @@ local function createFocusSettings()
 
 	focusLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
 
+	createCheckbox(focusCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.focus.castbar,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createCheckbox(focusCategory, {
+		["variable"] = "detach",
+		["db"] = mUI.profile.focus.castbar,
+		["default"] = false,
+		["title"] = "Detach"
+	})
+
+	createCheckbox(focusCategory, {
+		["variable"] = "icon",
+		["db"] = mUI.profile.focus.castbar,
+		["default"] = true,
+		["title"] = "Show icon"
+	})
+
+	createCheckbox(focusCategory, {
+		["variable"] = "shield",
+		["db"] = mUI.profile.focus.castbar,
+		["default"] = true,
+		["title"] = "Show shield"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "width",
+		["db"] = mUI.profile.focus.castbar,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Width"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.focus.castbar,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Height"
+	})
+
+	createSlider(focusCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.focus.castbar,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
 	focusLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
 
 	createCheckbox(focusCategory, {
@@ -939,6 +1020,47 @@ local function createBossSettings()
 
 	bossLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
 
+	createCheckbox(bossCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.boss.castbar,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createCheckbox(bossCategory, {
+		["variable"] = "icon",
+		["db"] = mUI.profile.boss.castbar,
+		["default"] = true,
+		["title"] = "Show icon"
+	})
+
+	createCheckbox(bossCategory, {
+		["variable"] = "shield",
+		["db"] = mUI.profile.boss.castbar,
+		["default"] = true,
+		["title"] = "Show shield"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.boss.castbar,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Height"
+	})
+
+	createSlider(bossCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.boss.castbar,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
+
 	bossLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
 
 	createCheckbox(bossCategory, {
@@ -1057,8 +1179,6 @@ local function createPartySettings()
 		["default"] = 14,
 		["title"] = "Font Size"
 	})
-
-	partyLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
 
 	partyLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
 
@@ -1280,6 +1400,47 @@ local function createPetSettings()
 	})
 
 	petLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Castbar"));
+
+	createCheckbox(petCategory, {
+		["variable"] = "enabled",
+		["db"] = mUI.profile.pet.castbar,
+		["default"] = true,
+		["title"] = "|cff00ff00Enable|r"
+	})
+
+	createCheckbox(petCategory, {
+		["variable"] = "icon",
+		["db"] = mUI.profile.pet.castbar,
+		["default"] = true,
+		["title"] = "Show icon"
+	})
+
+	createCheckbox(petCategory, {
+		["variable"] = "shield",
+		["db"] = mUI.profile.pet.castbar,
+		["default"] = true,
+		["title"] = "Show shield"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "height",
+		["db"] = mUI.profile.pet.castbar,
+		["min"] = 1,
+		["max"] = 1000,
+		["step"] = 1,
+		["default"] = 200,
+		["title"] = "Height"
+	})
+
+	createSlider(petCategory, {
+		["variable"] = "offsetY",
+		["db"] = mUI.profile.pet.castbar,
+		["min"] = -100,
+		["max"] = 100,
+		["step"] = 1,
+		["default"] = 0,
+		["title"] = "Offset Y"
+	})
 
 	petLayout:AddInitializer(CreateSettingsListSectionHeaderInitializer("Portrait"));
 

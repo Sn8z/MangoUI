@@ -78,6 +78,7 @@ local defaultProfile = {
 			icon = false,
 			width = 200,
 			height = 20,
+			offsetY = 0,
 			x = 0,
 			y = 0
 		},
@@ -142,6 +143,7 @@ local defaultProfile = {
 			icon = true,
 			width = 200,
 			height = 20,
+			offsetY = 0,
 			x = 0,
 			y = 0
 		},
@@ -192,9 +194,14 @@ local defaultProfile = {
 		},
 		castbar = {
 			enabled = true,
+			detach = false,
 			shield = false,
 			icon = true,
-			height = 12
+			width = 200,
+			height = 20,
+			offsetY = 0,
+			x = 0,
+			y = 0
 		},
 		portrait = {
 			enabled = false,
@@ -269,6 +276,7 @@ local defaultProfile = {
 			icon = true,
 			width = 200,
 			height = 20,
+			offsetY = 0,
 			x = 0,
 			y = 0
 		},
@@ -319,9 +327,14 @@ local defaultProfile = {
 		},
 		castbar = {
 			enabled = true,
+			detach = false,
 			shield = false,
 			icon = true,
-			height = 16
+			width = 200,
+			height = 20,
+			offsetY = 0,
+			x = 0,
+			y = 0
 		},
 		portrait = {
 			enabled = false,
